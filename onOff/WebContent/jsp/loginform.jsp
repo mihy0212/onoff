@@ -25,6 +25,7 @@
 </script>
 </head>
 <body>
+<jsp:include page="menu.jsp"></jsp:include>
 <div align="center">
 	<div><h1>로 그 인</h1></div>
 	<div>

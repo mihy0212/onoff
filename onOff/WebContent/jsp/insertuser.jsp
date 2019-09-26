@@ -35,6 +35,7 @@
 </script>
 </head>
 <body>
+<jsp:include page="menu.jsp"></jsp:include>
 <div align="center">
 	<div><h1>회 원 가 입</h1></div>
 	<div>
