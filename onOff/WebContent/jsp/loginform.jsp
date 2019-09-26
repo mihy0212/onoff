@@ -41,8 +41,7 @@
 				</tr>
 			</table><p>
 			<input type="button" onclick="checkForm()" value="로그인">&nbsp;&nbsp;&nbsp;
-			<button type="button" onclick="location.href='index.jsp'">취소</button>
-		&nbsp;&nbsp;&nbsp;	<button type="button" onclick="location.href='index.jsp'">회원가입</button>
+			<input type="reset" value="초기화">
 		</form>
 	</div>
 </div>
