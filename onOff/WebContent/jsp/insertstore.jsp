@@ -67,7 +67,7 @@
 			</div><p>
 			<div>
 				<input type="button" onclick="checkForm()" value="등록">&nbsp;&nbsp;&nbsp;
-				<input type="reset" onclick="location.href='index.jsp'" value="취소">
+				<input type="button" onclick="location.href='insertchoice.jsp'" value="취소">
 			</div>
 		</form>
 	</div>
