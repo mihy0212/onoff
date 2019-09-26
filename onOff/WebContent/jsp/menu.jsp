@@ -10,7 +10,7 @@
 </head>
 <body>
 	<div class="navbar">
-		<a href="#home">on/off</a>
+		<a href="main.jsp">on/off</a>
 		<div class="dropdown" style="float: right">
 			<button class="dropbtn">
 				menu <i class="fa fa-caret-down"></i>
