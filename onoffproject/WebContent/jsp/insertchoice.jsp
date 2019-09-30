@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<jsp:include page="menu.jsp"></jsp:include>
+<jsp:include page="Header.jsp"></jsp:include>
 <div align="center">
 	<div><h1>회 원 가 입</h1></div>
 	<div>
