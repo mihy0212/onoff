@@ -54,7 +54,7 @@
 </div>
 <div class="col-lg-4"></div>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/js/jquery-3.3.2.min.js"></script>
 <script src="../js/bootstrap.js"></script>
 </body>
 </html>
