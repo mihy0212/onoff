@@ -12,7 +12,7 @@ public class DAO {
 	public DAO() {
 		try {
 			Context context = new InitialContext();
-			ds = (DataSource) context.lookup("java:comp/env/jdbc/myoracle");
+			ds = (DataSource) context.lookup("java:comp/env/jdbc/onoff");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
