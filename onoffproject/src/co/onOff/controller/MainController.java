@@ -48,11 +48,7 @@ public class MainController extends HttpServlet {
 		String path = uri.substring(context.length());
 		
 		Command comm = map.get(path);
-		try {
-			comm.execute(request, response);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		comm.execute(request, response);
 		
 	}
 
