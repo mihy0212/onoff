@@ -25,12 +25,12 @@
 		<div class="form-group" style="text-align: center;">
 	<input type="text" class="form-control" placeholder="이름" name="userName">
 	<div class="form-group" style="text-align: center;">
-		<div class="btn-group" data-toggle="buttons">
+		<div class="btn-group" data-toggle="buttons"><br />
 			<label class="btn btn-primary active">
 				<input type="radio" name="userGender" autocomplete="off" value="남자" checked>남자
 			</label>
 			<label class="btn btn-primary">
-				<input type="radio" name="userGender" autocomplete="off" value="여자" checked>여자
+				<input type="radio" name="userGender" autocomplete="off" value="여자" >여자
 			</label>
 		</div>
 	</div>
@@ -54,7 +54,7 @@
 </div>
 <div class="col-lg-4"></div>
 </div>
-<script src="https://code.jquery.com/../js/jquery-3.3.2.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="../js/bootstrap.js"></script>
 </body>
 </html>
