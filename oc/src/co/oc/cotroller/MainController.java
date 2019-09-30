@@ -1,7 +1,6 @@
 package co.oc.cotroller;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.HashMap;
 
 import javax.servlet.ServletConfig;

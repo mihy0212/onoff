@@ -190,7 +190,7 @@ CREATE TABLE oc_user
 	-- 회원주소좌표
 	user_xy varchar2(50),
 	-- 회원권한
-	user_grant varchar2(1) DEFAULT '''U''' NOT NULL,
+	user_grant varchar2(1) DEFAULT 'U' NOT NULL,
 	-- 가게번호
 	store_num number(8) UNIQUE,
 	-- 회원가입일
