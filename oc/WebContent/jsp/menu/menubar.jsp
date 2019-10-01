@@ -117,21 +117,22 @@
 						<li class="nav-item  dropdown">
 						<a class="nav-link  dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"> MyPage </a>
 							<div class="dropdown-menu">
-							
-							
+											<c:choose>
+							<c:when test="${empty sessionID}">
            						 <!-- 로그인 안되었을 경우 - 로그인, 회원가입 버튼을 보여준다. -->
            						 <!--empty=null  -->
-							<c:if test="${empty sessionID}">
 								<a class="dropdown-item" href="../member/view/JoinForm.jsp">로그인</a>
 								<a class="dropdown-item" href="JoinForm.jsp">회원가입</a> 
-							</c:if>	
+							</c:when>
 							
 					            <!-- 	 로그인 되었을 경우 - 로그아웃, 내정보 버튼을 보여준다. -->
-							<c:choose>
+							<c:otherwise>
 						        <a class="dropdown-item" href="../member/view/JoinForm.jsp">로그아웃</a>
 								<a class="dropdown-item" href="userInfor.do">내정보</a> 
 								<a class="dropdown-item" href="#contact">Contact</a>
-					        </c:choose>
+								</c:otherwise>
+					        </c:choose> 
+			 
 							</div></li>
 							<!--end MyPage -->
 					</ul>
