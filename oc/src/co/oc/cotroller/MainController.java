@@ -11,8 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import co.oc.command.Command;
-import co.oc.command.IdCheckCommand;
-import co.oc.command.JoinUsersCommand;
+import co.oc.command.join.IdCheckCommand;
+import co.oc.command.join.JoinUsersCommand;
+
 
 
 @WebServlet("/MainController")
