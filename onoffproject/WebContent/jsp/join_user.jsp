@@ -46,14 +46,14 @@ function checkForm(){
 }
 
 	function idCheck() {
-		var chkId = document.frm.id;
+		var chkId = document.frm.userID;
 		if(chkId.value == "") {
 			alert("아이디를 입력하세요.")
 			chkId.focus();
 			return false;
 		}
 		
-		window.open("idCheck.do?id="+chkId.value,"","width=400,height=200");
+		window.open("idCheck.do?userID="+chkId.value,"","width=400,height=200");
 	}
 </script>
 </head>
