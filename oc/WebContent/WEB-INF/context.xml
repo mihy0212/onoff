@@ -25,18 +25,6 @@
     <!--
     <Manager pathname="" />
     -->
-    
-    <!-- Oracle DBCP(커넥션 풀) 설정하기 -->
-    <Resource name="jdbc/myoracle" 
-    		  auth="Container"
-              type="javax.sql.DataSource" 
-              driverClassName="oracle.jdbc.driver.OracleDriver"
-              url="jdbc:oracle:thin:@localhost:1521:xe"
-              username="hr" 
-              password="hr" 
-              maxTotal="20" 
-              maxIdle="10"
-              maxWaitMillis="-1"/><!-- -1이면 접속 끊길 때까지 무한 대기, 5000이면 5초간 대기하고 새로 생성 -->
               
 	<Resource name="jdbc/onoff" 
     		  auth="Container"
