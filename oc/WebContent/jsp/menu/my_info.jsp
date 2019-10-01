@@ -43,9 +43,12 @@
         <br><br><br>
                         <!-- 가져온 회원정보를 출력한다. -->
         <table>
-            <tr>
-                <td id="title">아이디</td>
-                <td>"${id }" </td>
+           <tr>
+                <td id="title">이메일</td>
+                <td>
+                 "${Mail1 }"@
+                 "${Mail2 }"
+                </td>
             </tr>
                         
             <tr>
@@ -60,24 +63,20 @@
                     
                     
                     
-            <tr>
-                <td id="title">이메일</td>
-                <td>
-                 "${Mail1 }"@
-                 "${Mail2 }"
-                </td>
-            </tr>
+           
                     
             <tr>
                 <td id="title">휴대전화</td>
                 <td>"${Phone }"</td>
             </tr>
+            
             <tr>
                 <td id="title">주소</td>
                 <td>
                    "${Address }" 
                 </td>
             </tr>
+            
         </table>
         
         <br>

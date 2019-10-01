@@ -1,4 +1,4 @@
-package co.oc.command;
+package co.oc.command.menu;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import co.oc.command.Command;
 import co.oc.dao.DAO;
 import co.oc.dao.UserDAO;
 import co.oc.dto.UserDTO;
