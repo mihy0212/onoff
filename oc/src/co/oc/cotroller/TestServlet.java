@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import co.oc.dao.DAO;
+import co.oc.dao.StoreDAO;
 import co.oc.dao.UserDAO;
+import co.oc.dto.StoreDTO;
 import co.oc.dto.UserDTO;
 
 /**
@@ -49,13 +51,62 @@ public class TestServlet extends HttpServlet {
 //		System.out.println(dto.getUserEmail());
 		
 		//회원 입력 TEST
+//		UserDTO udto = new UserDTO();
+//		udto.setUserEmail("test4@gmail.com");
+//		udto.setUserPw("1234");
+//		udto.setUserName("회원4");
+//		udto.setUserNick("회원4");
+//		udto.setUserGrant("C");
+//		udto.setStoreNum("1");
+//		UserDAO.getInstance().insert(conn, udto);
+
+		
+		//회원 수정 TEST
 //		UserDTO dto = new UserDTO();
-//		dto.setUserEmail("test3@gmail.com");
+//		dto.setUserNum("2");
 //		dto.setUserPw("1234");
-//		dto.setUserName("회원3");
-//		dto.setUserNick("회원3");
+//		dto.setUserName("회원11");
+//		dto.setUserNick("회원11");
 //		dto.setUserGrant("U");
-//		UserDAO.getInstance().insert(conn, dto);
+//		UserDAO.getInstance().update(conn, dto);
+		
+		//회원 삭제 TEST
+//		String userNum = "3";
+//		UserDAO.getInstance().delete(conn, userNum);
+		
+		////////////////////////////////////////////////////////////////
+		
+		//가게 전체 조회TEST
+//		List<StoreDTO> list = StoreDAO.getInstance().selectAll(conn);
+//		for(StoreDTO dto : list) {
+//			System.out.println(dto.getStoreNum());
+//			System.out.println(dto.getStoreName());
+//		}
+//		
+		//가게 하나 조회1 test
+//		String storeNum = "2";
+//		StoreDTO dto = StoreDAO.getInstance().selectOne(conn, storeNum);
+//		System.out.println(dto.getStoreName());
+		
+		//가게 하나 조회2 test
+//		String userNum = "2";
+//		StoreDTO dto = StoreDAO.getInstance().selectOne(conn, userNum);
+//		System.out.println(dto.getStoreName());
+		
+		//가게 입력 TEST
+		StoreDTO sdto = new StoreDTO();
+		sdto.setStoreName("가게1");
+		sdto.setStoreAddr("제주시 영평동 첨단로 242");
+		sdto.setStoreXy("33.450701, 126.570667");
+		sdto.setStoreCateg1("1");
+		sdto.setStoreCateg2("1");
+		sdto.setStoreCateg3("1");
+		sdto.setStoreTime("09:00 ~ 17:00, 연중무휴");
+		sdto.setStoreTel("053-000-0000");
+		sdto.setStoreMenu("볶음밥 2000원");
+		sdto.setStoreEct("우리 가게 성공 기원");
+		sdto.setUserNum("5");
+		StoreDAO.getInstance().insert(conn, sdto);
 
 		
 		//회원 수정 TEST
