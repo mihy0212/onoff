@@ -7,10 +7,29 @@ public class UsersDTO {
 	private String userName;
 	private String userNick;
 	private String userType;
+	private String userEmail;
+	private String userAddr;
 	
 	public String getUserId() {
 		return userId;
 	}
+	
+	public String getUserAddr() {
+		return userAddr; //주소 추가함
+	}
+
+	public void setUserAddr(String userAddr) {
+		this.userAddr = userAddr;
+	}
+
+	public String getUserEmail() {
+		return userEmail; //이메일추가함
+	}
+
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
+	}
+
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
