@@ -21,7 +21,7 @@ public class My_info_Comm implements Command {
 		
 		// 세션에서 아이디를 가져와 MemberDTO에 세팅한다.(DTO=DAO)
 		String id = request.getSession().getAttribute("sessionID").toString();
-		 UserDTO.set
+//		 UserDTO.set
 
 		//접속
 		Connection conn = DAO.connect();
