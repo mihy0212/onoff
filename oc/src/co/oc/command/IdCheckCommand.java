@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import co.oc.dao.DAO;
 import co.oc.dao.UserDAO;
 
 
@@ -20,7 +21,9 @@ public class IdCheckCommand implements Command {
 		UserDAO dao = new UserDAO();
 
 		String id = request.getParameter("userID");
+		Connection conn = DAO.connect();
 		boolean chk = dao.isIdCheck(conn, id);
+		DAO.disconnect(conn);
 		String path;
 		if (chk)
 			path = "jsp/idOk.jsp"; // 사용가능 한 아이디
