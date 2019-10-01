@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import co.oc.command.Command;
+import co.oc.command.IdCheckCommand;
+import co.oc.command.JoinUsersCommand;
+
 
 @WebServlet("/MainController")
 public class MainController extends HttpServlet {
@@ -29,7 +32,8 @@ public class MainController extends HttpServlet {
 		
 		
 		//권보성
-		
+		map.put("/join_user.do", new JoinUsersCommand());		
+		map.put("/idCheck.do", new IdCheckCommand());				
 		
 		//백승진
 		
