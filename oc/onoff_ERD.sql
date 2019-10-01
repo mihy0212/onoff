@@ -344,5 +344,30 @@ COMMENT ON COLUMN oc_user.user_grant IS '회원권한';
 COMMENT ON COLUMN oc_user.store_num IS '가게번호';
 COMMENT ON COLUMN oc_user.user_inday IS '회원가입일';
 
+create sequence oc_user_num_seq
+    increment by 1 
+    start with 1 nocache nocycle;
 
+create sequence oc_store_num_seq
+    increment by 1 
+    start with 1 nocache nocycle;
+    
+create sequence oc_add_num_seq
+    increment by 1 
+    start with 1 nocache nocycle;
 
+create sequence oc_review_num_seq
+    increment by 1 
+    start with 1 nocache nocycle;
+
+create sequence oc_time_num_seq
+    increment by 1 
+    start with 1 nocache nocycle;
+
+create sequence oc_favo_num_seq
+    increment by 1 
+    start with 1 nocache nocycle;
+
+create sequence oc_ask_num_seq
+    increment by 1 
+    start with 1 nocache nocycle;
