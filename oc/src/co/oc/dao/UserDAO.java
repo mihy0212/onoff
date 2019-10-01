@@ -9,7 +9,7 @@ import co.oc.dto.UserDTO;
 
 public class UserDAO extends DAO{
 	
-	private static UserDAO instance=new UserDAO();
+	private static UserDAO instance = new UserDAO();
 	
 	public static UserDAO getInstance() {
 		return instance;
