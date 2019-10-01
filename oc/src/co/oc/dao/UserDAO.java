@@ -142,5 +142,20 @@ public class UserDAO extends DAO{
 		}
 		return n;
 	}
+	public boolean isIdCheck(Connection conn, String id) { // id 중복체크 //권보성 회원가입정보업데이트 중복확인
+		boolean chk = true; // 존재하지 않으면
+		String sql = "select userId from member where userId = ?";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, id);
+			rs = psmt.executeQuery();
+			if (rs.next()) {
+				chk = false; // 존재 하면
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return chk;
+	}
 	
 }
