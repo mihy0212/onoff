@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import co.oc.command.Command;
 import co.oc.command.IdCheckCommand;
 import co.oc.command.JoinUsersCommand;
+import co.oc.command.menu.DeleteComm;
 
 
 @WebServlet("/MainController")
@@ -39,7 +40,9 @@ public class MainController extends HttpServlet {
 		
 		
 		//복진영
-		
+		map.put("/delete.do", new DeleteComm());
+		map.put("/delete.do", new );
+		map.put("/delete.do", new DeleteComm());
 		
 	}
 

@@ -23,7 +23,7 @@ public class My_info_up_Form implements Command {
 //		String id = request.getSession().getAttribute("sessionID").toString();
 
 		//접속
-				Connection conn = DAO.connect();
+		Connection conn = DAO.connect();
         // 수정할 회원정보를 가져온다.
         UserDAO dao = UserDAO.getInstance();
         UserDTO user = dao.selectOne(conn, "userNum");

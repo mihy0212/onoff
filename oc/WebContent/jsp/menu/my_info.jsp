@@ -60,11 +60,7 @@
                 <td id="title">¿Ã∏ß</td>
                 <td>"${name }" </td>
             </tr>
-                    
-                    
-                    
-           
-                    
+                   
             <tr>
                 <td id="title">»ﬁ¥Î¿¸»≠</td>
                 <td>"${Phone }"</td>
@@ -82,7 +78,7 @@
         <br>
         <input type="button" value="µ⁄∑Œ" onclick="changeForm(-1)">
         <input type="button" value="»∏ø¯¡§∫∏ ∫Ø∞Ê" onclick="changeForm(0)">
-        <input type="button" value="»∏ø¯≈ª≈" onclick="changeForm(1)">
+        <input type="button" value="»∏ø¯≈ª≈" onclick="delete.do)">
 </body>
 </html>
 
