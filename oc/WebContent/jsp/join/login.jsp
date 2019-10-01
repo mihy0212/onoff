@@ -4,6 +4,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width", initial-scale="1">
+<link rel="stylesheet" href="../../css/bootstrap.css">
 <title>Insert title here</title>
 </head>
 <body>
@@ -22,11 +24,13 @@
 	<div>
 	<input type="submit" class="btn btn-primary form-control" value="로그인">
 	</div><br />
-	<input type="submit" class="btn btn-primary form-control" value="회원가입">
+	<input type="submit" class="btn btn-primary form-control" onclick="location.href='join.jsp'" value="회원가입">
 </form>
 </div>
 </div>
 <div class="col-lg-4"></div>
 </div>
+<script src="https://code.jquery.com/../../js/jquery-3.3.2.min.js"></script>
+<script src="../../js/bootstrap.js"></script>
 </body>
 </html>

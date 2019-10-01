@@ -76,7 +76,7 @@
         </table>
         
         <br>
-        <input type="button" value="뒤로" onclick="changeForm(-1)">
+        <input type="" value="비밀번호변경" >
         <input type="button" value="회원정보 변경" onclick="changeForm(0)">
         <input type="button" value="회원탈퇴" onclick="delete.do)">
 </body>

@@ -8,7 +8,8 @@
   </excludes>
  
   <decorator name="basic-theme" page="layout.jsp">
-    <pattern>*.do</pattern><!-- webContent 아래 jsp 파일은 모두 적용받음.-->
+    <pattern>*.do</pattern><!-- 주소표시줄에 *.do로 들어가는 파일은 모두 적용받음.-->
+    <pattern>*.jsp</pattern>
   </decorator>
 
 </decorators>
