@@ -35,13 +35,18 @@ public class TestServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		//접속
-//		Connection conn = DAO.connect();
+		Connection conn = DAO.connect();
 		
 		//회원 전체 조회TEST
 //		List<UserDTO> list = UserDAO.getInstance().selectAll(conn);
 //		for(UserDTO dto : list) {
 //			System.out.println(dto.getUserEmail());
 //		}
+		
+		//회원 한 명 조회 test
+//		String userNum = "2";
+//		UserDTO dto = UserDAO.getInstance().selectOne(conn, userNum);
+//		System.out.println(dto.getUserEmail());
 		
 		//회원 입력 TEST
 //		UserDTO dto = new UserDTO();
@@ -68,7 +73,7 @@ public class TestServlet extends HttpServlet {
 		
 		
 		//접속 해제
-//		DAO.disconnect(conn);
+		DAO.disconnect(conn);
 		
 	}
 
