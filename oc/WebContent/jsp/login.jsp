@@ -4,8 +4,6 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width", initial-scale="1">
-<link rel="stylesheet" href="../css/bootstrap.css">
 <title>Insert title here</title>
 </head>
 <body>
@@ -30,7 +28,5 @@
 </div>
 <div class="col-lg-4"></div>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="../js/bootstrap.js"></script>
 </body>
 </html>

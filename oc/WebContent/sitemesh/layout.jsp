@@ -33,27 +33,28 @@
 
 
 <!-- 메뉴바 css  -->
-<link rel="stylesheet" href="../assets/css/slick.css">
-<link rel="stylesheet" href="../assets/css/slick-theme.css">
-<link rel="stylesheet" href="../assets/css/animate.css">
-<link rel="stylesheet" href="../assets/css/iconfont.css">
-<link rel="stylesheet" href="../assets/css/font-awesome.min.css">
-<link rel="stylesheet" href="../assets/css/bootstrap.css">
-<link rel="stylesheet" href="../assets/css/magnific-popup.css">
-<link rel="stylesheet" href="../assets/css/bootsnav.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/slick.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/slick-theme.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/animate.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/iconfont.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/font-awesome.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/bootstrap.css">
+
+<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/magnific-popup.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/bootsnav.css">
 
 
 
 <!--화면 작아 질경우 네모박스로 메뉴 css-->
-<link rel="stylesheet" href="../assets/css/plugins.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/plugins.css" />
 
 <!--찾기 버튼을 눌렀을때 반응 css -->
-<link rel="stylesheet" href="../assets/css/style.css">
+<%-- <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/style.css"> --%>
 
 <!--Theme Responsive css-->
-<link rel="stylesheet" href="../assets/css/responsive.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/responsive.css" />
 
-<script src="../assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+<script src="${pageContext.request.contextPath }/assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
 
 
 <decorator:head></decorator:head>
@@ -112,30 +113,29 @@
 						<li class="nav-item  dropdown">
 						     <a class="nav-link  dropdown-toggle"  href="#"   id="navbardrop"  data-toggle="dropdown"> Menu </a>
 							   <div class="dropdown-menu">
-								<a class="dropdown-item" href="index.jsp#myfavorite">즐겨찾기 보기</a> <br>
-								<a	class="dropdown-item" href="index.jsp#myreview">리뷰 목록</a>
-								<a class="dropdown-item" href="contact.jsp">Contact</a>
+								<a class="dropdown-item" href="#">즐겨찾기 보기</a> <br>
+								<a	class="dropdown-item" href="#">리뷰 목록</a>
+								<a class="dropdown-item" href="#">Contact</a>
 							</div></li>
 
 						<!-- MyPage -->
 						<li class="nav-item  dropdown">
 						<a class="nav-link  dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"> MyPage </a>
 							<div class="dropdown-menu">
-							<%--				<c:choose>
-							<c:when test="${empty sessionID}">
-           						 <!-- 로그인 안되었을 경우 - 로그인, 회원가입 버튼을 보여준다. -->
-           						 <!--empty=null  -->
-								<a class="dropdown-item" href="../member/view/JoinForm.jsp">로그인</a>
-								<a class="dropdown-item" href="JoinForm.jsp">회원가입</a> 
-							</c:when>
 							
-					            <!-- 	 로그인 되었을 경우 - 로그아웃, 내정보 버튼을 보여준다. -->
-							<c:otherwise>
-						        <a class="dropdown-item" href="../member/view/JoinForm.jsp">로그아웃</a>
-								<a class="dropdown-item" href="userInfor.do">내정보</a> 
-								<a class="dropdown-item" href="#contact">Contact</a>
+	           				
+							<c:choose>
+								<c:when test="${empty sessionID}">
+	           						
+									<a class="dropdown-item" href="../member/view/JoinForm.jsp">로그인</a>
+									<a class="dropdown-item" href="JoinForm.jsp">회원가입</a> 
+								</c:when>
+								<c:otherwise>
+							        <a class="dropdown-item" href="../member/view/JoinForm.jsp">로그아웃</a>
+									<a class="dropdown-item" href="userInfor.do">내정보</a> 
+									<a class="dropdown-item" href="#contact">Contact</a>
 								</c:otherwise>
-					        </c:choose> --%> 
+					        </c:choose> 
 			 
 							</div></li>
 							<!--end MyPage -->
@@ -145,31 +145,31 @@
 			</div>
 		</nav>
 	</div>
-	<div>
-	
+	<div style="padding-top:150px">
+	  
 	<decorator:body></decorator:body>
 
 	</div>
 
 <!-- JS includes -->
 
-	<script src="../assets/js/vendor/jquery-1.11.2.min.js"></script>
-	<script src="../assets/js/vendor/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath }/assets/js/vendor/jquery-1.11.2.min.js"></script>
+	<script src="${pageContext.request.contextPath }/assets/js/vendor/bootstrap.min.js"></script>
 
-	<script src="../assets/js/jquery.magnific-popup.js"></script>
+	<script src="${pageContext.request.contextPath }/assets/js/jquery.magnific-popup.js"></script>
 	<!--<script src="assets/js/jquery.easypiechart.min.js"></script>-->
-	<script src="../assets/js/jquery.easing.1.3.js"></script>
+	<script src="${pageContext.request.contextPath }/assets/js/jquery.easing.1.3.js"></script>
 	<!--<script src="assets/js/slick.js"></script>-->
-	<script src="../assets/js/slick.min.js"></script>
-	<script src="../assets/js/js.isotope.js"></script>
-	<script src="../assets/js/jquery.collapse.js"></script>
-	<script src="../assets/js/bootsnav.js"></script>
+	<script src="${pageContext.request.contextPath }/assets/js/slick.min.js"></script>
+	<script src="${pageContext.request.contextPath }/assets/js/js.isotope.js"></script>
+	<script src="${pageContext.request.contextPath }/assets/js/jquery.collapse.js"></script>
+	<script src="${pageContext.request.contextPath }/assets/js/bootsnav.js"></script>
 
 	<script
 		src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
 
-	<script src="../assets/js/plugins.js"></script>
-	<script src="../assets/js/main.js"></script>
+	<script src="${pageContext.request.contextPath }/assets/js/plugins.js"></script>
+	<script src="${pageContext.request.contextPath }/assets/js/main.js"></script>
 
 
 
