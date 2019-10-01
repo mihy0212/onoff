@@ -15,6 +15,7 @@ public class UserDAO extends DAO{
 		return instance;
 	}
 
+	//회원 전체 조회
 	public List<UserDTO> selectAll(Connection conn){
 		List<UserDTO> list = new ArrayList<UserDTO>();
 		String sql = "select * from oc_user order by 1";
@@ -23,16 +24,16 @@ public class UserDAO extends DAO{
 			rs = psmt.executeQuery();
 			while(rs.next()) {
 				UserDTO dto = new UserDTO();
-				dto.setUserNum(rs.getString("user_num"));
-				dto.setUserEmail(rs.getString("user_email"));
-				dto.setUserPw(rs.getString("user_pw"));
-				dto.setUserName(rs.getString("user_name"));
-				dto.setUserNick(rs.getString("user_nick"));
-				dto.setUserAddr(rs.getString("user_addr"));
-				dto.setUserXy(rs.getString("user_xy"));
-				dto.setUserGrant(rs.getString("user_grant"));
-				dto.setStoreNum(rs.getString("store_num"));
-				dto.setUserInday(rs.getDate("user_inday"));
+				dto.setUserNum(rs.getString("user_num"));		//1
+				dto.setUserEmail(rs.getString("user_email"));	//2
+				dto.setUserPw(rs.getString("user_pw"));			//3
+				dto.setUserName(rs.getString("user_name"));		//4
+				dto.setUserNick(rs.getString("user_nick"));		//5
+				dto.setUserAddr(rs.getString("user_addr"));		//6
+				dto.setUserXy(rs.getString("user_xy"));			//7
+				dto.setUserGrant(rs.getString("user_grant"));	//8
+				dto.setStoreNum(rs.getString("store_num"));		//9
+				dto.setUserInday(rs.getDate("user_inday"));		//10
 				list.add(dto);
 			}
 		} catch (SQLException e) {
@@ -41,6 +42,33 @@ public class UserDAO extends DAO{
 		return list;
 	}
 	
+	//회원 한 명 조회
+	public UserDTO selectOne(Connection conn, String userNum) {
+		UserDTO dto = new UserDTO();
+		String sql = "select * from oc_user where user_num=?";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, userNum);
+			rs = psmt.executeQuery();
+			if(rs.next()) {
+				dto.setUserNum(rs.getString("user_num"));		//1
+				dto.setUserEmail(rs.getString("user_email"));	//2
+				dto.setUserPw(rs.getString("user_pw"));			//3
+				dto.setUserName(rs.getString("user_name"));		//4
+				dto.setUserNick(rs.getString("user_nick"));		//5
+				dto.setUserAddr(rs.getString("user_addr"));		//6
+				dto.setUserXy(rs.getString("user_xy"));			//7
+				dto.setUserGrant(rs.getString("user_grant"));	//8
+				dto.setStoreNum(rs.getString("store_num"));		//9
+				dto.setUserInday(rs.getDate("user_inday"));		//10
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return dto;
+	}
+	
+	//회원 등록
 	public int insert(Connection conn, UserDTO dto) {
 		int n = 0;
 		String sql = "insert into oc_user (user_num," //1
@@ -72,6 +100,7 @@ public class UserDAO extends DAO{
 		return n;
 	}
 	
+	//회원 수정
 	public int update(Connection conn, UserDTO dto) {
 		int n = 0;
 		String sql = "update oc_user set"
@@ -99,6 +128,7 @@ public class UserDAO extends DAO{
 		return n;
 	}
 	
+	//회원 삭제
 	public int delete(Connection conn, String userNum) {
 		int n = 0;
 		String sql = "delete from oc_user where user_num=?";
