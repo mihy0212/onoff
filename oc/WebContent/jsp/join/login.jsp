@@ -3,10 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width", initial-scale="1">
-<link rel="stylesheet" href="../../css/bootstrap.css">
-<title>Insert title here</title>
+<title>로그인 페이지</title>
 </head>
 <body>
 <div class="container">
@@ -30,7 +27,5 @@
 </div>
 <div class="col-lg-4"></div>
 </div>
-<script src="https://code.jquery.com/../../js/jquery-3.3.2.min.js"></script>
-<script src="../../js/bootstrap.js"></script>
 </body>
 </html>
