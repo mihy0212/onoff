@@ -19,6 +19,7 @@ import co.oc.command.join.JoinUsersCommand;
 import co.oc.command.join.LoginCheckCommand;
 import co.oc.command.join.LoginFormCommand;
 import co.oc.command.join.LogoutCommand;
+import co.oc.command.join.NickcheckCommand;
 import co.oc.command.menu.DeleteComm;
 import co.oc.command.menu.MyinfoComm;
 import co.oc.command.menu.MyinfoupComm;
@@ -42,6 +43,7 @@ public class MainController extends HttpServlet {
 		
 		
 		//권보성
+		map.put("/NickCheck.do", new NickcheckCommand()); //nick네임 중복체크
 		map.put("/join_userform.do", new JoinUserForm()); //일반유저 회원가입 폼
 		map.put("/join_ceoform.do", new JoinCeoForm()); //CEO 회원가입폼
 		map.put("/join_form.do", new JoinFormCommand()); //회원가입선택페이지

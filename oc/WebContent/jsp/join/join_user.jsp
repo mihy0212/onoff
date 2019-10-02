@@ -3,10 +3,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width", initial-scale="1">
-<link rel="stylesheet" href="../../css/bootstrap.css">
-<meta charset="UTF-8">
 <title>로그인 페이지</title>
 <script type="text/javascript">
 
@@ -19,7 +15,17 @@
 			return false;
 		}
 		
-		window.open("idCheck.do?userID="+chkId.value,"","width=400,height=200");
+		window.open("idCheck.do?userEmail="+chkId.value,"","width=500,height=400");
+	}
+	function NickCheck() {
+		var chkNick = document.frm.userNickname;
+		if(chkNick.value == "") {
+			alert("닉네임을 입력하세요.")
+			chkNick.focus();
+			return false;
+		}
+		
+		window.open("NickCheck.do?userNickname="+chkNick.value,"","width=500,height=400");
 	}
 </script>
 </head>
@@ -56,7 +62,7 @@
 	</div>
 		<div class="col-sm-4">
 	<input type="button" class="btn btn-primary form-control"
-		onclick="idCheck()" value="중복체크">
+		onclick="NickCheck()" value="중복체크">
 	</div>
 	</div>
 			<div class="form-group">
@@ -65,14 +71,12 @@
 
 
 	<div>
-	<input type="button" class="btn btn-primary form-control" onclick="checkForm()" value="회원가입"></div><br />
+	<input type="submit" class="btn btn-primary form-control" onclick="location.href='join_user.do" value="회원가입"></div><br />
 	<input type="reset" class="btn btn-primary form-control"  onclick="location.href='index.do'" value="취소">
 </form>
 </div>
 </div>
 <div class="col-lg-3"></div>
 </div>
-<script src="https://code.jquery.com/../../js/jquery-3.3.2.min.js"></script>
-<script src="../../js/bootstrap.js"></script>
 </body>
 </html>

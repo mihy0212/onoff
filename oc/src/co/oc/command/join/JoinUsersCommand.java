@@ -26,9 +26,10 @@ public class JoinUsersCommand implements Command {
 				dto.setUserEmail(request.getParameter("userEmail"));
 				dto.setUserPw(request.getParameter("userPw"));
 				dto.setUserName(request.getParameter("userName"));
+				dto.setUserName(request.getParameter("userNickname"));
 				dto.setUserAddr(request.getParameter("userAddr"));
 				Connection conn = DAO.connect();
-				int n = dao.insert(conn, dto);
+				int n = dao.insertuser(conn, dto);
 				DAO.disconnect(conn);
 				if (n != 0)
 					path = "jsp/join/joinOk.jsp";

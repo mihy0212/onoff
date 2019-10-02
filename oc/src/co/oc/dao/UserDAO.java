@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import co.oc.dto.UserDTO;
 
 public class UserDAO extends DAO{
@@ -145,11 +146,28 @@ public class UserDAO extends DAO{
 	
 	
 	//2. 권보성
+	public int insertuser(Connection conn, UserDTO dto) {
+		int n = 0;
+		String sql = "insert into oc_user(OC_USER_NUM_SEQ.nextval, user_email, user_pw, user_name, user_nick, user_addr) values(OC_USER_NUM_SEQ.nextval,?,?,?,?,?)";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, dto.getUserEmail());
+			psmt.setString(2, dto.getUserPw());
+			psmt.setString(3, dto.getUserName());
+			psmt.setString(4, dto.getUserNick());
+			psmt.setString(5, dto.getUserAddr());
+			n = psmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return n;
+	}
 	
 	//아이디(회원 이메일) 중복체크
 	public boolean isIdCheck(Connection conn, String id) { 
 		boolean chk = true; // 존재하지 않으면
-		String sql = "select userId from member where userId = ?";
+		String sql = "select user_email from oc_user where user_email = ?";
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, id);
@@ -162,6 +180,22 @@ public class UserDAO extends DAO{
 		}
 		return chk;
 	}
+	//닉네임 중복체크
+		public boolean isNickCheck(Connection conn, String Nick) { 
+			boolean chk = true; // 존재하지 않으면
+			String sql = "select user_nick from oc_user where user_nick = ?";
+			try {
+				psmt = conn.prepareStatement(sql);
+				psmt.setString(1, Nick);
+				rs = psmt.executeQuery();
+				if (rs.next()) {
+					chk = false; // 존재 하면
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return chk;
+		}
 	
 	public UserDTO loginCheck(Connection conn, UserDTO dto) { // 로그인 체크
 		String sql = "select * from OC_user where user_email=? and user_pw=?";
