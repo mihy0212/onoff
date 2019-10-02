@@ -17,7 +17,7 @@ import co.oc.dto.UserDTO;
 
 
 public class LoginCheckCommand implements Command {
-
+	// 로그인체크 후 로그인 되는 커맨드
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 전달된 id, pw 를 받아서 DB에서 확인 해서 인증하는 루틴

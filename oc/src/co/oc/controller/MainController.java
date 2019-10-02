@@ -14,6 +14,7 @@ import co.oc.command.Command;
 import co.oc.command.join.IdCheckCommand;
 import co.oc.command.join.JoinUsersCommand;
 import co.oc.command.join.LoginCheckCommand;
+import co.oc.command.join.LoginFormCommand;
 import co.oc.command.menu.DeleteComm;
 import co.oc.command.menu.MyinfoComm;
 import co.oc.command.menu.MyinfoupComm;
@@ -37,9 +38,10 @@ public class MainController extends HttpServlet {
 		
 		
 		//권보성
-		map.put("/join_user.do", new JoinUsersCommand());		
-		map.put("/idCheck.do", new IdCheckCommand());		
-		map.put("/login.do", new LoginCheckCommand());
+		map.put("/join_user.do", new JoinUsersCommand());
+		map.put("/loginform.do", new LoginFormCommand()); // 로그인페이지로돌아가기
+		map.put("/idCheck.do", new IdCheckCommand());	//ID중복체크
+		map.put("/login.do", new LoginCheckCommand()); //로그인 정보 DB에확인 후 로그인
 		
 		//백승진
 		

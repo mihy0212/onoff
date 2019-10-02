@@ -21,7 +21,7 @@ public class IdCheckCommand implements Command {
 		// TODO Auto-generated method stub
 		UserDAO dao = new UserDAO();
 
-		String id = request.getParameter("userID");
+		String id = request.getParameter("userEmail");
 		Connection conn = DAO.connect();
 		boolean chk = dao.isIdCheck(conn, id);
 		DAO.disconnect(conn);

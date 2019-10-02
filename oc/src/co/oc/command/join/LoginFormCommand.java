@@ -14,7 +14,7 @@ public class LoginFormCommand implements Command {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Login 폼이 화면에 표현 할 수 있도록 정의
-		RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/loginform.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("../join/jsp/loginform.jsp");
 		dispatcher.forward(request, response);
 
 	}
