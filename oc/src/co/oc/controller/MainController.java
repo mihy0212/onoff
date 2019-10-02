@@ -1,4 +1,4 @@
-package co.oc.cotroller;
+package co.oc.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import co.oc.command.Command;
 import co.oc.command.join.IdCheckCommand;
 import co.oc.command.join.JoinUsersCommand;
+import co.oc.command.join.LoginCheckCommand;
 import co.oc.command.menu.DeleteComm;
 import co.oc.command.menu.My_info_up_Comm;
 
@@ -35,7 +36,8 @@ public class MainController extends HttpServlet {
 		
 		//권보성
 		map.put("/join_user.do", new JoinUsersCommand());		
-		map.put("/idCheck.do", new IdCheckCommand());				
+		map.put("/idCheck.do", new IdCheckCommand());		
+		map.put("/login.do", new LoginCheckCommand());
 		
 		//백승진
 		

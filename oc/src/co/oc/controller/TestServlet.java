@@ -1,4 +1,4 @@
-package co.oc.cotroller;
+package co.oc.controller;
 
 import java.io.IOException;
 import java.sql.Connection;
