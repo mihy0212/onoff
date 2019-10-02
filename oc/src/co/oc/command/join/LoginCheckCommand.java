@@ -1,6 +1,7 @@
 package co.oc.command.join;
 
 import java.io.IOException;
+import java.sql.Connection;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import co.oc.command.Command;
+import co.oc.dao.DAO;
 import co.oc.dao.UserDAO;
 import co.oc.dto.UserDTO;
 
@@ -26,17 +28,18 @@ public class LoginCheckCommand implements Command {
 		String path = null;
 		
 		dto.setUserEmail(request.getParameter("userEmail"));
-		dto.setUserPw(request.getParameter("userPW"));
-
-		dto = dao.loginCheck(dto);
+		dto.setUserPw(request.getParameter("userPw"));
+		Connection conn = DAO.connect();
+		dto = dao.loginCheck(conn, dto);
 		if (dto.getUserGrant() != null) {
-			session.setAttribute("userID", dto.getUserEmail());
+			session.setAttribute("userEmail", dto.getUserEmail());
 			session.setAttribute("usetName", dto.getUserName());
 			session.setAttribute("usetGrant", dto.getUserGrant());
-			path = "jsp/loginOk.jsp";
+			path = "jsp/join/loginOk.jsp";
 		} else {
-			path = "jsp/loginFail.jsp";
+			path = "jsp/join/loginFail.jsp";
 		}
+		DAO.disconnect(conn);
 		RequestDispatcher dispatcher = request.getRequestDispatcher(path);
 		dispatcher.forward(request, response);
 
