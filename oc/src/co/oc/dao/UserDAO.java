@@ -163,7 +163,24 @@ public class UserDAO extends DAO{
 		return chk;
 	}
 	
-	
+	public UserDTO loginCheck(Connection conn, UserDTO dto) { // 로그인 체크
+		String sql = "select * from OC_user where user_email=? and user_pw=?";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, dto.getUserEmail());
+			psmt.setString(2, dto.getUserPw());
+			rs = psmt.executeQuery();
+			if (rs.next()) {
+				dto = new UserDTO();
+				dto.setUserEmail(rs.getString("userEmail"));
+				dto.setUserGrant(rs.getString("userGrant"));
+				dto.setUserName(rs.getString("userName"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return dto;
+	}
 	
 	//3. 백승진
 	
