@@ -23,17 +23,17 @@ public class JoinUsersCommand implements Command {
 				UserDTO dto = new UserDTO();
 				UserDAO dao = new UserDAO();
 				String path = null;
-				dto.setUserEmail(request.getParameter("userID"));
-				dto.setUserPw(request.getParameter("userPassword"));
+				dto.setUserEmail(request.getParameter("userEmail"));
+				dto.setUserPw(request.getParameter("userPw"));
 				dto.setUserName(request.getParameter("userName"));
 				dto.setUserAddr(request.getParameter("userAddr"));
 				Connection conn = DAO.connect();
 				int n = dao.insert(conn, dto);
 				DAO.disconnect(conn);
 				if (n != 0)
-					path = "jsp/joinOk.jsp";
+					path = "jsp/join/joinOk.jsp";
 				else
-					path = "jsp/joinFail.jsp";
+					path = "jsp/join/joinFail.jsp";
 
 				// 인서트 하는 구문 삽입
 				RequestDispatcher dispatcher = request.getRequestDispatcher(path);

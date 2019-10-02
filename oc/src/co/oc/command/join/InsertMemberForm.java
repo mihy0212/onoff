@@ -14,7 +14,7 @@ public class InsertMemberForm implements Command {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/insertMember.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/join/join_user.jsp");
 		dispatcher.forward(request, response);
 		
 	}
