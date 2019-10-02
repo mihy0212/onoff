@@ -22,7 +22,8 @@ public class MyinfoComm implements Command {
 		Connection conn = DAO.connect();
 		HttpSession session = request.getSession(false);
 		String userNum = (String)session.getAttribute("userNum");
-	    UserDTO dto = UserDAO.getInstance().selectOne(conn, userNum);
+	    System.out.println(userNum);
+		UserDTO dto = UserDAO.getInstance().selectOne(conn, userNum);
 		
 		
 		 
