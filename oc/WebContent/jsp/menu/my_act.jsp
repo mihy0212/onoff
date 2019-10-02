@@ -135,16 +135,16 @@
 							<div class="dropdown-menu">
 								<%
 									// 로그인 안되었을 경우 - 로그인, 회원가입 버튼을 보여준다.
-									if (session.getAttribute("sessionID") == null) {
+									if (session.getAttribute("userEmail") == null) {
 								%>member/view/LoginForm.jsp <a class="dropdown-item"
-									href="../member/view/LoginForm.jsp">로그인</a> <a
-									class="dropdown-item" href="../member/view/LoginForm.jsp">회원가입</a>
+									href="loginform.do">로그인</a> <a
+									class="dropdown-item" href="join_user.do">회원가입</a>
 
 								<%
 									// 로그인 되었을 경우 - 로그아웃, 내정보 버튼을 보여준다.
 									} else {
 								%>
-								<a class="dropdown-item" href="assets/jsp/loginform.jsp">로그아웃</a>
+								<a class="dropdown-item" href="logout.do">로그아웃</a>
 								<a class="dropdown-item" href="insertchoice.jsp">내정보</a> <a
 									class="dropdown-item" href="#contact">Contact</a>
 								<%

@@ -133,12 +133,12 @@
 							
 	           				
 							<c:choose>
-								<c:when test="${empty sessionID}">
-									<a class="dropdown-item" href="login.do">로그인</a><br>
-									<a class="dropdown-item" href="#">회원가입</a> <br>
+								<c:when test="${empty userEmail}">
+									<a class="dropdown-item" href="loginform.do">로그인</a><br>
+									<a class="dropdown-item" href="join_user.do">회원가입</a> <br>
 								</c:when>
 								<c:otherwise>
-							        <a class="dropdown-item" href="#">로그아웃</a><br>
+							        <a class="dropdown-item" href="logout.do">로그아웃</a><br>
 									<a class="dropdown-item" href=#">내정보</a> <br>
 								</c:otherwise>
 					        </c:choose> 

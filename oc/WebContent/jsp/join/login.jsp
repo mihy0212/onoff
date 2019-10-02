@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +11,7 @@
 <div class="col-lg-4"></div>
 <div class="col-lg-4">
 <div class="jumbotron" style="padding-top: 20px;">
-<form method="post" action="../../login.do">
+<form method="post" action="login.do">
 	<h3 style="text-align: center;">로그인 화면</h3><p>
 	<div class="form-group">
 	<input type="text" class="form-control" placeholder="아이디" name="userEmail" maxlength="20">
@@ -27,5 +28,6 @@
 </div>
 <div class="col-lg-4"></div>
 </div>
+
 </body>
 </html>

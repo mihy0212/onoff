@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import co.oc.command.Command;
 
-public class InsertMemberForm implements Command {
+public class JoinUserFormCommand implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
