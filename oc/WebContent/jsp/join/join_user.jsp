@@ -1,95 +1,114 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <title>유저회원가입 페이지</title>
 <script type="text/javascript">
-function checkForm(){
-	var form = document.frm;
-	if(form.userID.value==""){
-		alert("이메일을 입력하세요.")
-		form.userID.focus();
-		return false;
+	function checkForm() {
+		var form = document.frm;
+		if (form.userID.value == "") {
+			alert("이메일을 입력하세요.")
+			form.userID.focus();
+			return false;
+		}
+		if (form.userPassword.value == "") {
+			alert("패스워드를 입력하세요.")
+			form.userPassword.focus();
+			return false;
+		}
+		if (form.userName.value == "") {
+			alert("이름을 입력하세요.")
+			form.userName.focus();
+			return false;
+		}
+		if (form.userEmail.value == "") {
+			alert("이메일을 입력하세요.")
+			form.userEmail.focus();
+			return false;
+		}
+		if (form.userTell.value == "") {
+			alert("전화번호를 입력하세요.")
+			form.userTell.focus();
+			return false;
+		}
+		if (form.userNickname.value == "") {
+			alert("닉네임을 입력하세요.")
+			form.userNickname.focus();
+			return false;
+		}
+		form.submit();
+
 	}
-	if(form.userPassword.value==""){
-		alert("패스워드를 입력하세요.")
-		form.userPassword.focus();
-		return false;
-	}
-	if(form.userName.value==""){
-		alert("이름을 입력하세요.")
-		form.userName.focus();
-		return false;
-	}
-	if(form.userEmail.value==""){
-		alert("이메일을 입력하세요.")
-		form.userEmail.focus();
-		return false;
-	}
-	if(form.userTell.value==""){
-		alert("전화번호를 입력하세요.")
-		form.userTell.focus();
-		return false;
-	}
-	if(form.userNickname.value==""){
-		alert("닉네임을 입력하세요.")
-		form.userNickname.focus();
-		return false;
-	}
-	form.submit();
-	
-}
 
 	function idCheck() {
 		var chkId = document.frm.userID;
-		if(chkId.value == "") {
+		if (chkId.value == "") {
 			alert("아이디를 입력하세요.")
 			chkId.focus();
 			return false;
 		}
-		
-		window.open("idCheck.do?userID="+chkId.value,"","width=400,height=200");
+
+		window.open("idCheck.do?userID=" + chkId.value, "",
+				"width=400,height=200");
 	}
 </script>
 </head>
 <body>
-<div class="container">
-<div class="col-lg-4"></div>
-<div class="col-lg-4">
-<div class="jumbotron" style="padding-top: 20px;">
-<form id="frm" name="frm" method="post" action="join_user.do">
-	<h3 style="text-align: center;">회원가입 화면</h3>
-	<div class="form-group">
-	<input type="text" class="form-control" placeholder="아이디/이메일" id="userEmail" name="userEmail" maxlength="20"><p>
-	<p><input type="button" class="btn btn-primary form-control" onclick="idCheck()" value="중복체크"> 
+	<div class="container">
+		<div class="col-lg-4"></div>
+		<div class="col-lg-4">
+			<div class="jumbotron" style="padding-top: 20px;">
+				<h3 style="text-align: center;">유저회원가입 화면</h3><br />
+				<form id="frm" name="frm" method="post" action="join_user.do"
+					class="form-horizontal">
+					<div class="form-group">
+						<div class="col-sm-7" style="padding: 0px">
+							<input type="text" class="form-control" placeholder="아이디/이메일"
+								id="userEmail" name="userEmail" maxlength="20">
+						</div>
+						<div class="col-sm-5">
+							<input type="button" class="btn btn-primary form-control"
+								onclick="idCheck()" value="중복체크">
+						</div>
+					</div>
+					<div class="form-group">
+						<input type="password" class="form-control" placeholder="비밀번호"
+							id="userPassword" name="userPassword">
+					</div>
+					<div class="form-group">
+						<input type="password" class="form-control" placeholder="비밀번호 확인"
+							id="userPassword" name="userPassword">
+					</div>
+					<div class="form-group" style="text-align: center;">
+						<input type="text" class="form-control" placeholder="이름"
+							id="userName" name="userName">
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="전화번호"
+							id="userTell" name="userTell">
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="닉네임"
+							id="userNickname" name="userNickname">
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="주소"
+							id="userAddr" name="userAddr">
+						<div class="btn-group" data-toggle="buttons"></div>
+					</div>
+
+					<div>
+						<input type="button" class="btn btn-primary form-control"
+							onclick="checkForm()" value="회원가입">
+					</div>
+					<br /> <input type="reset" class="btn btn-primary form-control"
+						onclick="location.href='index.do'" value="취소">
+				</form>
+			</div>
+			<div class="col-lg-4"></div>
+		</div>
 	</div>
-	<div class="form-group">
-	<input type="password" class="form-control" placeholder="비밀번호" id="userPassword" name="userPassword">
-	</div>
-		<div class="form-group">
-	<input type="password" class="form-control" placeholder="비밀번호 확인" id="userPassword" name="userPassword">
-	</div>
-		<div class="form-group" style="text-align: center;">
-	<input type="text" class="form-control" placeholder="이름" id="userName" name="userName">
-	</div>
-			<div class="form-group">
-	<input type="text" class="form-control" placeholder="전화번호" id="userTell" name="userTell">
-	</div>
-		<div class="form-group">
-	<input type="text" class="form-control" placeholder="닉네임" id="userNickname" name="userNickname">
-	</div>
-		<div class="form-group">
-	<input type="text" class="form-control" placeholder="주소" id="userAddr" name="userAddr">
-	<div class="btn-group" data-toggle="buttons"></div>
-	</div>
-	<div>
-	<input type="button" class="btn btn-primary form-control" onclick="checkForm()" value="회원가입"></div><br />
-	<input type="reset" class="btn btn-primary form-control"  onclick="location.href='index.do'" value="취소">
-</form>
-</div>
-</div>
-<div class="col-lg-4"></div>
-</div>
+
 </body>
 </html>

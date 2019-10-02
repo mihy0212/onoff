@@ -10,11 +10,11 @@
 <div class="col-lg-4"></div>
 <div class="col-lg-4">
 <div class="jumbotron" style="padding-top: 20px;">
-<form method="post" action="loginAction.jsp">
+<form method="post">
 <div>
-	<input type="submit" class="btn btn-primary form-control" onclick="location.href='join_user.jsp'" value="유저 회원가입">
+	<input type="button" class="btn btn-primary form-control" onclick="location.href='join_user.jsp'" value="유저 회원가입">
 	</div><br />
-	<input type="submit" class="btn btn-primary form-control" value="CEO 회원가입">
+	<input type="button" class="btn btn-primary form-control" onclick="location.href='join_ceo.jsp'" value="CEO 회원가입">
 </form>
 </div>
 </div>

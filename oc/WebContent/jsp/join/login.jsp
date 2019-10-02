@@ -21,7 +21,7 @@
 	<div>
 	<input type="submit" class="btn btn-primary form-control" value="로그인">
 	</div><br />
-	<input type="submit" class="btn btn-primary form-control" onclick="location.href='join.jsp'" value="회원가입">
+	<input type="button" class="btn btn-primary form-control" onclick="location.href='join.jsp'" value="회원가입">
 </form>
 </div>
 </div>
