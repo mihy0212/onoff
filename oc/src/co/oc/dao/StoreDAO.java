@@ -1,9 +1,12 @@
 package co.oc.dao;
 
+import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.beanutils.BeanUtils;
 
 import co.oc.dto.StoreDTO;
 
@@ -23,21 +26,26 @@ public class StoreDAO extends DAO{
 			rs = psmt.executeQuery();
 			while(rs.next()) {
 				StoreDTO dto = new StoreDTO();
-				dto.setStoreNum(rs.getString("store_num"));			//1
-				dto.setStoreName(rs.getString("store_name"));		//2
-				dto.setStoreAddr(rs.getString("store_addr"));		//3
-				dto.setStoreXy(rs.getString("store_xy"));			//4
-				dto.setStoreCateg1(rs.getString("store_categ1"));	//5
-				dto.setStoreCateg2(rs.getString("store_categ2"));	//6
-				dto.setStoreCateg3(rs.getString("store_categ3"));	//7
-				dto.setStorePic(rs.getString("store_pic"));			//8
-				dto.setStoreTime(rs.getString("store_time"));		//9
-				dto.setStoreTel(rs.getString("store_tel"));			//10
-				dto.setStoreMenu(rs.getString("store_menu"));		//11
-				dto.setStoreEct(rs.getString("store_ect"));			//12
-				dto.setStoreLike(rs.getInt("store_like"));		//13
-				dto.setUserNum(rs.getString("user_num"));			//14
-				dto.setStoreRegiday(rs.getDate("store_regiday"));	//15
+				try {
+					BeanUtils.copyProperties(dto, rs);
+				} catch (IllegalAccessException | InvocationTargetException e) {
+					e.printStackTrace();
+				}
+//				dto.setStoreNum(rs.getString("store_num"));			//1
+//				dto.setStoreName(rs.getString("store_name"));		//2
+//				dto.setStoreAddr(rs.getString("store_addr"));		//3
+//				dto.setStoreXy(rs.getString("store_xy"));			//4
+//				dto.setStoreCateg1(rs.getString("store_categ1"));	//5
+//				dto.setStoreCateg2(rs.getString("store_categ2"));	//6
+//				dto.setStoreCateg3(rs.getString("store_categ3"));	//7
+//				dto.setStorePic(rs.getString("store_pic"));			//8
+//				dto.setStoreTime(rs.getString("store_time"));		//9
+//				dto.setStoreTel(rs.getString("store_tel"));			//10
+//				dto.setStoreMenu(rs.getString("store_menu"));		//11
+//				dto.setStoreEct(rs.getString("store_ect"));			//12
+//				dto.setStoreLike(rs.getInt("store_like"));		//13
+//				dto.setUserNum(rs.getString("user_num"));			//14
+//				dto.setStoreRegiday(rs.getDate("store_regiday"));	//15
 				list.add(dto);
 			}
 		} catch (SQLException e) {

@@ -45,6 +45,12 @@ public class TestServlet extends HttpServlet {
 //			System.out.println(dto.getUserEmail());
 //		}
 		
+		//가게 전체 조회TEST
+		List<StoreDTO> list = StoreDAO.getInstance().selectAll(conn);
+		for(StoreDTO dto : list) {
+			System.out.println(dto.getStoreName());
+		}
+		
 		//회원 한 명 조회 test
 //		String userNum = "2";
 //		UserDTO dto = UserDAO.getInstance().selectOne(conn, userNum);
