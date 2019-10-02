@@ -20,28 +20,23 @@
 			<form action="userberjoinpro.do" method="post" role="form"
 				id="usercheck" name="userber">
                         <!-- 가져온 회원정보를 출력한다. -->
-        <div class="form-group">
-			<label for="user_email">아이디</label> 
+        	<div class="form-group">
+			 	<label for="user_email">아이디</label> 
 				${userEmail}
-				<div class="eheck_font" id="email_check"></div>
 		</div>
        <div class="form-group">
 					<label for="userNum">이름</label> 
 					${userDto.userName}
-					<div class="eheck_font" id="name_check"></div>
 				</div>
 
 				<div class="form-group">
 					<label for="user_birth">닉네임</label> 
-					${userDto.userNick}
-					<div class="eheck_font" id="birth_check"></div>
+						${userDto.userNick}
+				
 				</div>
-
-
-
 				<div class="form-group">
-				<label for="user_birth">주소</label>
-				${userDto.userAddr}
+					<label for="user_birth">주소</label>
+						${userDto.userAddr}
 				</div>
        
         <div class="form-group text-center">
