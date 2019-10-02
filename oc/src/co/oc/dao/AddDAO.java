@@ -42,6 +42,9 @@ public class AddDAO extends DAO {
 		try {
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
+			if(rs.next()) {
+				
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -50,6 +53,26 @@ public class AddDAO extends DAO {
 	}
 	
 	//사업자 신청 새로 등록
+	public int insert(Connection conn, AddDTO dto) {
+		int n = 0;
+		String sql = "insert into oc_Add (add_num," //1
+				+ " store_name,"					//2
+				+ " store_addr,"					//3
+				+ " store_xy,"						//4
+				+ " store_categ1,"					//5
+				+ " store_categ2,"					//6
+				+ " store_categ3,"					//7
+				+ " store_license,"					//8
+				+ " user_license,"					//9
+				+ " add_capture,"					//10
+				+ " user_num,"						//11
+				+ " add_day,"						//12
+				+ " add_status,"					//13
+				+ " add_re,"						//14
+				+ " store_num"						//15
+				+ ") values(oc_add_num_seq.nextval, ?, ?, ?, ?, ?, ? ,? , ?, ? ,? ,? ,? ,? ,? ,? ,?)";
+		return n;
+	}
 	
 	
 	//사업자 신청 수정

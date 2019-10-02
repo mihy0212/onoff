@@ -134,7 +134,7 @@
 	           				
 							<c:choose>
 								<c:when test="${empty sessionID}">
-									<a class="dropdown-item" href="login.do">로그인</a><br>
+									<a class="dropdown-item" href="${pageContext.request.contextPath }/jsp/join/login.jsp">로그인</a><br>
 									<a class="dropdown-item" href="#">회원가입</a> <br>
 								</c:when>
 								<c:otherwise>
