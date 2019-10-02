@@ -1,9 +1,12 @@
 package co.oc.dao;
 
+import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.beanutils.BeanUtils;
 
 import co.oc.dto.StoreDTO;
 
@@ -23,21 +26,26 @@ public class StoreDAO extends DAO{
 			rs = psmt.executeQuery();
 			while(rs.next()) {
 				StoreDTO dto = new StoreDTO();
-				dto.setStoreNum(rs.getString("store_num"));			//1
-				dto.setStoreName(rs.getString("store_name"));		//2
-				dto.setStoreAddr(rs.getString("store_addr"));		//3
-				dto.setStoreXy(rs.getString("store_xy"));			//4
-				dto.setStoreCateg1(rs.getString("store_categ1"));	//5
-				dto.setStoreCateg2(rs.getString("store_categ2"));	//6
-				dto.setStoreCateg3(rs.getString("store_categ3"));	//7
-				dto.setStorePic(rs.getString("store_pic"));			//8
-				dto.setStoreTime(rs.getString("store_time"));		//9
-				dto.setStoreTel(rs.getString("store_tel"));			//10
-				dto.setStoreMenu(rs.getString("store_menu"));		//11
-				dto.setStoreEct(rs.getString("store_ect"));			//12
-				dto.setStoreLike(rs.getString("store_like"));		//13
-				dto.setUserNum(rs.getString("user_num"));			//14
-				dto.setStoreRegiday(rs.getDate("store_regiday"));	//15
+				try {
+					BeanUtils.copyProperties(dto, rs);
+				} catch (IllegalAccessException | InvocationTargetException e) {
+					e.printStackTrace();
+				}
+//				dto.setStoreNum(rs.getString("store_num"));			//1
+//				dto.setStoreName(rs.getString("store_name"));		//2
+//				dto.setStoreAddr(rs.getString("store_addr"));		//3
+//				dto.setStoreXy(rs.getString("store_xy"));			//4
+//				dto.setStoreCateg1(rs.getString("store_categ1"));	//5
+//				dto.setStoreCateg2(rs.getString("store_categ2"));	//6
+//				dto.setStoreCateg3(rs.getString("store_categ3"));	//7
+//				dto.setStorePic(rs.getString("store_pic"));			//8
+//				dto.setStoreTime(rs.getString("store_time"));		//9
+//				dto.setStoreTel(rs.getString("store_tel"));			//10
+//				dto.setStoreMenu(rs.getString("store_menu"));		//11
+//				dto.setStoreEct(rs.getString("store_ect"));			//12
+//				dto.setStoreLike(rs.getInt("store_like"));		//13
+//				dto.setUserNum(rs.getString("user_num"));			//14
+//				dto.setStoreRegiday(rs.getDate("store_regiday"));	//15
 				list.add(dto);
 			}
 		} catch (SQLException e) {
@@ -68,7 +76,7 @@ public class StoreDAO extends DAO{
 				dto.setStoreTel(rs.getString("store_tel"));			//10
 				dto.setStoreMenu(rs.getString("store_menu"));		//11
 				dto.setStoreEct(rs.getString("store_ect"));			//12
-				dto.setStoreLike(rs.getString("store_like"));		//13
+				dto.setStoreLike(rs.getInt("store_like"));		//13
 				dto.setUserNum(rs.getString("user_num"));			//14
 				dto.setStoreRegiday(rs.getDate("store_regiday"));	//15
 			}
@@ -100,7 +108,7 @@ public class StoreDAO extends DAO{
 				dto.setStoreTel(rs.getString("store_tel"));			//10
 				dto.setStoreMenu(rs.getString("store_menu"));		//11
 				dto.setStoreEct(rs.getString("store_ect"));			//12
-				dto.setStoreLike(rs.getString("store_like"));		//13
+				dto.setStoreLike(rs.getInt("store_like"));		//13
 				dto.setUserNum(rs.getString("user_num"));			//14
 				dto.setStoreRegiday(rs.getDate("store_regiday"));	//15
 			}
@@ -127,7 +135,7 @@ public class StoreDAO extends DAO{
 				+ " store_ect,"		//12
 				+ " user_num"		//13
 				+ ") values "
-				+ "(oc_store_num_seq, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,? ,?)";
+				+ "(oc_store_num_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,? ,?)";
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, dto.getStoreName());
@@ -154,18 +162,18 @@ public class StoreDAO extends DAO{
 	public int update(Connection conn, StoreDTO dto) {
 		int n = 0;
 		String sql = "update oc_store set"
-				+ " store_addr=?,"
-				+ " store_xy=?,"
-				+ " store_categ1=?,"
-				+ " store_categ2=?,"
-				+ " store_categ3=?,"
-				+ " store_pic=?,"
-				+ " store_time=?,"
-				+ " store_tel=?,"
-				+ " store_menu=?,"
-				+ " store_ect=?,"
-				+ " store_like=?"
-				+ " where store_num=?";
+				+ " store_addr=?,"	//1
+				+ " store_xy=?,"	//2
+				+ " store_categ1=?,"	//3
+				+ " store_categ2=?,"	//4
+				+ " store_categ3=?,"	//5
+				+ " store_pic=?,"	//6
+				+ " store_time=?,"	//7
+				+ " store_tel=?,"	//8
+				+ " store_menu=?,"	//9
+				+ " store_ect=?,"	//10
+				+ " store_like=?"	//11
+				+ " where store_num=?";	//12
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, dto.getStoreAddr());
@@ -177,11 +185,9 @@ public class StoreDAO extends DAO{
 			psmt.setString(7, dto.getStoreTime());
 			psmt.setString(8, dto.getStoreTel());
 			psmt.setString(9, dto.getStoreMenu());
-			psmt.setString(10, dto.getStoreMenu());
-			psmt.setString(11, dto.getStoreEct());
-			psmt.setString(12, dto.getStoreLike());
-			psmt.setString(13, dto.getUserNum());
-			psmt.setString(1, dto.getStoreNum());
+			psmt.setString(10, dto.getStoreEct());
+			psmt.setInt(11, dto.getStoreLike());
+			psmt.setString(12, dto.getStoreNum());
 			n = psmt.executeUpdate();
 			System.out.println(n + "건의 가게 정보 수정 완료");
 		} catch (SQLException e) {
@@ -204,4 +210,22 @@ public class StoreDAO extends DAO{
 		}		
 		return n;
 	}
+	
+	
+	
+	//2. 권보성
+	
+	
+	
+	
+	
+	//3. 백승진
+	
+	
+	
+	
+	
+	//4. 복진영
+	
+	
 }

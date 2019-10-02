@@ -1,4 +1,4 @@
-package co.oc.cotroller;
+package co.oc.controller;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -45,6 +45,12 @@ public class TestServlet extends HttpServlet {
 //			System.out.println(dto.getUserEmail());
 //		}
 		
+		//가게 전체 조회TEST
+		List<StoreDTO> list = StoreDAO.getInstance().selectAll(conn);
+		for(StoreDTO dto : list) {
+			System.out.println(dto.getStoreName());
+		}
+		
 		//회원 한 명 조회 test
 //		String userNum = "2";
 //		UserDTO dto = UserDAO.getInstance().selectOne(conn, userNum);
@@ -52,12 +58,12 @@ public class TestServlet extends HttpServlet {
 		
 		//회원 입력 TEST
 //		UserDTO udto = new UserDTO();
-//		udto.setUserEmail("test4@gmail.com");
+//		udto.setUserEmail("test9@gmail.com");
 //		udto.setUserPw("1234");
-//		udto.setUserName("회원4");
-//		udto.setUserNick("회원4");
+//		udto.setUserName("회원9");
+//		udto.setUserNick("회원9");
 //		udto.setUserGrant("C");
-//		udto.setStoreNum("1");
+//		udto.setStoreNum("4");
 //		UserDAO.getInstance().insert(conn, udto);
 
 		
@@ -94,33 +100,23 @@ public class TestServlet extends HttpServlet {
 //		System.out.println(dto.getStoreName());
 		
 		//가게 입력 TEST
-		StoreDTO sdto = new StoreDTO();
-		sdto.setStoreName("가게1");
-		sdto.setStoreAddr("제주시 영평동 첨단로 242");
-		sdto.setStoreXy("33.450701, 126.570667");
-		sdto.setStoreCateg1("1");
-		sdto.setStoreCateg2("1");
-		sdto.setStoreCateg3("1");
-		sdto.setStoreTime("09:00 ~ 17:00, 연중무휴");
-		sdto.setStoreTel("053-000-0000");
-		sdto.setStoreMenu("볶음밥 2000원");
-		sdto.setStoreEct("우리 가게 성공 기원");
-		sdto.setUserNum("5");
-		StoreDAO.getInstance().insert(conn, sdto);
-
+//		StoreDTO sdto = new StoreDTO();
+//		sdto.setStoreName("가게3");
+//		sdto.setStoreAddr("제주시 영평동 첨단로 242");
+//		sdto.setStoreXy("32.550701, 125.550667");
+//		sdto.setStoreCateg1("1");
+//		sdto.setStoreCateg2("1");
+//		sdto.setStoreCateg3("1");
+//		sdto.setStoreTime("10:00 ~ 17:00, 연중무휴");
+//		sdto.setStoreTel("053-111-1111");
+//		sdto.setStoreMenu("볶음밥 4000원");
+//		sdto.setStoreEct("우리 가게 성공 기원");
+//		sdto.setUserNum("9");
+//		StoreDAO.getInstance().insert(conn, sdto);
 		
-		//회원 수정 TEST
-//		UserDTO dto = new UserDTO();
-//		dto.setUserNum("2");
-//		dto.setUserPw("1234");
-//		dto.setUserName("회원11");
-//		dto.setUserNick("회원11");
-//		dto.setUserGrant("U");
-//		UserDAO.getInstance().update(conn, dto);
-		
-		//회원 삭제 TEST
-//		String userNum = "3";
-//		UserDAO.getInstance().delete(conn, userNum);
+		//가게 삭제 TEST
+//		String storeNum = "2";
+//		StoreDAO.getInstance().delete(conn, storeNum);
 		
 		
 		//접속 해제

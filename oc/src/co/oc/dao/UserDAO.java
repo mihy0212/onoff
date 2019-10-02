@@ -142,7 +142,12 @@ public class UserDAO extends DAO{
 		}
 		return n;
 	}
-	public boolean isIdCheck(Connection conn, String id) { // id 중복체크 //권보성 회원가입정보업데이트 중복확인
+	
+	
+	//2. 권보성
+	
+	//아이디(회원 이메일) 중복체크
+	public boolean isIdCheck(Connection conn, String id) { 
 		boolean chk = true; // 존재하지 않으면
 		String sql = "select userId from member where userId = ?";
 		try {
@@ -157,5 +162,32 @@ public class UserDAO extends DAO{
 		}
 		return chk;
 	}
+	
+	public UserDTO loginCheck(Connection conn, UserDTO dto) { // 로그인 체크
+		String sql = "select * from OC_user where user_email=? and user_pw=?";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, dto.getUserEmail());
+			psmt.setString(2, dto.getUserPw());
+			rs = psmt.executeQuery();
+			if (rs.next()) {
+				dto = new UserDTO();
+				dto.setUserEmail(rs.getString("user_Email"));
+				dto.setUserGrant(rs.getString("user_Grant"));
+				dto.setUserName(rs.getString("user_Name"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return dto;
+	}
+	
+	//3. 백승진
+	
+	
+	
+	//4. 복진영
+	
+	
 	
 }
