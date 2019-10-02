@@ -9,41 +9,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript">
-function checkForm(){
-	var form = document.frm;
-	if(form.userID.value==""){
-		alert("이메일을 입력하세요.")
-		form.userID.focus();
-		return false;
-	}
-	if(form.userPassword.value==""){
-		alert("패스워드를 입력하세요.")
-		form.userPassword.focus();
-		return false;
-	}
-	if(form.userName.value==""){
-		alert("이름을 입력하세요.")
-		form.userName.focus();
-		return false;
-	}
-	if(form.userEmail.value==""){
-		alert("이메일을 입력하세요.")
-		form.userEmail.focus();
-		return false;
-	}
-	if(form.userTell.value==""){
-		alert("전화번호를 입력하세요.")
-		form.userTell.focus();
-		return false;
-	}
-	if(form.userNickname.value==""){
-		alert("닉네임을 입력하세요.")
-		form.userNickname.focus();
-		return false;
-	}
-	form.submit();
-	
-}
+<sc
 
 	function idCheck() {
 		var chkId = document.frm.userID;
