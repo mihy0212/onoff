@@ -113,10 +113,16 @@
 						<li class="nav-item  dropdown">
 						     <a class="nav-link  dropdown-toggle"  href="#"   id="navbardrop"  data-toggle="dropdown"> Menu </a>
 							   <div class="dropdown-menu">
-							   <c:if test="${id != null }">
-								<a class="dropdown-item" href="#">즐겨찾기 보기</a> <br>
-								<a	class="dropdown-item" href="#">리뷰 목록</a>
-								</c:if>
+							  <c:choose>
+							  <c:when test="${!empty sessionID && userGrant=='U'}">
+								  <a class="dropdown-item" href="#">즐겨찾기 보기</a> <br>
+								  <a	class="dropdown-item" href="#">리뷰 목록</a><br>
+							  </c:when>
+							  <c:when test="${!empty sessionID && userGrant=='C'}">
+									<a class="dropdown-item" href="#">내 가게 정보</a><br>
+									<a class="dropdown-item" href="#">내 가게 정보수정</a> <br>
+								</c:when>
+								</c:choose>
 								<a class="dropdown-item" href="#">Contact</a>
 							</div></li>
 
@@ -128,14 +134,12 @@
 	           				
 							<c:choose>
 								<c:when test="${empty sessionID}">
-	           						
-									<a class="dropdown-item" href="../member/view/JoinForm.jsp">로그인</a>
-									<a class="dropdown-item" href="JoinForm.jsp">회원가입</a> 
+									<a class="dropdown-item" href="login.do">로그인</a><br>
+									<a class="dropdown-item" href="#">회원가입</a> <br>
 								</c:when>
 								<c:otherwise>
-							        <a class="dropdown-item" href="../member/view/JoinForm.jsp">로그아웃</a>
-									<a class="dropdown-item" href="userInfor.do">내정보</a> 
-									<a class="dropdown-item" href="#contact">Contact</a>
+							        <a class="dropdown-item" href="#">로그아웃</a><br>
+									<a class="dropdown-item" href=#">내정보</a> <br>
 								</c:otherwise>
 					        </c:choose> 
 			 
