@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import co.oc.command.Command;
 import co.oc.command.join.IdCheckCommand;
-import co.oc.command.join.JoinUserFormCommand;
+import co.oc.command.join.JoinCeoForm;
+import co.oc.command.join.JoinFormCommand;
+import co.oc.command.join.JoinUserForm;
 import co.oc.command.join.JoinUsersCommand;
 import co.oc.command.join.LoginCheckCommand;
 import co.oc.command.join.LoginFormCommand;
@@ -40,7 +42,9 @@ public class MainController extends HttpServlet {
 		
 		
 		//권보성
-		map.put("/join_userform.do", new JoinUserFormCommand()); //회원가입페이지
+		map.put("/join_userform.do", new JoinUserForm()); //일반유저 회원가입 폼
+		map.put("/join_ceoform.do", new JoinCeoForm()); //CEO 회원가입폼
+		map.put("/join_form.do", new JoinFormCommand()); //회원가입선택페이지
 		map.put("/join_user.do", new JoinUsersCommand()); //회원가입처리
 		map.put("/loginform.do", new LoginFormCommand()); // 로그인페이지로돌아가기
 		map.put("/idCheck.do", new IdCheckCommand());	//ID중복체크

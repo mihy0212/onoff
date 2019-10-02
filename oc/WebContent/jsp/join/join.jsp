@@ -12,9 +12,9 @@
 <div class="jumbotron" style="padding-top: 20px;">
 <form method="post">
 <div>
-	<input type="button" class="btn btn-primary form-control" onclick="location.href='join_user.jsp'" value="유저 회원가입">
+	<input type="button" class="btn btn-primary form-control" onclick="location.href='join_userform.do'" value="유저 회원가입">
 	</div><br />
-	<input type="button" class="btn btn-primary form-control" onclick="location.href='join_ceo.jsp'" value="CEO 회원가입">
+	<input type="button" class="btn btn-primary form-control" onclick="location.href='join_ceoform.do'" value="CEO 회원가입">
 </form>
 </div>
 </div>
