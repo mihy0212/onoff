@@ -12,8 +12,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import co.oc.command.Command;
 import co.oc.command.join.IdCheckCommand;
+import co.oc.command.join.JoinCeoForm;
+import co.oc.command.join.JoinFormCommand;
+import co.oc.command.join.JoinUserForm;
 import co.oc.command.join.JoinUsersCommand;
 import co.oc.command.join.LoginCheckCommand;
+import co.oc.command.join.LoginFormCommand;
+import co.oc.command.join.LogoutCommand;
 import co.oc.command.menu.DeleteComm;
 import co.oc.command.menu.MyinfoComm;
 import co.oc.command.menu.MyinfoupComm;
@@ -37,10 +42,14 @@ public class MainController extends HttpServlet {
 		
 		
 		//권보성
-		map.put("/join_user.do", new JoinUsersCommand());		
-		map.put("/idCheck.do", new IdCheckCommand());		
-		map.put("/login.do", new LoginCheckCommand());
-		
+		map.put("/join_userform.do", new JoinUserForm()); //일반유저 회원가입 폼
+		map.put("/join_ceoform.do", new JoinCeoForm()); //CEO 회원가입폼
+		map.put("/join_form.do", new JoinFormCommand()); //회원가입선택페이지
+		map.put("/join_user.do", new JoinUsersCommand()); //회원가입처리
+		map.put("/loginform.do", new LoginFormCommand()); // 로그인페이지로돌아가기
+		map.put("/idCheck.do", new IdCheckCommand());	//ID중복체크
+		map.put("/login.do", new LoginCheckCommand()); //로그인 정보 DB에확인 후 로그인
+		map.put("/logout.do", new LogoutCommand()); //로그아웃
 		//백승진
 		
 		

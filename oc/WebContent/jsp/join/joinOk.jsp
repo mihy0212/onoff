@@ -7,8 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div align="center">
-		<h1>${userEmail } 님 로그인 성공! </h1> <!--  request 정보 출력 -->
-	</div>
+회원 가입 성공~
 </body>
 </html>
