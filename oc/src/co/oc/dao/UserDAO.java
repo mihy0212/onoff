@@ -142,7 +142,12 @@ public class UserDAO extends DAO{
 		}
 		return n;
 	}
-	public boolean isIdCheck(Connection conn, String id) { // id 중복체크 //권보성 회원가입정보업데이트 중복확인
+	
+	
+	//2. 권보성
+	
+	//아이디(회원 이메일) 중복체크
+	public boolean isIdCheck(Connection conn, String id) { 
 		boolean chk = true; // 존재하지 않으면
 		String sql = "select userId from member where userId = ?";
 		try {
@@ -157,5 +162,15 @@ public class UserDAO extends DAO{
 		}
 		return chk;
 	}
+	
+	
+	
+	//3. 백승진
+	
+	
+	
+	//4. 복진영
+	
+	
 	
 }

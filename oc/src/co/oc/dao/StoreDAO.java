@@ -127,7 +127,7 @@ public class StoreDAO extends DAO{
 				+ " store_ect,"		//12
 				+ " user_num"		//13
 				+ ") values "
-				+ "(oc_store_num_seq, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,? ,?)";
+				+ "(oc_store_num_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,? ,?)";
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, dto.getStoreName());
@@ -154,18 +154,18 @@ public class StoreDAO extends DAO{
 	public int update(Connection conn, StoreDTO dto) {
 		int n = 0;
 		String sql = "update oc_store set"
-				+ " store_addr=?,"
-				+ " store_xy=?,"
-				+ " store_categ1=?,"
-				+ " store_categ2=?,"
-				+ " store_categ3=?,"
-				+ " store_pic=?,"
-				+ " store_time=?,"
-				+ " store_tel=?,"
-				+ " store_menu=?,"
-				+ " store_ect=?,"
-				+ " store_like=?"
-				+ " where store_num=?";
+				+ " store_addr=?,"	//1
+				+ " store_xy=?,"	//2
+				+ " store_categ1=?,"	//3
+				+ " store_categ2=?,"	//4
+				+ " store_categ3=?,"	//5
+				+ " store_pic=?,"	//6
+				+ " store_time=?,"	//7
+				+ " store_tel=?,"	//8
+				+ " store_menu=?,"	//9
+				+ " store_ect=?,"	//10
+				+ " store_like=?"	//11
+				+ " where store_num=?";	//12
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, dto.getStoreAddr());
@@ -177,11 +177,9 @@ public class StoreDAO extends DAO{
 			psmt.setString(7, dto.getStoreTime());
 			psmt.setString(8, dto.getStoreTel());
 			psmt.setString(9, dto.getStoreMenu());
-			psmt.setString(10, dto.getStoreMenu());
-			psmt.setString(11, dto.getStoreEct());
-			psmt.setString(12, dto.getStoreLike());
-			psmt.setString(13, dto.getUserNum());
-			psmt.setString(1, dto.getStoreNum());
+			psmt.setString(10, dto.getStoreEct());
+			psmt.setString(11, dto.getStoreLike());
+			psmt.setString(12, dto.getStoreNum());
 			n = psmt.executeUpdate();
 			System.out.println(n + "건의 가게 정보 수정 완료");
 		} catch (SQLException e) {
@@ -204,4 +202,22 @@ public class StoreDAO extends DAO{
 		}		
 		return n;
 	}
+	
+	
+	
+	//2. 권보성
+	
+	
+	
+	
+	
+	//3. 백승진
+	
+	
+	
+	
+	
+	//4. 복진영
+	
+	
 }
