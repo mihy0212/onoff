@@ -13,7 +13,7 @@ import co.oc.command.Command;
 import co.oc.dao.DAO;
 import co.oc.dao.UserDAO;
 
-public class DeleteComm implements Command {
+public class MyinfoDeleteComm implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

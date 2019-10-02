@@ -45,6 +45,13 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/responsive.css" />
 
 <script src="${pageContext.request.contextPath }/assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+<script> 
+
+$("#test").hide();   // 숨기기
+
+$("#test").show(); //보이기
+
+</script> 
 </head>
 
 <body data-spy="scroll" data-target=".navbar-collapse" data-offset="100">
@@ -75,47 +82,7 @@
 
 
 
-<<<<<<< HEAD
 		<section id="portfolio" class="portfolio margin-top-120">
-=======
-						<!-- MyPage -->
-						<li class="nav-item  dropdown"><a
-							class="nav-link  dropdown-toggle" href="#" id="navbardrop"
-							data-toggle="dropdown"> MyPage </a>
-							<div class="dropdown-menu">
-								<%
-									// 로그인 안되었을 경우 - 로그인, 회원가입 버튼을 보여준다.
-									if (session.getAttribute("userEmail") == null) {
-								%>member/view/LoginForm.jsp <a class="dropdown-item"
-									href="loginform.do">로그인</a> <a
-									class="dropdown-item" href="join_user.do">회원가입</a>
-
-								<%
-									// 로그인 되었을 경우 - 로그아웃, 내정보 버튼을 보여준다.
-									} else {
-								%>
-								<a class="dropdown-item" href="logout.do">로그아웃</a>
-								<a class="dropdown-item" href="insertchoice.jsp">내정보</a> <a
-									class="dropdown-item" href="#contact">Contact</a>
-								<%
-									}
-								%>
-							</div></li>
-						<!--end MyPage -->
-					</ul>
-				</div>
-				<!-- /.navbar-collapse -->
-			</div>
-		</nav>
-
-		<!-- Dropdown -->
-
-
-<!----------------------------------------------------즐겨찾기----------------------------------------------------------------  -->
-
-
-		<section id="myfavorite" >
->>>>>>> branch 'master' of https://github.com/wlsdud6764/on-off.git
 
 			<!-- Portfolio container-->
 			<div class="container">
@@ -129,7 +96,8 @@
 						</div>
 
 						<div class="col-md-8">
-							<div class="filters-button-group text-right sm-text-center">
+							<div class="filters-button-group text-right sm-text-center" id="test">
+							
 								<button class="btn button is-checked" data-filter="*">all</button>
 								<button class="btn button" data-filter=".metal">이동상점</button>
 								<button class="btn button" data-filter=".transition">한식</button>
@@ -201,7 +169,7 @@
 							</div>
 						</div>
 
-						<div class="col-md-8">
+					<!-- 	<div class="col-md-8">
 							<div class="filters-button-group text-right sm-text-center">
 								<button class="btn button is-checked" data-filter="*">all</button>
 								<button class="btn button" data-filter=".metal">이동상점</button>
@@ -209,7 +177,7 @@
 								<button class="btn button" data-filter=".alkali">중식</button>
 								<button class="btn button" data-filter=".ar">일식</button>
 							</div>
-						</div>
+						</div> -->
 
 
 
