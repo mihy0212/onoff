@@ -7,6 +7,9 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.commons.beanutils.BeanUtils;
 
 import co.oc.command.Command;
 import co.oc.dao.DAO;
@@ -17,30 +20,35 @@ public class My_info_up_Comm implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String path = null;
-		// 세션이 가지고있는 로그인한 ID 정보를 가져온다
-//		String id = request.getSession().getAttribute("sessionID").toString();
-
-		UserDAO dao = UserDAO.getInstance();
-
-		// 수정할 정보를 자바빈에 세팅한다.
-		UserDTO dto = new UserDTO();
-		String mail1 = request.getParameter("mail1");
-		String mail2 = request.getParameter("mail2");
-		String userEmail = mail1 + "@" + mail2;
-		dto.setUserEmail("userEmail");
-		dto.setUserPw(request.getParameter("userPw"));
-		dto.setUserNick(request.getParameter("userNick"));
-		dto.setUserAddr(request.getParameter("userAddr"));
-
+		
 		//접속
-		Connection conn = DAO.connect();
-		int n = dao.update(conn, dto);     
-		//접속 해제
-		 DAO.disconnect(conn);
+				Connection conn = DAO.connect();
+		 // 세션이 가지고있는 로그인한 ID 정보를 가져온다
+		 HttpSession session = request.getSession(false);
+		 String userNum = (String)session.getAttribute("userNum");
+		//String path = null;
+		 UserDTO dto = UserDAO.getInstance().selectOne(conn, userNum);
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher(path);
-		dispatcher.forward(request, response);
+		 try {
+				BeanUtils.copyProperties(dto, request.getParameterMap()); //하나씩 안넣고 한번에 넣
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		 RequestDispatcher dispatcher = null;
+
+		
+		 if(session.getAttribute("login_session")!=null){
+			    dispatcher = request.getRequestDispatcher("menu/my_info_up.jsp");
+				dispatcher.forward(request, response);
+	        }
+	        else{
+//	            request.setAttribute("로그인 정보 수정을 실패했습니다");
+	            dispatcher = request.getRequestDispatcher("menu/my_info_up.jsp");
+	            dispatcher.forward(request, response);
+	        }
+
+
 
 	}
 

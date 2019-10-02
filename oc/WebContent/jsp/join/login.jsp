@@ -3,11 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<<<<<<< HEAD
 <title>로그인 페이지</title>
-=======
-<title>Insert title here</title>
->>>>>>> branch 'master' of https://github.com/wlsdud6764/on-off.git
 </head>
 <body>
 <div class="container">
