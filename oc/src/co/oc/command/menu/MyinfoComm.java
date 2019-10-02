@@ -14,7 +14,7 @@ import co.oc.dao.DAO;
 import co.oc.dao.UserDAO;
 import co.oc.dto.UserDTO;
 
-public class My_info_Comm implements Command {
+public class MyinfoComm implements Command {
 //완료
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

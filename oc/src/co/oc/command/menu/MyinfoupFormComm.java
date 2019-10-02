@@ -9,47 +9,34 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.beanutils.BeanUtils;
 
 import co.oc.command.Command;
 import co.oc.dao.DAO;
 import co.oc.dao.UserDAO;
 import co.oc.dto.UserDTO;
 
-public class My_info_up_Comm implements Command {
+public class MyinfoupFormComm implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//접속
-				Connection conn = DAO.connect();
+		 //접속
+		 Connection conn = DAO.connect();
 		 // 세션이 가지고있는 로그인한 ID 정보를 가져온다
 		 HttpSession session = request.getSession(false);
 		 String userNum = (String)session.getAttribute("userNum");
-		//String path = null;
+		 //String path = null;
 		 UserDTO dto = UserDAO.getInstance().selectOne(conn, userNum);
 
-		 try {
-				BeanUtils.copyProperties(dto, request.getParameterMap()); //하나씩 안넣고 한번에 넣
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
-		 RequestDispatcher dispatcher = null;
-
+		 
 		
-		 if(session.getAttribute("login_session")!=null){
-			    dispatcher = request.getRequestDispatcher("menu/my_info_up.jsp");
-				dispatcher.forward(request, response);
-	        }
-	        else{
-//	            request.setAttribute("로그인 정보 수정을 실패했습니다");
-	            dispatcher = request.getRequestDispatcher("menu/my_info_up.jsp");
-	            dispatcher.forward(request, response);
-	        }
-
-
-
+		 
+		 RequestDispatcher dispatcher = request.getRequestDispatcher("my_info_up.jsp");
+		 dispatcher.forward(request, response);
+		
+	
+		//접속 해제
+			DAO.disconnect(conn);
 	}
 
 }

@@ -14,7 +14,9 @@ import co.oc.command.Command;
 import co.oc.command.join.IdCheckCommand;
 import co.oc.command.join.JoinUsersCommand;
 import co.oc.command.menu.DeleteComm;
-import co.oc.command.menu.My_info_up_Comm;
+import co.oc.command.menu.MyinfoComm;
+import co.oc.command.menu.MyinfoupComm;
+import co.oc.command.menu.MyinfoupFormComm;
 
 
 @WebServlet("/MainController")
@@ -41,9 +43,11 @@ public class MainController extends HttpServlet {
 		
 		
 		//복진영
-		map.put("/delete.do", new DeleteComm());
-		map.put("/delete.do", new My_info_up_Comm() );
-		map.put("/delete.do", new DeleteComm());
+			//마이 메뉴
+		map.put("/myinfo.do", new MyinfoComm() );//정보조회 myinfo.jsp로
+		map.put("/delete.do", new DeleteComm());//탈퇴
+		map.put("/myinfoupForm.do", new MyinfoupFormComm() );//formjsp로 이동
+		map.put("/myinfoup.do", new MyinfoupComm());//수정
 		
 	}
 

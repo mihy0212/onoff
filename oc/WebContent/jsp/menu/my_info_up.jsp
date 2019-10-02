@@ -1,27 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
 <!-- daum 도로명주소 찾기 api -->
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript">
-<script type="text/javascript">
-//모든 공백 체크 정규식
-var empJ = /\s/g;
-//아이디 정규식
-var idJ = /^[a-z0-9][a-z0-9_\-]{4,19}$/;
-//비밀번호 정규식
-var pwJ = /^[A-Za-z0-9]{4,12}$/;
-//이름 정규식
-var nameJ = /^[가-힣]{2,4}|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/;
-//이메일 검사 정규식
-var mailJ = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-//휴대폰 번호 정규식
-var phoneJ = /^01([0|1|6|7|8|9]?)?([0-9]{3,4})?([0-9]{4})$/;
-/^[가-힣]{2,4}|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/
-var birthJ = false;
-var address = $('#mem_detailaddress');
-
+ 
 
 
 
@@ -52,7 +38,7 @@ function execPostCode() {
                 fullRoadAddr += extraRoadAddr;
             }
             // 우편번호와 주소 정보를 해당 필드에 넣는다.
-            console.log(data.zonecode);
+            /* console.log(data.zonecode); */
             console.log(fullRoadAddr);
          /*      var a = console.log(data.zonecode);
             var b = console.log(fullRoadAddr);
@@ -63,12 +49,11 @@ function execPostCode() {
             }   */
             
             
-            $("[name=mem_oaddress]").val(data.zonecode);
-            $("[name=mem_address]").val(fullRoadAddr);
+            /* $("[name=user_oaddress]").val(data.zonecode); */
+            $("[name=user_address]").val(fullRoadAddr);
             
-            document.getElementById('mem_oaddress').value = data.zonecode; //5자리 새우편번호 사용
-            document.getElementById('mem_address').value = fullRoadAddr;
-            //document.getElementById('mem_detailaddress').value = data.jibunAddress; 
+            /* document.getElementById('user_oaddress').value = data.zonecode; //5자리 새우편번호 사용 */
+            document.getElementById('user_address').value = fullRoadAddr;
         }
      }).open();
  }
@@ -99,74 +84,69 @@ function execPostCode() {
     
     
 </head>
-<body onload="init()">
-  <div align="center">
-        <br><br>
-        <b><font size="6" color="gray">회원정보 수정</font></b>
-        <br><br><br>
-       
-        <!-- 입력한 값을 전송하기 위해 form 태그를 사용한다 -->
-        <!-- 값(파라미터) 전송은 POST 방식 -->
-        <form method="post" action="" 
-                name="userInfo" onsubmit="return checkValue()">
-                
-            <table align="center">
-            <tr>
-                <td id="title"><b>id</b></td>
-                <td><input type=text name=id disabled="disabled"
-                     value="${Mail }" readonly="readonly"></td>
-            </tr>
-            <tr>
-                <td id="title"><b>current password</b></td>
-                <td><input type=password name=curr_password></td>
-            </tr>
-            <tr>
-                <td id="title"><b>password</b></td>
-                <td><input type=password name=password></td>
-            </tr>
-            <tr>
-                <td id="title"><b>confirm password</b></td>
-                <td><input type=password name=confirm_password></td>
-            </tr>
-            <tr>
-                <td id="title"><b>이름</b></td>
-                <td><input type=text name=name 
-                    value="${name }">
-            </tr>
-            
-            <tr>
-                <td id="title"><b>이름</b></td>
-                <td><input type=text name=name 
-                    value="${userNick }">
-            </tr>
-            
-            <tr>
-                    <td id="title"><b>휴대전화</b></td>
-                    <td>
-                        <input type="text" name="phone" value="${Phone }"/>
-                    </td>
-                </tr>
-                
-           <tr class="form-group">                   
-			 <input class="form-control" style="width: 40%; display: inline;" placeholder="우편번호" name="mem_oaddress" id="mem_oaddress" type="text" readonly="readonly" >
-             <button type="button" class="btn btn-default" onclick="execPostCode();"><i class="fa fa-search"></i> 우편번호 찾기</button>                               
-         </tr>
-         <tr class="form-group">
-    		<input class="form-control" style="top: 5px;" placeholder="도로명 주소" name="mem_address" id="mem_address" type="text" readonly="readonly" />
-		</tr>
-		<tr class="form-group">
-    		<input class="form-control" placeholder="상세주소" name="mem_detailaddress" id="mem_detailaddress" type="text"  />
-		</tr>
-           
-        </table>
-        </form>
-         
-               <input type=submit value=정보수정  onclick="checkForm()">
-               <input type=button onclick="location.href='./res/member_detail.jsp'" value=취소>
-        		<input type="submit" value="탈퇴" onclick="location.href='DeleteForm.jsp" />
-           
-        </div>
+<body>
+	<article class="container">
+		<div class="page-header">
+			<div class="col-md-6 col-md-offset-3">
+				<h3>나의 정보수정</h3>
+			</div>
+
+		</div>
+		<div class="col-sm-6 col-md-offset-3">
+			<form action="userberjoinpro.do" method="post" role="form"
+				id="usercheck" name="userber">
+
+				<div class="form-group">
+					<label for="user_email">아이디</label> 
+					<input type="email"  class="form-control" id="user_email" name="user_email"  value="${userEmail}" readonly="readonly">
+					<div class="eheck_font" id="email_check"></div>
+				</div>
+
+				<div class="form-group">
+					<label for="pw">비밀번호</label> 
+					<input type="password" class="form-control" id="user_pw" name="user_pw"
+						placeholder="PASSWORD"  >
+					<div class="eheck_font" id="pw_check"></div>
+				</div>
+				<div class="form-group">
+					<label for="pw2">비밀번호 확인</label> <input type="password"
+						class="form-control" id="user_pw2" name="user_pw2"
+						placeholder="Confirm Password">
+					<div class="eheck_font" id="pw2_check"></div>
+				</div>
+
+				<div class="form-group">
+					<label for="userNum">이름</label> 
+					<input type="text"
+						class="form-control" id="userNum" name="userNum" value="${userNum}">
+					<div class="eheck_font" id="name_check"></div>
+				</div>
+
+				<div class="form-group">
+					<label for="user_birth">닉네임</label> 
+					<input type="text" class="form-control" id="ninckname" name="ninckname" value="${userNick}">
+					<div class="eheck_font" id="birth_check"></div>
+				</div>
+
+
+
+				<div class="form-group">
+					<input class="form-control" style="top: 5px;" placeholder="도로명 주소" name="user_address" id="user_address" type="text" readonly="readonly" />
+						<button type="button" class="btn btn-default" onclick="execPostCode();">
+						<i class="fa fa-search"></i> 주소 찾기
+					</button>
+				</div>
+				<div class="form-group">
+					<input class="form-control" placeholder="상세주소" name="user_detailaddress" id="user_detailaddress" type="text" value="${userAddr}" />
+				</div>
+				<div class="form-group text-center">
+					<input type="submit" value=정보수정 class="btn btn-primary" onclick="location.href='myinfoup.do'"> 
+					<input type=button value=취소 class="btn btn-primary"> 
+						<input type="button"  class="btn btn-primary" value="탈퇴"onclick="location.href='DeleteForm.jsp" />
+
+				</div>
+			</form>
+		</div>
+	</article>
 </body>
 </html>
-
-

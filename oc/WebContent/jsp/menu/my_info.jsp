@@ -4,81 +4,54 @@
 <head>
     <title>현재 유저정보 출력화면</title>
     
-    <style type="text/css">
-        table{
-            margin-left:auto; 
-            margin-right:auto;
-            border:3px solid skyblue;
-        }
-        
-        td{
-            border:1px solid skyblue
-        }
-        
-        #title{
-            background-color:skyblue
-        }
-    </style>
+   
     
-    <script type="text/javascript">
-    
-        function changeForm(val){
-            if(val == "-1"){
-                location.href="map.jsp";
-            }else if(val == "0"){
-                location.href="MainForm.jsp?contentPage=member/view/ModifyFrom.jsp";
-            }else if(val == "1"){
-                location.href="MainForm.jsp?contentPage=member/view/DeleteForm.jsp";
-            }
-        }
-        
-    </script>
     
 </head>
 <body>
- 
- 
-        <br><br>
-        <b><font size="6" color="gray">내 정보</font></b>
-        <br><br><br>
+ <article class="container">
+		<div class="page-header">
+			<div class="col-md-6 col-md-offset-3">
+				<h3>나의 정보</h3>
+			</div>
+
+		</div>
+        <div class="col-sm-6 col-md-offset-3">
+			<form action="userberjoinpro.do" method="post" role="form"
+				id="usercheck" name="userber">
                         <!-- 가져온 회원정보를 출력한다. -->
-        <table>
-           <tr>
-                <td id="title">이메일</td>
-                <td>
-                 "${Mail1 }"@
-                 "${Mail2 }"
-                </td>
-            </tr>
-                        
-            <tr>
-                <td id="title">비밀번호</td>
-                <td>"${Password}"</td>
-            </tr>
-                    
-            <tr>
-                <td id="title">이름</td>
-                <td>"${name }" </td>
-            </tr>
-                   
-            <tr>
-                <td id="title">휴대전화</td>
-                <td>"${Phone }"</td>
-            </tr>
-            
-            <tr>
-                <td id="title">주소</td>
-                <td>
-                   "${Address }" 
-                </td>
-            </tr>
-            
-        </table>
-        
-        <br>
-        <input type="" value="비밀번호변경" >
-        <input type="button" value="회원정보 변경" onclick="changeForm(0)">
-        <input type="button" value="회원탈퇴" onclick="delete.do)">
+        <div class="form-group">
+			<label for="user_email">아이디</label> 
+				<input type="email"  class="form-control" id="user_email" name="user_email"  value="${userEmail}" readonly="readonly">
+				<div class="eheck_font" id="email_check"></div>
+		</div>
+       <div class="form-group">
+					<label for="userNum">이름</label> 
+					<input type="text"
+						class="form-control" id="userNum" name="userNum" value="${userNum}">
+					<div class="eheck_font" id="name_check"></div>
+				</div>
+
+				<div class="form-group">
+					<label for="user_birth">닉네임</label> 
+					<input type="text" class="form-control" id="ninckname" name="ninckname" value="${userNick}">
+					<div class="eheck_font" id="birth_check"></div>
+				</div>
+
+
+
+				<div class="form-group">
+				<label for="user_birth">주소</label>
+				<input class="form-control" placeholder="상세주소" name="userAddr" id="userAddr" type="text" value="${userAddr}" /> 
+				</div>
+       
+        <div class="form-group text-center">
+        <input type="button" class="btn btn-primary" value="회원정보 변경" onclick="location.href='myinfoupForm.do'">
+        <input type="button" class="btn btn-primary" value="회원탈퇴" onclick="location.href='delete.do'">
+		</div>
+		</form>
+		</div>
+	</article>
 </body>
 </html>
 
