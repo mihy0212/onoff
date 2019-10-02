@@ -113,8 +113,10 @@
 						<li class="nav-item  dropdown">
 						     <a class="nav-link  dropdown-toggle"  href="#"   id="navbardrop"  data-toggle="dropdown"> Menu </a>
 							   <div class="dropdown-menu">
+							   <c:if test="${id != null }">
 								<a class="dropdown-item" href="#">즐겨찾기 보기</a> <br>
 								<a	class="dropdown-item" href="#">리뷰 목록</a>
+								</c:if>
 								<a class="dropdown-item" href="#">Contact</a>
 							</div></li>
 
