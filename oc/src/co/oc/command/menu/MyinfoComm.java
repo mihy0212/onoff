@@ -31,7 +31,7 @@ public class MyinfoComm implements Command {
         request.setAttribute("userDto", dto);
         //접속 해제
       	DAO.disconnect(conn);
-      	RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/my_info.jsp");
+      	RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/menu/my_info.jsp");
     	dispatcher.forward(request, response);
 
 
