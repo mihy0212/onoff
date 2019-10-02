@@ -107,27 +107,10 @@ public class TestServlet extends HttpServlet {
 //		sdto.setStoreEct("우리 가게 성공 기원");
 //		sdto.setUserNum("9");
 //		StoreDAO.getInstance().insert(conn, sdto);
-
-		//가게 수정 TEST
-		StoreDTO sdto = new StoreDTO();
-		sdto.setStoreCateg2("2");
-		sdto.setStoreCateg3("2");
-		sdto.setStoreTime("09:00 ~ 10:00");
-		sdto.setStoreNum("3");
-		StoreDAO.getInstance().update(conn, sdto);
 		
-		//회원 수정 TEST
-//		UserDTO dto = new UserDTO();
-//		dto.setUserNum("2");
-//		dto.setUserPw("1234");
-//		dto.setUserName("회원11");
-//		dto.setUserNick("회원11");
-//		dto.setUserGrant("U");
-//		UserDAO.getInstance().update(conn, dto);
-		
-		//회원 삭제 TEST
-//		String userNum = "3";
-//		UserDAO.getInstance().delete(conn, userNum);
+		//가게 삭제 TEST
+//		String storeNum = "2";
+//		StoreDAO.getInstance().delete(conn, storeNum);
 		
 		
 		//접속 해제
