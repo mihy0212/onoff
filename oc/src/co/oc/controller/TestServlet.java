@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import co.oc.dao.AddDAO;
 import co.oc.dao.DAO;
 import co.oc.dao.StoreDAO;
 import co.oc.dao.UserDAO;
@@ -45,12 +46,6 @@ public class TestServlet extends HttpServlet {
 //		for(UserDTO dto : list) {
 //			System.out.println(dto.getUserEmail());
 //		}
-		
-		//가게 전체 조회TEST
-		List<StoreDTO> list = StoreDAO.getInstance().selectAll(conn);
-		for(StoreDTO dto : list) {
-			System.out.println(dto.getStoreName());
-		}
 		
 		//회원 한 명 조회 test
 //		String userNum = "2";
@@ -122,8 +117,44 @@ public class TestServlet extends HttpServlet {
 		////////////////////////////////////////////////////////////////
 		
 		//사업자 전체 조회 TEST
-		List<AddDTO>
+//		List<AddDTO> list = AddDAO.getInstance().selectAll(conn);
+//		for(AddDTO dto : list) {
+//			System.out.println(dto.getStoreName());
+//		}
 		
+		
+		AddDTO dto = AddDAO.getInstance().selectStoreNum(conn, "2");
+		System.out.println(dto.getStoreName());
+		
+		//신청 등록하기
+//		AddDTO dto = new AddDTO();
+//		dto.setStoreName("신청4");
+//		dto.setStoreAddr("대구 중구 상서동 22-2 호당빌딩 5층");
+//		dto.setStoreXy("35.234223, 222.235110");
+//		dto.setStoreCateg1("1");
+//		dto.setStoreCateg2("2");
+//		dto.setStoreCateg3("2");
+//		dto.setStoreLicense("1111111113");
+//		dto.setAddCapture("캡처4.jpg");
+//		dto.setUserNum("9");
+//		AddDAO.getInstance().insert(conn, dto);
+		
+		//신청 수정하기1
+//		AddDTO dto = new AddDTO();
+//		dto.setStoreName("신청11");
+//		dto.setStoreAddr("대구 중구 상서동 22-2 호당빌딩 1층");
+//		dto.setStoreXy("35.234223, 222.235110");
+//		dto.setStoreCateg1("1");
+//		dto.setStoreCateg2("1");
+//		dto.setStoreCateg3("1");
+//		dto.setStoreLicense("1111111110");
+//		dto.setAddCapture("캡처.jpg");
+//		dto.setAddNum("1");
+//		AddDAO.getInstance().update(conn, dto);
+		
+		//신청 삭제하기
+//		String addNum = "4";
+//		AddDAO.getInstance().delete(conn, addNum);
 		
 		//접속 해제
 		DAO.disconnect(conn);

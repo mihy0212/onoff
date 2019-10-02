@@ -120,7 +120,7 @@
 							  </c:when>
 							  <c:when test="${!empty sessionID && userGrant=='C'}">
 									<a class="dropdown-item" href="#">내 가게 정보</a><br>
-									<a class="dropdown-item" href="#">내 가게 정보수정</a> <br>
+									<a class="dropdown-item" href="#">내 가게 정보 수정</a> <br>
 								</c:when>
 								</c:choose>
 								<a class="dropdown-item" href="#">Contact</a>
@@ -138,8 +138,8 @@
 									<a class="dropdown-item" href="join_form.do">회원가입</a> <br>
 								</c:when>
 								<c:otherwise>
-							        <a class="dropdown-item" href="logout.do">로그아웃</a><br>
-									<a class="dropdown-item" href=#">내정보</a> <br>
+									<a class="dropdown-item" href="myinfo.do">내 정보 보기</a> <br>
+									<a class="dropdown-item" href="logout.do">로그아웃</a><br>
 								</c:otherwise>
 					        </c:choose> 
 			 
