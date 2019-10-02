@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import co.oc.dao.DAO;
 import co.oc.dao.StoreDAO;
 import co.oc.dao.UserDAO;
+import co.oc.dto.AddDTO;
 import co.oc.dto.StoreDTO;
 import co.oc.dto.UserDTO;
 
@@ -117,6 +118,11 @@ public class TestServlet extends HttpServlet {
 		//가게 삭제 TEST
 //		String storeNum = "2";
 //		StoreDAO.getInstance().delete(conn, storeNum);
+		
+		////////////////////////////////////////////////////////////////
+		
+		//사업자 전체 조회 TEST
+		List<AddDTO>
 		
 		
 		//접속 해제
