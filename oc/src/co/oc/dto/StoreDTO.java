@@ -111,4 +111,14 @@ public class StoreDTO {
 	public void setStoreRegiday(Date storeRegiday) {
 		this.storeRegiday = storeRegiday;
 	}
+	@Override
+	public String toString() {
+		return "StoreDTO [storeNum=" + storeNum + ", storeName=" + storeName + ", storeAddr=" + storeAddr + ", storeXy="
+				+ storeXy + ", storeCateg1=" + storeCateg1 + ", storeCateg2=" + storeCateg2 + ", storeCateg3="
+				+ storeCateg3 + ", storePic=" + storePic + ", storeTime=" + storeTime + ", storeTel=" + storeTel
+				+ ", storeMenu=" + storeMenu + ", storeEct=" + storeEct + ", storeLike=" + storeLike + ", userNum="
+				+ userNum + ", storeRegiday=" + storeRegiday + "]";
+	}
+	
+	
 }

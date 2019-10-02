@@ -7,8 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div align="center">
-		<h1>${userEmail } 님 로그인 성공! </h1> <!--  request 정보 출력 -->
-	</div>
+
+<div align="center">
+	<h1> 정상적으로 로그아웃 되었습니다.</h1>
+</div>
+
 </body>
 </html>

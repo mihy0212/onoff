@@ -4,9 +4,12 @@ import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.beanutils.DynaBean;
+import org.apache.commons.beanutils.ResultSetDynaClass;
 
 import co.oc.dto.StoreDTO;
 
@@ -24,10 +27,15 @@ public class StoreDAO extends DAO{
 		try {
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
-			while(rs.next()) {
+			Iterator rows = (new ResultSetDynaClass(rs)).iterator();
+			System.out.println(rows);
+			while(rows.hasNext()) {
+				DynaBean row = (DynaBean) rows.next();
 				StoreDTO dto = new StoreDTO();
 				try {
-					BeanUtils.copyProperties(dto, rs);
+					BeanUtils.copyProperties(dto, row);
+					System.out.println(dto);
+					
 				} catch (IllegalAccessException | InvocationTargetException e) {
 					e.printStackTrace();
 				}

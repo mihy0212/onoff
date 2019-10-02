@@ -28,33 +28,33 @@
 <div class="col-lg-3"></div>
 <div class="col-lg-6">
 <div class="jumbotron" style="padding-top: 20px;">
-<h3 style="text-align: center;">회원가입 화면</h3>
+<h3 style="text-align: center;">회원가입 화면</h3><br />
 			<form id="frm" name="frm" method="post" action="join_user.do"
 					class="form-horizontal">
 					<div class="form-group">
-						<div class="col-sm-10" style="padding: 0px">
+						<div class="col-sm-8" style="padding: 0px">
 							<input type="text" class="form-control" placeholder="아이디/이메일"
 								id="userEmail" name="userEmail" maxlength="20">
 						</div>
-						<div class="col-sm-2">
+						<div class="col-sm-4">
 							<input type="button" class="btn btn-primary form-control"
 								onclick="idCheck()" value="중복체크">
 						</div>
 						</div>
 	<div class="form-group">
-	<input type="password" class="form-control" placeholder="비밀번호" id="userPassword" name="userPassword">
+	<input type="password" class="form-control" placeholder="비밀번호" id="userPw" name="userPw">
 	</div>
-		<div class="form-group">
-	<input type="password" class="form-control" placeholder="비밀번호 확인" id="userPassword" name="userPassword">
-	</div>
+		<!--<div class="form-group">
+	<input type="password" class="form-control" placeholder="비밀번호 확인" id="userPw" name="userPw">
+	</div>-->
 		<div class="form-group" style="text-align: center;">
 	<input type="text" class="form-control" placeholder="이름" id="userName" name="userName">
 	</div>
 	<div class="form-group">
-	<div class="col-sm-10" style="padding: 0px">
+	<div class="col-sm-8" style="padding: 0px">
 	<input type="text" class="form-control" placeholder="닉네임" id="userNickname" name="userNickname">
 	</div>
-		<div class="col-sm-2">
+		<div class="col-sm-4">
 	<input type="button" class="btn btn-primary form-control"
 		onclick="idCheck()" value="중복체크">
 	</div>
@@ -62,9 +62,7 @@
 			<div class="form-group">
 	<input type="text" class="form-control" placeholder="주소" id="userAddr" name="userAddr">
 	</div>
-		<div class="form-group">
-	<input type="text" class="form-control" placeholder="전화번호" id="userTell" name="userTell">
-	</div>
+
 
 	<div>
 	<input type="button" class="btn btn-primary form-control" onclick="checkForm()" value="회원가입"></div><br />
