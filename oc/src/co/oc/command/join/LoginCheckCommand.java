@@ -32,6 +32,7 @@ public class LoginCheckCommand implements Command {
 		Connection conn = DAO.connect();
 		dto = dao.loginCheck(conn, dto);
 		if (dto.getUserGrant() != null) {
+			session.setAttribute("userNum", dto.getUserNum());
 			session.setAttribute("userEmail", dto.getUserEmail());
 			session.setAttribute("usetName", dto.getUserName());
 			session.setAttribute("usetGrant", dto.getUserGrant());
