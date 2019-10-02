@@ -172,9 +172,9 @@ public class UserDAO extends DAO{
 			rs = psmt.executeQuery();
 			if (rs.next()) {
 				dto = new UserDTO();
-				dto.setUserEmail(rs.getString("userEmail"));
-				dto.setUserGrant(rs.getString("userGrant"));
-				dto.setUserName(rs.getString("userName"));
+				dto.setUserEmail(rs.getString("user_Email"));
+				dto.setUserGrant(rs.getString("user_Grant"));
+				dto.setUserName(rs.getString("user_Name"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

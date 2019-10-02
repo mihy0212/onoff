@@ -28,7 +28,7 @@ public class LoginCheckCommand implements Command {
 		String path = null;
 		
 		dto.setUserEmail(request.getParameter("userEmail"));
-		dto.setUserPw(request.getParameter("userPW"));
+		dto.setUserPw(request.getParameter("userPw"));
 		Connection conn = DAO.connect();
 		dto = dao.loginCheck(conn, dto);
 		if (dto.getUserGrant() != null) {
