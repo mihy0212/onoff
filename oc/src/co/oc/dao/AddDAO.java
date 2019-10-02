@@ -52,6 +52,7 @@ public class AddDAO extends DAO {
 		String sql = "select * from oc_add where add_num=?";
 		try {
 			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, AddNum);
 			rs = psmt.executeQuery();
 			if(rs.next()) {
 				dto.setAddNum(rs.getString("add_num"));				//1
