@@ -22,19 +22,18 @@
                         <!-- 가져온 회원정보를 출력한다. -->
         <div class="form-group">
 			<label for="user_email">아이디</label> 
-				<input type="email"  class="form-control" id="user_email" name="user_email"  value="${userEmail}" readonly="readonly">
+				${userEmail}
 				<div class="eheck_font" id="email_check"></div>
 		</div>
        <div class="form-group">
 					<label for="userNum">이름</label> 
-					<input type="text"
-						class="form-control" id="userNum" name="userNum" value="${userNum}">
+					${userDto.userName}
 					<div class="eheck_font" id="name_check"></div>
 				</div>
 
 				<div class="form-group">
 					<label for="user_birth">닉네임</label> 
-					<input type="text" class="form-control" id="ninckname" name="ninckname" value="${userNick}">
+					${userDto.userNick}
 					<div class="eheck_font" id="birth_check"></div>
 				</div>
 
@@ -42,7 +41,7 @@
 
 				<div class="form-group">
 				<label for="user_birth">주소</label>
-				<input class="form-control" placeholder="상세주소" name="userAddr" id="userAddr" type="text" value="${userAddr}" /> 
+				${userDto.userAddr}
 				</div>
        
         <div class="form-group text-center">
