@@ -254,8 +254,8 @@ public class TestServlet extends HttpServlet {
 //		}
 		
 		//리뷰 일부조회4
-		Double n = ReviewDAO.getInstance().selectStar(conn, "3");
-		System.out.println(n+"점");
+//		Double n = ReviewDAO.getInstance().selectStar(conn, "3");
+//		System.out.println(n+"점");
 		
 		//리뷰 수정
 //		ReviewDTO dto = new ReviewDTO();
@@ -266,6 +266,9 @@ public class TestServlet extends HttpServlet {
 		
 		//리뷰 삭제
 //		ReviewDAO.getInstance().delete(conn, "11");
+		
+		////////////////////////////////////////////////////////////////////////
+		
 		
 		
 		
