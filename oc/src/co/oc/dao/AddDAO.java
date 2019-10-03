@@ -14,7 +14,7 @@ public class AddDAO extends DAO {
 		return instance;
 	}
 	
-	//전체 사업자신청 조회
+	//전체 신청 조회
 	public List<AddDTO> selectAll(Connection conn){
 		List<AddDTO> list = new ArrayList<AddDTO>();
 		String sql = "select * from oc_add order by 1";
@@ -46,15 +46,16 @@ public class AddDAO extends DAO {
 		return list;
 	}
 	
-	//사업자 신청 한 건 조회
-	public AddDTO selectStoreNum(Connection conn, String AddNum) {
-		AddDTO dto = new AddDTO();
-		String sql = "select * from oc_add where add_num=?";
+	//신청 일부 조회1-가게 번호로 조회
+	public List<AddDTO> selectStoreNum(Connection conn, String storeNum) {
+		List<AddDTO> list = new ArrayList<AddDTO>();
+		String sql = "select * from oc_add where store_num=? order by 1";
 		try {
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, AddNum);
+			psmt.setString(1, storeNum);
 			rs = psmt.executeQuery();
-			if(rs.next()) {
+			while(rs.next()) {
+				AddDTO dto = new AddDTO();
 				dto.setAddNum(rs.getString("add_num"));				//1
 				dto.setStoreName(rs.getString("store_name"));		//2
 				dto.setStoreAddr(rs.getString("store_addr"));		//3
@@ -70,11 +71,45 @@ public class AddDAO extends DAO {
 				dto.setAddStatus(rs.getString("add_status"));		//13
 				dto.setAddRe(rs.getString("add_re"));				//14
 				dto.setStoreNum(rs.getString("store_num"));			//15
+				list.add(dto);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return dto;
+		return list;
+	}
+	
+	//신청 일부 조회2-유저 번호로 조회
+	public List<AddDTO> selectUserNum(Connection conn, String userNum) {
+		List<AddDTO> list = new ArrayList<AddDTO>();
+		String sql = "select * from oc_add where user_num=? order by 1";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, userNum);
+			rs = psmt.executeQuery();
+			while(rs.next()) {
+				AddDTO dto = new AddDTO();
+				dto.setAddNum(rs.getString("add_num"));				//1
+				dto.setStoreName(rs.getString("store_name"));		//2
+				dto.setStoreAddr(rs.getString("store_addr"));		//3
+				dto.setStoreXy(rs.getString("store_xy"));			//4	
+				dto.setStoreCateg1(rs.getString("store_categ1"));	//5
+				dto.setStoreCateg2(rs.getString("store_categ2"));	//6
+				dto.setStoreCateg3(rs.getString("store_categ3"));	//7
+				dto.setStoreLicense(rs.getString("store_license"));	//8
+				dto.setUserLicense(rs.getString("user_license"));	//9
+				dto.setAddCapture(rs.getString("add_capture"));		//10
+				dto.setUserNum(rs.getString("user_num"));			//11
+				dto.setAddDay(rs.getDate("add_day"));				//12
+				dto.setAddStatus(rs.getString("add_status"));		//13
+				dto.setAddRe(rs.getString("add_re"));				//14
+				dto.setStoreNum(rs.getString("store_num"));			//15
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 	
 	//사업자 신청 새로 등록
@@ -149,8 +184,8 @@ public class AddDAO extends DAO {
 	}
 	
 	//사업자 신청 수정2 : 등록 허가/거절 수정
-		//반드시 가게정보insert 이후 실행되어야 하며
-		//가게번호(storeNum)는 StoreDTO와 AddDTO 둘 다 입력될 수 있도록 command 작성하기  
+		//반드시 StoreDAO의 insert 먼저 해서 storeNum을 발급받고,
+		//그 storeNum을 AddDTO에 담도록 command 작성하기  
 	public int updatePermit(Connection conn, AddDTO dto) {
 		int n = 0;
 		String sql = "update oc_add set"
