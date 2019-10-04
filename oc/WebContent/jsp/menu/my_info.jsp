@@ -26,7 +26,7 @@
 		</div>
        <div class="form-group">
 					<label for="userNum">¿Ã∏ß</label> 
-					${userDto.userName}
+					${userName}
 				</div>
 
 				<div class="form-group">
