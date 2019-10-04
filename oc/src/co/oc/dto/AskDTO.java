@@ -12,6 +12,8 @@ public class AskDTO {
 	private String askContent;
 	private String askStatus;
 	private Date askDate;
+	private String userNick;
+	private String storeName;
 	
 	
 	public String getAskNum() {
@@ -61,6 +63,18 @@ public class AskDTO {
 	}
 	public void setAskDate(Date askDate) {
 		this.askDate = askDate;
+	}
+	public String getUserNick() {
+		return userNick;
+	}
+	public void setUserNick(String userNick) {
+		this.userNick = userNick;
+	}
+	public String getStoreName() {
+		return storeName;
+	}
+	public void setStoreName(String storeName) {
+		this.storeName = storeName;
 	}
 	
 }
