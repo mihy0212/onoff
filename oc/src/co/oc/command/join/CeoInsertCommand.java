@@ -36,12 +36,16 @@ public class CeoInsertCommand implements Command {
 				StoreDTO sdto = new StoreDTO();
 				StoreDAO sdao = new StoreDAO();
 				sdto.setStoreName(request.getParameter("storeName"));
-				sdto.setstore
-				
-				
+				sdto.setStoreAddr(request.getParameter("storeAddr"));
+				sdto.setStoreXy(request.getParameter("storeXY"));
+				sdto.setStoreCateg1(request.getParameter("storeCa1"));
+				sdto.setStoreCateg2(request.getParameter("storeCa2"));
+				sdto.setStoreCateg3(request.getParameter("storeCa3"));
+				sdto.setUserNum(dto.getUserNum());
+				int s = sdao.ceoinsert(conn, sdto);
 				
 				DAO.disconnect(conn);
-				if (n != 0)
+				if (n != 0 && s != 0)
 					path = "jsp/join/joinOk.jsp";
 				else
 					path = "jsp/join/joinFail.jsp";

@@ -105,8 +105,9 @@
 <br />
 
 				<div>
-					<input type="button" class="btn btn-primary form-control"
-						onclick="checkForm()" value="회원가입">
+					<input type="submit" class="btn btn-primary form-control"
+						onclick="location.href='join_ceo.do'" value="회원가입">
+					
 				</div>
 				<br /> <input type="reset" class="btn btn-primary form-control"
 					onclick="location.href='index.do'" value="취소">

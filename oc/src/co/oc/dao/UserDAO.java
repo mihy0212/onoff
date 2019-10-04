@@ -148,14 +148,22 @@ public class UserDAO extends DAO{
 	//2. 권보성
 	public int insertuser(Connection conn, UserDTO dto) { //회원가입
 		int n = 0;
-		String sql = "insert into oc_user(user_num, user_email, user_pw, user_name, user_nick, user_addr) values(OC_USER_NUM_SEQ.nextval,?,?,?,?,?)";
+		
 		try {
+			String sql = "select OC_USER_NUM_SEQ.nextval from dual";
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, dto.getUserEmail());
-			psmt.setString(2, dto.getUserPw());
-			psmt.setString(3, dto.getUserName());
-			psmt.setString(4, dto.getUserNick());
-			psmt.setString(5, dto.getUserAddr());
+			rs = psmt.executeQuery();
+			rs.next();
+			dto.setUserNum(rs.getString(1));
+			
+			sql = "insert into oc_user(user_num, user_email, user_pw, user_name, user_nick, user_addr) values(?,?,?,?,?,?)";
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, dto.getUserNum());
+			psmt.setString(2, dto.getUserEmail());
+			psmt.setString(3, dto.getUserPw());
+			psmt.setString(4, dto.getUserName());
+			psmt.setString(5, dto.getUserNick());
+			psmt.setString(6, dto.getUserAddr());
 			n = psmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -227,14 +227,9 @@ public class StoreDAO extends DAO{
 				+ " store_categ1,"	//5
 				+ " store_categ2,"	//6
 				+ " store_categ3,"	//7
-				+ " store_pic,"		//8
-				+ " store_time,"	//9
-				+ " store_tel,"		//10
-				+ " store_menu,"	//11
-				+ " store_ect,"		//12
-				+ " user_num"		//13
+				+ " user_num"
 				+ ") values "
-				+ "(oc_store_num_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,? ,?)";
+				+ "(oc_store_num_seq.nextval, ?, ?, ?, ?, ?, ?,?)";
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, dto.getStoreName());
@@ -243,12 +238,7 @@ public class StoreDAO extends DAO{
 			psmt.setString(4, dto.getStoreCateg1());
 			psmt.setString(5, dto.getStoreCateg2());
 			psmt.setString(6, dto.getStoreCateg3());
-			psmt.setString(7, dto.getStorePic());
-			psmt.setString(8, dto.getStoreTime());
-			psmt.setString(9, dto.getStoreTel());
-			psmt.setString(10, dto.getStoreMenu());
-			psmt.setString(11, dto.getStoreEct());
-			psmt.setString(12, dto.getUserNum());
+			psmt.setString(7, dto.getUserNum());
 			n = psmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
