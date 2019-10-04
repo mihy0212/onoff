@@ -3,6 +3,7 @@ package co.oc.command.menu;
 import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -61,7 +62,7 @@ public class MyReviewComm implements Command {
 		System.out.println(end);
 
 // ����Խ��� �ҷ�����.
-		ArrayList<ReviewDTO> list = ReviewDAO.getInstance().select1(conn,'user_num',userNum, start, end); //all
+		List<ReviewDTO> list = ReviewDAO.getInstance().select1(conn,"user_Num", userNum, start, end); //all
 
 		// request ��ü�� list�� ����ش�.
 		request.setAttribute("list", list);

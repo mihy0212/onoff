@@ -3,6 +3,7 @@ package co.oc.command.menu;
 import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -59,7 +60,7 @@ public class ReviewComm implements Command {
 		System.out.println(end);
 
 		// 리뷰게시판 불러오기.
-		ArrayList<ReviewDTO> list = ReviewDAO.getInstance().selectAll(conn, start, end);
+		List<ReviewDTO> list = ReviewDAO.getInstance().selectAll(conn, start, end);
 
 		// request 객체에 list를 담아준다.
 		request.setAttribute("list", list);
