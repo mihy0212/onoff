@@ -146,9 +146,9 @@ public class UserDAO extends DAO{
 	
 	
 	//2. 권보성
-	public int insertuser(Connection conn, UserDTO dto) {
+	public int insertuser(Connection conn, UserDTO dto) { //회원가입
 		int n = 0;
-		String sql = "insert into oc_user(OC_USER_NUM_SEQ.nextval, user_email, user_pw, user_name, user_nick, user_addr) values(OC_USER_NUM_SEQ.nextval,?,?,?,?,?)";
+		String sql = "insert into oc_user(user_num, user_email, user_pw, user_name, user_nick, user_addr) values(OC_USER_NUM_SEQ.nextval,?,?,?,?,?)";
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, dto.getUserEmail());
