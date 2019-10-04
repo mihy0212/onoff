@@ -72,7 +72,8 @@ public class UserDAO extends DAO{
 	//회원 등록
 	public int insert(Connection conn, UserDTO dto) {
 		int n = 0;
-		String sql = "insert into oc_user (user_num," //1
+		String sql1 = "select oc_user_num_seq.nextval from dual";
+		String sql2 = "insert into oc_user (user_num," //1
 				+ " user_email,"	//2
 				+ " user_pw,"		//3
 				+ " user_name,"		//4
@@ -84,7 +85,13 @@ public class UserDAO extends DAO{
 				+ ") values"	
 				+ "(oc_user_num_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?)";
 		try {
-			psmt = conn.prepareStatement(sql);
+			psmt = conn.prepareStatement(sql1);
+			rs = psmt.executeQuery();
+			if(rs.next()) {
+				dto.setUserNum(rs.getString(1));				
+			}
+			
+			psmt = conn.prepareStatement(sql2);
 			psmt.setString(1, dto.getUserEmail());
 			psmt.setString(2, dto.getUserPw());
 			psmt.setString(3, dto.getUserName());

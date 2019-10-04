@@ -274,7 +274,7 @@ public class TestServlet extends HttpServlet {
 		FavoriteDAO.getInstance().check(conn, dto);
 		
 		//즐겨찾기 조회
-		
+	
 		
 		//접속 해제
 		DAO.disconnect(conn);
