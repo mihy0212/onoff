@@ -28,7 +28,7 @@ public class MyinfoComm implements Command {
 		
 		 
         // ModifyFrom.jsp에 회원정보를 전달하기 위해 request에 UserDTO을 세팅한다.
-        request.setAttribute("userDto", dto);
+        request.setAttribute("UserDTO", dto);
         //접속 해제
       	DAO.disconnect(conn);
       	RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/menu/my_info.jsp");
