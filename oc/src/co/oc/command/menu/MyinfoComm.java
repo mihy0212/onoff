@@ -22,7 +22,8 @@ public class MyinfoComm implements Command {
 		Connection conn = DAO.connect();
 		HttpSession session = request.getSession(false);
 		String userNum = (String)session.getAttribute("userNum");
-	    UserDTO dto = UserDAO.getInstance().selectOne(conn, userNum);
+	    System.out.println(userNum);
+		UserDTO dto = UserDAO.getInstance().selectOne(conn, userNum);
 		
 		
 		 
@@ -30,7 +31,7 @@ public class MyinfoComm implements Command {
         request.setAttribute("userDto", dto);
         //접속 해제
       	DAO.disconnect(conn);
-      	RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/my_info.jsp");
+      	RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/menu/my_info.jsp");
     	dispatcher.forward(request, response);
 
 

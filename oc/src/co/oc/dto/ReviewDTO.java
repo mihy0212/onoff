@@ -11,6 +11,8 @@ public class ReviewDTO {
 	private String reviewStar;
 	private String reviewContent;
 	private Date reviewDate;
+	private String userNick;
+	private String storeName;
 	
 	
 	public String getReviewNum() {
@@ -55,4 +57,17 @@ public class ReviewDTO {
 	public void setReviewDate(Date reviewDate) {
 		this.reviewDate = reviewDate;
 	}
+	public String getUserNick() {
+		return userNick;
+	}
+	public void setUserNick(String userNick) {
+		this.userNick = userNick;
+	}
+	public String getStoreName() {
+		return storeName;
+	}
+	public void setStoreName(String storeName) {
+		this.storeName = storeName;
+	}
+	
 }
