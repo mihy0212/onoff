@@ -15,7 +15,7 @@
 </head>
 <body>
 <div align="center">
-<h1> ${param.userNickname } 이미 사용중인 아이디입니다. </h1>
+<h1> ${param.userNickname } 이미 사용중인 닉네임입니다. </h1>
 <button type="button" onclick="isDateSend()">확인</button>
 </div>
 </body>
