@@ -9,7 +9,24 @@
 <script type="text/javascript">
  
 
-
+// 비밀번호 입력여부 체크
+function checkValue() 
+{
+	if(!document.userInfo.password.value){
+		alert("비밀번호를 입력하세요.");
+		return false;
+	}
+	
+	// 비밀번호와 비밀번호 확인에 입력된 값이 동일한지 확인
+	if(document.userInfo.password.value != document.userInfo.passwordcheck.value ){
+		alert("비밀번호를 동일하게 입력하세요.");
+		return false;
+	}
+    if(!document.userInfo.password.value){
+        alert("비밀번호를 입력하세요.");
+        return false;
+    }
+}
 
 //우편번호 찾기 버튼 클릭시 발생 이벤트
 function execPostCode() {
@@ -93,8 +110,8 @@ function execPostCode() {
 
 		</div>
 		<div class="col-sm-6 col-md-offset-3">
-			<form action="userberjoinpro.do" method="post" role="form"
-				id="usercheck" name="userber">
+			<form action="myinfoup.do" method="post" role="form"
+				id="usercheck" name="userber" onsubmit="return checkValue()">
 
 				<div class="form-group">
 					<label for="user_email">아이디</label> 
@@ -118,13 +135,13 @@ function execPostCode() {
 				<div class="form-group">
 					<label for="userNum">이름</label> 
 					<input type="text"
-						class="form-control" id="userNum" name="userNum" value="${userNum}">
+						class="form-control" id="userNum" name="userNum" value="${UserDTO.userNum}">
 					<div class="eheck_font" id="name_check"></div>
 				</div>
 
 				<div class="form-group">
 					<label for="user_birth">닉네임</label> 
-					<input type="text" class="form-control" id="ninckname" name="ninckname" value="${userNick}">
+					<input type="text" class="form-control" id="ninckname" name="ninckname" value="${UserDTO.userNick}" readonly="readonly">
 					<div class="eheck_font" id="birth_check"></div>
 				</div>
 
@@ -137,7 +154,7 @@ function execPostCode() {
 					</button>
 				</div>
 				<div class="form-group">
-					<input class="form-control" placeholder="상세주소" name="user_detailaddress" id="user_detailaddress" type="text" value="${userAddr}" />
+					<input class="form-control" placeholder="상세주소" name="user_detailaddress" id="user_detailaddress" type="text" value="${UserDTO.userAddr}" />
 				</div>
 				<div class="form-group text-center">
 					<input type="submit" value=정보수정 class="btn btn-primary" onclick="location.href='myinfoup.do'"> 

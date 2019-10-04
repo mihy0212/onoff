@@ -28,10 +28,10 @@ public class MyinfoupFormComm implements Command {
 		 //String path = null;
 		 UserDTO dto = UserDAO.getInstance().selectOne(conn, userNum);
 
-		 
+		  request.setAttribute("UserDTO", dto);
 		
 		 
-		 RequestDispatcher dispatcher = request.getRequestDispatcher("my_info_up.jsp");
+		 RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/menu/my_info_up.jsp");
 		 dispatcher.forward(request, response);
 		
 	

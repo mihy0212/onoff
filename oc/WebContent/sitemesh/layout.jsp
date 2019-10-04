@@ -114,11 +114,11 @@
 						     <a class="nav-link  dropdown-toggle"  href="#"   id="navbardrop"  data-toggle="dropdown"> Menu </a>
 							   <div class="dropdown-menu">
 							  <c:choose>
-							  <c:when test="${!empty sessionID && userGrant=='U'}">
+							  <c:when test="${!empty userEmail && userGrant=='U'}">
 								  <a class="dropdown-item" href="#">즐겨찾기 보기</a> <br>
 								  <a	class="dropdown-item" href="#">리뷰 목록</a><br>
 							  </c:when>
-							  <c:when test="${!empty sessionID && userGrant=='C'}">
+							  <c:when test="${!empty userEmail && userGrant=='C'}">
 									<a class="dropdown-item" href="#">내 가게 정보</a><br>
 									<a class="dropdown-item" href="#">내 가게 정보 수정</a> <br>
 								</c:when>
