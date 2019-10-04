@@ -17,7 +17,18 @@ public class ReviewDAO extends DAO {
 	//전체 리뷰와 별점 조회
 	public List<ReviewDTO> selectAll(Connection conn){
 		List<ReviewDTO> list = new ArrayList<ReviewDTO>();
-		String sql = "select * from oc_review order by 2, 1";
+		String sql = "select r.review_num,"
+				+ " r.review_re,"
+				+ " r.user_num,"
+				+ " u.user_nick,"
+				+ " r.store_num,"
+				+ " r.store_name,"
+				+ " r.review_star,"
+				+ " r.review_content,"
+				+ " r.review_date"
+				+ " from oc_review r join oc_user u"
+				+ " on (r.user_num = u.user_num)"
+				+ " order by 2, 1;";
 		try {
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
