@@ -267,14 +267,32 @@ public class TestServlet extends HttpServlet {
 		////////////////////////////////////////////////////////////////////////
 		
 		//즐겨찾기 등록/삭제
-		FavoriteDTO dto = new FavoriteDTO();
-		dto.setUserNum("4");
-		dto.setStoreNum("3");
-		//즐겨찾기 삭제
-		FavoriteDAO.getInstance().check(conn, dto);
+//		FavoriteDTO dto = new FavoriteDTO();
+//		dto.setUserNum("4");
+//		dto.setStoreNum("1");
+//		FavoriteDAO.getInstance().check(conn, dto);
 		
-		//즐겨찾기 조회
-	
+		//즐겨찾기 전체 조회
+//		List<FavoriteDTO> list = FavoriteDAO.getInstance().selectAll(conn, 1, 10);
+//		for(FavoriteDTO dto : list) {
+//			System.out.println(dto.getUserNum()+"님이 "+dto.getStoreName()+"을 즐겨찾기 등록함");
+//		}
+		//즐겨 찾기 일부 조회
+//		FavoriteDTO dto = new FavoriteDTO();
+//		dto.setUserNum("4");
+//		dto.setStoreCateg1("1");
+//		dto.setStoreCateg2("2");
+//		List<FavoriteDTO> list = FavoriteDAO.getInstance().selectUser(conn, dto, 1, 10);
+//		for(FavoriteDTO dto1 : list) {
+//			System.out.println(dto1.getUserNum()+"님이 "+dto1.getStoreName()+"을 즐겨찾기 등록함");
+//		}
+		
+		//////////////////////////////////////////////////////////////////////////
+		
+		//문의하기 등록
+		
+		
+		
 		
 		//접속 해제
 		DAO.disconnect(conn);

@@ -28,9 +28,13 @@ public class FavoriteDAO extends DAO {
 									+ " f.favo_date"
 									+ " from oc_favorite f join oc_store s"
 									+ " on (f.store_num = s.store_num)"
-									+ " order by f.favo_date) a1) a2 where a2.rnum >=? and a2.rnum <=?";
+									+ " order by f.favo_date"
+						+ ") a1"
+				+ ") a2 where a2.rnum>=? and a2.rnum<=?";
 		try {
 			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, start);
+			psmt.setInt(2, end);
 			rs = psmt.executeQuery();
 			while(rs.next()) {
 				FavoriteDTO dto = new FavoriteDTO();
@@ -49,7 +53,52 @@ public class FavoriteDAO extends DAO {
 		return list;
 	}
 	
-	//즐겨찾기 검증(하나의 가게에 2번 이상 즐겨찾기를 할 수 없음)
+	//즐겨찾기 유저별 카테고리별 조회
+	public List<FavoriteDTO> selectUser(Connection conn, FavoriteDTO dto, int start, int end){
+		List<FavoriteDTO> list = new ArrayList<FavoriteDTO>();
+		String sql = "select *"
+				+ " from (select rownum as rnum, a1.*"
+						+ " from (select f.user_num,"
+									+ " f.store_num,"
+									+ " s.store_name,"
+									+ " s.store_categ1,"
+									+ " s.store_categ2,"
+									+ " s.store_categ3,"
+									+ " f.favo_date"
+									+ " from oc_favorite f join oc_store s"
+									+ " on (f.store_num = s.store_num)"
+									+ " where f.user_num=? and s.store_categ1 like '%'|| ? ||'%' and s.store_categ2 like '%'|| ? ||'%' and s.store_categ3 like '%'|| ? ||'%'"
+									+ " order by f.favo_date"
+						+ ") a1"
+				+ ") a2 where a2.rnum>=? and a2.rnum<=?";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, dto.getUserNum());
+			psmt.setString(2, dto.getStoreCateg1());
+			psmt.setString(3, dto.getStoreCateg2());
+			psmt.setString(4, dto.getStoreCateg3());
+			psmt.setInt(5, start);
+			psmt.setInt(6, end);
+			rs = psmt.executeQuery();
+			while(rs.next()) {
+				dto = new FavoriteDTO();
+				dto.setUserNum(rs.getString("user_num"));
+				dto.setStoreNum(rs.getString("store_num"));
+				dto.setStoreName(rs.getString("store_name"));
+				dto.setStoreCateg1(rs.getString("store_categ1"));
+				dto.setStoreCateg2(rs.getString("store_categ2"));
+				dto.setStoreCateg3(rs.getString("store_categ3"));
+				dto.setFavoDate(rs.getDate("favo_date"));
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	
+	//즐겨찾기 추가 +삭제하기(추가를 했으면 삭제만 가능, 삭제했으면 추가만 가능) 
 		//favoCount가 0이면 즐겨찾기 가능, 1이면 즐겨찾기를 한번 했으므로 불가능
 	public int check(Connection conn, FavoriteDTO dto) {
 		int favoCount = 0;
