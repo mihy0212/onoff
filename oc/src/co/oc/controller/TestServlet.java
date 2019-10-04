@@ -13,11 +13,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import co.oc.dao.AddDAO;
 import co.oc.dao.DAO;
+import co.oc.dao.FavoriteDAO;
 import co.oc.dao.LikeDAO;
 import co.oc.dao.ReviewDAO;
 import co.oc.dao.StoreDAO;
 import co.oc.dao.UserDAO;
 import co.oc.dto.AddDTO;
+import co.oc.dto.FavoriteDTO;
 import co.oc.dto.LikeDTO;
 import co.oc.dto.ReviewDTO;
 import co.oc.dto.StoreDTO;
@@ -179,11 +181,11 @@ public class TestServlet extends HttpServlet {
 		
 		////////////////////////////////////////////////////////////////
 		
-		//좋아요 등록
+		//좋아요 등록/삭제
 //		LikeDTO dto = new LikeDTO();
 //		dto.setUserNum("4");
 //		dto.setStoreNum("2");
-//		LikeDAO.getInstance().insert(conn, dto);
+//		LikeDAO.getInstance().check(conn, dto);
 		
 		//좋아요 전체 현황 조회
 //		List<LikeDTO> list1 = LikeDAO.getInstance().selectAll(conn);
@@ -202,12 +204,6 @@ public class TestServlet extends HttpServlet {
 		//좋아요 일부 조회2
 //		int likes = LikeDAO.getInstance().selectStoreNum(conn, "2");
 //		System.out.println(likes);
-		
-		//좋아요 삭제
-//		LikeDTO dto = new LikeDTO();
-//		dto.setUserNum("4");
-//		dto.setStoreNum("2");
-//		LikeDAO.getInstance().delete(conn, dto);
 		
 		
 		////////////////////////////////////////////////////////////////
@@ -236,14 +232,14 @@ public class TestServlet extends HttpServlet {
 //		}
 		
 		//리뷰 일부 조회2
-		ReviewDTO dto = new ReviewDTO();
-		dto.setUserNum("4");
-//		dto.setStoreNum("2");
-		dto.setReviewStar("5");
-		List<ReviewDTO> list = ReviewDAO.getInstance().selectStar(conn, dto, 1, 5);
-		for(ReviewDTO dto1 : list) {
-			System.out.println(dto1.getUserNick() +"님이 "+dto1.getStoreName()+"에 "+dto1.getReviewStar()+"점을 주셨습니다.");
-		}
+//		ReviewDTO dto = new ReviewDTO();
+//		dto.setUserNum("4");
+////		dto.setStoreNum("2");
+//		dto.setReviewStar("5");
+//		List<ReviewDTO> list = ReviewDAO.getInstance().selectStar(conn, dto, 1, 5);
+//		for(ReviewDTO dto1 : list) {
+//			System.out.println(dto1.getUserNick() +"님이 "+dto1.getStoreName()+"에 "+dto1.getReviewStar()+"점을 주셨습니다.");
+//		}
 		
 		//리뷰 일부 조회3
 //		ReviewDTO dto = new ReviewDTO();
@@ -270,7 +266,14 @@ public class TestServlet extends HttpServlet {
 		
 		////////////////////////////////////////////////////////////////////////
 		
+		//즐겨찾기 등록/삭제
+		FavoriteDTO dto = new FavoriteDTO();
+		dto.setUserNum("4");
+		dto.setStoreNum("3");
+		//즐겨찾기 삭제
+		FavoriteDAO.getInstance().check(conn, dto);
 		
+		//즐겨찾기 조회
 		
 		
 		//접속 해제

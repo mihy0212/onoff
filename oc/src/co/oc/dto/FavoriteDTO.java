@@ -1,22 +1,17 @@
 package co.oc.dto;
 
-public class FavoriteDTO {
+import java.sql.Date;
 
-	private String favoNum;
+public class FavoriteDTO {
+	
 	private String userNum;
 	private String storeNum;
 	private String storeName;
 	private String storeCateg1;
 	private String storeCateg2;
 	private String storeCateg3;
+	private Date favoDate;
 	
-	
-	public String getFavoNum() {
-		return favoNum;
-	}
-	public void setFavoNum(String favoNum) {
-		this.favoNum = favoNum;
-	}
 	public String getUserNum() {
 		return userNum;
 	}
@@ -52,6 +47,12 @@ public class FavoriteDTO {
 	}
 	public void setStoreCateg3(String storeCateg3) {
 		this.storeCateg3 = storeCateg3;
+	}
+	public Date getFavoDate() {
+		return favoDate;
+	}
+	public void setFavoDate(Date favoDate) {
+		this.favoDate = favoDate;
 	}
 	
 }
