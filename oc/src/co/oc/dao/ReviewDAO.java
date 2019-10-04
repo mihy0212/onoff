@@ -169,14 +169,14 @@ public class ReviewDAO extends DAO {
 	public int insert(Connection conn, ReviewDTO dto) {
 		int n = 0;
 		int seq = sequence(conn);
-		String sql = "insert into oc_review (" + " review_num," // 1
+		String sql = "insert into oc_review ("
+				+ "review_num," // 1
 				+ " review_re," // 2
 				+ " user_num," // 3
-				+ " user_nick," // 4
-				+ " store_num," // 5
-				+ " store_name," // 6
-				+ " review_star," // 7
-				+ " review_content" // 8
+				+ " store_num," // 4
+				+ " store_name," // 5
+				+ " review_star," // 6
+				+ " review_content" // 7
 				+ ") values (?, ?, ?, ?, ?, ?, ?, ?)";
 		try {
 			psmt = conn.prepareStatement(sql);
@@ -187,11 +187,10 @@ public class ReviewDAO extends DAO {
 				psmt.setString(2, dto.getReviewRe());
 			}
 			psmt.setString(3, dto.getUserNum());
-			psmt.setString(4, dto.getUserNick());
-			psmt.setString(5, dto.getStoreNum());
-			psmt.setString(6, dto.getStoreName());
-			psmt.setString(7, dto.getReviewStar());
-			psmt.setString(8, dto.getReviewContent());
+			psmt.setString(4, dto.getStoreNum());
+			psmt.setString(5, dto.getStoreName());
+			psmt.setString(6, dto.getReviewStar());
+			psmt.setString(7, dto.getReviewContent());
 			n = psmt.executeUpdate();
 			System.out.println(n + "건의 새로운 리뷰 등록 완료");
 		} catch (SQLException e) {
