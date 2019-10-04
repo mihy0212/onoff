@@ -101,7 +101,7 @@
 
 				</div>
 				<!-- End Header Navigation -->
-
+${userEmail}=====
 				<!-- navbar menu -->
 				<div class="collapse navbar-collapse" id="navbar-menu">
 					<ul class="nav navbar-nav navbar-right ">
@@ -114,14 +114,15 @@
 						     <a class="nav-link  dropdown-toggle"  href="#"   id="navbardrop"  data-toggle="dropdown"> Menu </a>
 							   <div class="dropdown-menu">
 							  <c:choose>
-							  <c:when test="${!empty userEmail && userGrant=='U'}">
-								  <a class="dropdown-item" href="#">즐겨찾기 보기</a> <br>
-								  <a	class="dropdown-item" href="#">리뷰 목록</a><br>
-							  </c:when>
-							  <c:when test="${!empty userEmail && userGrant=='C'}">
-									<a class="dropdown-item" href="#">내 가게 정보</a><br>
+							  <c:when test="${!empty userEmail }">
+								  <a class="dropdown-item" href="myReview.do">즐겨찾기 보기</a> <br>
+								  <a	class="dropdown-item" href="loginform.do">리뷰 목록</a><br>
+								   <c:if test="${!empty userEmail && userGrant=='C'}">
+									<a class="dropdown-item" href="myReview.do">내 가게 정보</a><br>
 									<a class="dropdown-item" href="#">내 가게 정보 수정</a> <br>
-								</c:when>
+								</c:if>
+							  </c:when>
+							 
 								</c:choose>
 								<a class="dropdown-item" href="#">Contact</a>
 							</div></li>

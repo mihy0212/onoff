@@ -74,8 +74,8 @@ public class ReviewDAO extends DAO {
 				+ " where r.review_re in (select review_num" //review_re에서 review_num를 찾는다.
 										+ " from (select rownum as rnum, review_num"
 												+ "	from (select review_num from oc_review where review_num=review_re order by review_num desc) a1"
-										+ ") a2 where a2.rnum >=? and a2.rnum <=?)"
-				+ " and " + check + " = " + content
+										+ ") a2 where a2.rnum >=? and a2.rnum <=?) "
+				+ " and r." + check + " = " + content
 				+ " order by r.review_re desc, r.review_num asc";
 		try {
 			psmt = conn.prepareStatement(sql);

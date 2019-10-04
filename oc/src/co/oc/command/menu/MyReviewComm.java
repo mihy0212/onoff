@@ -24,6 +24,7 @@ public class MyReviewComm implements Command {
 		
 		HttpSession session = request.getSession(false);
 		String userNum = (String)session.getAttribute("userNum");
+		System.out.println(userNum);
 
 		int pagenum = 1; // ������ ��ȣ
 		if (request.getParameter("Page_num") != null) {
@@ -61,15 +62,19 @@ public class MyReviewComm implements Command {
 		System.out.println(start);
 		System.out.println(end);
 
-// ����Խ��� �ҷ�����.
-		List<ReviewDTO> list = ReviewDAO.getInstance().select1(conn,"user_Num", userNum, start, end); //all
+// 리스트를 안넘김.
+		List<ReviewDTO> list = ReviewDAO.getInstance().select1(conn,"user_num", userNum, 1, 1); //all
+		for(ReviewDTO dto: list) {
+			System.out.println(dto.getReviewNum()+"akjdlaskdjf");
+		}
 
-		// request ��ü�� list�� ����ش�.
-		request.setAttribute("list", list);
-
-		// request ��ü�� �� ���������� ����ش�.
-		request.setAttribute("tot", tot);
-// review.jsp�� �̵�
+		// request 객체에 list를 담아준다.
+				request.setAttribute("list", list);
+				System.out.println(list);
+				
+				// request 객체에 총 페이지수를 담아준다.
+				request.setAttribute("tot", tot);
+				// review.jsp로 이동
 		DAO.disconnect(conn);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/menu/my_act.jsp");
 		dispatcher.forward(request, response);
