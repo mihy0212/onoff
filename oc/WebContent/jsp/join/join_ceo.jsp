@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href = "selectvar.css" />
+<link rel="stylesheet" type="text/css" href="selectvar.css" />
 <title>CEO회원가입 페이지</title>
 <script type="text/javascript">
 	function idCheck() {
@@ -74,6 +74,11 @@
 						<input type="text" class="form-control" placeholder="주소"
 							id="userAddr" name="userAddr">
 					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="주소좌표"
+							id="userXY" name="userXY">
+
+					</div>
 					<h3 style="text-align: center;">가게등록</h3>
 					<div class="form-group">
 						<input type="text" class="form-control" placeholder="가게이름"
@@ -87,35 +92,45 @@
 					<div class="form-group">
 						<input type="text" class="form-control" placeholder="주소좌표"
 							id="storeXY" name="storeXY">
-					</div>		<br />		
-					
+					</div>
+					<br /> <select name="storeCa1" style="width: 100px;">
+						<option value="01" selected="selected">음식점</option>
+					</select> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <select name="storeCa2"
+						style="width: 100px;">
+						<option value="01">점포가게</option>
+						<option value="02" selected="selected">이동가게</option>
+					</select> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <select name="storeCa3"
+						style="width: 100px;">
+						<option value="01" selected="selected">한식</option>
+						<option value="02">양식</option>
+						<option value="03">중식</option>
+						<option value="04">일식</option>
+						<option value="05">분식</option>
+						<option value="06">기타</option>
+					</select>
+					<div class="form-group">
+						<br /> <input type="text" class="form-control"
+							placeholder="가게라이센스" id="storeLicense" name="storeLicense">
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="유저라이센스"
+							id="user_license" name="userLicense">
+					</div>
+					<div class="form-group">
+						첨부파일 : <input type="file" name="addCapture" id="addCapture" /><br />
 
-<select name="storeCa1" style="width:100px;">
-    <option value="중식">중식</option>
-    <option value="한식" selected="selected">한식</option>
-    <option value="양식">양식</option>
-</select> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<select name="storeCa2" style="width:100px;">
-    <option value="이동아님">이동아님</option>
-    <option value="이동" selected="selected">이동</option>
-</select> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<select name="storeCa3" style="width:100px;">
-    <option value="짜장면">짜장</option>
-    <option value="국밥" selected="selected">국밥</option>
-    <option value="파스타">파스타</option>
-</select>
+					</div>
 
 
+					<div>
+						<input type="submit" class="btn btn-primary form-control"
+							onclick="location.href='join_ceo.do'" value="회원가입">
 
-				<div>
-					<input type="submit" class="btn btn-primary form-control"
-						onclick="location.href='join_ceo.do'" value="회원가입">
-					
-				</div>
-				<br /> <input type="reset" class="btn btn-primary form-control"
-					onclick="location.href='index.do'" value="취소">
-			</form>
-		</div>
+					</div>
+					<br /> <input type="reset" class="btn btn-primary form-control"
+						onclick="location.href='index.do'" value="취소">
+				</form>
+			</div>
 		</div>
 		<div class="col-lg-3"></div>
 	</div>
