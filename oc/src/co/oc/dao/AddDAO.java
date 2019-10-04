@@ -125,9 +125,9 @@ public class AddDAO extends DAO {
 				+ " store_license,"					//8
 				+ " user_license,"					//9
 				+ " add_capture,"					//10
-				+ " user_num"						//11
+				+" user_num"
 				+ ") values ("
-				+ " oc_add_num_seq.nextval, ?, ?, ?, ?, ?, ? ,?, ?, ? ,?)";
+				+ " oc_add_num_seq.nextval, ?, ?, ?, ?, ?, ? ,?, ?, ?,?)";
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, dto.getStoreName());
@@ -140,6 +140,7 @@ public class AddDAO extends DAO {
 			psmt.setString(8, dto.getUserLicense());
 			psmt.setString(9, dto.getAddCapture());
 			psmt.setString(10, dto.getUserNum());
+
 			n = psmt.executeUpdate();
 			System.out.println(n + "건의 새로운 신청 등록 성공");
 		} catch (SQLException e) {

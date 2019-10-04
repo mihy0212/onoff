@@ -68,6 +68,10 @@
 			<div class="form-group">
 	<input type="text" class="form-control" placeholder="주소" id="userAddr" name="userAddr">
 	</div>
+						<div class="form-group">
+						<input type="text" class="form-control" placeholder="주소좌표"
+							id="userXY" name="userXY">
+					</div>	
 
 
 	<div>
