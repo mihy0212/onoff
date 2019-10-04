@@ -157,32 +157,60 @@ div#users-contain table td, div#users-contain table th {
 		<p class="validateTips">All form fields are required.</p>
 
 		<!-------------------------------------------- Modal 문의글작성 -------------------------------------------------->
-		<div class="panel-group">
+		<div class="panel-header">
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+		</div>
 		<%-- form --%>
-			<form class="form-horizontal" role="form" onclick="location.href='askwrite.do'" method="post">
-				<fieldset>
-					<div class="panel panel-success" style="margin-top: 10px;">
-						<div class="panel-heading">문의사항</div>
-						<div class="panel-body">
+
+		<div class="panel panel-success" style="margin-top: 10px;">
+			<div class="panel-heading">문의사항</div>
+			<div class="panel-body">
+				<div class="panel-group">
+					<form class="form-horizontal" role="form"
+						onclick="location.href='askwrite.do'" method="post">
+						<fieldset>
+
+
 							<div class="form-group">
+								<label for="name" class="control-label col-sm-2">
+									작성자(ID):</label>
 								<div class="col-sm-10">
-							<label for="name" class="control-label col-sm-2">작성자(ID):</label> ${userEmail}
-											</div>
-										</div>
-							<input type="text" name="name" id="name" value="Jane Smith" class="form-control" readonly="readonly"> 
-							<label for="email">Email</label> 
-							<input type="text" name="email"id="email" value="jane@smith.com" class="text ui-widget-content ui-corner-all"> 
-							<label for="password">Password</label>
-							<input type="password" name="password" id="password" value="xxxxxxx" class="text ui-widget-content ui-corner-all">
+									<input type="text" class="form-control" id="user_id"
+										name="user_id" placeholder="ID" readonly="readonly"
+										value="${userEmail}">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-2" for="pwd">제목:</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" id="askTitle"
+										name="askTitle" placeholder="Title">
+								</div>
+							</div>
+
+
+							<div class="form-group">
+								<label class="control-label col-sm-2" for="pwd">내용:</label>
+								<div class="col-sm-10">
+									<textarea class="form-control" rows="5"
+										placeholder="ask_content" name="review_content"
+										id="review_content"></textarea>
+								</div>
+							</div>
+
 							<!-- Allow form submission with keyboard without duplicating the dialog button -->
 							<input type="submit" tabindex="-1"
 								style="position: absolute; top: -1000px">
-								</div>
+						</fieldset>
+
+					</form>
 				</div>
-					</fieldset>
-						</form>
-			</div>	
+
+			</div>
+
+		</div>
 	</div>
+
 
 	<div id="users-contain" class="ui-widget">
 		<h1>Existing Users:</h1>
