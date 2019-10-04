@@ -230,19 +230,20 @@ public class TestServlet extends HttpServlet {
 //		}
 		
 		//리뷰 일부조회1
-//		List<ReviewDTO> list = ReviewDAO.getInstance().select1(conn, "reviewStar", "4");
+//		List<ReviewDTO> list = ReviewDAO.getInstance().select1(conn, "review_star", "4", 1, 5);
 //		for(ReviewDTO dto : list) {
 //			System.out.println(dto.getUserNick() +"님이 "+dto.getStoreName()+"에 "+dto.getReviewStar()+"점을 주셨습니다.");
 //		}
 		
 		//리뷰 일부 조회2
-//		ReviewDTO dto = new ReviewDTO();
-//		dto.setUserNum("3");
-//		dto.setReviewStar("5");
-//		List<ReviewDTO> list = ReviewDAO.getInstance().selectUserStar(conn, dto);
-//		for(ReviewDTO dto1 : list) {
-//			System.out.println(dto1.getUserNick() +"님이 "+dto1.getStoreName()+"에 "+dto1.getReviewStar()+"점을 주셨습니다.");
-//		}
+		ReviewDTO dto = new ReviewDTO();
+		dto.setUserNum("4");
+//		dto.setStoreNum("2");
+		dto.setReviewStar("5");
+		List<ReviewDTO> list = ReviewDAO.getInstance().selectStar(conn, dto, 1, 5);
+		for(ReviewDTO dto1 : list) {
+			System.out.println(dto1.getUserNick() +"님이 "+dto1.getStoreName()+"에 "+dto1.getReviewStar()+"점을 주셨습니다.");
+		}
 		
 		//리뷰 일부 조회3
 //		ReviewDTO dto = new ReviewDTO();
