@@ -31,7 +31,7 @@ public class MyinfoupFormComm implements Command {
 		  request.setAttribute("UserDTO", dto);
 		
 		 
-		 RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/menu/my_info_up.jsp");
+		 RequestDispatcher dispatcher = request.getRequestDispatcher("myinfoup.do");
 		 dispatcher.forward(request, response);
 		
 	

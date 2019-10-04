@@ -223,7 +223,7 @@ public class UserDAO extends DAO{
 				dto.setUserInday(rs.getDate("user_inday"));
 				dto.setUserXy(rs.getString("user_xy"));
 				dto.setUserNick(rs.getString("user_nick"));
-				dto.setStoreNum(rs.getString("storeNum"));
+				dto.setStoreNum(rs.getString("store_Num"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
