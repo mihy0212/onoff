@@ -217,7 +217,34 @@ public class StoreDAO extends DAO{
 	
 	
 	//2. 권보성
-	
+	//회원가입시 가게등록
+	public int ceoinsert(Connection conn, StoreDTO dto) {
+		int n = 0;
+		String sql = "insert into oc_store (store_num," //1
+				+ " store_name,"	//2
+				+ " store_addr,"	//3
+				+ " store_xy,"		//4
+				+ " store_categ1,"	//5
+				+ " store_categ2,"	//6
+				+ " store_categ3,"	//7
+				+ " user_num"
+				+ ") values "
+				+ "(oc_store_num_seq.nextval, ?, ?, ?, ?, ?, ?,?)";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, dto.getStoreName());
+			psmt.setString(2, dto.getStoreAddr());
+			psmt.setString(3, dto.getStoreXy());
+			psmt.setString(4, dto.getStoreCateg1());
+			psmt.setString(5, dto.getStoreCateg2());
+			psmt.setString(6, dto.getStoreCateg3());
+			psmt.setString(7, dto.getUserNum());
+			n = psmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return n;
+	}
 	
 	
 	
