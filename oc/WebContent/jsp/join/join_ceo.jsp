@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href = "selectvar.css" />
 <title>CEO회원가입 페이지</title>
 <script type="text/javascript">
 	function idCheck() {
@@ -86,8 +87,8 @@
 					<div class="form-group">
 						<input type="text" class="form-control" placeholder="주소좌표"
 							id="storeXY" name="storeXY">
-					</div>				
-<select name="storeCa1">
+					</div>		<br />		
+<select name="storeCa1" align="center">
     <option value="중식">중식</option>
     <option value="한식" selected="selected">한식</option>
     <option value="양식">양식</option>
@@ -102,7 +103,7 @@
     <option value="국밥" selected="selected">국밥</option>
     <option value="파스타">파스타</option>
 </select>
-<br />
+
 
 				<div>
 					<input type="submit" class="btn btn-primary form-control"
