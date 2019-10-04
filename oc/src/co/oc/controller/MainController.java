@@ -22,6 +22,8 @@ import co.oc.command.join.LoginFormCommand;
 import co.oc.command.join.LogoutCommand;
 import co.oc.command.join.NickcheckCommand;
 import co.oc.command.menu.MyinfoDeleteComm;
+import co.oc.command.menu.MyAskWriteComm;
+import co.oc.command.menu.MyAskWriteFormComm;
 import co.oc.command.menu.MyinfoComm;
 import co.oc.command.menu.MyinfoUpComm;
 import co.oc.command.menu.MyinfoupFormComm;
@@ -63,6 +65,9 @@ public class MainController extends HttpServlet {
 				map.put("/delete.do", new MyinfoDeleteComm());//탈퇴
 				map.put("/myinfoupForm.do", new MyinfoupFormComm() );//formjsp로 이동
 				map.put("/myinfoup.do", new MyinfoUpComm());//수정
+				map.put("/myAskWriteForm.dao", new MyAskWriteFormComm());//문의
+				map.put("/myAskWrite.dao", new MyAskWriteComm());//문의
+				map.put("/myAskWrite.dao", new MyAskWriteComm());//문의
 		
 	}
 
