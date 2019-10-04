@@ -36,6 +36,13 @@ public class LoginCheckCommand implements Command {
 			session.setAttribute("userEmail", dto.getUserEmail());
 			session.setAttribute("usetName", dto.getUserName());
 			session.setAttribute("usetGrant", dto.getUserGrant());
+			session.setAttribute("userAddr", dto.getUserAddr());
+			session.setAttribute("userInday", dto.getUserInday());
+			session.setAttribute("userNick", dto.getUserNick());
+			session.setAttribute("userPw", dto.getUserPw());
+			session.setAttribute("userXy", dto.getUserXy());
+			session.setAttribute("storeNum", dto.getStoreNum());
+			
 			path = "jsp/join/loginOk.jsp";
 		} else {
 			path = "jsp/join/loginFail.jsp";

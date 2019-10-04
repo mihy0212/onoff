@@ -207,9 +207,15 @@ public class UserDAO extends DAO{
 			if (rs.next()) {
 				dto = new UserDTO();
 				dto.setUserNum(rs.getString("user_num"));
+				dto.setUserPw(rs.getString("user_Pw"));
 				dto.setUserEmail(rs.getString("user_Email"));
 				dto.setUserGrant(rs.getString("user_Grant"));
 				dto.setUserName(rs.getString("user_Name"));
+				dto.setUserAddr(rs.getString("user_Addr"));
+				dto.setUserInday(rs.getDate("user_inday"));
+				dto.setUserXy(rs.getString("user_xy"));
+				dto.setUserNick(rs.getString("user_nick"));
+				dto.setStoreNum(rs.getString("storeNum"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
