@@ -11,7 +11,7 @@
 <div class="col-lg-4">
 <div class="jumbotron" style="padding-top: 20px;">
 <form method="post">
-<div>
+<div> <br />
 	<input type="button" class="btn btn-primary form-control" onclick="location.href='join_userform.do'" value="유저 회원가입">
 	</div><br />
 	<input type="button" class="btn btn-primary form-control" onclick="location.href='join_ceoform.do'" value="CEO 회원가입">
