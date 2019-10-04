@@ -169,15 +169,7 @@ $("#test").show(); //보이기
 							</div>
 						</div>
 
-					<!-- 	<div class="col-md-8">
-							<div class="filters-button-group text-right sm-text-center">
-								<button class="btn button is-checked" data-filter="*">all</button>
-								<button class="btn button" data-filter=".metal">이동상점</button>
-								<button class="btn button" data-filter=".transition">한식</button>
-								<button class="btn button" data-filter=".alkali">중식</button>
-								<button class="btn button" data-filter=".ar">일식</button>
-							</div>
-						</div> -->
+					
 
 
 
