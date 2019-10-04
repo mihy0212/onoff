@@ -1,248 +1,230 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <!doctype html>
-
-<html class="no-js" lang="en">
-
+<html>
 <head>
 <meta charset="utf-8">
-<title>ON/OFF</title>
-<meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/png" href="favicon.ico">
+<title>jQuery UI Dialog - Modal form</title>
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<style>
+label, input {
+	display: block;
+}
 
-<!--Google Font link-->
-<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
-	rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Kaushan+Script"
-	rel="stylesheet">
-<link"WebContent/index.html"
-	href="https://fonts.googleapis.com/css?family=Droid+Serif:400,400i,700,700i"
-	rel="stylesheet">
-<link
-	href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
-	rel="stylesheet">
+input.text {
+	margin-bottom: 12px;
+	width: 95%;
+	padding: .4em;
+}
 
+fieldset {
+	padding: 0;
+	border: 0;
+	margin-top: 25px;
+}
 
-<link rel="${pageContext.request.contextPath }/stylesheet" href="assets/css/slick.css">
-<link rel="${pageContext.request.contextPath }/stylesheet" href="assets/css/slick-theme.css">
-<link rel="${pageContext.request.contextPath }/stylesheet" href="assets/css/animate.css">
-<link rel="${pageContext.request.contextPath }/stylesheet" href="assets/css/iconfont.css">
-<link rel="${pageContext.request.contextPath }/stylesheet" href="assets/css/font-awesome.min.css">
-<link rel="${pageContext.request.contextPath }/stylesheet" href="assets/css/bootstrap.css">
-<link rel="${pageContext.request.contextPath }/stylesheet" href="assets/css/magnific-popup.css">
-<link rel="${pageContext.request.contextPath }/stylesheet" href="assets/css/bootsnav.css">
+h1 {
+	font-size: 1.2em;
+	margin: .6em 0;
+}
 
+div#users-contain {
+	width: 350px;
+	margin: 20px 0;
+}
 
+div#users-contain table {
+	margin: 1em 0;
+	border-collapse: collapse;
+	width: 100%;
+}
 
-<!--For Plugins external css-->
-<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/plugins.css" />
+div#users-contain table td, div#users-contain table th {
+	border: 1px solid #eee;
+	padding: .6em 10px;
+	text-align: left;
+}
 
-<!--Theme custom css -->
-<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/style.css">
+.ui-dialog .ui-state-error {
+	padding: .3em;
+}
 
-<!--Theme Responsive css-->
-<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/responsive.css" />
+.validateTips {
+	border: 1px solid transparent;
+	padding: 0.3em;
+}
+</style>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+	$(function() {
+		var dialog, form,
 
-<script src="${pageContext.request.contextPath }/assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+		// From http://www.whatwg.org/specs/web-apps/current-work/multipage/states-of-the-type-attribute.html#e-mail-state-%28type=email%29
+		emailRegex = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/, name = $("#name"), email = $("#email"), password = $("#password"), allFields = $(
+				[]).add(name).add(email).add(password), tips = $(".validateTips");
+
+		function updateTips(t) {
+			tips.text(t).addClass("ui-state-highlight");
+			setTimeout(function() {
+				tips.removeClass("ui-state-highlight", 1500);
+			}, 500);
+		}
+
+		function checkLength(o, n, min, max) {
+			if (o.val().length > max || o.val().length < min) {
+				o.addClass("ui-state-error");
+				updateTips("Length of " + n + " must be between " + min
+						+ " and " + max + ".");
+				return false;
+			} else {
+				return true;
+			}
+		}
+
+		function checkRegexp(o, regexp, n) {
+			if (!(regexp.test(o.val()))) {
+				o.addClass("ui-state-error");
+				updateTips(n);
+				return false;
+			} else {
+				return true;
+			}
+		}
+
+		function addUser() {
+			var valid = true;
+			allFields.removeClass("ui-state-error");
+
+			valid = valid && checkLength(name, "username", 3, 16);
+			valid = valid && checkLength(email, "email", 6, 80);
+			valid = valid && checkLength(password, "password", 5, 16);
+
+			valid = valid
+					&& checkRegexp(
+							name,
+							/^[a-z]([0-9a-z_\s])+$/i,
+							"Username may consist of a-z, 0-9, underscores, spaces and must begin with a letter.");
+			valid = valid
+					&& checkRegexp(email, emailRegex, "eg. ui@jquery.com");
+			valid = valid
+					&& checkRegexp(password, /^([0-9a-zA-Z])+$/,
+							"Password field only allow : a-z 0-9");
+
+			if (valid) {
+				$("#users tbody").append(
+						"<tr>" + "<td>" + name.val() + "</td>" + "<td>"
+								+ email.val() + "</td>" + "<td>"
+								+ password.val() + "</td>" + "</tr>");
+				dialog.dialog("close");
+			}
+			return valid;
+		}
+
+		dialog = $("#dialog-form").dialog({
+			autoOpen : false,
+			height : 400,
+			width : 350,
+			modal : true,
+			buttons : {
+				"Create an account" : addUser,
+				Cancel : function() {
+					dialog.dialog("close");
+				}
+			},
+			close : function() {
+				form[0].reset();
+				allFields.removeClass("ui-state-error");
+			}
+		});
+
+		form = dialog.find("form").on("submit", function(event) {
+			event.preventDefault();
+			addUser();
+		});
+
+		$("#create-user").button().on("click", function() {
+			dialog.dialog("open");
+		});
+	});
+</script>
 </head>
+<body>
 
-<body data-spy="scroll" data-target=".navbar-collapse" data-offset="100">
+	<div id="dialog-form" title="Create new user">
+		<p class="validateTips">All form fields are required.</p>
+
+		<!-------------------------------------------- Modal 문의글작성 -------------------------------------------------->
+		<div class="panel-group">
+		<%-- form --%>
+			<form class="form-horizontal" role="form" onclick="location.href='askwrite.do'" method="post">
+				<fieldset>
+					<div class="panel panel-success" style="margin-top: 10px;">
+						<div class="panel-heading">문의사항</div>
+						<div class="panel-body">
+							<div class="form-group">
+								<div class="col-sm-10">
+							<label for="name" class="control-label col-sm-2">작성자(ID):</label> ${userEmail}
+											</div>
+										</div>
+							<input type="text" name="name" id="name" value="Jane Smith" class="form-control" readonly="readonly"> 
+							<label for="email">Email</label> 
+							<input type="text" name="email"id="email" value="jane@smith.com" class="text ui-widget-content ui-corner-all"> 
+							<label for="password">Password</label>
+							<input type="password" name="password" id="password" value="xxxxxxx" class="text ui-widget-content ui-corner-all">
+							<!-- Allow form submission with keyboard without duplicating the dialog button -->
+							<input type="submit" tabindex="-1"
+								style="position: absolute; top: -1000px">
+								</div>
+				</div>
+					</fieldset>
+						</form>
+			</div>	
+	</div>
+
+	<div id="users-contain" class="ui-widget">
+		<h1>Existing Users:</h1>
+		<div class="container">
+			<table id="users" class="ui-widget ui-widget-content">
+				<thead>
+					<tr>
+						<th>번호</th>
+						<th>제목</th>
+						<th>질문내용</th>
+						<th>질문작성일</th>
+						<th>질문답변상태</th>
+
+					</tr>
+				</thead>
+
+				<tbody>
 
 
-	<!-- Preloader -->
-	<div id="loading">
-		<div id="loading-center">
-			<div id="loading-center-absolute">
-				<div class="object" id="object_one"></div>
-				<div class="object" id="object_two"></div>
-				<div class="object" id="object_three"></div>
-				<div class="object" id="object_four"></div>
+					<tr class="info">
+						<td>${dto.askNum}</td>
+						<td>${dto.user_id}</td>
+						<td><a data-toggle="modal" data-target="#myModal2"
+							onclick="location.href='askread.do'">${dto.askTitle}</a></td>
+						<td>${dto.review_goods_name}</td>
+						<td>${dto.askDate}</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="row">
+				<div class="col-sm-6">
+
+					<div style="text-align: left">
+						<ul class="pagination" id="page_num">
+							<li></li>
+						</ul>
+					</div>
+				</div>
+				<button id="create-user" type="button"
+					class="btn btn-success btn-lg">문의사항쓰기</button>
 			</div>
 		</div>
 	</div>
-	<!--End off Preloader -->
-
-
-	<div class="culmn">
-		<!--Home page style-->
-		<!--Home Sections-->
-
-
-
-
-		<!--Portfolio Section-->
-
-
-
-		<section id="portfolio" class="portfolio margin-top-120">
-
-			<!-- Portfolio container-->
-			<div class="container">
-				<div class="row">
-					<div class="main-portfolio roomy-80">
-
-						<div class="col-md-4">
-							<div class="head_title text-left sm-text-center wow fadeInDown">
-									<h2>즐겨찾기</h2>
-							</div>
-						</div>
-
-						<div class="col-md-8">
-							<div class="filters-button-group text-right sm-text-center">
-								<button class="btn button is-checked" data-filter="*">all</button>
-								<button class="btn button" data-filter=".metal">이동상점</button>
-								<button class="btn button" data-filter=".transition">한식</button>
-								<button class="btn button" data-filter=".alkali">중식</button>
-								<button class="btn button" data-filter=".ar">일식</button>
-							</div>
-						</div>
-
-
-
-						<div style="clear: both;"></div>
-
-						<div class="grid text-center">
-						<!-- 즐겨찾기선택 -->
-						<!-- 이동상점 -->					
-							<div>
-									<table class=" table table-striped table-bordered results" >
-									 <thead>
-										<tr>
-											<th width="80" class="col-md-1 col-xs-1">상호명</th>
-										</tr>
-										<!-- 검색시 없을경우 -->
-										
-						                  </thead>
-						
-										<!-- db 목록을 가져와서 뿌려주는 곳 -->
-										<!-- db에 목록이 이없으면 empty:비어있다는 뜻임  -->
-										<c:if test="${empty list}"> 
-											<tr>
-												<td colspan="4">등록된 글이 존재하지 않습니다.</td>
-											</tr>
-										</c:if>
-						
-										<!--목록이 있으면  -->
-										<c:forEach items="${list }" var="dto">
-											  <tr onclick="location.href='상점자세히보기.dao'=${dto.bookNum }'">
-											    <th scope="row" align="center">${dto.review_date }</th>
-											    <td align="center">${dto.store_name }</td>
-												<td align="center">${dto.review_content }</td>
-												<td align="center">${dto.review_star }</td>
-											  </tr>
-										</c:forEach>
-										<!-- db 목록을 가져와서 뿌려주는 곳끝 -->
-						
-									</table>
-									<hr />
-								</div>
-							
-
-						</div>
-						<div style="clear: both;"></div>
-					</div>
-				</div>
-			</div>
-			<!-- Portfolio container end -->
-			
-		</section>
-		<!-- End off portfolio section -->
-
-
-
-		<!--Test section-->
-		<section id="test" class="test bg-grey roomy-60 fix">
-			<div class="container">
-				<div class="row">
-					<div class="main-portfolio roomy-80">
-
-						<div class="col-md-4">
-							<div class="head_title text-left sm-text-center wow fadeInDown">
-									<h2>즐겨찾기</h2>
-							</div>
-						</div>
-
-						<div class="col-md-8">
-							<div class="filters-button-group text-right sm-text-center">
-								<button class="btn button is-checked" data-filter="*">all</button>
-								<button class="btn button" data-filter=".metal">이동상점</button>
-								<button class="btn button" data-filter=".transition">한식</button>
-								<button class="btn button" data-filter=".alkali">중식</button>
-								<button class="btn button" data-filter=".ar">일식</button>
-							</div>
-						</div>
-
-
-
-						<div style="clear: both;"></div>
-
-						<div class="grid text-center">
-						<!-- 즐겨찾기선택 -->
-						<!-- 이동상점 -->					
-							<div>
-									<table class=" table table-striped table-bordered results" >
-									 <thead>
-										<tr>
-											<th width="80" class="col-md-1 col-xs-1">상호명</th>
-										</tr>
-										<!-- 검색시 없을경우 -->
-										
-						                  </thead>
-						
-										<!-- db 목록을 가져와서 뿌려주는 곳 -->
-										<!-- db에 목록이 이없으면 empty:비어있다는 뜻임  -->
-										<c:if test="${empty list}"> 
-											<tr>
-												<td colspan="4">등록된 글이 존재하지 않습니다.</td>
-											</tr>
-										</c:if>
-						
-										<!--목록이 있으면  -->
-										<c:forEach items="${list }" var="dto">
-											  <tr onclick="location.href='상점자세히보기.dao'=${dto.bookNum }'">
-											    <th scope="row" align="center">${dto.review_date }</th>
-											    <td align="center">${dto.store_name }</td>
-												<td align="center">${dto.review_content }</td>
-												<td align="center">${dto.review_star }</td>
-											  </tr>
-										</c:forEach>
-										<!-- db 목록을 가져와서 뿌려주는 곳끝 -->
-						
-									</table>
-									<hr />
-								</div>
-							
-
-						</div>
-						<div style="clear: both;"></div>
-					</div>
-				</div>
-			</div>
-		</section>
-		<!-- End off test section -->
-
-	</div>
-
-	<!-- JS includes -->
-
-	<script src="${pageContext.request.contextPath }/assets/js/vendor/jquery-1.11.2.min.js"></script>
-	<script src="${pageContext.request.contextPath }/assets/js/vendor/bootstrap.min.js"></script>
-
-	<script src="${pageContext.request.contextPath }/assets/js/jquery.magnific-popup.js"></script>
-	<!--<script src="assets/js/jquery.easypiechart.min.js"></script>-->
-	<script src="${pageContext.request.contextPath }/assets/js/jquery.easing.1.3.js"></script>
-	<!--<script src="assets/js/slick.js"></script>-->
-	<script src="${pageContext.request.contextPath }/assets/js/slick.min.js"></script>
-	<script src="${pageContext.request.contextPath }/assets/js/js.isotope.js"></script>
-	<script src="${pageContext.request.contextPath }/assets/js/jquery.collapse.js"></script>
-	<script src="${pageContext.request.contextPath }/assets/js/bootsnav.js"></script>
-
-	<script
-		src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
-
-	<script src="${pageContext.request.contextPath }/assets/js/plugins.js"></script>
-	<script src="${pageContext.request.contextPath }/assets/js/main.js"></script>
-
-
-
 </body>
 </html>

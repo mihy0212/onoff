@@ -26,17 +26,17 @@
 		</div>
        <div class="form-group">
 					<label for="userNum">이름</label> 
-					${userName}
+					${UserDTO.userName}
 				</div>
 
 				<div class="form-group">
 					<label for="user_birth">닉네임</label> 
-						${userDto.userNick}
+						${UserDTO.userNick}
 				
 				</div>
 				<div class="form-group">
 					<label for="user_birth">주소</label>
-						${userDto.userAddr}
+						${UserDTO.userAddr}
 				</div>
        
         <div class="form-group text-center">

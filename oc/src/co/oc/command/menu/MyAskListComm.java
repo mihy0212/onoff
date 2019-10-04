@@ -20,12 +20,12 @@ public class MyAskListComm implements Command {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Connection conn = DAO.connect();
 
-		int pagenum = 1; // ÆäÀÌÁö ¹øÈ£
+		int pagenum = 1; // í˜ì´ì§€ ë²ˆí˜¸
 		if (request.getParameter("Page_num") != null) {
 			pagenum = Integer.parseInt(request.getParameter("Page_num"));
 		}
 
-// size º¸¿©ÁÙ ÆäÀÌÁö´ç °Ô½Ã±Û °³¼ö. 5°³´ç 1page
+// size ë³´ì—¬ì¤„ í˜ì´ì§€ë‹¹ ê²Œì‹œê¸€ ê°œìˆ˜. 5ê°œë‹¹ 1page
 		int size = 5;
 
 		int tot = 0;
@@ -33,9 +33,9 @@ public class MyAskListComm implements Command {
 
 		try {
 
-			// ÃÑ °Ô½Ã±Û °³¼ö.
+			// ì´ ê²Œì‹œê¸€ ê°œìˆ˜.
 			cnt = AskDAO.getInstance().ask_getPageCount(conn);
-			// ÆäÀÌÁö ¹øÈ£
+			// í˜ì´ì§€ ë²ˆí˜¸
 			tot = cnt / size;
 			if (cnt % size != 0) {
 				tot++;
@@ -46,9 +46,9 @@ public class MyAskListComm implements Command {
 			e.printStackTrace();
 		}
 
-// 1page 1 ~ 5 5°³
-// 2page 6 ~ 10 5°³
-// 3page 11 ~ 16 5°³
+// 1page 1 ~ 5 5ê°œ
+// 2page 6 ~ 10 5ê°œ
+// 3page 11 ~ 16 5ê°œ
 
 		int end = pagenum * size;
 		int start = end - size + 1;
@@ -57,17 +57,17 @@ public class MyAskListComm implements Command {
 		System.out.println(end);
 
 
-		// ¸®ºä°Ô½ÃÆÇ ºÒ·¯¿À±â.
+		// ë¦¬ë·°ê²Œì‹œíŒ ë¶ˆëŸ¬ì˜¤ê¸°.
 		ArrayList<AskDTO> list =AskDAO.getInstance().selectAll(conn, start, end);
 
-		// request °´Ã¼¿¡ list¸¦ ´ã¾ÆÁØ´Ù.
+		// request ê°ì²´ì— listë¥¼ ë‹´ì•„ì¤€ë‹¤.
 		request.setAttribute("list", list);
 		
-		// request °´Ã¼¿¡ ÃÑ ÆäÀÌÁö¼ö¸¦ ´ã¾ÆÁØ´Ù.
+		// request ê°ì²´ì— ì´ í˜ì´ì§€ìˆ˜ë¥¼ ë‹´ì•„ì¤€ë‹¤.
 		request.setAttribute("tot", tot);
 				
 
-		// review.jsp·Î ÀÌµ¿
+		// review.jspë¡œ ì´ë™
 		RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/menu/my_ask.jsp");
 		dispatcher.forward(request, response);
 

@@ -8,6 +8,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import co.oc.command.Command;
 import co.oc.dao.DAO;
@@ -19,13 +20,16 @@ public class MyReviewComm implements Command {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Connection conn = DAO.connect();
+		
+		HttpSession session = request.getSession(false);
+		String userNum = (String)session.getAttribute("userNum");
 
-		int pagenum = 1; // ÆäÀÌÁö ¹øÈ£
+		int pagenum = 1; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£
 		if (request.getParameter("Page_num") != null) {
 			pagenum = Integer.parseInt(request.getParameter("Page_num"));
 		}
 
-// size º¸¿©ÁÙ ÆäÀÌÁö´ç °Ô½Ã±Û °³¼ö. 5°³´ç 1page
+// size ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½Ã±ï¿½ ï¿½ï¿½ï¿½ï¿½. 5ï¿½ï¿½ï¿½ï¿½ 1page
 		int size = 5;
 
 		int tot = 0;
@@ -33,9 +37,9 @@ public class MyReviewComm implements Command {
 
 		try {
 
-			// ÃÑ °Ô½Ã±Û °³¼ö.
+			// ï¿½ï¿½ ï¿½Ô½Ã±ï¿½ ï¿½ï¿½ï¿½ï¿½.
 			cnt = ReviewDAO.getInstance().review_getPageCount(conn);
-			// ÆäÀÌÁö ¹øÈ£
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£
 			tot = cnt / size;
 			if (cnt % size != 0) {
 				tot++;
@@ -46,9 +50,9 @@ public class MyReviewComm implements Command {
 			e.printStackTrace();
 		}
 
-// 1page 1 ~ 5 5°³
-// 2page 6 ~ 10 5°³
-// 3page 11 ~ 16 5°³
+// 1page 1 ~ 5 5ï¿½ï¿½
+// 2page 6 ~ 10 5ï¿½ï¿½
+// 3page 11 ~ 16 5ï¿½ï¿½
 
 		int end = pagenum * size;
 		int start = end - size + 1;
@@ -56,15 +60,15 @@ public class MyReviewComm implements Command {
 		System.out.println(start);
 		System.out.println(end);
 
-// ¸®ºä°Ô½ÃÆÇ ºÒ·¯¿À±â.
-		ArrayList<ReviewDTO> list = ReviewDAO.getInstance().selectoneID(conn, start, end);
+// ï¿½ï¿½ï¿½ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½.
+		ArrayList<ReviewDTO> list = ReviewDAO.getInstance().select1(conn,'user_num',userNum, start, end); //all
 
-		// request °´Ã¼¿¡ list¸¦ ´ã¾ÆÁØ´Ù.
+		// request ï¿½ï¿½Ã¼ï¿½ï¿½ listï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
 		request.setAttribute("list", list);
 
-		// request °´Ã¼¿¡ ÃÑ ÆäÀÌÁö¼ö¸¦ ´ã¾ÆÁØ´Ù.
+		// request ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
 		request.setAttribute("tot", tot);
-// review.jsp·Î ÀÌµ¿
+// review.jspï¿½ï¿½ ï¿½Ìµï¿½
 		DAO.disconnect(conn);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/menu/my_act.jsp");
 		dispatcher.forward(request, response);
