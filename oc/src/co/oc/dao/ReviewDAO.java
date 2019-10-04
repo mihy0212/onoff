@@ -252,4 +252,20 @@ public class ReviewDAO extends DAO {
 		return n;
 	}
 	
+	//2. 권보성
+	
+	
+	
+	
+	
+	//3. 백승진
+		
+		
+		
+		
+		
+	//4. 복진영
+	
+	
+	
 }
