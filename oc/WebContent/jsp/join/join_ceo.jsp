@@ -88,21 +88,23 @@
 						<input type="text" class="form-control" placeholder="주소좌표"
 							id="storeXY" name="storeXY">
 					</div>		<br />		
-<select name="storeCa1" align="center">
+					
+
+<select name="storeCa1" style="width:100px;">
     <option value="중식">중식</option>
     <option value="한식" selected="selected">한식</option>
     <option value="양식">양식</option>
 </select> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-<select name="storeCa2">
+<select name="storeCa2" style="width:100px;">
     <option value="이동아님">이동아님</option>
     <option value="이동" selected="selected">이동</option>
 </select> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<select name="storeCa3">
+<select name="storeCa3" style="width:100px;">
     <option value="짜장면">짜장</option>
     <option value="국밥" selected="selected">국밥</option>
     <option value="파스타">파스타</option>
 </select>
+
 
 
 				<div>
