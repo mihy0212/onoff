@@ -217,7 +217,44 @@ public class StoreDAO extends DAO{
 	
 	
 	//2. 권보성
-	
+	//회원가입시 가게등록
+	public int ceoinsert(Connection conn, StoreDTO dto) {
+		int n = 0;
+		String sql = "insert into oc_store (store_num," //1
+				+ " store_name,"	//2
+				+ " store_addr,"	//3
+				+ " store_xy,"		//4
+				+ " store_categ1,"	//5
+				+ " store_categ2,"	//6
+				+ " store_categ3,"	//7
+				+ " store_pic,"		//8
+				+ " store_time,"	//9
+				+ " store_tel,"		//10
+				+ " store_menu,"	//11
+				+ " store_ect,"		//12
+				+ " user_num"		//13
+				+ ") values "
+				+ "(oc_store_num_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,? ,?)";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, dto.getStoreName());
+			psmt.setString(2, dto.getStoreAddr());
+			psmt.setString(3, dto.getStoreXy());
+			psmt.setString(4, dto.getStoreCateg1());
+			psmt.setString(5, dto.getStoreCateg2());
+			psmt.setString(6, dto.getStoreCateg3());
+			psmt.setString(7, dto.getStorePic());
+			psmt.setString(8, dto.getStoreTime());
+			psmt.setString(9, dto.getStoreTel());
+			psmt.setString(10, dto.getStoreMenu());
+			psmt.setString(11, dto.getStoreEct());
+			psmt.setString(12, dto.getUserNum());
+			n = psmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return n;
+	}
 	
 	
 	

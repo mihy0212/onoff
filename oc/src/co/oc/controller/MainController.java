@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import co.oc.command.Command;
+import co.oc.command.join.CeoInsertCommand;
 import co.oc.command.join.IdCheckCommand;
 import co.oc.command.join.JoinCeoForm;
 import co.oc.command.join.JoinFormCommand;
@@ -43,6 +44,7 @@ public class MainController extends HttpServlet {
 		
 		
 		//권보성
+		map.put("/join_ceo.do", new CeoInsertCommand()); //CEO 회원가입처리
 		map.put("/NickCheck.do", new NickcheckCommand()); //nick네임 중복체크
 		map.put("/join_userform.do", new JoinUserForm()); //일반유저 회원가입 폼
 		map.put("/join_ceoform.do", new JoinCeoForm()); //CEO 회원가입폼
