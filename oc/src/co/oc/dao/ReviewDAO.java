@@ -99,6 +99,7 @@ public class ReviewDAO extends DAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		System.out.println("검사거마검사");
 		return list;
 	}
 
