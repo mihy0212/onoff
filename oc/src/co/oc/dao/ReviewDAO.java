@@ -29,8 +29,8 @@ public class ReviewDAO extends DAO {
 				+ " from oc_review r join oc_user u"
 				+ " on (r.user_num = u.user_num) join oc_store s"
 				+ " on (r.store_num = s.store_num)"
-				+ " where r.review_re in"
-					+ " (select review_num" //review_re에서 review_num를 찾는다.
+				+ " where r.review_re in" //review_re에서 review_num를 찾는다.
+					+ " (select review_num"
 							+ " from (select rownum as rnum, review_num"
 									+ "	from (select review_num "
 											+ "	from oc_review"
@@ -81,7 +81,7 @@ public class ReviewDAO extends DAO {
 				+ " where r.review_re in"
 					+ " (select review_num"
 							+ " from (select rownum as rnum, review_num"
-									+ "	from (select review_num "
+									+ "	from (select review_num, review_re, user_num, store_num, review_star, review_content, review_date"
 											+ "	from oc_review"
 											+ " where review_num=review_re and "+check+"="+content
 											+ " order by review_num desc) a1"
@@ -130,7 +130,7 @@ public class ReviewDAO extends DAO {
 				+ " where r.review_re in"
 					+ " (select review_num"
 							+ " from (select rownum as rnum, review_num"
-									+ "	from (select review_num "
+									+ "	from (select review_num, review_re, user_num, store_num, review_star, review_content, review_date"
 											+ "	from oc_review"
 											+ " where review_num=review_re and store_num like '%'|| ? ||'%' and user_num like '%' || ? ||'%' and review_star=?"
 											+ " order by review_num desc) a1"
@@ -189,10 +189,9 @@ public class ReviewDAO extends DAO {
 				+ " review_re," // 2
 				+ " user_num," // 3
 				+ " store_num," // 4
-				+ " store_name," // 5
-				+ " review_star," // 6
-				+ " review_content" // 7
-				+ ") values (?, ?, ?, ?, ?, ?, ?, ?)";
+				+ " review_star," // 5
+				+ " review_content" // 6
+				+ ") values (?, ?, ?, ?, ?, ?)";
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, Integer.toString(seq));
@@ -203,9 +202,8 @@ public class ReviewDAO extends DAO {
 			}
 			psmt.setString(3, dto.getUserNum());
 			psmt.setString(4, dto.getStoreNum());
-			psmt.setString(5, dto.getStoreName());
-			psmt.setString(6, dto.getReviewStar());
-			psmt.setString(7, dto.getReviewContent());
+			psmt.setString(5, dto.getReviewStar());
+			psmt.setString(6, dto.getReviewContent());
 			n = psmt.executeUpdate();
 			System.out.println(n + "건의 새로운 리뷰 등록 완료");
 		} catch (SQLException e) {

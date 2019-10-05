@@ -16,10 +16,10 @@ public class MyaskDeleteComm implements Command {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Connection conn = DAO.connect();
-		// ÆÄ¶ó¹ÌÅÍ°ª ÃßÃâ
-		int ask_num = Integer.parseInt(request.getParameter("ask_num"));
+		// ï¿½Ä¶ï¿½ï¿½ï¿½Í°ï¿½ ï¿½ï¿½ï¿½ï¿½
+		String ask_num = request.getParameter("ask_num");
 
-		// ÇØ´ç ¸®ºä±Û ¹øÈ£·Î ÇØ´ç ±Û »èÁ¦
+		// ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ ï¿½Ø´ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		AskDAO.getInstance().delete(conn, ask_num);
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher("my_ask.jsp");

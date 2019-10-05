@@ -26,15 +26,15 @@ public class FavoriteDAO extends DAO {
 									+ " s.store_categ2,"
 									+ " s.store_categ3,"
 									+ " f.favo_date"
-									+ " from oc_favorite f join oc_store s"
-									+ " on (f.store_num = s.store_num)"
-									+ " order by f.favo_date"
-						+ ") a1"
-				+ ") a2 where a2.rnum>=? and a2.rnum<=?";
+								+ " from oc_favorite f join oc_store s"
+								+ " on (f.store_num = s.store_num)"
+								+ " order by f.favo_date) a1"
+						+ " where rownum<=?) a2"
+				+ " where a2.rnum>=?";
 		try {
 			psmt = conn.prepareStatement(sql);
-			psmt.setInt(1, start);
-			psmt.setInt(2, end);
+			psmt.setInt(1, end);
+			psmt.setInt(2, start);
 			rs = psmt.executeQuery();
 			while(rs.next()) {
 				FavoriteDTO dto = new FavoriteDTO();
@@ -65,20 +65,20 @@ public class FavoriteDAO extends DAO {
 									+ " s.store_categ2,"
 									+ " s.store_categ3,"
 									+ " f.favo_date"
-									+ " from oc_favorite f join oc_store s"
-									+ " on (f.store_num = s.store_num)"
-									+ " where f.user_num=? and s.store_categ1 like '%'|| ? ||'%' and s.store_categ2 like '%'|| ? ||'%' and s.store_categ3 like '%'|| ? ||'%'"
-									+ " order by f.favo_date"
-						+ ") a1"
-				+ ") a2 where a2.rnum>=? and a2.rnum<=?";
+								+ " from oc_favorite f join oc_store s"
+								+ " on (f.store_num = s.store_num)"
+								+ " where f.user_num=? and s.store_categ1 like '%'|| ? ||'%' and s.store_categ2 like '%'|| ? ||'%' and s.store_categ3 like '%'|| ? ||'%'"
+								+ " order by f.favo_date) a1"
+						+ " where rownum<=?) a2"
+				+ " where a2.rnum>=?";
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, dto.getUserNum());
 			psmt.setString(2, dto.getStoreCateg1());
 			psmt.setString(3, dto.getStoreCateg2());
 			psmt.setString(4, dto.getStoreCateg3());
-			psmt.setInt(5, start);
-			psmt.setInt(6, end);
+			psmt.setInt(5, end);
+			psmt.setInt(6, start);
 			rs = psmt.executeQuery();
 			while(rs.next()) {
 				dto = new FavoriteDTO();
@@ -141,10 +141,11 @@ public class FavoriteDAO extends DAO {
 	//즐겨찾기 삭제하기
 	private int delete(Connection conn, FavoriteDTO dto) {
 		int n = 0;
-		String sql = "delete from oc_favorite where user_num=?";
+		String sql = "delete from oc_favorite where user_num=? and store_num=?";
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, dto.getUserNum());
+			psmt.setString(2, dto.getStoreNum());
 			n = psmt.executeUpdate();
 			System.out.println(n + "건의 즐겨찾기 삭제 완료");
 		} catch (SQLException e) {
