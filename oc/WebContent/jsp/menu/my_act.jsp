@@ -143,8 +143,8 @@ $("#test").show(); //보이기
 									</c:if>
 
 									<!--목록이 있으면  -->
-									<c:forEach items="${list }" var="dto">
-										<tr onclick="location.href='상점자세히보기.dao'=${list.storeName}'">
+									<c:forEach items="${list }" var="list">
+										<tr onclick="location.href=#">
 											<th scope="row" align="center">${list.reviewDate }</th>
 											<td align="center">${list.storeName }</td>
 											<td align="center">${list.reviewContent }</td>
@@ -205,8 +205,8 @@ $("#test").show(); //보이기
 									</c:if>
 
 									<!--목록이 있으면  -->
-									<c:forEach items="${list }" var="dto" >
-									<tr class="info" onclick="location.href='상점자세히보기.dao'=${list.reviewNum }'">
+									<c:forEach items="${list }" var="list" >
+									<tr class="info" onclick="location.href=#">
 									<td scope="row" align="center">${list.storeName }</td>
 										
 											<td scope="row" align="center">${list.reviewDate }</td>

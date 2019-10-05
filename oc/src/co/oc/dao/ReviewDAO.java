@@ -29,15 +29,20 @@ public class ReviewDAO extends DAO {
 				+ " from oc_review r join oc_user u"
 				+ " on (r.user_num = u.user_num) join oc_store s"
 				+ " on (r.store_num = s.store_num)"
-				+ " where r.review_re in (select review_num" //review_re에서 review_num를 찾는다.
-										+ " from (select rownum as rnum, review_num"
-												+ "	from (select review_num from oc_review where review_num=review_re order by review_num desc) a1"
-										+ ") a2 where a2.rnum >=? and a2.rnum <=?)"
+				+ " where r.review_re in"
+					+ " (select review_num" //review_re에서 review_num를 찾는다.
+							+ " from (select rownum as rnum, review_num"
+									+ "	from (select review_num "
+											+ "	from oc_review"
+											+ " where review_num=review_re"
+											+ " order by review_num desc) a1"
+									+ " where rownum<=?) a2"
+						+ " where a2.rnum>=?)"
 				+ " order by r.review_re desc, r.review_num asc";
 		try {
 			psmt = conn.prepareStatement(sql);
-			psmt.setInt(1, start);
-			psmt.setInt(2, end);
+			psmt.setInt(1, end);
+			psmt.setInt(2, start);
 			rs = psmt.executeQuery();
 			while (rs.next()) {
 				ReviewDTO dto = new ReviewDTO();
@@ -71,17 +76,22 @@ public class ReviewDAO extends DAO {
 				+ " r.review_content,"		//8
 				+ " r.review_date"			//9
 				+ " from oc_review r join oc_user u"
-				+ " on (r.user_num = u.user_num) join oc_store s on (r.store_num = s.store_num)"
-				+ " where r.review_re in (select review_num" //review_re에서 review_num를 찾는다.
-										+ " from (select rownum as rnum, review_num"
-												+ "	from (select review_num from oc_review where review_num=review_re order by review_num desc) a1"
-										+ ") a2 where a2.rnum >=? and a2.rnum <=?) "
-				+ " and r." + check + " = " + content
+				+ " on (r.user_num = u.user_num) join oc_store s"
+				+ " on (r.store_num = s.store_num)"
+				+ " where r.review_re in"
+					+ " (select review_num"
+							+ " from (select rownum as rnum, review_num"
+									+ "	from (select review_num "
+											+ "	from oc_review"
+											+ " where review_num=review_re and "+check+"="+content
+											+ " order by review_num desc) a1"
+									+ " where rownum<=?) a2"
+						+ " where a2.rnum>=?)"
 				+ " order by r.review_re desc, r.review_num asc";
 		try {
 			psmt = conn.prepareStatement(sql);
-			psmt.setInt(1, start);
-			psmt.setInt(2, end);
+			psmt.setInt(1, end);
+			psmt.setInt(2, start);
 			rs = psmt.executeQuery();
 			while (rs.next()) {
 				ReviewDTO dto = new ReviewDTO();
@@ -99,7 +109,6 @@ public class ReviewDAO extends DAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println("검사거마검사");
 		return list;
 	}
 
@@ -116,20 +125,24 @@ public class ReviewDAO extends DAO {
 				+ " r.review_content,"		//8
 				+ " r.review_date"			//9
 				+ " from oc_review r join oc_user u"
-				+ " on (r.user_num = u.user_num) join oc_store s on (r.store_num = s.store_num)"
-				+ " where r.review_re in (select review_num" //review_re에서 review_num를 찾는다.
-										+ " from (select rownum as rnum, review_num"
-												+ "	from (select review_num from oc_review where review_num=review_re order by review_num desc) a1"
-										+ ") a2 where a2.rnum >=? and a2.rnum <=?)"
-				+ " and r.store_num like '%'|| ? ||'%' and r.user_num like '%' || ? ||'%' and r.review_star=?"
-				+ " order by r.review_re desc, r.review_num asc";
+				+ " on (r.user_num = u.user_num) join oc_store s"
+				+ " on (r.store_num = s.store_num)"
+				+ " where r.review_re in"
+					+ " (select review_num"
+							+ " from (select rownum as rnum, review_num"
+									+ "	from (select review_num "
+											+ "	from oc_review"
+											+ " where review_num=review_re and store_num like '%'|| ? ||'%' and user_num like '%' || ? ||'%' and review_star=?"
+											+ " order by review_num desc) a1"
+									+ " where rownum<=?) a2"
+						+ " where a2.rnum>=?)";
 		try {
 			psmt = conn.prepareStatement(sql);
-			psmt.setInt(1, start);
-			psmt.setInt(2, end);
-			psmt.setString(3, dto.getStoreNum());
-			psmt.setString(4, dto.getUserNum());
-			psmt.setString(5, dto.getReviewStar());
+			psmt.setString(1, dto.getStoreNum());
+			psmt.setString(2, dto.getUserNum());
+			psmt.setString(3, dto.getReviewStar());
+			psmt.setInt(4, end);
+			psmt.setInt(5, start);
 			rs = psmt.executeQuery();
 			while (rs.next()) {
 				dto = new ReviewDTO();
