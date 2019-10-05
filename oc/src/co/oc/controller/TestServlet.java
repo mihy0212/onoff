@@ -220,13 +220,13 @@ public class TestServlet extends HttpServlet {
 //		ReviewDAO.getInstance().insert(conn, dto);
 		
 		//리뷰 전체 조회
-//		List<ReviewDTO> list = ReviewDAO.getInstance().selectAll(conn);
+//		List<ReviewDTO> list = ReviewDAO.getInstance().selectAll(conn, 1, 10);
 //		for(ReviewDTO dto : list) {
 //			System.out.println(dto.getUserNick() +"님이 "+dto.getStoreName()+"에 "+dto.getReviewStar()+"점을 주셨습니다.");
 //		}
 		
 		//리뷰 일부조회1
-//		List<ReviewDTO> list = ReviewDAO.getInstance().select1(conn, "review_star", "4", 1, 5);
+//		List<ReviewDTO> list = ReviewDAO.getInstance().select1(conn, "user_num", "4", 1, 5);
 //		for(ReviewDTO dto : list) {
 //			System.out.println(dto.getUserNick() +"님이 "+dto.getStoreName()+"에 "+dto.getReviewStar()+"점을 주셨습니다.");
 //		}
@@ -241,16 +241,7 @@ public class TestServlet extends HttpServlet {
 //			System.out.println(dto1.getUserNick() +"님이 "+dto1.getStoreName()+"에 "+dto1.getReviewStar()+"점을 주셨습니다.");
 //		}
 		
-		//리뷰 일부 조회3
-//		ReviewDTO dto = new ReviewDTO();
-//		dto.setStoreNum("2");
-//		dto.setReviewStar("5");
-//		List<ReviewDTO> list = ReviewDAO.getInstance().selectStoreStar(conn, dto);
-//		for(ReviewDTO dto1 : list) {
-//			System.out.println(dto1.getUserNick() +"님이 "+dto1.getStoreName()+"에 "+dto1.getReviewStar()+"점을 주셨습니다.");
-//		}
-		
-		//리뷰 일부조회4
+		//리뷰 일부조회3
 //		Double n = ReviewDAO.getInstance().selectStar(conn, "3");
 //		System.out.println(n+"점");
 		

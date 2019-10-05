@@ -22,12 +22,13 @@ public class ReviewDAO extends DAO {
 				+ " r.user_num,"			//3
 				+ " u.user_nick,"			//4
 				+ " r.store_num,"			//5
-				+ " r.store_name,"			//6
+				+ " s.store_name,"			//6
 				+ " r.review_star,"			//7
 				+ " r.review_content,"		//8
 				+ " r.review_date"			//9
 				+ " from oc_review r join oc_user u"
-				+ " on (r.user_num = u.user_num)"
+				+ " on (r.user_num = u.user_num) join oc_store s"
+				+ " on (r.store_num = s.store_num)"
 				+ " where r.review_re in (select review_num" //review_re에서 review_num를 찾는다.
 										+ " from (select rownum as rnum, review_num"
 												+ "	from (select review_num from oc_review where review_num=review_re order by review_num desc) a1"
@@ -65,12 +66,12 @@ public class ReviewDAO extends DAO {
 				+ " r.user_num,"			//3
 				+ " u.user_nick,"			//4
 				+ " r.store_num,"			//5
-				+ " r.store_name,"			//6
+				+ " s.store_name,"			//6
 				+ " r.review_star,"			//7
 				+ " r.review_content,"		//8
 				+ " r.review_date"			//9
 				+ " from oc_review r join oc_user u"
-				+ " on (r.user_num = u.user_num)"
+				+ " on (r.user_num = u.user_num) join oc_store s on (r.store_num = s.store_num)"
 				+ " where r.review_re in (select review_num" //review_re에서 review_num를 찾는다.
 										+ " from (select rownum as rnum, review_num"
 												+ "	from (select review_num from oc_review where review_num=review_re order by review_num desc) a1"
@@ -109,12 +110,12 @@ public class ReviewDAO extends DAO {
 				+ " r.user_num,"			//3
 				+ " u.user_nick,"			//4
 				+ " r.store_num,"			//5
-				+ " r.store_name,"			//6
+				+ " s.store_name,"			//6
 				+ " r.review_star,"			//7
 				+ " r.review_content,"		//8
 				+ " r.review_date"			//9
 				+ " from oc_review r join oc_user u"
-				+ " on (r.user_num = u.user_num)"
+				+ " on (r.user_num = u.user_num) join oc_store s on (r.store_num = s.store_num)"
 				+ " where r.review_re in (select review_num" //review_re에서 review_num를 찾는다.
 										+ " from (select rownum as rnum, review_num"
 												+ "	from (select review_num from oc_review where review_num=review_re order by review_num desc) a1"
@@ -148,7 +149,7 @@ public class ReviewDAO extends DAO {
 		return list;
 	}
 
-	// 리뷰 일부 조회4 - 가게별 별점 평균
+	// 리뷰 일부 조회3 - 가게별 별점 평균
 	public Double selectStar(Connection conn, String storeNum) {
 		Double stars = null;
 		String sql = "select avg(review_star) as stars from oc_review where review_num=review_re and store_num=?";
