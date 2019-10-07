@@ -104,7 +104,7 @@
 				<!-- navbar menu -->
 				<div class="collapse navbar-collapse" id="navbar-menu">
 					<ul class="nav navbar-nav navbar-right ">
-						<li><a href="map.jsp">Home</a></li>
+						<li><a href="index.jsp">Home</a></li>
 						<!-- 지도로 이동 -->
 						
 						
