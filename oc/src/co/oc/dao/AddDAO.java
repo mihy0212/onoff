@@ -118,28 +118,26 @@ public class AddDAO extends DAO {
 		String sql = "insert into oc_Add (add_num," //1
 				+ " store_name,"					//2
 				+ " store_addr,"					//3
-				+ " store_xy,"						//4
-				+ " store_categ1,"					//5
-				+ " store_categ2,"					//6
-				+ " store_categ3,"					//7
-				+ " store_license,"					//8
-				+ " user_license,"					//9
-				+ " add_capture,"					//10
+				+ " store_categ1,"					//4
+				+ " store_categ2,"					//5
+				+ " store_categ3,"					//6
+				+ " store_license,"					//7
+				+ " user_license,"					//8
+				+ " add_capture,"					//9
 				+" user_num"
 				+ ") values ("
-				+ " oc_add_num_seq.nextval, ?, ?, ?, ?, ?, ? ,?, ?, ?,?)";
+				+ " oc_add_num_seq.nextval, ?, ?, ?, ?, ? ,?, ?, ?,?)";
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, dto.getStoreName());
 			psmt.setString(2, dto.getStoreAddr());
-			psmt.setString(3, dto.getStoreXy());
-			psmt.setString(4, dto.getStoreCateg1());
-			psmt.setString(5, dto.getStoreCateg2());
-			psmt.setString(6, dto.getStoreCateg3());
-			psmt.setString(7, dto.getStoreLicense());
-			psmt.setString(8, dto.getUserLicense());
-			psmt.setString(9, dto.getAddCapture());
-			psmt.setString(10, dto.getUserNum());
+			psmt.setString(3, dto.getStoreCateg1());
+			psmt.setString(4, dto.getStoreCateg2());
+			psmt.setString(5, dto.getStoreCateg3());
+			psmt.setString(6, dto.getStoreLicense());
+			psmt.setString(7, dto.getUserLicense());
+			psmt.setString(8, dto.getAddCapture());
+			psmt.setString(9, dto.getUserNum());
 
 			n = psmt.executeUpdate();
 			System.out.println(n + "건의 새로운 신청 등록 성공");

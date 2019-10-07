@@ -50,7 +50,7 @@
         });
     });
 </script>
-
+https://kutar37.tistory.com/entry/%EC%9B%B9%EC%97%90%EC%84%9C-%ED%8C%8C%EC%9D%BC-%EC%97%85%EB%A1%9C%EB%93%9C-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0-1
 
 </head>
 <body>
@@ -96,10 +96,10 @@
 			<div class="form-group">
 	<input type="text" class="form-control" placeholder="주소" id="userAddr" name="userAddr">
 	</div>
-						<div class="form-group">
+						<!-- <div class="form-group">
 						<input type="text" class="form-control" placeholder="주소좌표"
 							id="userXY" name="userXY">
-					</div>	
+					</div>	 -->
 
 
 	<div>

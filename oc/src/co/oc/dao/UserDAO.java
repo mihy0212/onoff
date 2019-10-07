@@ -79,7 +79,7 @@ public class UserDAO extends DAO {
 			rs.next();
 			dto.setUserNum(rs.getString(1));
 
-			sql = "insert into oc_user(user_num, user_email, user_pw, user_name, user_nick, user_addr, user_xy) values(?,?,?,?,?,?,?)";
+			sql = "insert into oc_user(user_num, user_email, user_pw, user_name, user_nick, user_addr) values(?,?,?,?,?,?)";
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, dto.getUserNum());
 			psmt.setString(2, dto.getUserEmail());
@@ -87,7 +87,6 @@ public class UserDAO extends DAO {
 			psmt.setString(4, dto.getUserName());
 			psmt.setString(5, dto.getUserNick());
 			psmt.setString(6, dto.getUserAddr());
-			psmt.setString(7, dto.getUserXy());
 			n = psmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
