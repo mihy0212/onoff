@@ -63,36 +63,33 @@ $("#test").hide();   // 숨기기
 
 $("#test").show(); //보이기
 
+
+$(document).ready(function(){
+	
+	
+	
+	
+})
 </script>
 </head>
 
 <body data-spy="scroll" data-target=".navbar-collapse" data-offset="100">
 
-
-	<!-- Preloader -->
-	<div id="loading">
-		<div id="loading-center">
-			<div id="loading-center-absolute">
-				<div class="object" id="object_one"></div>
-				<div class="object" id="object_two"></div>
-				<div class="object" id="object_three"></div>
-				<div class="object" id="object_four"></div>
-			</div>
+<!-- 페이지 전환 효과 -->
+<div id="loading">
+	<div id="loading-center">
+		<div id="loading-center-absolute">
+			<div class="object" id="object_one"></div>
+			<div class="object" id="object_two"></div>
+			<div class="object" id="object_three"></div>
+			<div class="object" id="object_four"></div>
 		</div>
 	</div>
-	<!--End off Preloader -->
+</div>
+<!--페이지 전환 효과 끝 -->
 
 
 	<div class="culmn">
-		<!--Home page style-->
-		<!--Home Sections-->
-
-
-
-
-		<!--Portfolio Section-->
-
-
 
             <section id="features" class="features bg-white">
 
@@ -144,7 +141,7 @@ $("#test").show(); //보이기
 
 									<!--목록이 있으면  -->
 									<c:forEach items="${list }" var="list">
-										<tr onclick="location.href=#">
+									<tr class="info" onclick="location.href='storeInfo.do?key=${list.storeNum }'">
 											<td align="center">${list.storeName }</td>
 										</tr>
 									</c:forEach>
@@ -191,6 +188,7 @@ $("#test").show(); //보이기
 											<th>리뷰작성일</th>
 											<th>리뷰내용</th>
 											<th>별점</th>
+											<th>수정</th>
 										</tr>
 									</thead>
 
@@ -204,11 +202,15 @@ $("#test").show(); //보이기
 
 									<!--목록이 있으면  -->
 									<c:forEach items="${list }" var="list" >
-									<tr class="info" onclick="location.href=#">
+									<tr class="info" onclick="location.href='storeInfo.do?key=${dto.reviewNum }'">
 										<td scope="row" align="center">${list.storeName }</td>
 										<td scope="row" align="center">${list.reviewDate }</td>
 										<td align="center">${list.reviewContent}</td>
 										<td align="center">${list.reviewStar }</td>
+										<td align="center">
+										<input type="button" value="수정" onclick=""location.href='storeInfo.do'">
+										<input type="button" value="삭제" onclick=""location.href='storeInfo.do'">
+										</td>
 									</tr>
 									</c:forEach>
 									<!-- db 목록을 가져와서 뿌려주는 곳끝 -->

@@ -1,47 +1,50 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <html>
 <head>
-    <title>ÇöÀç À¯ÀúÁ¤º¸ Ãâ·ÂÈ­¸é</title>
-    
-   
-    
-    
+    <title>í˜„ì¬ ìœ ì €ì •ë³´ ì¶œë ¥í™”ë©´</title>
+ <!-- <script type="text/javascript">
+      function delecte() {
+    	  window.open("deletech.do""width=500,height=400")
+	}
+      
+</script>  --> 
 </head>
 <body>
  <article class="container">
 		<div class="page-header">
 			<div class="col-md-6 col-md-offset-3">
-				<h3>³ªÀÇ Á¤º¸</h3>
+				<h3>ë‚˜ì˜ ì •ë³´</h3>
 			</div>
 
 		</div>
         <div class="col-sm-6 col-md-offset-3">
 			<form action="userberjoinpro.do" method="post" role="form"
 				id="usercheck" name="userber">
-                        <!-- °¡Á®¿Â È¸¿øÁ¤º¸¸¦ Ãâ·ÂÇÑ´Ù. -->
+                        <!-- ê°€ì ¸ì˜¨ íšŒì›ì •ë³´ë¥¼ ì¶œë ¥í•œë‹¤. -->
         	<div class="form-group">
-			 	<label for="user_email">¾ÆÀÌµğ</label> 
+			 	<label for="user_email">ì•„ì´ë””</label> 
 				${userEmail}
 		</div>
        <div class="form-group">
-					<label for="userNum">ÀÌ¸§</label> 
+					<label for="userNum">ì´ë¦„</label> 
 					${UserDTO.userName}
 				</div>
 
 				<div class="form-group">
-					<label for="user_birth">´Ğ³×ÀÓ</label> 
+					<label for="user_birth">ë‹‰ë„¤ì„</label> 
 						${UserDTO.userNick}
 				
 				</div>
 				<div class="form-group">
-					<label for="user_birth">ÁÖ¼Ò</label>
+					<label for="user_birth">ì£¼ì†Œ</label>
 						${UserDTO.userAddr}
 				</div>
        
         <div class="form-group text-center">
-        <input type="button" class="btn btn-primary" value="È¸¿øÁ¤º¸ º¯°æ" onclick="location.href='myinfoupForm.do'">
-        <input type="button" class="btn btn-primary" value="È¸¿øÅ»Åğ" onclick="location.href='delete.do'">
+        <input type="button" class="btn btn-primary" value="íšŒì›ì •ë³´ ë³€ê²½" onclick="location.href='myinfoupForm.do'">
+        <input type="button" class="btn btn-primary" value="íšŒì›íƒˆí‡´" onclick="location.href='deletech.do'">
+        <!-- onclick="delecte()"  -->
 		</div>
 		</form>
 		</div>

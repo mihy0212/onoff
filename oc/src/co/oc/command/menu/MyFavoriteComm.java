@@ -2,7 +2,6 @@ package co.oc.command.menu;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -15,7 +14,7 @@ import co.oc.command.Command;
 import co.oc.dao.DAO;
 import co.oc.dao.FavoriteDAO;
 import co.oc.dao.ReviewDAO;
-import co.oc.dto.ReviewDTO;
+import co.oc.dto.FavoriteDTO;
 
 public class MyFavoriteComm implements Command {
 
@@ -26,12 +25,11 @@ public class MyFavoriteComm implements Command {
 		HttpSession session = request.getSession(false);
 		String userNum = (String)session.getAttribute("userNum");
 
-		int pagenum = 1; // ������ ��ȣ
+		int pagenum = 1;
 		if (request.getParameter("Page_num") != null) {
 			pagenum = Integer.parseInt(request.getParameter("Page_num"));
 		}
 
-// size ������ �������� �Խñ� ����. 5���� 1page
 		int size = 5;
 
 		int tot = 0;
@@ -39,9 +37,7 @@ public class MyFavoriteComm implements Command {
 
 		try {
 
-			// �� �Խñ� ����.
 			cnt = ReviewDAO.getInstance().review_getPageCount(conn);
-			// ������ ��ȣ
 			tot = cnt / size;
 			if (cnt % size != 0) {
 				tot++;
@@ -55,18 +51,18 @@ public class MyFavoriteComm implements Command {
 		int end = pagenum * size;
 		int start = end - size + 1;
 
-// 리스트를 안넘김.
-	//	List<ReviewDTO> list =FavoriteDAO.getInstance().selectUser(conn, dto, start, end);
-		for(ReviewDTO dto: list) {
+		List<FavoriteDTO> list =FavoriteDAO.getInstance().selectUser(conn, dto, start, end);
+		for(FavoriteDTO dto: list) {
 			System.out.println(dto.getStoreName());
 		}
 
 		// request 객체에 list를 담아준다.
-				request.setAttribute("list", list);
+		request.setAttribute("list", list);
 				
-				// request 객체에 총 페이지수를 담아준다.
-				request.setAttribute("tot", tot);
-				// review.jsp로 이동
+		// request 객체에 총 페이지수를 담아준다.
+		request.setAttribute("tot", tot);
+		
+		// review.jsp로 이동
 		DAO.disconnect(conn);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/menu/my_act.jsp");
 		dispatcher.forward(request, response);

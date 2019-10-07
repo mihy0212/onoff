@@ -31,6 +31,7 @@ import co.oc.command.menu.MyAskWriteComm;
 import co.oc.command.menu.MyReviewComm;
 import co.oc.command.menu.MyaskDeleteComm;
 import co.oc.command.menu.MyinfoComm;
+import co.oc.command.menu.MyinfoDeleteCheckComm;
 import co.oc.command.menu.MyinfoUpComm;
 import co.oc.command.menu.MyinfoupFormComm;
 import co.oc.command.menu2.StoreInfoComm;
@@ -75,7 +76,8 @@ public class MainController extends HttpServlet {
 		
 		//복진영
 		//마이 메뉴
-		map.put("/myinfo.do", new MyinfoComm() );//정보조회 myinfo.jsp로
+		map.put("/myinfo.do", new MyinfoComm() );//정보조회 myinfo.jsp로		
+		map.put("/deletech.do", new MyinfoDeleteCheckComm());//탈퇴확인
 		map.put("/delete.do", new MyinfoDeleteComm());//탈퇴
 		map.put("/myinfoupForm.do", new MyinfoupFormComm() );//formjsp로 이동
 		map.put("/myinfoup.do", new MyinfoUpComm());//수정
@@ -87,7 +89,7 @@ public class MainController extends HttpServlet {
 		map.put("/myAsklist.do", new MyAskListComm());//문의리스트
 		map.put("/myAskRead.do", new MyAskRead());//문의읽기
 		map.put("/myAskdelecte.do", new MyaskDeleteComm());//문의삭제
-
+		
 	}
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

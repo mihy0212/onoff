@@ -206,13 +206,13 @@ function execPostCode() {
 
 				<div class="form-group">
 					<label for="userNum">이름</label> 
-					<input type="text"class="form-control" id="userNum" name="userNum" value="${UserDTO.userNum}">
+					<input type="text"class="form-control" id="userNum" name="userNum" value="${UserDTO.userNum}" readonly="readonly">
 					<div class="eheck_font" id="name_check"></div>
 				</div>
 
 				<div class="form-group">
 					<label for="user_birth">닉네임</label> 
-					<input type="text" class="form-control" id="ninckname" name="ninckname" value="${UserDTO.userNick}" readonly="readonly">
+					<input type="text" class="form-control" id="ninckname" name="ninckname" value="${UserDTO.userNick}" >
 					<div class="eheck_font" id="birth_check"></div>
 				</div>
 
@@ -230,7 +230,6 @@ function execPostCode() {
 				<div class="form-group text-center">
 					<input type="submit" value=정보수정 class="btn btn-primary" onclick="location.href='myinfoup.do'"> 
 					<input type=button value=취소 class="btn btn-primary"> 
-						<input type="button"  class="btn btn-primary" value="탈퇴"onclick="location.href='DeleteForm.jsp" />
 
 				</div>
 			</form>

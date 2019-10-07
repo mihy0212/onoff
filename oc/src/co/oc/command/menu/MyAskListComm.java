@@ -14,7 +14,6 @@ import co.oc.command.Command;
 import co.oc.dao.AskDAO;
 import co.oc.dao.DAO;
 import co.oc.dto.AskDTO;
-import co.oc.dto.ReviewDTO;
 
 public class MyAskListComm implements Command {
 
@@ -63,7 +62,7 @@ public class MyAskListComm implements Command {
 
 
 		// 리뷰게시판 불러오기.
-		List<AskDTO> list =AskDAO.getInstance().selectOne(conn, "userNum", userNum, start, end);
+		List<AskDTO> list =AskDAO.getInstance().selectOne(conn,"user_num", userNum, start, end);
 		for(AskDTO dto: list) {
 			System.out.println(dto.getAskNum());
 		}
