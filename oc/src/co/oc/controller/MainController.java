@@ -31,6 +31,7 @@ import co.oc.command.menu.MyReviewComm;
 import co.oc.command.menu.MyinfoComm;
 import co.oc.command.menu.MyinfoUpComm;
 import co.oc.command.menu.MyinfoupFormComm;
+import co.oc.command.menu2.StoreInfoComm;
 
 
 @WebServlet("/MainController")
@@ -47,7 +48,12 @@ public class MainController extends HttpServlet {
 		map = new HashMap<String, Command>();
 		
 		//최미현
-		
+		map.put("/storeInfo.do", new StoreInfoComm()); //가게별 상세 정보 조회
+//		map.put("/", new ());
+//		map.put("/", new ());
+//		map.put("/", new ());
+//		map.put("/", new ());
+//		map.put("/", new ());
 		
 		//권보성
 		map.put("/join_ceo.do", new CeoInsertCommand()); //CEO 회원가입처리

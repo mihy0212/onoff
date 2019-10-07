@@ -45,7 +45,7 @@ public class StoreDAO extends DAO{
 				dto.setStoreTime(rs.getString("store_time"));		//9
 				dto.setStoreTel(rs.getString("store_tel"));			//10
 				dto.setStoreMenu(rs.getString("store_menu"));		//11
-				dto.setStoreEct(rs.getString("store_ect"));			//12
+				dto.setStoreEct(rs.getString("store_etc"));			//12
 				dto.setStoreLike(rs.getInt("store_like"));		//13
 				dto.setUserNum(rs.getString("user_num"));			//14
 				dto.setStoreRegiday(rs.getDate("store_regiday"));	//15
@@ -78,7 +78,7 @@ public class StoreDAO extends DAO{
 				dto.setStoreTime(rs.getString("store_time"));		//9
 				dto.setStoreTel(rs.getString("store_tel"));			//10
 				dto.setStoreMenu(rs.getString("store_menu"));		//11
-				dto.setStoreEct(rs.getString("store_ect"));			//12
+				dto.setStoreEct(rs.getString("store_etc"));			//12
 				dto.setStoreLike(rs.getInt("store_like"));		//13
 				dto.setUserNum(rs.getString("user_num"));			//14
 				dto.setStoreRegiday(rs.getDate("store_regiday"));	//15
@@ -110,7 +110,7 @@ public class StoreDAO extends DAO{
 				dto.setStoreTime(rs.getString("store_time"));		//9
 				dto.setStoreTel(rs.getString("store_tel"));			//10
 				dto.setStoreMenu(rs.getString("store_menu"));		//11
-				dto.setStoreEct(rs.getString("store_ect"));			//12
+				dto.setStoreEct(rs.getString("store_etc"));			//12
 				dto.setStoreLike(rs.getInt("store_like"));		//13
 				dto.setUserNum(rs.getString("user_num"));			//14
 				dto.setStoreRegiday(rs.getDate("store_regiday"));	//15
@@ -135,7 +135,7 @@ public class StoreDAO extends DAO{
 				+ " store_time,"	//9
 				+ " store_tel,"		//10
 				+ " store_menu,"	//11
-				+ " store_ect,"		//12
+				+ " store_etc,"		//12
 				+ " user_num"		//13
 				+ ") values "
 				+ "(oc_store_num_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,? ,?)";
@@ -151,7 +151,7 @@ public class StoreDAO extends DAO{
 			psmt.setString(8, dto.getStoreTime());
 			psmt.setString(9, dto.getStoreTel());
 			psmt.setString(10, dto.getStoreMenu());
-			psmt.setString(11, dto.getStoreEct());
+			psmt.setString(11, dto.getStoreEtc());
 			psmt.setString(12, dto.getUserNum());
 			n = psmt.executeUpdate();
 			System.out.println(n + "건의 새로운 가게 정보 등록 성공");
@@ -174,7 +174,7 @@ public class StoreDAO extends DAO{
 				+ " store_time=?,"	//7
 				+ " store_tel=?,"	//8
 				+ " store_menu=?,"	//9
-				+ " store_ect=?,"	//10
+				+ " store_etc=?,"	//10
 				+ " store_like=?"	//11
 				+ " where store_num=?";	//12
 		try {
@@ -188,7 +188,7 @@ public class StoreDAO extends DAO{
 			psmt.setString(7, dto.getStoreTime());
 			psmt.setString(8, dto.getStoreTel());
 			psmt.setString(9, dto.getStoreMenu());
-			psmt.setString(10, dto.getStoreEct());
+			psmt.setString(10, dto.getStoreEtc());
 			psmt.setInt(11, dto.getStoreLike());
 			psmt.setString(12, dto.getStoreNum());
 			n = psmt.executeUpdate();
