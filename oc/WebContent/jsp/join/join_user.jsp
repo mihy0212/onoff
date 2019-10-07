@@ -27,9 +27,34 @@
 		
 		window.open("NickCheck.do?userNickname="+chkNick.value,"","width=500,height=400");
 	}
+
+	
+
+    $(function(){
+        $("#alert-success").hide();
+        $("#alert-danger").hide();
+        $("input").keyup(function(){
+            var pwd1=$("#userPw").val();
+            var pwd2=$("#userPwck").val();
+            if(pwd1 != "" || pwd2 != ""){
+                if(pwd1 == pwd2){
+                    $("#alert-success").show();
+                    $("#alert-danger").hide();
+                    $("#submit").removeAttr("disabled");
+                }else{
+                    $("#alert-success").hide();
+                    $("#alert-danger").show();
+                    $("#submit").attr("disabled", "disabled");
+                }    
+            }
+        });
+    });
 </script>
+
+
 </head>
 <body>
+<br /><br /><br /><br />
 <div class="container">
 <div class="col-lg-3"></div>
 <div class="col-lg-6">
@@ -50,9 +75,12 @@
 	<div class="form-group">
 	<input type="password" class="form-control" placeholder="비밀번호" id="userPw" name="userPw">
 	</div>
-		<!--<div class="form-group">
-	<input type="password" class="form-control" placeholder="비밀번호 확인" id="userPw" name="userPw">
-	</div>-->
+	<div class="form-group">
+	<input type="password" class="form-control" placeholder="비밀번호 확인" id="userPwck" name="userPwck">
+	<div class="alert alert-success" id="alert-success">비밀번호가 일치합니다.</div>
+	<div class="alert alert-danger" id="alert-danger">비밀번호가 일치하지 않습니다.</div>
+
+	</div>
 		<div class="form-group" style="text-align: center;">
 	<input type="text" class="form-control" placeholder="이름" id="userName" name="userName">
 	</div>

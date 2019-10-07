@@ -99,7 +99,8 @@ public class UserDAO extends DAO {
 	// 회원 수정
 	public int update(Connection conn, UserDTO dto) {
 		int n = 0;
-		String sql = "update oc_user set" + " user_pw=?," // 1
+		String sql = "update oc_user set"
+				+ " user_pw=?," // 1
 				+ " user_nick=?," // 2
 				+ " user_addr=?," // 3
 				+ " user_xy=?," // 4

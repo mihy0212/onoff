@@ -11,8 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import co.oc.command.Command;
 import co.oc.dao.DAO;
+import co.oc.dao.LikeDAO;
 import co.oc.dao.ReviewDAO;
 import co.oc.dao.StoreDAO;
+import co.oc.dto.LikeDTO;
 import co.oc.dto.ReviewDTO;
 import co.oc.dto.StoreDTO;
 
@@ -32,6 +34,10 @@ public class StoreInfoComm implements Command {
 		StoreDTO sdto = new StoreDTO();
 		sdto = StoreDAO.getInstance().selectStoreNum(conn, storeNum);
 		request.setAttribute("storeInfo", sdto);
+		
+		//가게의 좋아요 수 조회
+		int likes = LikeDAO.getInstance().selectStoreNum(conn, storeNum);
+		request.setAttribute("likes", likes);
 		
 		//리뷰 조회
 		List<ReviewDTO> list = ReviewDAO.getInstance().select1(conn, "store_num", storeNum, 1, 10);
