@@ -22,11 +22,11 @@ public class LikeClickComm implements Command {
 		PrintWriter out = response.getWriter();
 		
 		HttpSession session = request.getSession(false);
-		String userNum = session.getAttribute("userNum").toString();
+		String sessionUserNum = session.getAttribute("userNum").toString();
 		
 		LikeDTO ldto = new LikeDTO();
 		ldto.setStoreNum(request.getParameter("storeNum"));
-		ldto.setUserNum(userNum);
+		ldto.setUserNum(sessionUserNum);
 		
 		//DAO
 		Connection conn = DAO.connect();
