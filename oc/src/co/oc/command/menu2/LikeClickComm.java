@@ -31,6 +31,15 @@ public class LikeClickComm implements Command {
 		//DAO
 		Connection conn = DAO.connect();
 		int likes = LikeDAO.getInstance().check(conn, ldto);
+		if(likes == 0) {
+			LikeDAO.getInstance().insert(conn, ldto);
+			likes = 1;
+		} else if(likes == 1){
+			LikeDAO.getInstance().delete(conn, ldto);
+			likes = 0;
+		}
+		DAO.disconnect(conn);
+		
 		out.print(likes);
 		System.out.println(likes);
 

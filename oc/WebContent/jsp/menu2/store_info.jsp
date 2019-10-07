@@ -83,7 +83,8 @@ function likeUpDown(){
 				storeNum: ${ storeInfo.storeNum }
 			},
 			success: function(result){
-				if(result == 0){
+				console.log(result)
+				if(result == 1){
 					$('#heart').text('♥');
 					$('#like_num').text(${ likes }+1);
 				} else {
