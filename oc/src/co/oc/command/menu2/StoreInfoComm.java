@@ -8,6 +8,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import co.oc.command.Command;
 import co.oc.dao.DAO;
@@ -24,6 +25,8 @@ public class StoreInfoComm implements Command {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		//앞선 페이지에서 클릭한 가게 번호 읽어오기
+		HttpSession session = request.getSession(false);
+		String sessionUserNum = session.getAttribute("userNum").toString();
 //		String storeNum = request.getParameter("storeNum");
 		String storeNum = "2";
 		
@@ -36,8 +39,13 @@ public class StoreInfoComm implements Command {
 		request.setAttribute("storeInfo", sdto);
 		
 		//가게의 좋아요 수 조회
+		LikeDTO ldto = new LikeDTO();
+		ldto.setStoreNum(storeNum);
+		ldto.setUserNum(sessionUserNum);
 		int likes = LikeDAO.getInstance().selectStoreNum(conn, storeNum);
+		int likeHeart = LikeDAO.getInstance().check(conn, ldto);
 		request.setAttribute("likes", likes);
+		request.setAttribute("likeHeart", likeHeart);
 		
 		//리뷰 조회
 		List<ReviewDTO> list = ReviewDAO.getInstance().select1(conn, "store_num", storeNum, 1, 10);

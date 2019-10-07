@@ -57,7 +57,6 @@ $(document).ready(function(){
 		$('#categ3').text("기타");
 	}
 	
-	
 	$('#heart').hover(function(){
 		console.log($(this).text())
 		 if( $(this).text() == "♥" ){
@@ -74,23 +73,26 @@ $(document).ready(function(){
 	});
 });
 
-console.log(${ storeInfo.storeNum });
+
 function likeUpDown(){
-	$.ajax({
-		url: "likeClick.do",
-		data: {
-			storeNum: ${ storeInfo.storeNum }
-		},
-		success: function(result){
-			if(result == 0){
-				$('#heart').text('♥');
-				$('#like_num').text(${ likes }+1);
-			} else {
-				$('#heart').text('♡');
-				$('#like_num').text(${ likes }-1);
+	var storeNum = ${ storeInfo.storeNum };
+	if(${storeNum} != storeNum){
+		$.ajax({
+			url: "likeClick.do",
+			data: {
+				storeNum: ${ storeInfo.storeNum }
+			},
+			success: function(result){
+				if(result == 0){
+					$('#heart').text('♥');
+					$('#like_num').text(${ likes }+1);
+				} else {
+					$('#heart').text('♡');
+					$('#like_num').text(${ likes }-1);
+				}
 			}
-		}
-	});
+		});
+	}
 }
 /*
 $('#btnlike').on('click', function(){
@@ -166,8 +168,14 @@ $('#btnlike').on('click', function(){
                     
                     <!-- 좋아요 구역 -->
                     <br>
-                    <div align="center" id="likeDiv">
-	                   <font id="heart" color="red">♥</font>&nbsp;&nbsp;
+                    <div align="center" id="likeDiv" onclick="likeUpDown()">
+                       <c:choose>
+                       <c:when test="${likeHeart == 0}">
+	                   	<font id="heart" color="red">♡</font>&nbsp;&nbsp;
+	                   </c:when>
+	                   	<c:otherwise><font id="heart" color="red">♥</font>&nbsp;&nbsp;
+	                   </c:otherwise>
+	                   </c:choose>
 	                   <font id="like_num" color="gray">${ likes }</font>
 	                   <input id="btnlike" type="button" onclick="likeUpDown()" value="좋아요">
                     </div>
