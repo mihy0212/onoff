@@ -225,17 +225,14 @@ public class TestServlet extends HttpServlet {
 //		}
 		
 		//리뷰 일부조회1
-<<<<<<< HEAD
 		List<ReviewDTO> list = ReviewDAO.getInstance().select1(conn, "r.user_num", "4", 1, 5);
 		for(ReviewDTO dto : list) {
 			System.out.println(dto.getUserNick() +"님이 "+dto.getStoreName()+"에 "+dto.getReviewStar()+"점을 주셨습니다.");
 		}
-=======
 //		List<ReviewDTO> list = ReviewDAO.getInstance().select1(conn, "store_num", "2", 1, 5);
 //		for(ReviewDTO dto : list) {
 //			System.out.println(dto.getUserNick() +"님이 "+dto.getStoreName()+"에 "+dto.getReviewStar()+"점을 주셨습니다.");
 //		}
->>>>>>> branch 'master' of https://github.com/wlsdud6764/on-off.git
 		
 		//리뷰 일부 조회2
 //		ReviewDTO dto = new ReviewDTO();
