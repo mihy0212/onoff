@@ -25,6 +25,7 @@ import co.oc.command.join.NickcheckCommand;
 import co.oc.command.manager.BorderListCommand;
 import co.oc.command.manager.WriteForm;
 import co.oc.command.menu.MyinfoDeleteComm;
+import co.oc.command.menu.DeldectMyReiviewComm;
 import co.oc.command.menu.MyAskListComm;
 import co.oc.command.menu.MyAskRead;
 import co.oc.command.menu.MyAskWriteComm;
@@ -34,6 +35,7 @@ import co.oc.command.menu.MyinfoComm;
 import co.oc.command.menu.MyinfoDeleteCheckComm;
 import co.oc.command.menu.MyinfoUpComm;
 import co.oc.command.menu.MyinfoupFormComm;
+import co.oc.command.menu.UpdateMyReiviewComm;
 import co.oc.command.menu2.LikeClickComm;
 import co.oc.command.menu2.StoreInfoComm;
 
@@ -85,6 +87,8 @@ public class MainController extends HttpServlet {
 		
 		map.put("/myReview.do", new MyReviewComm());//리뷰
 		map.put("/myfavorite.do", new MyReviewComm());//즐겨찾기
+		map.put("/updateMyReiview.do", new UpdateMyReiviewComm());
+		map.put("/delectMyReiview.do", new DeldectMyReiviewComm());//리뷰삭제
 		
 		map.put("/myAskWrite.do", new MyAskWriteComm());//문의리스트
 		map.put("/myAsklist.do", new MyAskListComm());//문의리스트

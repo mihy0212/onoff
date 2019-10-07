@@ -15,12 +15,7 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <!-- Latest compiled JavaScript -->
-<script type="text/javascript">
-function review_delete() {
-	.done(function() {
-        alert("삭제성공");
-      })
-</script>
+
 
 
 

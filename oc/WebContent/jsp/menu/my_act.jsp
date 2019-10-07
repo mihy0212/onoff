@@ -59,17 +59,23 @@
 	src="${pageContext.request.contextPath }/assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
 <script> 
 
-$("#test").hide();   // 숨기기
+function delect(){
+	if (confirm("정말 삭제하시겠습니까??") == true){    //확인
+		location.href='delectMyReiview.do';
+	}else{   //취소
+	    return;
+	}
+	}
 
-$("#test").show(); //보이기
 
+$('#myModal').modal("toggle");
+//반대로 모달상태를 전환함
 
-$(document).ready(function(){
-	
-	
-	
-	
-})
+$('#myModal').modal("hide");
+//모달창 열기
+
+$('#myModal').modal("show");
+//모달창 닫음
 </script>
 </head>
 
@@ -188,7 +194,7 @@ $(document).ready(function(){
 											<th>리뷰작성일</th>
 											<th>리뷰내용</th>
 											<th>별점</th>
-											<th>수정</th>
+											<th>수정/삭제</th>
 										</tr>
 									</thead>
 
@@ -196,20 +202,20 @@ $(document).ready(function(){
 									<!-- db에 목록이 이없으면 empty:비어있다는 뜻임  -->
 									<c:if test="${empty list}">
 										<tr>
-											<td colspan="4">등록된 글이 존재하지 않습니다.</td>
+											<td colspan="5">등록된 글이 존재하지 않습니다.</td>
 										</tr>
 									</c:if>
 
 									<!--목록이 있으면  -->
 									<c:forEach items="${list }" var="list" >
-									<tr class="info" onclick="location.href='storeInfo.do?key=${dto.reviewNum }'">
-										<td scope="row" align="center">${list.storeName }</td>
+									<tr class="info" >
+										<td scope="row" align="center"  onclick="location.href='storeInfo.do'">${list.storeName } </td>
 										<td scope="row" align="center">${list.reviewDate }</td>
 										<td align="center">${list.reviewContent}</td>
 										<td align="center">${list.reviewStar }</td>
 										<td align="center">
-										<input type="button" value="수정" onclick=""location.href='storeInfo.do'">
-										<input type="button" value="삭제" onclick=""location.href='storeInfo.do'">
+										<input type="button" value="수정" data-target="#myModal" data-toggle="modal">
+										<input type="button" value="삭제" onclick="delect()">
 										</td>
 									</tr>
 									</c:forEach>
@@ -228,6 +234,58 @@ $(document).ready(function(){
 		<!-- End off test section -->
 
 	</div>
+	 <!-------------------------------------------- Modal 리뷰작성 -------------------------------------------------->
+		<div class="modal fade" id="myModal" role="dialog">
+    	<div class="modal-dialog modal-lg">
+    
+      	<!-- Modal content-->
+      	<div class="modal-content">
+	        <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        </div>
+        <div class="modal-body">
+          
+			<div class="panel-group">
+			<div class="panel panel-success" style="margin-top: 10px;">
+				<div class="panel-heading">리뷰 수정</div>
+				<div class="panel-body">
+					<%-- form --%>
+					<form class="form-horizontal" role="form" onclick="location.href='askwrite.do'"  method="post">
+						<div class="form-group">
+							<label class="control-label col-sm-2">작성자(ID):</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="user_id"
+									name="user_id" placeholder="ID" readonly="readonly">${userEmail}
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label class="control-label col-sm-2" for="pwd">내용:</label>
+							<div class="col-sm-10">
+								<textarea class="form-control" rows="5"	placeholder="ask_content" name="review_content" id="review_content"></textarea>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-offset-2 col-sm-10">
+								<button type="submit" class="btn btn-success" onclick="">작 성</button>
+								<button type="reset" class="btn btn-danger">초기화</button>
+							</div>
+						</div>
+					</form>
+
+
+				</div>
+
+			</div>
+		</div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
 
 	<!-- JS includes -->
 

@@ -27,7 +27,7 @@ public class MyinfoDeleteComm implements Command {
 		 UserDAO.getInstance().delete(conn, userNum);
 			
 		 session.invalidate();
-		RequestDispatcher dispatcher=request.getRequestDispatcher("logout.do");
+		RequestDispatcher dispatcher=request.getRequestDispatcher("loginform.do");
 		dispatcher.forward(request, response);
 	  
 		//접속 해제

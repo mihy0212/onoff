@@ -3,12 +3,17 @@
 <html>
 <head>
     <title>현재 유저정보 출력화면</title>
- <!-- <script type="text/javascript">
-      function delecte() {
-    	  window.open("deletech.do""width=500,height=400")
-	}
+<script type="text/javascript">
+
+      function delect(){
+    		if (confirm("정말 삭제하시겠습니까??") == true){    //확인
+    			location.href='deletech.do';
+    		}else{   //취소
+    		    return;
+    		}
+    		}
       
-</script>  --> 
+</script> 
 </head>
 <body>
  <article class="container">
@@ -43,7 +48,7 @@
        
         <div class="form-group text-center">
         <input type="button" class="btn btn-primary" value="회원정보 변경" onclick="location.href='myinfoupForm.do'">
-        <input type="button" class="btn btn-primary" value="회원탈퇴" onclick="location.href='deletech.do'">
+        <input type="button" class="btn btn-primary" value="회원탈퇴" onclick="delect()">
         <!-- onclick="delecte()"  -->
 		</div>
 		</form>
