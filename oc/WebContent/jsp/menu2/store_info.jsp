@@ -27,6 +27,7 @@
 <script src="${pageContext.request.contextPath }/assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script> 
+
 $(document).ready(function(){
 	
 	//카테고리1 출력하기
@@ -57,23 +58,60 @@ $(document).ready(function(){
 	}
 	
 	
-	
 	$('#heart').hover(function(){
-		var heart = $(this).text("♥");
-		var emptyHeart = $(this).html("<span class='icon icon icon-heart2 text-black'></span>"); 
-			
-		
+		console.log($(this).text())
+		 if( $(this).text() == "♥" ){
+			 $(this).text('♡');
+		 } else {
+			 $(this).text('♥');
+		 }
 	}, function(){
-		if(	$(this).html("<span class='icon icon icon-heart2 text-black'></span>") ){
-			//다르게 보이지만 빈 사랑표임
-			$(this).text("♥");
+		if(	$(this).text() == "♥" ){
+			$(this).text('♡');
 		} else {
-			$(this).text("♥");
+			$(this).text('♥');
 		}
 	});
-	
-	
-})
+});
+
+console.log(${ storeInfo.storeNum });
+function likeUpDown(){
+	$.ajax({
+		url: "likeClick.do",
+		data: {
+			storeNum: ${ storeInfo.storeNum }
+		},
+		success: function(result){
+			if(result == 0){
+				$('#heart').text('♥');
+				$('#like_num').text(${ likes }+1);
+			} else {
+				$('#heart').text('♡');
+				$('#like_num').text(${ likes }-1);
+			}
+		}
+	});
+}
+/*
+$('#btnlike').on('click', function(){
+	console.log( ${storeInfo.storeNum} )
+	$.ajax({
+		url: "likeClick.do",
+		data: {
+			storeNum: ${ storeInfo.storeNum }
+		},
+		success: function(result){
+			if(result == 0){
+				$('#heart').text('♥');
+				$('#like_num').text(${ likes }+1);
+			} else {
+				$('#heart').text('♡');
+				$('#like_num').text(${ likes }-1);
+			}
+		}
+	});
+});*/
+
 
 </script>
 </head>
@@ -128,9 +166,12 @@ $(document).ready(function(){
                     
                     <!-- 좋아요 구역 -->
                     <br>
-                    <div align="center" id="heart" name="heart">
-	                    ♥ <font color="gray">${ likes }</font>
+                    <div align="center" id="likeDiv">
+	                   <font id="heart" color="red">♥</font>&nbsp;&nbsp;
+	                   <font id="like_num" color="gray">${ likes }</font>
+	                   <input id="btnlike" type="button" onclick="likeUpDown()" value="좋아요">
                     </div>
+                    
                 </div>
                 
                 
