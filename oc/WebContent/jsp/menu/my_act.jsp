@@ -94,7 +94,7 @@ $("#test").show(); //보이기
 
 
 
-		<section id="portfolio" class="portfolio margin-top-120">
+            <section id="features" class="features bg-white">
 
 			<!-- Portfolio container-->
 			<div class="container">
@@ -145,10 +145,7 @@ $("#test").show(); //보이기
 									<!--목록이 있으면  -->
 									<c:forEach items="${list }" var="list">
 										<tr onclick="location.href=#">
-											<th scope="row" align="center">${list.reviewDate }</th>
 											<td align="center">${list.storeName }</td>
-											<td align="center">${list.reviewContent }</td>
-											<td align="center">${list.reviewStar }</td>
 										</tr>
 									</c:forEach>
 									<!-- db 목록을 가져와서 뿌려주는 곳끝 -->
@@ -169,10 +166,11 @@ $("#test").show(); //보이기
 		<!-- End off portfolio section -->
 
 		<!----------------------------------------------------------------나의리뷰----------------------------------------------------------------------------------------- -->
-
+<br><br>
 		<!--Test section-->
-		<section id="test" class="test bg-grey roomy-60 fix">
-			<div class="container">
+            <section id="portfolio" class="portfolio margin-top-120">
+            <br><br><br><br><br><br>
+				<div class="container">
 				<div class="row">
 					<div class="main-portfolio roomy-80">
 
@@ -186,10 +184,10 @@ $("#test").show(); //보이기
 						<div class="grid text-center">
 							<!-- 별점선택 -->
 							<div>
-								<table id="users" class="ui-widget ui-widget-content">
+								<table id="users" class=" table table-striped table-bordered results">
 									<thead>
 										<tr>
-											<th>상호명</th>
+											<th >상호명</th>
 											<th>리뷰작성일</th>
 											<th>리뷰내용</th>
 											<th>별점</th>
@@ -207,12 +205,11 @@ $("#test").show(); //보이기
 									<!--목록이 있으면  -->
 									<c:forEach items="${list }" var="list" >
 									<tr class="info" onclick="location.href=#">
-									<td scope="row" align="center">${list.storeName }</td>
-										
-											<td scope="row" align="center">${list.reviewDate }</td>
-											<td align="center">${list.reviewContent}</td>
-											<td align="center">${list.reviewStar }</td>
-										</tr>
+										<td scope="row" align="center">${list.storeName }</td>
+										<td scope="row" align="center">${list.reviewDate }</td>
+										<td align="center">${list.reviewContent}</td>
+										<td align="center">${list.reviewStar }</td>
+									</tr>
 									</c:forEach>
 									<!-- db 목록을 가져와서 뿌려주는 곳끝 -->
 								</table>

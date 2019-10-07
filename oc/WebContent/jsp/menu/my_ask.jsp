@@ -1,164 +1,102 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
-<%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-
-
-<!DOCTYPE html>
-
+<!DOCTYPE html >
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Review</title>
-<!-- jQuery library -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<!-- Latest compiled JavaScript -->
 <script type="text/javascript">
-function review_delete() {
-	.done(function() {
-        alert("삭제성공");
-      })
+	function replyCheck() {
+		var form = document.replyform;
+		if (!form.title.value) {
+			alert("제목을 적어주세요");
+			form.title.focus();
+			return;
+		}
+		if (!form.memo.value) {
+			alert("내용을 적어주세요");
+			form.memo.focus();
+			return;
+		}
+		form.submit();
+	}
 </script>
-
-
-
+<title>게시판</title>
 </head>
 <body>
-	<div class="container">
+	<!--  ---------------------목록 쓰기-------------------------------->
+	<form name=replyform method=post action="myAskWrite.do">
+		<div align="center">
+			<div class="col-md-4">
+				<div class="head_title text-left sm-text-center wow fadeInDown">
+					<h2>질문</h2>
+				</div>
+			</div>
 
-		<table class="table">
-			<thead>
+			<table>
 				<tr>
-					<th>번호</th>
-					<th>제목</th>
-					<th>질문내용</th>
-					<th>질문작성일</th>
-					<th>질문답변상태</th>
+					<td>&nbsp;</td>
+					<td align="center">제목</td>
+					<td><input name="title" size="200" maxlength="100"></td>
+					<td>&nbsp;</td>
 				</tr>
-			</thead>
+			</table>
+			<br>
+			<table>
+				<tr>
+					<td>&nbsp;</td>
+					<td align="center">내용</td>
+					<!--(rows값)줄, cols는  (cols값)자  -->
+					<td><textarea name="memo" cols="200" rows="10"></textarea></td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr align="center">
+					<td>&nbsp;</td>
+					<td colspan="2"><input type=button value="등록" onclick="replyCheck();"> 
+						<input type="reset" value="취소">
+						&nbsp;&nbsp;&nbsp;
+					<td>&nbsp;</td>
+				</tr>
+			</table>
+		</div>
+	</form>
+	<!--  ---------------------목록 보기-------------------------------->
+	<div>
+		<table class=" table table-striped">
+			<tr>
+				<th width="100">번호</th>
+				<th width="350">제목</th>
+				<th width="100">내용</th>
+				<th width="200">상태</th>
+				<th width="80">작성일</th>
+			</tr>
 
-			<tbody>
-				
-				
-				<tr class="info">
-					<td>${dto.askNum}</td>
-					<td>${dto.user_id}</td>
-					<td><a data-toggle="modal" data-target="#myModal2" onclick="location.href='askread.do'">${dto.askTitle}</a></td>
-					<td>${dto.review_goods_name}</td>
-					<td>${dto.askDate}</td>
+
+			<!-- db 목록을 가져와서 뿌려주는 곳 -->
+			<!-- db에 목록이 이없으면 -->
+			<c:if test="${list.isEmpty()}">
+				<tr>
+					<td colspan="5">등록된 글이 존재하지 않습니다.</td>
 				</tr>
-			</tbody>
+			</c:if>
+
+			<!--목록이 있으면  -->
+			<c:forEach items="${list }" var="dto">
+				<tr onclick="location.href='myAskRead.do?key=${list.askNum }'">
+					<td align="center">${list.askTitle }</td>
+					<td>&nbsp;&nbsp;${list.askNum }</td>
+					<td align="center">${list.askContent }</td>
+					<td align="center">${list.askStatus }</td>
+					<td align="center">${list.askDate }</td>
+				</tr>
+			</c:forEach>
+			<!-- db 목록을 가져와서 뿌려주는 곳끝 -->
+
 		</table>
-
-		<div class="row">
-			<div class="col-sm-6">
-			
-				<div style="text-align:left">
-					<ul class="pagination" id="page_num">
-						<li>
-									
-										
-						</li>
-					</ul>
-				</div>
-			</div>
-			<div class="col-sm-2"></div>
-			<div class="col-sm-4 text-success" style="text-align: right;"> 
-			<button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">Write</button>
-			</div>
-		</div>
-		 
-		
- <!-------------------------------------------- Modal 문의글작성 -------------------------------------------------->
-  	<div class="modal fade" id="myModal" role="dialog">
-    	<div class="modal-dialog modal-lg">
-    
-      	<!-- Modal content-->
-      	<div class="modal-content">
-	        <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal">&times;</button>
-	        </div>
-        <div class="modal-body">
-          
-			<div class="panel-group">
-			<div class="panel panel-success" style="margin-top: 10px;">
-				<div class="panel-heading">문의사항</div>
-				<div class="panel-body">
-					<%-- form --%>
-					<form class="form-horizontal" role="form" onclick="location.href='askwrite.do'"  method="post">
-						<div class="form-group">
-							<label class="control-label col-sm-2">작성자(ID):</label>
-							<div class="col-sm-10">
-								<input type="text" class="form-control" id="user_id"
-									name="user_id" placeholder="ID" readonly="readonly">${userEmail}
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="control-label col-sm-2" for="pwd">제목:</label>
-							<div class="col-sm-10">
-								<input type="text" class="form-control" id="askTitle"
-									name="askTitle" placeholder="Title">
-							</div>
-						</div>
-						
-						<div class="form-group">
-							<label class="control-label col-sm-2" for="pwd">내용:</label>
-							<div class="col-sm-10">
-								<textarea class="form-control" rows="5"	placeholder="ask_content" name="review_content" id="review_content"></textarea>
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="col-sm-offset-2 col-sm-10">
-								<button type="submit" class="btn btn-success">작 성</button>
-								<button type="reset" class="btn btn-danger">초기화</button>
-							</div>
-						</div>
-					</form>
-
-
-				</div>
-
-			</div>
-		</div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-      
-    </div>
-  </div>
-  
-  
-  <!------------------------------------- Modal2 _ 문의글읽기 --------------------------------------------->
-  <div class="modal fade" id="myModal2" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">ASK Detail</h4>
-        </div>
-        <div class="modal-body">
-                   	
-          <textarea rows="10" class="form-control" readonly="readonly" id="content"></textarea>	
-                    
-        </div>
-<!-- ---------------------------------------------------------------------------------------------------------- -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" onclick="location.href='askdelete.do'" >Delete</button>
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-      
-    </div>
-  </div>
-		
+		<hr />
 	</div>
 
 
+	</form>
 </body>
 </html>

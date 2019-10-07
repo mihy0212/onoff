@@ -18,12 +18,12 @@ public class MyAskRead implements Command {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Connection conn = DAO.connect();
-		// ÆÄ¶ó¹ÌÅÍ°ª ÃßÃâ
-		int ask_num = Integer.parseInt(request.getParameter("ask_num"));
+		// ï¿½Ä¶ï¿½ï¿½ï¿½Í°ï¿½ ï¿½ï¿½ï¿½ï¿½
+		int ask_re = Integer.parseInt(request.getParameter("ask_re"));
 
-		// ÇØ´ç ¸®ºä±Û Á¤º¸ ºÒ·¯¿À±â.
-
-		AskDTO dto = AskDAO.getInstance().sellectOne(conn, ask_num);
+		// ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½.
+	
+//		AskDTO dto = AskDAO.getInstance().selectOne(conn, "ask_re", "ask_re", 1, 1);
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher("my_ask.jsp");
 		dispatcher.forward(request, response);

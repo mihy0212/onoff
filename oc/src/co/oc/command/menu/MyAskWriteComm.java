@@ -31,8 +31,6 @@ public class MyAskWriteComm implements Command {
 					// 빈 객체에 데이터 set
 					AskDTO dto = new AskDTO();
 					
-					dto.setUserNum(userNum);
-					dto.setAskTitle(askTitle);
 					dto.setAskTitle(askTitle);
 					dto.setAskContent(askContent);
 					
@@ -40,7 +38,7 @@ public class MyAskWriteComm implements Command {
 					//DB에 저장
 					AskDAO.getInstance().insert(conn, dto);
 					
-					RequestDispatcher dispatcher = request.getRequestDispatcher("myAskWriteForm.dao");
+					RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/menu/my_ask.jsp");
 					dispatcher.forward(request, response);
 
 					DAO.disconnect(conn);
