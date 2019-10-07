@@ -101,7 +101,6 @@
 
 				</div>
 				<!-- End Header Navigation -->
-${userEmail}=====
 				<!-- navbar menu -->
 				<div class="collapse navbar-collapse" id="navbar-menu">
 					<ul class="nav navbar-nav navbar-right ">
@@ -152,7 +151,7 @@ ${userEmail}=====
 			</div>
 		</nav>
 	</div>
-	<div style="padding-top:150px">
+	<div style="padding-top:80px">
 	  
 	<decorator:body></decorator:body>
 
