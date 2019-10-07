@@ -31,7 +31,6 @@ public class CeoInsertCommand implements Command {
 				dto.setUserName(request.getParameter("userName"));
 				dto.setUserNick(request.getParameter("userNickname"));
 				dto.setUserAddr(request.getParameter("userAddr"));
-				dto.setUserXy(request.getParameter("userXY"));
 				Connection conn = DAO.connect();
 				int n = dao.insert(conn, dto);
 				
@@ -40,7 +39,6 @@ public class CeoInsertCommand implements Command {
 				AddDAO adao = new AddDAO();
 				adto.setStoreName(request.getParameter("storeName"));
 				adto.setStoreAddr(request.getParameter("storeAddr"));
-				adto.setStoreXy(request.getParameter("storeXY"));
 				adto.setStoreCateg1(request.getParameter("storeCa1"));
 				adto.setStoreCateg2(request.getParameter("storeCa2"));
 				adto.setStoreCateg3(request.getParameter("storeCa3"));
