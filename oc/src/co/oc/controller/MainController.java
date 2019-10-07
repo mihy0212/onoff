@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import co.micol.command.BorderWriteForm;
+
 import co.oc.command.Command;
 import co.oc.command.join.CeoInsertCommand;
 import co.oc.command.join.IdCheckCommand;
@@ -67,7 +67,7 @@ public class MainController extends HttpServlet {
 		map.put("/login.do", new LoginCheckCommand()); //로그인 정보 DB에확인 후 로그인
 		map.put("/logout.do", new LogoutCommand()); //로그아웃
 		map.put("/list.do", new BorderListCommand()); //문의글리스트보기
-		map.put("/writeForm.do", new BorderWriteForm());
+		map.put("/writeForm.do", new WriteForm());
 		//백승진
 		
 		
