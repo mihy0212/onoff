@@ -62,7 +62,7 @@ public class MyReviewComm implements Command {
 		System.out.println(start);
 		System.out.println(end);
 
-// 리스트를 안넘김.
+// 리스트를 안넘어감.
 		List<ReviewDTO> list = ReviewDAO.getInstance().select1(conn,"user_num", userNum, 1, 1); //all
 		for(ReviewDTO dto: list) {
 			System.out.println(dto.getReviewNum()+"akjdlaskdjf");
