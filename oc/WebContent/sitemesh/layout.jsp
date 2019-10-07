@@ -114,8 +114,8 @@
 							   <div class="dropdown-menu">
 							  <c:choose>
 							  <c:when test="${!empty userEmail }">
-								  <a class="dropdown-item" href="myReview.do">즐겨찾기 보기</a> <br>
-								  <a	class="dropdown-item" href="loginform.do">리뷰 목록</a><br>
+								  <a class="dropdown-item" href="myfavorite.do">즐겨찾기 보기</a> <br>
+								  <a	class="dropdown-item" href="myReview.do">리뷰 목록</a><br>
 								   <c:if test="${!empty userEmail && userGrant=='C'}">
 									<a class="dropdown-item" href="myReview.do">내 가게 정보</a><br>
 									<a class="dropdown-item" href="#">내 가게 정보 수정</a> <br>
@@ -123,7 +123,7 @@
 							  </c:when>
 							 
 								</c:choose>
-								<a class="dropdown-item" href="#">Contact</a>
+								<a class="dropdown-item" href="myAsklist.do">Contact</a>
 							</div></li>
 
 						<!-- MyPage -->

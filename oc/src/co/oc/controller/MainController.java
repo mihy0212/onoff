@@ -22,9 +22,11 @@ import co.oc.command.join.LoginFormCommand;
 import co.oc.command.join.LogoutCommand;
 import co.oc.command.join.NickcheckCommand;
 import co.oc.command.menu.MyinfoDeleteComm;
+import co.oc.command.menu.MyAskListComm;
+import co.oc.command.menu.MyAskRead;
 import co.oc.command.menu.MyAskWriteComm;
-import co.oc.command.menu.MyAskWriteFormComm;
 import co.oc.command.menu.MyReviewComm;
+import co.oc.command.menu.MyaskDeleteComm;
 import co.oc.command.menu.MyinfoComm;
 import co.oc.command.menu.MyinfoUpComm;
 import co.oc.command.menu.MyinfoupFormComm;
@@ -62,15 +64,19 @@ public class MainController extends HttpServlet {
 		
 		//복진영
 		//마이 메뉴
-				map.put("/myinfo.do", new MyinfoComm() );//정보조회 myinfo.jsp로
-				map.put("/delete.do", new MyinfoDeleteComm());//탈퇴
-				map.put("/myinfoupForm.do", new MyinfoupFormComm() );//formjsp로 이동
-				map.put("/myinfoup.do", new MyinfoUpComm());//수정
-				map.put("/myReview.do", new MyReviewComm());//즐겨찾기
-				map.put("/myAskWriteForm.dao", new MyAskWriteFormComm());//문의
-				map.put("/myAskWrite.dao", new MyAskWriteComm());//문의
-				map.put("/myAskWrite.dao", new MyAskWriteComm());//문의
+		map.put("/myinfo.do", new MyinfoComm() );//정보조회 myinfo.jsp로
+		map.put("/delete.do", new MyinfoDeleteComm());//탈퇴
+		map.put("/myinfoupForm.do", new MyinfoupFormComm() );//formjsp로 이동
+		map.put("/myinfoup.do", new MyinfoUpComm());//수정
 		
+		map.put("/myReview.do", new MyReviewComm());//리뷰
+		map.put("/myfavorite.do", new MyReviewComm());//즐겨찾기
+		
+		map.put("/myAskWrite.do", new MyAskWriteComm());//문의리스트
+		map.put("/myAsklist.do", new MyAskListComm());//문의리스트
+		map.put("/myAskRead.do", new MyAskRead());//문의읽기
+		map.put("/myAskdelecte.do", new MyaskDeleteComm());//문의삭제
+
 	}
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
