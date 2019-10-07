@@ -95,32 +95,9 @@ div#users-contain table td, div#users-contain table th {
 		}
 
 		function addUser() {
-			var valid = true;
-			allFields.removeClass("ui-state-error");
-
-			valid = valid && checkLength(name, "username", 3, 16);
-			valid = valid && checkLength(email, "email", 6, 80);
-			valid = valid && checkLength(password, "password", 5, 16);
-
-			valid = valid
-					&& checkRegexp(
-							name,
-							/^[a-z]([0-9a-z_\s])+$/i,
-							"Username may consist of a-z, 0-9, underscores, spaces and must begin with a letter.");
-			valid = valid
-					&& checkRegexp(email, emailRegex, "eg. ui@jquery.com");
-			valid = valid
-					&& checkRegexp(password, /^([0-9a-zA-Z])+$/,
-							"Password field only allow : a-z 0-9");
-
-			if (valid) {
-				$("#users tbody").append(
-						"<tr>" + "<td>" + name.val() + "</td>" + "<td>"
-								+ email.val() + "</td>" + "<td>"
-								+ password.val() + "</td>" + "</tr>");
-				dialog.dialog("close");
-			}
-			return valid;
+			
+//컴맨드 호출
+	onclick="location.href='myAskWriteForm.dao'";
 		}
 
 		dialog = $("#dialog-form").dialog({
@@ -129,7 +106,7 @@ div#users-contain table td, div#users-contain table th {
 			width : 350,
 			modal : true,
 			buttons : {
-				"Create an account" : addUser,
+				"등록" : addUser, //버튼이름
 				Cancel : function() {
 					dialog.dialog("close");
 				}
@@ -228,8 +205,6 @@ div#users-contain table td, div#users-contain table th {
 				</thead>
 
 				<tbody>
-
-
 					<tr class="info">
 						<td>${dto.askNum}</td>
 						<td>${dto.user_id}</td>

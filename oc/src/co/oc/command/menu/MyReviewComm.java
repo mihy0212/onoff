@@ -58,18 +58,18 @@ public class MyReviewComm implements Command {
 		int end = pagenum * size;
 		int start = end - size + 1;
 
-		System.out.println(start);
-		System.out.println(end);
+// 리스트를 안넘김.
+		List<ReviewDTO> list = ReviewDAO.getInstance().select1(conn,"user_num", userNum, start, end); //all
+		for(ReviewDTO dto: list) {
+			System.out.println(dto.getStoreName());
+		}
 
-// ����Խ��� �ҷ�����.
-		List<ReviewDTO> list = ReviewDAO.getInstance().select1(conn,"user_Num", userNum, start, end); //all
-
-		// request ��ü�� list�� ����ش�.
-		request.setAttribute("list", list);
-
-		// request ��ü�� �� ���������� ����ش�.
-		request.setAttribute("tot", tot);
-// review.jsp�� �̵�
+		// request 객체에 list를 담아준다.
+				request.setAttribute("list", list);
+				
+				// request 객체에 총 페이지수를 담아준다.
+				request.setAttribute("tot", tot);
+				// review.jsp로 이동
 		DAO.disconnect(conn);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/menu/my_act.jsp");
 		dispatcher.forward(request, response);

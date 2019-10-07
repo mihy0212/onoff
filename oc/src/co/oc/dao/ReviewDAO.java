@@ -22,21 +22,27 @@ public class ReviewDAO extends DAO {
 				+ " r.user_num,"			//3
 				+ " u.user_nick,"			//4
 				+ " r.store_num,"			//5
-				+ " r.store_name,"			//6
+				+ " s.store_name,"			//6
 				+ " r.review_star,"			//7
 				+ " r.review_content,"		//8
 				+ " r.review_date"			//9
 				+ " from oc_review r join oc_user u"
-				+ " on (r.user_num = u.user_num)"
-				+ " where r.review_re in (select review_num" //review_re에서 review_num를 찾는다.
-										+ " from (select rownum as rnum, review_num"
-												+ "	from (select review_num from oc_review where review_num=review_re order by review_num desc) a1"
-										+ ") a2 where a2.rnum >=? and a2.rnum <=?)"
+				+ " on (r.user_num = u.user_num) join oc_store s"
+				+ " on (r.store_num = s.store_num)"
+				+ " where r.review_re in" //review_re에서 review_num를 찾는다.
+					+ " (select review_num"
+							+ " from (select rownum as rnum, review_num"
+									+ "	from (select review_num "
+											+ "	from oc_review"
+											+ " where review_num=review_re"
+											+ " order by review_num desc) a1"
+									+ " where rownum<=?) a2"
+						+ " where a2.rnum>=?)"
 				+ " order by r.review_re desc, r.review_num asc";
 		try {
 			psmt = conn.prepareStatement(sql);
-			psmt.setInt(1, start);
-			psmt.setInt(2, end);
+			psmt.setInt(1, end);
+			psmt.setInt(2, start);
 			rs = psmt.executeQuery();
 			while (rs.next()) {
 				ReviewDTO dto = new ReviewDTO();
@@ -65,22 +71,27 @@ public class ReviewDAO extends DAO {
 				+ " r.user_num,"			//3
 				+ " u.user_nick,"			//4
 				+ " r.store_num,"			//5
-				+ " r.store_name,"			//6
+				+ " s.store_name,"			//6
 				+ " r.review_star,"			//7
 				+ " r.review_content,"		//8
 				+ " r.review_date"			//9
 				+ " from oc_review r join oc_user u"
-				+ " on (r.user_num = u.user_num)"
-				+ " where r.review_re in (select review_num" //review_re에서 review_num를 찾는다.
-										+ " from (select rownum as rnum, review_num"
-												+ "	from (select review_num from oc_review where review_num=review_re order by review_num desc) a1"
-										+ ") a2 where a2.rnum >=? and a2.rnum <=?)"
-				+ " and " + check + " = " + content
+				+ " on (r.user_num = u.user_num) join oc_store s"
+				+ " on (r.store_num = s.store_num)"
+				+ " where r.review_re in"
+					+ " (select review_num"
+							+ " from (select rownum as rnum, review_num"
+									+ "	from (select review_num, review_re, user_num, store_num, review_star, review_content, review_date"
+											+ "	from oc_review"
+											+ " where review_num=review_re and "+check+"="+content
+											+ " order by review_num desc) a1"
+									+ " where rownum<=?) a2"
+						+ " where a2.rnum>=?)"
 				+ " order by r.review_re desc, r.review_num asc";
 		try {
 			psmt = conn.prepareStatement(sql);
-			psmt.setInt(1, start);
-			psmt.setInt(2, end);
+			psmt.setInt(1, end);
+			psmt.setInt(2, start);
 			rs = psmt.executeQuery();
 			while (rs.next()) {
 				ReviewDTO dto = new ReviewDTO();
@@ -109,25 +120,29 @@ public class ReviewDAO extends DAO {
 				+ " r.user_num,"			//3
 				+ " u.user_nick,"			//4
 				+ " r.store_num,"			//5
-				+ " r.store_name,"			//6
+				+ " s.store_name,"			//6
 				+ " r.review_star,"			//7
 				+ " r.review_content,"		//8
 				+ " r.review_date"			//9
 				+ " from oc_review r join oc_user u"
-				+ " on (r.user_num = u.user_num)"
-				+ " where r.review_re in (select review_num" //review_re에서 review_num를 찾는다.
-										+ " from (select rownum as rnum, review_num"
-												+ "	from (select review_num from oc_review where review_num=review_re order by review_num desc) a1"
-										+ ") a2 where a2.rnum >=? and a2.rnum <=?)"
-				+ " and r.store_num like '%'|| ? ||'%' and r.user_num like '%' || ? ||'%' and r.review_star=?"
-				+ " order by r.review_re desc, r.review_num asc";
+				+ " on (r.user_num = u.user_num) join oc_store s"
+				+ " on (r.store_num = s.store_num)"
+				+ " where r.review_re in"
+					+ " (select review_num"
+							+ " from (select rownum as rnum, review_num"
+									+ "	from (select review_num, review_re, user_num, store_num, review_star, review_content, review_date"
+											+ "	from oc_review"
+											+ " where review_num=review_re and store_num like '%'|| ? ||'%' and user_num like '%' || ? ||'%' and review_star=?"
+											+ " order by review_num desc) a1"
+									+ " where rownum<=?) a2"
+						+ " where a2.rnum>=?)";
 		try {
 			psmt = conn.prepareStatement(sql);
-			psmt.setInt(1, start);
-			psmt.setInt(2, end);
-			psmt.setString(3, dto.getStoreNum());
-			psmt.setString(4, dto.getUserNum());
-			psmt.setString(5, dto.getReviewStar());
+			psmt.setString(1, dto.getStoreNum());
+			psmt.setString(2, dto.getUserNum());
+			psmt.setString(3, dto.getReviewStar());
+			psmt.setInt(4, end);
+			psmt.setInt(5, start);
 			rs = psmt.executeQuery();
 			while (rs.next()) {
 				dto = new ReviewDTO();
@@ -148,7 +163,7 @@ public class ReviewDAO extends DAO {
 		return list;
 	}
 
-	// 리뷰 일부 조회4 - 가게별 별점 평균
+	// 리뷰 일부 조회3 - 가게별 별점 평균
 	public Double selectStar(Connection conn, String storeNum) {
 		Double stars = null;
 		String sql = "select avg(review_star) as stars from oc_review where review_num=review_re and store_num=?";
@@ -174,10 +189,9 @@ public class ReviewDAO extends DAO {
 				+ " review_re," // 2
 				+ " user_num," // 3
 				+ " store_num," // 4
-				+ " store_name," // 5
-				+ " review_star," // 6
-				+ " review_content" // 7
-				+ ") values (?, ?, ?, ?, ?, ?, ?, ?)";
+				+ " review_star," // 5
+				+ " review_content" // 6
+				+ ") values (?, ?, ?, ?, ?, ?)";
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, Integer.toString(seq));
@@ -188,9 +202,8 @@ public class ReviewDAO extends DAO {
 			}
 			psmt.setString(3, dto.getUserNum());
 			psmt.setString(4, dto.getStoreNum());
-			psmt.setString(5, dto.getStoreName());
-			psmt.setString(6, dto.getReviewStar());
-			psmt.setString(7, dto.getReviewContent());
+			psmt.setString(5, dto.getReviewStar());
+			psmt.setString(6, dto.getReviewContent());
 			n = psmt.executeUpdate();
 			System.out.println(n + "건의 새로운 리뷰 등록 완료");
 		} catch (SQLException e) {

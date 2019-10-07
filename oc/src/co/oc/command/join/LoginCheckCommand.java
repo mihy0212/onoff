@@ -34,8 +34,8 @@ public class LoginCheckCommand implements Command {
 		if (dto.getUserGrant() != null) {
 			session.setAttribute("userNum", dto.getUserNum());
 			session.setAttribute("userEmail", dto.getUserEmail());
-			session.setAttribute("usetName", dto.getUserName());
-			session.setAttribute("usetGrant", dto.getUserGrant());
+			session.setAttribute("userName", dto.getUserName());
+			session.setAttribute("userGrant", dto.getUserGrant());
 			session.setAttribute("userAddr", dto.getUserAddr());
 			session.setAttribute("userInday", dto.getUserInday());
 			session.setAttribute("userNick", dto.getUserNick());

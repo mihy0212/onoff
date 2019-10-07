@@ -12,7 +12,8 @@ public class AskDTO {
 	private String askContent;
 	private String askStatus;
 	private Date askDate;
-	private String userNick;
+	private String userName;
+	private String userGrant;
 	private String storeName;
 	
 	
@@ -64,11 +65,17 @@ public class AskDTO {
 	public void setAskDate(Date askDate) {
 		this.askDate = askDate;
 	}
-	public String getUserNick() {
-		return userNick;
+	public String getUserName() {
+		return userName;
 	}
-	public void setUserNick(String userNick) {
-		this.userNick = userNick;
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public String getUserGrant() {
+		return userGrant;
+	}
+	public void setUserGrant(String userGrant) {
+		this.userGrant = userGrant;
 	}
 	public String getStoreName() {
 		return storeName;

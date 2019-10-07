@@ -143,12 +143,12 @@ $("#test").show(); //보이기
 									</c:if>
 
 									<!--목록이 있으면  -->
-									<c:forEach items="${list }" var="dto">
-										<tr onclick="location.href='상점자세히보기.dao'=${dto.storeName}'">
-											<th scope="row" align="center">${dto.review_date }</th>
-											<td align="center">${dto.store_name }</td>
-											<td align="center">${dto.review_content }</td>
-											<td align="center">${dto.review_star }</td>
+									<c:forEach items="${list }" var="list">
+										<tr onclick="location.href=#">
+											<th scope="row" align="center">${list.reviewDate }</th>
+											<td align="center">${list.storeName }</td>
+											<td align="center">${list.reviewContent }</td>
+											<td align="center">${list.reviewStar }</td>
 										</tr>
 									</c:forEach>
 									<!-- db 목록을 가져와서 뿌려주는 곳끝 -->
@@ -205,13 +205,13 @@ $("#test").show(); //보이기
 									</c:if>
 
 									<!--목록이 있으면  -->
-									<c:forEach items="${list }" var="dto" >
-									<tr class="info" onclick="location.href='상점자세히보기.dao'=${dto.reviewNum }'">
-									<td scope="row" align="center">${dto.storeName }</td>
+									<c:forEach items="${list }" var="list" >
+									<tr class="info" onclick="location.href=#">
+									<td scope="row" align="center">${list.storeName }</td>
 										
-											<td scope="row" align="center">${dto.reviewDate }</td>
-											<td align="center">${dto.reviewContent}</td>
-											<td align="center">${dto.reviewStar }</td>
+											<td scope="row" align="center">${list.reviewDate }</td>
+											<td align="center">${list.reviewContent}</td>
+											<td align="center">${list.reviewStar }</td>
 										</tr>
 									</c:forEach>
 									<!-- db 목록을 가져와서 뿌려주는 곳끝 -->

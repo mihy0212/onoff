@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import co.oc.dao.AddDAO;
+import co.oc.dao.AskDAO;
 import co.oc.dao.DAO;
 import co.oc.dao.FavoriteDAO;
 import co.oc.dao.LikeDAO;
@@ -19,6 +20,7 @@ import co.oc.dao.ReviewDAO;
 import co.oc.dao.StoreDAO;
 import co.oc.dao.UserDAO;
 import co.oc.dto.AddDTO;
+import co.oc.dto.AskDTO;
 import co.oc.dto.FavoriteDTO;
 import co.oc.dto.LikeDTO;
 import co.oc.dto.ReviewDTO;
@@ -210,47 +212,42 @@ public class TestServlet extends HttpServlet {
 		
 		//리뷰 등록
 //		ReviewDTO dto = new ReviewDTO();
-//		dto.setReviewRe("9");
-//		dto.setUserNum("7");
-//		dto.setUserNick("사업자회원3");
+//		dto.setReviewRe("4");
+//		dto.setUserNum("5");
 //		dto.setStoreNum("3");
-//		dto.setStoreName("가게3");
-//		dto.setReviewStar("5");
-//		dto.setReviewContent("감사합니다.");
+//		dto.setReviewContent("맛있게 드셨다니 저도 기쁘네요.");
 //		ReviewDAO.getInstance().insert(conn, dto);
 		
 		//리뷰 전체 조회
-//		List<ReviewDTO> list = ReviewDAO.getInstance().selectAll(conn);
+//		List<ReviewDTO> list = ReviewDAO.getInstance().selectAll(conn, 1, 10);
 //		for(ReviewDTO dto : list) {
 //			System.out.println(dto.getUserNick() +"님이 "+dto.getStoreName()+"에 "+dto.getReviewStar()+"점을 주셨습니다.");
 //		}
 		
 		//리뷰 일부조회1
+<<<<<<< HEAD
 		List<ReviewDTO> list = ReviewDAO.getInstance().select1(conn, "r.user_num", "4", 1, 5);
 		for(ReviewDTO dto : list) {
 			System.out.println(dto.getUserNick() +"님이 "+dto.getStoreName()+"에 "+dto.getReviewStar()+"점을 주셨습니다.");
 		}
+=======
+//		List<ReviewDTO> list = ReviewDAO.getInstance().select1(conn, "store_num", "2", 1, 5);
+//		for(ReviewDTO dto : list) {
+//			System.out.println(dto.getUserNick() +"님이 "+dto.getStoreName()+"에 "+dto.getReviewStar()+"점을 주셨습니다.");
+//		}
+>>>>>>> branch 'master' of https://github.com/wlsdud6764/on-off.git
 		
 		//리뷰 일부 조회2
 //		ReviewDTO dto = new ReviewDTO();
-//		dto.setUserNum("4");
-////		dto.setStoreNum("2");
+////		dto.setUserNum("4");
+//		dto.setStoreNum("2");
 //		dto.setReviewStar("5");
 //		List<ReviewDTO> list = ReviewDAO.getInstance().selectStar(conn, dto, 1, 5);
 //		for(ReviewDTO dto1 : list) {
 //			System.out.println(dto1.getUserNick() +"님이 "+dto1.getStoreName()+"에 "+dto1.getReviewStar()+"점을 주셨습니다.");
 //		}
 		
-		//리뷰 일부 조회3
-//		ReviewDTO dto = new ReviewDTO();
-//		dto.setStoreNum("2");
-//		dto.setReviewStar("5");
-//		List<ReviewDTO> list = ReviewDAO.getInstance().selectStoreStar(conn, dto);
-//		for(ReviewDTO dto1 : list) {
-//			System.out.println(dto1.getUserNick() +"님이 "+dto1.getStoreName()+"에 "+dto1.getReviewStar()+"점을 주셨습니다.");
-//		}
-		
-		//리뷰 일부조회4
+		//리뷰 일부조회3
 //		Double n = ReviewDAO.getInstance().selectStar(conn, "3");
 //		System.out.println(n+"점");
 		
@@ -269,14 +266,15 @@ public class TestServlet extends HttpServlet {
 		//즐겨찾기 등록/삭제
 //		FavoriteDTO dto = new FavoriteDTO();
 //		dto.setUserNum("4");
-//		dto.setStoreNum("1");
+//		dto.setStoreNum("3");
 //		FavoriteDAO.getInstance().check(conn, dto);
 		
 		//즐겨찾기 전체 조회
-//		List<FavoriteDTO> list = FavoriteDAO.getInstance().selectAll(conn, 1, 10);
+//		List<FavoriteDTO> list = FavoriteDAO.getInstance().selectAll(conn, 1, 8);
 //		for(FavoriteDTO dto : list) {
 //			System.out.println(dto.getUserNum()+"님이 "+dto.getStoreName()+"을 즐겨찾기 등록함");
 //		}
+		
 		//즐겨 찾기 일부 조회
 //		FavoriteDTO dto = new FavoriteDTO();
 //		dto.setUserNum("4");
@@ -290,9 +288,36 @@ public class TestServlet extends HttpServlet {
 		//////////////////////////////////////////////////////////////////////////
 		
 		//문의하기 등록
+//		AskDTO dto = new AskDTO();
+//		dto.setAskRe("4");
+//		dto.setUserNum("1");
+////		dto.setStoreNum("3");
+//		dto.setAskTitle("답변4");
+//		dto.setAskContent("답변내용4");
+//		AskDAO.getInstance().insert(conn, dto);
 		
+		//문의&답변 수정
+//		AskDTO dto = new AskDTO();
+//		dto.setAskNum("12");
+////		dto.setStoreNum("3");
+//		dto.setAskTitle("수정1");
+//		dto.setAskContent("내용수정1");
+//		AskDAO.getInstance().update(conn, dto);
 		
+		//문의하기 삭제
+//		AskDAO.getInstance().delete(conn, "7");
 		
+		//문의하기 전체 조회
+//		List<AskDTO> list = AskDAO.getInstance().selectAll1(conn, 3, 10);
+//		for(AskDTO dto : list) {
+//			System.out.println(dto.getAskNum()+": "+dto.getUserName()+"/"+dto.getUserGrant()+", "+dto.getStoreName()+"-->"+dto.getAskTitle());
+//		}
+		
+		//문의하기 일부 조회
+//		List<AskDTO> list = AskDAO.getInstance().selectUser(conn, "ask_re", "3", 1, 5);
+//		for(AskDTO dto : list) {
+//			System.out.println(dto.getAskNum()+": "+dto.getUserName()+"/"+dto.getUserGrant()+", "+dto.getStoreName()+"-->"+dto.getAskTitle());
+//		}
 		
 		//접속 해제
 		DAO.disconnect(conn);
