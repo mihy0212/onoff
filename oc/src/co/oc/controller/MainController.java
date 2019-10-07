@@ -56,7 +56,7 @@ public class MainController extends HttpServlet {
 		//최미현
 		map.put("/storeInfo.do", new StoreInfoComm()); //가게별 상세 정보 조회
 //		map.put("/reviewWrite.do", new ReviewWriteComm()); //회원의 가게 리뷰 쓰기
-		map.put("/likeClick.do", new LikeClickComm());
+		map.put("/likeClick.do", new LikeClickComm()); //좋아요 클릭 시 좋아요 수 변동
 //		map.put("/", new ());
 //		map.put("/", new ());
 //		map.put("/", new ());

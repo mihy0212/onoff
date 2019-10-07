@@ -28,7 +28,7 @@ public class StoreInfoComm implements Command {
 		HttpSession session = request.getSession(false);
 		String sessionUserNum = session.getAttribute("userNum").toString();
 //		String storeNum = request.getParameter("storeNum");
-		String storeNum = "2";
+		String storeNum = "3";
 		
 		//DAO
 		Connection conn = DAO.connect();
@@ -38,18 +38,19 @@ public class StoreInfoComm implements Command {
 		sdto = StoreDAO.getInstance().selectStoreNum(conn, storeNum);
 		request.setAttribute("storeInfo", sdto);
 		
-		//가게의 좋아요 수 조회
+		//회원이 가게를 좋아요했는지 조회
 		LikeDTO ldto = new LikeDTO();
 		ldto.setStoreNum(storeNum);
 		ldto.setUserNum(sessionUserNum);
-		int likes = LikeDAO.getInstance().selectStoreNum(conn, storeNum);
-		int likeHeart = LikeDAO.getInstance().check(conn, ldto);
-		request.setAttribute("likes", likes);
-		request.setAttribute("likeHeart", likeHeart);
+		int likeAct = LikeDAO.getInstance().check(conn, ldto);
+		request.setAttribute("likeAct", likeAct);
 		
 		//리뷰 조회
 		List<ReviewDTO> list = ReviewDAO.getInstance().select1(conn, "store_num", storeNum, 1, 10);
 		request.setAttribute("storeReview", list);
+		//가게 별점 평균 조회
+		double stars = ReviewDAO.getInstance().selectStar(conn, storeNum);
+		request.setAttribute("stars", stars);
 		
 		DAO.disconnect(conn);
 		

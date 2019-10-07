@@ -25,7 +25,6 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/responsive.css" />
 
 <script src="${pageContext.request.contextPath }/assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script> 
 
 $(document).ready(function(){
@@ -57,44 +56,42 @@ $(document).ready(function(){
 		$('#categ3').text("기타");
 	}
 	
-	$('#heart').hover(function(){
-		console.log($(this).text())
-		 if( $(this).text() == "♥" ){
-			 $(this).text('♡');
-		 } else {
-			 $(this).text('♥');
-		 }
-	}, function(){
-		if(	$(this).text() == "♥" ){
-			$(this).text('♡');
-		} else {
-			$(this).text('♥');
-		}
-	});
+	if( ${likeAct == 0 }){
+		$('#btn_like').html('<font size="5">♡</font> ${ storeInfo.storeLike }');
+	} else {
+		$('#btn_like').html('<font size="5" color="red">♥</font> ${ storeInfo.storeLike }');
+	}
+	
+	console.log($('#star').children().size())
+	console.log($('#star').children().eq(1))
+	for(var i=0; i<Math.round(${stars}); i++){
+		$('#star').children().eq(i).attr('class','btn button is-checked');
+	}
+	
 });
-
 
 function likeUpDown(){
 	var storeNum = ${ storeInfo.storeNum };
-	if(${storeNum} != storeNum){
-		$.ajax({
-			url: "likeClick.do",
-			data: {
-				storeNum: ${ storeInfo.storeNum }
-			},
-			success: function(result){
-				console.log(result)
-				if(result == 1){
-					$('#heart').text('♥');
-					$('#like_num').text(${ likes }+1);
-				} else {
-					$('#heart').text('♡');
-					$('#like_num').text(${ likes }-1);
-				}
+	$.ajax({
+		url: "likeClick.do",
+		data: {
+			userNum: ${ userNum },
+			storeNum: ${ storeInfo.storeNum }
+		},
+		success: function(result){
+			var like = ${ storeInfo.storeLike };
+			if(result == 0){
+				like += 1;
+				$('#btn_like').html('<font size="5" color="red">♥</font>' + like);	
+			} else {
+				like -= 1;
+				$('#btn_like').html('<font size="5">♡</font>' + like);
 			}
-		});
-	}
+		}
+	});
 }
+
+
 /*
 $('#btnlike').on('click', function(){
 	console.log( ${storeInfo.storeNum} )
@@ -169,16 +166,8 @@ $('#btnlike').on('click', function(){
                     
                     <!-- 좋아요 구역 -->
                     <br>
-                    <div align="center" id="likeDiv" onclick="likeUpDown()">
-                       <c:choose>
-                       <c:when test="${likeHeart == 0}">
-	                   	<font id="heart" color="red">♡</font>&nbsp;&nbsp;
-	                   </c:when>
-	                   	<c:otherwise><font id="heart" color="red">♥</font>&nbsp;&nbsp;
-	                   </c:otherwise>
-	                   </c:choose>
-	                   <font id="like_num" color="gray">${ likes }</font>
-	                   <input id="btnlike" type="button" onclick="likeUpDown()" value="좋아요">
+                    <div align="center">
+                       <button id="btn_like" class='btn button' type="button" onclick="likeUpDown()"></button>
                     </div>
                     
                 </div>
@@ -276,25 +265,30 @@ $('#btnlike').on('click', function(){
                         <h2><strong>리뷰</strong></h2>
                     </div>
                 </div>
-
-                <div class="col-md-8">
-                    <div class="filters-button-group text-right sm-text-center">
-                        <button class="btn button is-checked" data-filter="*">★</button>
-                        <button class="btn button" data-filter=".metal">★</button>
-                        <button class="btn button" data-filter=".transition">★</button>
-                        <button class="btn button" data-filter=".alkali">★</button>
-                        <button class="btn button" data-filter=".ar">★</button>
-                    </div>
+                
+                <div id="star" class="col-md-6" align="right">
+					<button class="btn button is-checked" data-filter="*">★</button>
+	                <button class="btn button" data-filter=".metal">★</button>
+	                <button class="btn button" data-filter=".transition">★</button>
+	                <button class="btn button" data-filter=".alkali">★</button>
+	                <button class="btn button" data-filter=".ar">★</button>
                 </div>
-
-
-
+                
+                <div class="col-md-2">
+               		<font size="5"><strong>${ stars }</strong></font> /5.0 &nbsp;&nbsp;
+                </div>
+                
                 <div style="clear: both;"></div>
 
-                <div class="grid text-center">
+                <div class="col-md-11 col-md-offset-1">
                 
                 	<form id="reviewFrm" name="reviewFrm" method="post" action="reviewWrite.do">
 
+						<div class="choose_item_text fix">
+                            <font size="6"><i class="icon icon icon-smile text-black"></i></font> <h6>닉네임</h6>
+                            <p>Atque ducimus velit, earum quidem, iusto dolorem. </p>
+                        </div>
+                        
                     </form>
 
                 </div>

@@ -93,8 +93,31 @@ public class LikeDAO extends DAO {
 		return likeCount;
 	}
 	
+	
+	public int checkInsert(Connection conn, LikeDTO dto) {
+		int likeCount = 0;
+		String sql = "select count(*) from oc_like where store_num=? and user_num=?";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, dto.getStoreNum());
+			psmt.setString(2, dto.getUserNum());
+			rs = psmt.executeQuery();
+			if(rs.next()) {
+				likeCount = rs.getInt(1);
+			}
+			if(likeCount == 0) {
+				insert(conn, dto);
+			} else {
+				delete(conn, dto);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return likeCount;
+	}
+	
 	//좋아요 등록
-	public int insert(Connection conn, LikeDTO dto) {
+	private int insert(Connection conn, LikeDTO dto) {
 		int n = 0;
 		String sql1 = "insert into oc_like (user_num, store_num) values (?, ?)";
 		String sql2 = "update oc_store set store_like=store_like+1 where store_num=?";
@@ -105,10 +128,12 @@ public class LikeDAO extends DAO {
 			n = psmt.executeUpdate();
 			System.out.println(n + "건의 좋아요 등록 완료");
 			
-			psmt = conn.prepareStatement(sql2);
-			psmt.setString(1, dto.getStoreNum());
-			n = psmt.executeUpdate();
-			System.out.println(n + "건의 가게 정보 좋아요수 +1 완료");
+			if(n != 0) {
+				psmt = conn.prepareStatement(sql2);
+				psmt.setString(1, dto.getStoreNum());
+				n = psmt.executeUpdate();
+				System.out.println(n + "건의 가게 정보 좋아요수 +1 완료");
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -116,7 +141,7 @@ public class LikeDAO extends DAO {
 	}
 	
 	//좋아요 삭제
-	public int delete(Connection conn, LikeDTO dto) {
+	private int delete(Connection conn, LikeDTO dto) {
 		int n = 0;
 		String sql1 = "delete from oc_like where store_num=? and user_num=?";
 		String sql2 = "update oc_store set store_like=store_like-1 where store_num=?";
@@ -127,10 +152,12 @@ public class LikeDAO extends DAO {
 			n = psmt.executeUpdate();
 			System.out.println(n + "건의 좋아요 등록 삭제 완료");
 			
-			psmt = conn.prepareStatement(sql2);
-			psmt.setString(1, dto.getStoreNum());
-			n = psmt.executeUpdate();
-			System.out.println(n + "건의 가게 정보 좋아요수 -1 완료");
+			if(n != 0) {
+				psmt = conn.prepareStatement(sql2);
+				psmt.setString(1, dto.getStoreNum());
+				n = psmt.executeUpdate();
+				System.out.println(n + "건의 가게 정보 좋아요수 -1 완료");				
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
