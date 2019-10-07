@@ -1,12 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9e415eb9e7187154cd9c6308c036f0a6&libraries=services"></script>
+<script src="jsp/map/mainMap.js"></script>
+<style>
+#map {
+	width : 90%;
+	height: 800px;
+}
+</style>
 </head>
 <body>
-
+	<div align="center">
+		<div id="map"></div>
+	</div>
 </body>
 </html>
