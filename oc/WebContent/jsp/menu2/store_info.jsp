@@ -57,6 +57,22 @@ $(document).ready(function(){
 	}
 	
 	
+	
+	$('#heart').hover(function(){
+		var heart = $(this).text("♥");
+		var emptyHeart = $(this).html("<span class='icon icon icon-heart2 text-black'></span>"); 
+			
+		
+	}, function(){
+		if(	$(this).html("<span class='icon icon icon-heart2 text-black'></span>") ){
+			//다르게 보이지만 빈 사랑표임
+			$(this).text("♥");
+		} else {
+			$(this).text("♥");
+		}
+	});
+	
+	
 })
 
 </script>
@@ -81,13 +97,16 @@ $(document).ready(function(){
 
 
  <!--가게 정보 -->
+<%-- <c:if test="${ storeNum != storeInfo.storeNum }"> --%>
 <section id="service" class="portpolio bg-grey roomy-70">
     <div class="container">
         <div class="row">
             <div class="main_service">
-            
-            	<!-- 슬라이드 구역 -->
+            	
+            	<!-- 왼쪽 블럭 -->
                 <div class="col-md-4">
+                
+                	<!-- 슬라이드 구역 -->
                     <div class="service_slid">
                         <div class="slid_shap bg-yellow"></div>
                         <div class="service_slid_item text-center">
@@ -106,9 +125,16 @@ $(document).ready(function(){
                             
                         </div>
                     </div>
+                    
+                    <!-- 좋아요 구역 -->
+                    <br>
+                    <div align="center" id="heart" name="heart">
+	                    ♥ <font color="gray">${ likes }</font>
+                    </div>
                 </div>
                 
-                <!-- 글 구역 -->
+                
+                <!-- 오른쪽 블럭 -->
                 <div class="col-md-7 col-md-offset-1">
                     <div class="service_item sm-m-top-50">
                         <div class="head_title">
@@ -216,12 +242,10 @@ $(document).ready(function(){
                 <div style="clear: both;"></div>
 
                 <div class="grid text-center">
+                
+                	<form id="reviewFrm" name="reviewFrm" method="post" action="reviewWrite.do">
 
-                    <table>
-                    	<tr>
-                    		<th>닉네임</th><th>리뷰 내용</th><th>리뷰 쓴 날</th>
-                    	</tr>
-                    </table>
+                    </form>
 
                 </div>
 

@@ -311,7 +311,7 @@ public class TestServlet extends HttpServlet {
 //		}
 		
 		//문의하기 일부 조회
-//		List<AskDTO> list = AskDAO.getInstance().selectUser(conn, "ask_re", "3", 1, 5);
+//		List<AskDTO> list = AskDAO.getInstance().selectOne(conn, "user_num", "2", 1, 5);
 //		for(AskDTO dto : list) {
 //			System.out.println(dto.getAskNum()+": "+dto.getUserName()+"/"+dto.getUserGrant()+", "+dto.getStoreName()+"-->"+dto.getAskTitle());
 //		}
