@@ -87,6 +87,11 @@ public class LikeDAO extends DAO {
 			if(rs.next()) {
 				likeCount = rs.getInt(1);
 			}
+			if(likeCount == 0) {
+				insert(conn, dto);
+			} else {
+				delete(conn, dto);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -94,7 +99,7 @@ public class LikeDAO extends DAO {
 	}
 	
 	//좋아요 등록
-	public int insert(Connection conn, LikeDTO dto) {
+	private int insert(Connection conn, LikeDTO dto) {
 		int n = 0;
 		String sql1 = "insert into oc_like (user_num, store_num) values (?, ?)";
 		String sql2 = "update oc_store set store_like=store_like+1 where store_num=?";
@@ -116,7 +121,7 @@ public class LikeDAO extends DAO {
 	}
 	
 	//좋아요 삭제
-	public int delete(Connection conn, LikeDTO dto) {
+	private int delete(Connection conn, LikeDTO dto) {
 		int n = 0;
 		String sql1 = "delete from oc_like where store_num=? and user_num=?";
 		String sql2 = "update oc_store set store_like=store_like-1 where store_num=?";

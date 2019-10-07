@@ -34,6 +34,7 @@ import co.oc.command.menu.MyinfoComm;
 import co.oc.command.menu.MyinfoDeleteCheckComm;
 import co.oc.command.menu.MyinfoUpComm;
 import co.oc.command.menu.MyinfoupFormComm;
+import co.oc.command.menu2.LikeClickComm;
 import co.oc.command.menu2.StoreInfoComm;
 
 
@@ -53,7 +54,7 @@ public class MainController extends HttpServlet {
 		//최미현
 		map.put("/storeInfo.do", new StoreInfoComm()); //가게별 상세 정보 조회
 //		map.put("/reviewWrite.do", new ReviewWriteComm()); //회원의 가게 리뷰 쓰기
-//		map.put("/", new ());
+		map.put("/likeClick.do", new LikeClickComm());
 //		map.put("/", new ());
 //		map.put("/", new ());
 //		map.put("/", new ());
