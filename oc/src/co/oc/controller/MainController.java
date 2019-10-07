@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import co.micol.command.BorderWriteForm;
 import co.oc.command.Command;
 import co.oc.command.join.CeoInsertCommand;
 import co.oc.command.join.IdCheckCommand;
@@ -21,6 +22,8 @@ import co.oc.command.join.LoginCheckCommand;
 import co.oc.command.join.LoginFormCommand;
 import co.oc.command.join.LogoutCommand;
 import co.oc.command.join.NickcheckCommand;
+import co.oc.command.manager.BorderListCommand;
+import co.oc.command.manager.WriteForm;
 import co.oc.command.menu.MyinfoDeleteComm;
 import co.oc.command.menu.MyAskWriteComm;
 import co.oc.command.menu.MyAskWriteFormComm;
@@ -57,6 +60,8 @@ public class MainController extends HttpServlet {
 		map.put("/idCheck.do", new IdCheckCommand());	//ID중복체크
 		map.put("/login.do", new LoginCheckCommand()); //로그인 정보 DB에확인 후 로그인
 		map.put("/logout.do", new LogoutCommand()); //로그아웃
+		map.put("/list.do", new BorderListCommand()); //문의글리스트보기
+		map.put("/writeForm.do", new BorderWriteForm());
 		//백승진
 		
 		

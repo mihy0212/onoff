@@ -117,7 +117,7 @@
 							id="user_license" name="userLicense">
 					</div>
 					<div class="form-group">
-						첨부파일 : <input type="file" name="addCapture" id="addCapture" /><br />
+					사업자등록증 첨부 :<input type="file" name="addCapture" id="addCapture" /><br />
 
 					</div>
 
