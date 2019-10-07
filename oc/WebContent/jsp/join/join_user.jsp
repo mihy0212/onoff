@@ -50,8 +50,6 @@
         });
     });
 </script>
-https://kutar37.tistory.com/entry/%EC%9B%B9%EC%97%90%EC%84%9C-%ED%8C%8C%EC%9D%BC-%EC%97%85%EB%A1%9C%EB%93%9C-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0-1
-
 </head>
 <body>
 <br /><br /><br /><br />
