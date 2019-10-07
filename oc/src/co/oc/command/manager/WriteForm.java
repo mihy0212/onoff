@@ -1,4 +1,4 @@
-package co.oc.command.menu;
+package co.oc.command.manager;
 
 import java.io.IOException;
 
@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import co.oc.command.Command;
 
-public class StoreInfoComm implements Command {
+public class WriteForm implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
