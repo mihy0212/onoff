@@ -100,11 +100,11 @@
 						<input type="text" class="form-control" placeholder="주소"
 							id="userAddr" name="userAddr">
 					</div>
-					<div class="form-group">
+					<!-- <div class="form-group">
 						<input type="text" class="form-control" placeholder="주소좌표"
 							id="userXY" name="userXY">
 
-					</div>
+					</div> -->
 					<h3 style="text-align: center;">가게등록</h3>
 					<div class="form-group">
 						<input type="text" class="form-control" placeholder="가게이름"
@@ -115,10 +115,10 @@
 						<input type="text" class="form-control" placeholder="주소"
 							id="storeAddr" name="storeAddr">
 					</div>
-					<div class="form-group">
+					<!-- <div class="form-group">
 						<input type="text" class="form-control" placeholder="주소좌표"
 							id="storeXY" name="storeXY">
-					</div>
+					</div> -->
 					<br /> <select name="storeCa1" style="width: 100px;">
 						<option value="01" selected="selected">음식점</option>
 					</select> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <select name="storeCa2"

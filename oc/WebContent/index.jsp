@@ -10,8 +10,9 @@
 <script src="jsp/map/mainMap.js"></script>
 <style>
 #map {
-	width : 90%;
-	height: 800px;
+	width : 100%;
+	height: 870px;
+	margin-top : 0px;
 }
 </style>
 </head>
