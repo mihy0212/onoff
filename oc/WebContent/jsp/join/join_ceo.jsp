@@ -57,8 +57,8 @@
 			<div class="jumbotron" style="padding-top: 20px;">
 				<h3 style="text-align: center;">회원가입 화면</h3>
 				<br />
-				<form id="frm" name="frm" method="post" action="join_ceo.do"
-					class="form-horizontal">
+				<form id="frm" name="frm" method="post" action="join_ceo.do" 
+					class="form-horizontal" enctype="multipart/form-data">
 					<div class="form-group">
 						<div class="col-sm-8" style="padding: 0px">
 							<input type="text" class="form-control" placeholder="아이디/이메일"
@@ -100,11 +100,11 @@
 						<input type="text" class="form-control" placeholder="주소"
 							id="userAddr" name="userAddr">
 					</div>
-					<!-- <div class="form-group">
+					<div class="form-group">
 						<input type="text" class="form-control" placeholder="주소좌표"
 							id="userXY" name="userXY">
 
-					</div> -->
+					</div>
 					<h3 style="text-align: center;">가게등록</h3>
 					<div class="form-group">
 						<input type="text" class="form-control" placeholder="가게이름"
@@ -115,10 +115,10 @@
 						<input type="text" class="form-control" placeholder="주소"
 							id="storeAddr" name="storeAddr">
 					</div>
-					<!-- <div class="form-group">
+					<div class="form-group">
 						<input type="text" class="form-control" placeholder="주소좌표"
 							id="storeXY" name="storeXY">
-					</div> -->
+					</div>
 					<br /> <select name="storeCa1" style="width: 100px;">
 						<option value="01" selected="selected">음식점</option>
 					</select> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <select name="storeCa2"
@@ -142,11 +142,12 @@
 						<input type="text" class="form-control" placeholder="유저라이센스"
 							id="user_license" name="userLicense">
 					</div>
+
 					<div class="form-group">
 						사업자등록증 첨부 :<input type="file" name="addCapture" id="addCapture" /><br />
 
 					</div>
-
+				
 
 					<div>
 						<input type="submit" class="btn btn-primary form-control"
