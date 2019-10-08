@@ -15,8 +15,9 @@ import co.oc.dao.DAO;
 import co.oc.dao.FavoriteDAO;
 import co.oc.dao.ReviewDAO;
 import co.oc.dto.FavoriteDTO;
+import co.oc.dto.LikeDTO;
 
-public class MyFavoriteComm implements Command {
+public class MyFavoriteListComm implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -51,9 +52,13 @@ public class MyFavoriteComm implements Command {
 		int end = pagenum * size;
 		int start = end - size + 1;
 
+		FavoriteDTO dto = new FavoriteDTO();
+		
+
 		List<FavoriteDTO> list =FavoriteDAO.getInstance().selectUser(conn, dto, start, end);
-		for(FavoriteDTO dto: list) {
-			System.out.println(dto.getStoreName());
+		
+		for( FavoriteDTO sdto: list) {
+			System.out.println(sdto.getStoreName());
 		}
 
 		// request 객체에 list를 담아준다.

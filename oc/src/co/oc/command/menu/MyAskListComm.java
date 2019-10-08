@@ -20,9 +20,9 @@ public class MyAskListComm implements Command {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Connection conn = DAO.connect();
-  
+
 		HttpSession session = request.getSession(false);
-		String userNum = (String)session.getAttribute("userNum");
+		String userNum = (String) session.getAttribute("userNum");
 		System.out.println(userNum);
 		int pagenum = 1; // 페이지 번호
 		if (request.getParameter("Page_num") != null) {
@@ -57,22 +57,20 @@ public class MyAskListComm implements Command {
 		int end = pagenum * size;
 		int start = end - size + 1;
 
-		System.out.println("st"+start);
-		System.out.println("en"+end);
-
+		System.out.println("st" + start);
+		System.out.println("en" + end);
 
 		// 리뷰게시판 불러오기.
-		List<AskDTO> list =AskDAO.getInstance().selectOne(conn,"user_num", userNum, start, end);
-		for(AskDTO dto: list) {
+		List<AskDTO> list = AskDAO.getInstance().selectOne(conn, "user_num", userNum, start, end);
+		for (AskDTO dto : list) {
 			System.out.println(dto.getAskNum());
 		}
 
 		// request 객체에 list를 담아준다.
-				request.setAttribute("list", list);
-				
-				// request 객체에 총 페이지수를 담아준다.
-				request.setAttribute("tot", tot);
-				
+		request.setAttribute("list", list);
+
+		// request 객체에 총 페이지수를 담아준다.
+		request.setAttribute("tot", tot);
 
 		// ask.jsp로 이동
 		DAO.disconnect(conn);

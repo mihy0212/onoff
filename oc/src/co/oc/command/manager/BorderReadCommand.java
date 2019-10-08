@@ -14,18 +14,20 @@ import co.oc.dao.AskDAO;
 import co.oc.dao.DAO;
 import co.oc.dto.AskDTO;
 
-public class BorderListCommand implements Command {
+public class BorderReadCommand implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<AskDTO> list ;
-		AskDAO dao = new AskDAO();
+		// TODO Auto-generated method stub
+
+		int key = Integer.parseInt(request.getParameter("key"));
 		Connection conn = DAO.connect();
-		list = dao.selectAll(conn, 1, 100);
-		request.setAttribute("list", list); //db에서 넘어온 값을  request객체에 속성으로 삽입
+		String content = Integer.toString(key);
+		List<AskDTO> list = AskDAO.getInstance().selectOne(conn, "ask_re", content, 1, 10);
+		request.setAttribute("list", list);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/manager/borderRead.jsp");
+		dispatcher.forward(request, response);		
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/manager/test2.jsp");
-		dispatcher.forward(request, response);
 	}
 
 }

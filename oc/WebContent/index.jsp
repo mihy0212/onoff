@@ -20,6 +20,7 @@
 </head>
 <body>
 	<div align="center">
+	
 		<div id="map"></div>
 	</div>
 </body>
