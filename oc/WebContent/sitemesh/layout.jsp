@@ -145,6 +145,10 @@
 											<a class="dropdown-item" href="storeInfo.do">내 가게 리뷰</a>
 											<br>
 										</c:if>
+										<c:if test="${!empty userEmail && userGrant=='S'}">
+										<a class="dropdown-item" href="list.do">문의 전체 보기</a>
+											<br>
+										</c:if>
 									</c:when>
 
 								</c:choose>
