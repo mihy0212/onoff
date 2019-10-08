@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
+<%-- <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -12,11 +12,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Review</title>
-<%-- jQuery CDN --%>
+jQuery CDN
 <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 
-<%-- BootStrap CDN --%>
+BootStrap CDN
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
 	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -59,40 +59,40 @@
 					<td><a data-toggle="modal" data-target="#myModal2" onclick="review_read(${review_Bean.review_num})">${review_Bean.review_title}</a></td>
 					<td>${review_Bean.review_goods_name}</td>
 					
-					<%-- 구매여부 1 : 구매O  0 : 구매X --%>
+					구매여부 1 : 구매O  0 : 구매X
 					<c:choose>
 						
-						<%-- if(a == 1){ --%>
+						if(a == 1){
 						<c:when test="${review_Bean.review_buy_opt == 1}">
 							<td>O</td>
 						</c:when>
-						<%-- } else if(a == 0){ --%>
+						} else if(a == 0){
 						<c:when test="${review_Bean.review_buy_opt == 0}">
 							<td>X</td>
 						</c:when>
 						
 					</c:choose>
 					
-					<%-- 별점 --%>
+					별점
 					<c:choose>
 						
-						<%-- if(a == 1){ --%>
+						if(a == 1){
 						<c:when test="${review_Bean.review_star == 1}">
 							<td>★☆☆☆☆</td>
 						</c:when>
-						<%-- if(a == 2){ --%>
+						if(a == 2){
 						<c:when test="${review_Bean.review_star == 2}">
 							<td>★★☆☆☆</td>
 						</c:when>
-						<%-- if(a == 3){ --%>
+						if(a == 3){
 						<c:when test="${review_Bean.review_star == 3}">
 							<td>★★★☆☆</td>
 						</c:when>
-						<%-- if(a == 4){ --%>
+						if(a == 4){
 						<c:when test="${review_Bean.review_star == 4}">
 							<td>★★★★☆</td>
 						</c:when>
-						<%-- if(a == 5){ --%>
+						if(a == 5){
 						<c:when test="${review_Bean.review_star == 5}">
 							<td>★★★★★</td>
 						</c:when>
@@ -151,7 +151,7 @@
 			<div class="panel panel-success" style="margin-top: 10px;">
 				<div class="panel-heading">Goods Review</div>
 				<div class="panel-body">
-					<%-- form --%>
+					form
 					<form class="form-horizontal" role="form" action="${review_write}" method="post">
 						<div class="form-group">
 							<label class="control-label col-sm-2">작성자(ID):</label>
@@ -255,4 +255,4 @@
 
 
 </body>
-</html>
+</html> --%>
