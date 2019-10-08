@@ -30,65 +30,69 @@
 $(document).ready(function(){
 	
 	//카테고리1 출력하기
-	if( ${ storeInfo.storeCateg1 } == "01" ){
+	if( "${ storeInfo.storeCateg1 }" == "01" ){
 		$('#categ1').text("음식점");
 	}
 	
 	//카테고리2 출력하기
-	if( ${ storeInfo.storeCateg2 } == "01" ){
+	if( "${ storeInfo.storeCateg2 }" == "01" ){
 		$('#categ2').text("점포 가게");
-	} else if( ${ storeInfo.storeCateg2 } == "02" ){
+	} else if( "${ storeInfo.storeCateg2 }" == "02" ){
 		$('#categ2').text("이동 가게");
 	}
 	
 	//카테고리3 출력하기
-	if( ${ storeInfo.storeCateg2 } == "01" ){
+	if( "${ storeInfo.storeCateg2 }" == "01" ){
 		$('#categ3').text("한식");
-	} else if( ${ storeInfo.storeCateg2 } == "02" ){
+	} else if( "${ storeInfo.storeCateg2 }" == "02" ){
 		$('#categ3').text("양식");
-	} else if( ${ storeInfo.storeCateg2 } == "03" ){
+	} else if( "${ storeInfo.storeCateg2 }" == "03" ){
 		$('#categ3').text("중식");
-	} else if( ${ storeInfo.storeCateg2 } == "04" ){
+	} else if( "${ storeInfo.storeCateg2 }" == "04" ){
 		$('#categ3').text("일식");
-	} else if( ${ storeInfo.storeCateg2 } == "05" ){
+	} else if( "${ storeInfo.storeCateg2 }" == "05" ){
 		$('#categ3').text("분식");
-	} else if( ${ storeInfo.storeCateg2 } == "06" ){
+	} else if( "${ storeInfo.storeCateg2 }" == "06" ){
 		$('#categ3').text("기타");
 	}
 	
-	if( ${likeAct == 0 }){
+	//좋아요 표시하기
+	if( "${likeAct}" == "0"){
 		$('#btn_like').html('<font size="5">♡</font> ${ storeInfo.storeLike }');
 	} else {
 		$('#btn_like').html('<font size="5" color="red">♥</font> ${ storeInfo.storeLike }');
 	}
 	
+	//별점 표시하기
 	console.log($('#star').children().size())
 	console.log($('#star').children().eq(1))
-	for(var i=0; i<Math.round(${stars}); i++){
+	for(var i=0; i<Math.round("${stars}"); i++){
 		$('#star').children().eq(i).attr('class','btn button is-checked');
 	}
 	
 });
 
 function likeUpDown(){
-	var storeNum = ${ storeInfo.storeNum };
-	$.ajax({
-		url: "likeClick.do",
-		data: {
-			userNum: ${ userNum },
-			storeNum: ${ storeInfo.storeNum }
-		},
-		success: function(result){
-			var like = ${ storeInfo.storeLike };
-			if(result == 0){
-				like += 1;
-				$('#btn_like').html('<font size="5" color="red">♥</font>' + like);	
-			} else {
-				like -= 1;
-				$('#btn_like').html('<font size="5">♡</font>' + like);
+	if( ${ storeInfo.storeNum } != ${ storeNum }){
+		var storeNum = ${ storeInfo.storeNum };
+		$.ajax({
+			url: "likeClick.do",
+			data: {
+				userNum: ${ userNum },
+				storeNum: ${ storeInfo.storeNum }
+			},
+			dataType: "json",
+			success: function(result){
+				
+				if(result.likeChk == 0){
+					$('#btn_like').html('<font size="5" color="red">♥</font>' + result.likeCount);	
+				} else {
+					$('#btn_like').html('<font size="5">♡</font>' + result.likeCount);
+				}
 			}
-		}
-	});
+		});
+	}
+	
 }
 
 
@@ -167,7 +171,7 @@ $('#btnlike').on('click', function(){
                     <!-- 좋아요 구역 -->
                     <br>
                     <div align="center">
-                       <button id="btn_like" class='btn button' type="button" onclick="likeUpDown()"></button>
+                       <button id="btn_like" class='btn btn-default' type="button" onclick="likeUpDown()"></button>
                     </div>
                     
                 </div>
@@ -261,33 +265,136 @@ $('#btnlike').on('click', function(){
             <div class="main-portfolio roomy-80">
 
                 <div class="col-md-4">
-                    <div class="head_title text-left sm-text-center wow fadeInDown">
+                    <div class="head_title text-left sm-text wow fadeInDown">
                         <h2><strong>리뷰</strong></h2>
                     </div>
                 </div>
                 
-                <div id="star" class="col-md-6" align="right">
-					<button class="btn button is-checked" data-filter="*">★</button>
-	                <button class="btn button" data-filter=".metal">★</button>
-	                <button class="btn button" data-filter=".transition">★</button>
-	                <button class="btn button" data-filter=".alkali">★</button>
-	                <button class="btn button" data-filter=".ar">★</button>
+                <div class="col-md-8 text-right">
+	                <div id="star" class="col-md-6">
+						<button class="btn button is-checked" data-filter="*">★</button>
+		                <button class="btn button" data-filter=".metal">★</button>
+		                <button class="btn button" data-filter=".transition">★</button>
+		                <button class="btn button" data-filter=".alkali">★</button>
+		                <button class="btn button" data-filter=".ar">★</button>
+		                &nbsp;&nbsp;<font size="5"><strong>${ stars }</strong></font> /5.0
+	                </div>
                 </div>
-                
-                <div class="col-md-2">
-               		<font size="5"><strong>${ stars }</strong></font> /5.0 &nbsp;&nbsp;
-                </div>
-                
                 <div style="clear: both;"></div>
 
-                <div class="col-md-11 col-md-offset-1">
+                <div class="col-md-12 ">
                 
                 	<form id="reviewFrm" name="reviewFrm" method="post" action="reviewWrite.do">
-
-						<div class="choose_item_text fix">
-                            <font size="6"><i class="icon icon icon-smile text-black"></i></font> <h6>닉네임</h6>
-                            <p>Atque ducimus velit, earum quidem, iusto dolorem. </p>
-                        </div>
+                		<c:choose>
+                		<c:when test="${ storeInfo.storeNum == storeNum }">
+                		
+	                		<!-- DB 목록을 가져와서 뿌려주는 곳 : 등록된 글이 없을 때와 있을 때 구분해서 작성-->
+							<c:if test="${storeReview.isEmpty()}">
+								<div class="choose_item_text fix">
+	                            <p> 등록된 리뷰가 없습니다. </p>
+	                        </div>
+							</c:if>
+							
+							<c:forEach items="${ storeReview }" var="list">
+								<c:choose>
+									<c:when test="${ list.reviewRe == list.reviewNum }">
+										<div class="choose_item_text fix" style="padding: 15px; margin: 10px;"onmouseover="this.style.background='#F2F2F2'"
+											 onmouseout="this.style.background='white'">
+											<div class="col-md-2 text-center">
+											<font size="6"><i class="icon icon icon-smile text-black"></i></font> <h6>${ list.userNick }</h6>
+											</div>
+											<div class="col-md-9 text-left">
+											<p> <c:forEach var="i" begin="0" end="${ list.reviewStar }" step="1">
+													<font style="color: yellow; text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;">★</font>
+												</c:forEach><br>${ list.reviewContent } &nbsp;&nbsp;&nbsp;(${ list.reviewDate })
+											</p>
+											</div>
+											<div class="col-md-1"><br>
+												<div class="main-portfolio roomy"><button class="btn button is-checked">댓글</button></div>
+											</div>
+					                    </div>
+				                    </c:when>
+			                    	<c:otherwise>
+										<div class="choose_item_text fix col-md-offset-1" style="background-color: #F2F2F2; padding: 15px;" onmouseover="this.style.background='white'"
+											 onmouseout="this.style.background='#F2F2F2'">
+											 <div class="col-md-2 text-center">
+											<font size="6"><i class="icon icon icon-restaurant2 text-black"></i></font> <h6>${ list.storeName }</h6>
+											</div>
+											<div class="col-md-9 text-left">
+											<p><br> ${ list.reviewContent } &nbsp;&nbsp;&nbsp;(${ list.reviewDate }) </p>
+											</div>
+											<div class="col-md-1">
+												<c:if test="${ list.userNum == userNum }">
+													<div class="main-portfolio roomy"><br><button class="btn button">수정</button></div>
+												</c:if>
+											</div>
+										</div>
+				                    </c:otherwise>
+			                    </c:choose>
+							</c:forEach><!-- DB 목록을 가져와서 뿌려주는 곳 end -->
+                		
+                		</c:when>
+                		<c:otherwise>
+                			<!-- 댓글 입력창 -->
+	                		<div class="choose_item_text fix col-md-offset-1" style="background-color: #F2F2F2; padding: 15px;" onmouseover="this.style.background='white'"
+								 onmouseout="this.style.background='#F2F2F2'">
+								 <div class="col-md-2 text-center">
+								<font size="6"><i class="icon icon icon-smile text-black"></i></font> <h6>${ userNick }</h6>
+								</div>
+								<div class="col-md-9 text-left">
+								<p> <br><textarea rows="2" cols="75" id="content" name="content"></textarea></p>
+								</div>
+								<div class="col-md-1">
+									<div class="main-portfolio roomy"><br><button class="btn button is-checked">확인</button></div>
+								</div>
+								
+							</div><!-- END 댓글 입력창 -->
+	                		
+	                	
+							<!-- DB 목록을 가져와서 뿌려주는 곳 : 등록된 글이 없을 때와 있을 때 구분해서 작성-->
+							<c:if test="${storeReview.isEmpty()}">
+								<div class="choose_item_text fix">
+	                            <p> 등록된 리뷰가 없습니다. </p>
+	                        </div>
+							</c:if>
+							
+							<c:forEach items="${ storeReview }" var="list">
+								<c:choose>
+									<c:when test="${ list.reviewRe == list.reviewNum }">
+										<div class="choose_item_text fix" style="padding: 15px; margin: 10px;"onmouseover="this.style.background='#F2F2F2'"
+											 onmouseout="this.style.background='white'">
+											<div class="col-md-2 text-center">
+											<font size="6"><i class="icon icon icon-smile text-black"></i></font> <h6>${ list.userNick }</h6>
+											</div>
+											<div class="col-md-9 text-left">
+											<p> <c:forEach var="i" begin="0" end="${ list.reviewStar }" step="1">
+													<font style="color: yellow; text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;">★</font>
+												</c:forEach><br>${ list.reviewContent } &nbsp;&nbsp;&nbsp;(${ list.reviewDate })&nbsp;&nbsp;&nbsp;
+											</p>
+											</div>
+											<div class="col-md-1">
+												<c:if test="${ list.userNum == userNum }">
+													<div class="main-portfolio roomy"><br><button class="btn button">수정</button></div>
+												</c:if>
+											</div>
+					                    </div>
+				                    </c:when>
+			                    	<c:otherwise>
+										<div class="choose_item_text fix col-md-offset-1" style="background-color: #F2F2F2; padding: 15px;" onmouseover="this.style.background='white'"
+											 onmouseout="this.style.background='#F2F2F2'">
+											 <div class="col-md-2 text-center">
+											<font size="6"><i class="icon icon icon-restaurant2 text-black"></i></font> <h6>${ list.storeName }</h6>
+											</div>
+											<div class="col-md-10 text-left">
+											<p><br> ${ list.reviewContent } &nbsp;&nbsp;&nbsp;(${ list.reviewDate }) </p>
+											</div>
+										</div>
+				                    </c:otherwise>
+			                    </c:choose>
+							</c:forEach><!-- DB 목록을 가져와서 뿌려주는 곳 end -->
+							
+                		</c:otherwise>
+                		</c:choose>
                         
                     </form>
 
