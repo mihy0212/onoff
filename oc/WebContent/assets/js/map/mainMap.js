@@ -7,34 +7,26 @@ var infowindow = new kakao.maps.InfoWindow({
 });
 var callback;
 var myLocation;
-var placesDB = [ {
-	address_name : "대구 중구 수창동 95-1",
-	category_group_code : "FD6",
-	category_group_name : "음식점",
-	category_name : "음식점 > 한식 > 육류,고기 > 불고기,두루치기",
-	distance : "776",
-	id : "11834053",
-	phone : "",
-	place_name : "태능집",
-	place_url : "http://place.map.kakao.com/11834053",
-	road_address_name : "대구 중구 달성로22길 88",
-	x : "128.586937309682",
-	y : "35.8744288590096"
-}, {
-	address_name : "대구 서구 원대동3가 1223-13",
-	category_group_code : "FD6",
-	category_group_name : "음식점",
-	category_name : "음식점 > 한식 > 육류,고기",
-	distance : "602",
-	id : "21226094",
-	phone : "053-352-5219",
-	place_name : "진미식육식당",
-	place_url : "http://place.map.kakao.com/21226094",
-	road_address_name : "대구 서구 달서천로83길 13",
-	x : "128.577802456869",
-	y : "35.8832290353752"
-} ]
+var placesDB;
+
 window.onload = function() {
+	$.ajax({
+		url : 'map.do',
+		type : 'GET',
+		dataType : 'json',
+		success : function(data) {
+			placesDB = data;
+			for (var i = 0; i < placesDB.length; i++) {
+				var DBxy = placesDB[i].storeXy.split(","), DBx = DBxy[0], DBy = DBxy[1]
+						.trim();
+				var DBPosition = new kakao.maps.LatLng(DBx, DBy);
+				markDBPlaces(DBPosition, i);
+			}
+		},
+		error : function(xhr, status, error) {
+			alert(error);
+		}
+	})
 	if (navigator.geolocation) {
 		navigator.geolocation
 				.getCurrentPosition(
@@ -70,12 +62,7 @@ window.onload = function() {
 								location : new kakao.maps.LatLng(
 										35.877986299999996, 128.5795303)
 							}
-
-							for (var i = 0; i < placesDB.length; i++) {
-								var DBPosition = new kakao.maps.LatLng(
-										placesDB[i].y, placesDB[i].x);
-								markDBPlaces(DBPosition, i);
-							}
+							
 							ps.categorySearch('FD6', callback, options);
 
 						}, function(error) {
