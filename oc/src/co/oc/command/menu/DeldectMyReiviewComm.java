@@ -19,10 +19,11 @@ public class DeldectMyReiviewComm implements Command {
 		Connection conn = DAO.connect();
 
 		String reviewNum = request.getParameter("reviewNum");
-		
+		System.out.println(reviewNum);
 		ReviewDAO.getInstance().delete(conn, reviewNum);
+		
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/menu/my_act.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("myReview.do");
 		dispatcher.forward(request, response);
 
 		DAO.disconnect(conn);

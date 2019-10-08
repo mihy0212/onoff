@@ -21,7 +21,7 @@ public class MyAskRead implements Command {
 	
 	String askNum = request.getParameter("key");
 	
-	System.out.println(askNum);
+	//System.out.println(askNum);
 	List<AskDTO> list = AskDAO.getInstance().selectOne(conn, "ask_re", askNum, 1, 1);
 		
 	// request 객체에 list를 담아준다.

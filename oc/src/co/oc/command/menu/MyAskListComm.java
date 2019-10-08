@@ -46,7 +46,6 @@ public class MyAskListComm implements Command {
 			}
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

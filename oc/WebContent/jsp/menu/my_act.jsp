@@ -208,20 +208,20 @@ $(function() {
 									<!-- db에 목록이 이없으면 empty:비어있다는 뜻임  -->
 									<c:if test="${empty list}">
 										<tr>
-											<td colspan="5">등록된 글이 존재하지 않습니다.</td>
+											<td colspan="7">등록된 글이 존재하지 않습니다.</td>
 										</tr>
 									</c:if>
 
 
 
-<!--목록이 있으면  -->
-									<c:forEach items="${list }" var="list" ><!-- var이름 고치면 오류남 -->
-									<tr class="info" >
-										<td scope="row" align="center"  onclick="location.href='storeInfo.do'" >${list.reviewNum } </td>
-										<td scope="row" align="center" onclick="location.href='storeInfo.do'">${list.storeName } </td>
-										<td scope="row" align="center" onclick="location.href='storeInfo.do'">${list.reviewDate }</td>
-										<td align="center">${list.reviewContent}</td>
-										<td align="center">${list.reviewStar }</td>
+										<!--목록이 있으면  -->
+									<c:forEach items="${list }" var="alist" ><!-- var이름 고치면 오류남 -->
+									<tr class="info"  >
+										<td scope="row" align="center"  onclick="location.href='storeInfo.do'" >${alist.reviewNum } </td>
+										<td scope="row" align="center" onclick="location.href='storeInfo.do'">${alist.storeName } </td>
+										<td scope="row" align="center" onclick="location.href='storeInfo.do'">${alist.reviewDate }</td>
+										<td align="center">${alist.reviewContent}</td>
+										<td align="center">${alist.reviewStar }</td>
 										<td align="center">
 										<input type="button" value="수정" data-target="#myModal" data-toggle="modal">
 										<input type="button" value="삭제" onclick="delect()">
