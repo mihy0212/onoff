@@ -15,24 +15,23 @@ import co.oc.dao.StoreDAO;
 import co.oc.dto.StoreDTO;
 import net.sf.json.JSONArray;
 
-public class MapCommand implements Command {
+public class OpenStoreCommand implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Connection conn = DAO.connect();
-		List<StoreDTO> list = StoreDAO.getInstance().selectAllStore(conn);
+		List<StoreDTO> list = StoreDAO.getInstance().selectOpenStore(conn);
 
 		String map = JSONArray.fromObject(list).toString();
 
 		response.setContentType("text/html; charset=UTF-8");
 		response.getWriter().print(map);
-		
+
 		try {
 			conn.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+
 }

@@ -23,7 +23,8 @@ import co.oc.command.join.LogoutCommand;
 import co.oc.command.join.NickcheckCommand;
 import co.oc.command.manager.BorderListCommand;
 import co.oc.command.manager.WriteForm;
-import co.oc.command.map.MapCommand;
+import co.oc.command.map.CloseStoreCommand;
+import co.oc.command.map.OpenStoreCommand;
 import co.oc.command.menu.DeldectMyReiviewComm;
 import co.oc.command.menu.MyAskListComm;
 import co.oc.command.menu.MyAskRead;
@@ -75,7 +76,8 @@ public class MainController extends HttpServlet {
 		map.put("/list.do", new BorderListCommand()); // 문의글리스트보기
 		map.put("/writeForm.do", new WriteForm());
 		// 백승진
-		map.put("/map.do", new MapCommand());
+		map.put("/openStore.do", new OpenStoreCommand());
+		map.put("/closeStore.do", new CloseStoreCommand());
 
 		// 복진영
 		// 마이 메뉴
