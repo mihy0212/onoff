@@ -51,8 +51,8 @@ window.onload = function() {
 									position.coords.longitude);
 							map = new kakao.maps.Map(container, mapOption);
 
-							var imageSrc = 'img/mylocation.png', imageSize = new kakao.maps.Size(
-									20, 20), imageOption = {
+							var imageSrc = 'img/mylocationEdit.png', imageSize = new kakao.maps.Size(
+									70, 70), imageOption = {
 								offset : new kakao.maps.Point(0, 0)
 							};
 
@@ -101,7 +101,7 @@ function markDBPlaces(DBPosition, i) {
 	var imageSrc = 'img/openmarker.png', imageSize = new kakao.maps.Size(36, 36),
 
 	imgOptions = {
-		spriteSize : new kakao.maps.Size(30, 30),
+		spriteSize : new kakao.maps.Size(35, 35),
 		spriteOrigin : new kakao.maps.Point(0, 0),
 		offset : new kakao.maps.Point(12, 48)
 
