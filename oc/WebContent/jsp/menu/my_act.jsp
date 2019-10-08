@@ -300,7 +300,7 @@ $(function() {
   </div>
 
 	<!-- JS includes -->
-<%-- 
+
 	<script
 		src="${pageContext.request.contextPath }/assets/js/vendor/jquery-1.11.2.min.js"></script>
 	<script
@@ -326,7 +326,7 @@ $(function() {
 	<script src="${pageContext.request.contextPath }/assets/js/plugins.js"></script>
 	<script src="${pageContext.request.contextPath }/assets/js/main.js"></script>
 
- --%>
+
 
 </body>
 </html>

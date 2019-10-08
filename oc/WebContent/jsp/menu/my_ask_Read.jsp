@@ -38,7 +38,7 @@
 				<tr>
 					
 					<th width="100" height="200">답변</th>
-					<td colspan="5"  width="800" align="center">${list[0].askRe }</td>	
+					<td colspan="5"  width="800" align="center">${list[1].askContent }</td>	
 				<tr>
 				
 			</table>

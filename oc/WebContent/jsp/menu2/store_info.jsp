@@ -70,16 +70,36 @@ $(document).ready(function(){
 		$('#star').children().eq(i).attr('class','btn button is-checked');
 	}
 	
+	//리뷰에서 별점 표시하기
+	var star_num;
+	$('.reviewStars').on('click', function(){
+		star_num = $(this).attr('id').substring(4,5);
+		if($(this).css("color")=="rgb(128, 128, 128)"){
+			for(var i=1; i<=star_num; i++){
+				var starNum = "star"+i;
+				$('#'+starNum).css("color","yellow");
+			}
+		} else {
+			for(var i=5; i>star_num; i--){
+				var starNum = "star"+i;
+				$('#'+starNum).css("color","gray");
+			}
+		}
+		
+	})
+	
+	
+	
 });
 
 function likeUpDown(){
-	if( ${ storeInfo.storeNum } != ${ storeNum }){
+	if( "${ storeInfo.storeNum }" != "${storeNum }"){
 		var storeNum = ${ storeInfo.storeNum };
 		$.ajax({
 			url: "likeClick.do",
 			data: {
-				userNum: ${ userNum },
-				storeNum: ${ storeInfo.storeNum }
+				userNum: "${ userNum }",
+				storeNum: "${ storeInfo.storeNum }"
 			},
 			dataType: "json",
 			success: function(result){
@@ -95,6 +115,42 @@ function likeUpDown(){
 	
 }
 
+function btnReply(){
+	console.log($(this).parent().parent().attr("id"));
+};
+
+function btnUpdate(){
+	console.log($(this).parent().parent().attr("id"));
+};
+
+function btnInsert(){
+	console.log($('#insertText').val());//텍스트창에 입력한 값
+	var starNum;
+	for(var i=0; i<$('.reviewStars').length; i++){
+		if($(this).css("color")=="rgb(255, 255, 0)"){
+			starNum = i;
+		}
+	}
+	console.log(starNum);
+	$.ajax({
+		url: "reviewInsert.do",
+		data: {
+			storeNum: "${ storeInfo.storeNum }",
+			userNum: "${ userNum }",
+			reviewStar: starNum,
+			reviewContent: $('#insertText').val()
+		},
+		dataType: "json",
+		success: function(result){
+			if(result == 0){
+				alert("리뷰 등록에 실패했습니다.")
+			} else {
+				alert("리뷰를 성공적으로 등록했어요!")
+				
+			}
+		}
+	})
+};
 
 /*
 $('#btnlike').on('click', function(){
@@ -114,10 +170,17 @@ $('#btnlike').on('click', function(){
 			}
 		}
 	});
-});*/
-
+});
+*/
 
 </script>
+<style>
+.reviewStars{
+	color: gray;
+	text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+</style>
 </head>
 
 
@@ -271,21 +334,24 @@ $('#btnlike').on('click', function(){
                 </div>
                 
                 <div class="col-md-8 text-right">
-	                <div id="star" class="col-md-6">
 						<button class="btn button is-checked" data-filter="*">★</button>
 		                <button class="btn button" data-filter=".metal">★</button>
 		                <button class="btn button" data-filter=".transition">★</button>
 		                <button class="btn button" data-filter=".alkali">★</button>
 		                <button class="btn button" data-filter=".ar">★</button>
 		                &nbsp;&nbsp;<font size="5"><strong>${ stars }</strong></font> /5.0
-	                </div>
                 </div>
                 <div style="clear: both;"></div>
 
                 <div class="col-md-12 ">
                 
                 	<form id="reviewFrm" name="reviewFrm" method="post" action="reviewWrite.do">
+                	
+                		<%-- 가게 사업자가 본인이면 댓글을 달 수는 없고 대댓만 달 수 있고, 대댓을 수정/삭제 할 수 있음
+                		 / 가게 사업자가 본인이 아니면 댓글을 달 수 있고 본인의 댓글은 수정/삭제할 수 있음 --%>
                 		<c:choose>
+                		
+                		<%-- 사장님일 경우 출력 --%>
                 		<c:when test="${ storeInfo.storeNum == storeNum }">
                 		
 	                		<!-- DB 목록을 가져와서 뿌려주는 곳 : 등록된 글이 없을 때와 있을 때 구분해서 작성-->
@@ -295,27 +361,27 @@ $('#btnlike').on('click', function(){
 	                        </div>
 							</c:if>
 							
-							<c:forEach items="${ storeReview }" var="list">
-								<c:choose>
+							<c:forEach items="${ storeReview }" var="list" varStatus="status">
+								<c:choose><%-- 글번호와 댓글 번호가 일치하면-리뷰의 댓글이 아닐 경우-사장님은 대댓을 달 수 있음. --%>
 									<c:when test="${ list.reviewRe == list.reviewNum }">
-										<div class="choose_item_text fix" style="padding: 15px; margin: 10px;"onmouseover="this.style.background='#F2F2F2'"
+										<div id="list${status.count}" class="choose_item_text fix" style="padding: 15px; margin: 10px;"onmouseover="this.style.background='#F2F2F2'"
 											 onmouseout="this.style.background='white'">
 											<div class="col-md-2 text-center">
-											<font size="6"><i class="icon icon icon-smile text-black"></i></font> <h6>${ list.userNick }</h6>
+												<font size="6"><i class="icon icon icon-smile text-black"></i></font> <h6>${ list.userNick }</h6>
 											</div>
 											<div class="col-md-9 text-left">
-											<p> <c:forEach var="i" begin="0" end="${ list.reviewStar }" step="1">
-													<font style="color: yellow; text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;">★</font>
-												</c:forEach><br>${ list.reviewContent } &nbsp;&nbsp;&nbsp;(${ list.reviewDate })
-											</p>
+												<p> <c:forEach var="i" begin="0" end="${ list.reviewStar }" step="1">
+														<font style="color: yellow; text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;">★</font>
+													</c:forEach><br>${ list.reviewContent } &nbsp;&nbsp;&nbsp;(${ list.reviewDate })
+												</p>
 											</div>
-											<div class="col-md-1"><br>
-												<div class="main-portfolio roomy"><button class="btn button is-checked">댓글</button></div>
+											<div class="main-portfolio roomy col-md-1">
+												<br><button class="btn button is-checked" type="button" onclick="btnReply()">댓글</button>
 											</div>
 					                    </div>
 				                    </c:when>
-			                    	<c:otherwise>
-										<div class="choose_item_text fix col-md-offset-1" style="background-color: #F2F2F2; padding: 15px;" onmouseover="this.style.background='white'"
+			                    	<c:otherwise><%-- 글번호와 댓글 번호가 일치하지 않으면-댓글일 경우, 사장님만 댓글 달 수 있으므로- 수정/삭제 할 수 있음 --%>
+										<div id="list${status.count}" class="choose_item_text fix col-md-offset-1" style="background-color: #F2F2F2; padding: 15px;" onmouseover="this.style.background='white'"
 											 onmouseout="this.style.background='#F2F2F2'">
 											 <div class="col-md-2 text-center">
 											<font size="6"><i class="icon icon icon-restaurant2 text-black"></i></font> <h6>${ list.storeName }</h6>
@@ -323,79 +389,97 @@ $('#btnlike').on('click', function(){
 											<div class="col-md-9 text-left">
 											<p><br> ${ list.reviewContent } &nbsp;&nbsp;&nbsp;(${ list.reviewDate }) </p>
 											</div>
-											<div class="col-md-1">
+											<div class="main-portfolio roomy col-md-1">
 												<c:if test="${ list.userNum == userNum }">
-													<div class="main-portfolio roomy"><br><button class="btn button">수정</button></div>
+													<br><button class="btn button" type="button" onclick="btnUpdate()">수정</button>
 												</c:if>
 											</div>
 										</div>
 				                    </c:otherwise>
 			                    </c:choose>
-							</c:forEach><!-- DB 목록을 가져와서 뿌려주는 곳 end -->
-                		
+							</c:forEach><%-- DB 목록을 가져와서 뿌려주는 곳 end --%>
                 		</c:when>
+                		
+                		<%-- 사장님이 아닐 경우 출력--%>
                 		<c:otherwise>
-                			<!-- 댓글 입력창 -->
-	                		<div class="choose_item_text fix col-md-offset-1" style="background-color: #F2F2F2; padding: 15px;" onmouseover="this.style.background='white'"
+                			<%-- 댓글 입력창 --%>
+	                		<div id="divInsert" class="choose_item_text fix col-md-offset-1" style="background-color: #F2F2F2; padding: 15px;" onmouseover="this.style.background='white'"
 								 onmouseout="this.style.background='#F2F2F2'">
-								 <div class="col-md-2 text-center">
-								<font size="6"><i class="icon icon icon-smile text-black"></i></font> <h6>${ userNick }</h6>
+								<div class="col-md-2 text-center">
+									<font size="6"><i class="icon icon icon-smile text-black"></i></font> <h6>${ userNick }</h6>
 								</div>
 								<div class="col-md-9 text-left">
-								<p> <br><textarea rows="2" cols="75" id="content" name="content"></textarea></p>
+									<span class="reviewStars" id="star1">★</span>
+									<span class="reviewStars" id="star2">★</span>
+									<span class="reviewStars" id="star3">★</span>
+									<span class="reviewStars" id="star4">★</span>
+									<span class="reviewStars" id="star5">★</span>
+									<p><textarea rows="2" cols="75" id="insertText" name="insertText"></textarea></p>
 								</div>
-								<div class="col-md-1">
-									<div class="main-portfolio roomy"><br><button class="btn button is-checked">확인</button></div>
+								<div class="main-portfolio roomy col-md-1">
+									<br><button class="btn button is-checked" type="button" onclick="btnInsert()">확인</button>
 								</div>
-								
-							</div><!-- END 댓글 입력창 -->
-	                		
+							</div><%-- END 댓글 입력창 --%>
 	                	
-							<!-- DB 목록을 가져와서 뿌려주는 곳 : 등록된 글이 없을 때와 있을 때 구분해서 작성-->
+							<%-- DB 목록을 가져와서 뿌려주는 곳 : 등록된 글이 없을 때와 있을 때 구분해서 작성--%>
 							<c:if test="${storeReview.isEmpty()}">
 								<div class="choose_item_text fix">
 	                            <p> 등록된 리뷰가 없습니다. </p>
 	                        </div>
 							</c:if>
 							
-							<c:forEach items="${ storeReview }" var="list">
-								<c:choose>
+							<c:forEach items="${ storeReview }" var="list" varStatus="status">
+								<c:choose><%-- 글번호와 댓글 번호가 일치하면-리뷰의 댓글이 아닐 경우 --%>
 									<c:when test="${ list.reviewRe == list.reviewNum }">
-										<div class="choose_item_text fix" style="padding: 15px; margin: 10px;"onmouseover="this.style.background='#F2F2F2'"
+										<div id="list${status.count}" class="choose_item_text fix" style="padding: 15px; margin: 10px;"onmouseover="this.style.background='#F2F2F2'"
 											 onmouseout="this.style.background='white'">
 											<div class="col-md-2 text-center">
-											<font size="6"><i class="icon icon icon-smile text-black"></i></font> <h6>${ list.userNick }</h6>
+												<font size="6"><i class="icon icon icon-smile text-black"></i></font> <h6>${ list.userNick }</h6>
 											</div>
 											<div class="col-md-9 text-left">
-											<p> <c:forEach var="i" begin="0" end="${ list.reviewStar }" step="1">
-													<font style="color: yellow; text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;">★</font>
-												</c:forEach><br>${ list.reviewContent } &nbsp;&nbsp;&nbsp;(${ list.reviewDate })&nbsp;&nbsp;&nbsp;
-											</p>
+												<p> <c:forEach var="i" begin="0" end="${ list.reviewStar }" step="1">
+														<font style="color: yellow; text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;">★</font>
+													</c:forEach><br>${ list.reviewContent } &nbsp;&nbsp;&nbsp;(${ list.reviewDate })&nbsp;&nbsp;&nbsp;
+												</p>
 											</div>
-											<div class="col-md-1">
+											<div class="main-portfolio roomy col-md-1">
 												<c:if test="${ list.userNum == userNum }">
-													<div class="main-portfolio roomy"><br><button class="btn button">수정</button></div>
+													<br><button class="btn button" type="button" onclick="btnUpdate()">수정</button>
 												</c:if>
 											</div>
 					                    </div>
 				                    </c:when>
-			                    	<c:otherwise>
-										<div class="choose_item_text fix col-md-offset-1" style="background-color: #F2F2F2; padding: 15px;" onmouseover="this.style.background='white'"
+				                    
+			                    	<c:otherwise><%-- 글번호와 댓글 번호가 일치하지 않으면-리뷰의 댓글일 경우 --%>
+										<div id="list${status.count}" class="choose_item_text fix col-md-offset-1" style="background-color: #F2F2F2; padding: 15px;" onmouseover="this.style.background='white'"
 											 onmouseout="this.style.background='#F2F2F2'">
-											 <div class="col-md-2 text-center">
-											<font size="6"><i class="icon icon icon-restaurant2 text-black"></i></font> <h6>${ list.storeName }</h6>
+											<div class="col-md-2 text-center">
+												<font size="6"><i class="icon icon icon-restaurant2 text-black"></i></font> <h6>${ list.storeName }</h6>
 											</div>
 											<div class="col-md-10 text-left">
-											<p><br> ${ list.reviewContent } &nbsp;&nbsp;&nbsp;(${ list.reviewDate }) </p>
+												<p><br> ${ list.reviewContent } &nbsp;&nbsp;&nbsp;(${ list.reviewDate }) </p>
 											</div>
 										</div>
 				                    </c:otherwise>
+				                    
 			                    </c:choose>
-							</c:forEach><!-- DB 목록을 가져와서 뿌려주는 곳 end -->
+							</c:forEach><%-- DB 목록을 가져와서 뿌려주는 곳 end --%>
 							
                 		</c:otherwise>
                 		</c:choose>
-                        
+                		
+                		<!-- 페이징 -->
+                		<div align="center">
+						<nav aria-label="Page navigation">
+							 <ul class="pagination" id="pagination">
+								 <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+								<li class="page-item"><a class="page-link" href="#">1</a></li>
+								<li class="page-item"><a class="page-link" href="#">2</a></li>
+								<li class="page-item "><a class="page-link" href="#">3</a></li>
+								<li class="page-item"><a class="page-link" href="#">Next</a></li> 
+							</ul>
+						</nav>
+                        </div>
                     </form>
 
                 </div>
