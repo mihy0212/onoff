@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,14 +26,23 @@ public class ReviewInsertComm implements Command {
 		dto.setUserNum(request.getParameter("userNum"));
 		dto.setReviewStar(request.getParameter("reviewStar"));
 		dto.setReviewContent(request.getParameter("reviewContent"));
+		System.out.println(dto.getReviewContent());
 		
 		Connection conn = DAO.connect();
 		int n = ReviewDAO.getInstance().insert(conn, dto);
+		System.out.println(n);
 		DAO.disconnect(conn);
 		
 		out.print(n);
 		out.flush();
 
+		RequestDispatcher dispatcher = request.getRequestDispatcher("storeInfo.do");
+		dispatcher.forward(request, response);
+	}
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		execute(request, response);
 	}
 
 }

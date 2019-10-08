@@ -126,14 +126,15 @@ function btnUpdate(){
 function btnInsert(){
 	console.log($('#insertText').val());//텍스트창에 입력한 값
 	var starNum;
-	for(var i=0; i<$('.reviewStars').length; i++){
-		if($(this).css("color")=="rgb(255, 255, 0)"){
+	for(var i=0; i<$('.reviewStars').length; ++i){
+		if($('#star'+i).css("color") == "rgb(255, 255, 0)"){
 			starNum = i;
 		}
 	}
 	console.log(starNum);
 	$.ajax({
 		url: "reviewInsert.do",
+		type: "post",
 		data: {
 			storeNum: "${ storeInfo.storeNum }",
 			userNum: "${ userNum }",
@@ -142,10 +143,20 @@ function btnInsert(){
 		},
 		dataType: "json",
 		success: function(result){
-			if(result == 0){
-				alert("리뷰 등록에 실패했습니다.")
+			if(result != 0){
+				alert("리뷰 등록에 성공했습니다.")
+				$('#copy_review').clone().preppendTo($('#reviewList'));
+				console.log($('.contentOut').first());
+				var id_num = $('.contentOut').children().eq(1).attr('id').substring(4,5);
+				$('.contentOut').first().attr('id','list'+id_num);
+				$('.content_user').text(${userNum});
+				for(var i=0; i<starNum; i++){
+					$('.content').children.eq(0).append('<font class="reviewStarsYellow">★</font>')
+				}
+				$('.content').children.eq(0).append('<br>'+ $('#insertText').val() +'&nbsp;&nbsp;&nbsp;('+ 날짜 넣기 여기 2019-10-08+')&nbsp;&nbsp;&nbsp;');
 			} else {
-				alert("리뷰를 성공적으로 등록했어요!")
+				alert("리뷰 등록에 실패했습니다.")
+				
 				
 			}
 		}
@@ -178,6 +189,15 @@ $('#btnlike').on('click', function(){
 .reviewStars{
 	color: gray;
 	text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+.reviewStarsYellow{
+	color: yellow;
+	text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+.hidden{
+	visibility:hidden;
 }
 
 </style>
@@ -371,7 +391,7 @@ $('#btnlike').on('click', function(){
 											</div>
 											<div class="col-md-9 text-left">
 												<p> <c:forEach var="i" begin="0" end="${ list.reviewStar }" step="1">
-														<font style="color: yellow; text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;">★</font>
+														<font class="reviewStarsYellow">★</font>
 													</c:forEach><br>${ list.reviewContent } &nbsp;&nbsp;&nbsp;(${ list.reviewDate })
 												</p>
 											</div>
@@ -428,17 +448,42 @@ $('#btnlike').on('click', function(){
 	                        </div>
 							</c:if>
 							
+							<div id="insert" class="hidden">
+							<div id="copy_reivew" class="choose_item_text fix" style="padding: 15px; margin: 10px;"onmouseover="this.style.background='#F2F2F2'"
+											 onmouseout="this.style.background='white'">
+											<div class="col-md-2 text-center">
+												<font size="6"><i class="icon icon icon-smile text-black"></i></font> <h6 class="content_user">사업자회원2</h6>
+											</div>
+											<div class="col-md-9 text-left content">
+												<p> 
+														<font class="reviewStarsYellow">★</font>
+													
+														<font class="reviewStarsYellow">★</font>
+													
+														<font class="reviewStarsYellow">★</font>
+													<br>ㅁㄴㅇㄹ &nbsp;&nbsp;&nbsp;(2019-10-08)&nbsp;&nbsp;&nbsp;
+												</p>
+											</div>
+											<div class="main-portfolio roomy col-md-1">
+												
+													<br><button class="btn button" type="button" onclick="btnUpdate()">수정</button>
+												
+											</div>
+					                    </div>
+							</div>
+							
+							<div id="reviewList">
 							<c:forEach items="${ storeReview }" var="list" varStatus="status">
 								<c:choose><%-- 글번호와 댓글 번호가 일치하면-리뷰의 댓글이 아닐 경우 --%>
 									<c:when test="${ list.reviewRe == list.reviewNum }">
-										<div id="list${status.count}" class="choose_item_text fix" style="padding: 15px; margin: 10px;"onmouseover="this.style.background='#F2F2F2'"
+										<div id="list${status.count}" class="choose_item_text fix contentOut" style="padding: 15px; margin: 10px;"onmouseover="this.style.background='#F2F2F2'"
 											 onmouseout="this.style.background='white'">
 											<div class="col-md-2 text-center">
 												<font size="6"><i class="icon icon icon-smile text-black"></i></font> <h6>${ list.userNick }</h6>
 											</div>
 											<div class="col-md-9 text-left">
-												<p> <c:forEach var="i" begin="0" end="${ list.reviewStar }" step="1">
-														<font style="color: yellow; text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;">★</font>
+												<p> <c:forEach var="i" begin="1" end="${ list.reviewStar }" step="1">
+														<font class="reviewStarsYellow">★</font>
 													</c:forEach><br>${ list.reviewContent } &nbsp;&nbsp;&nbsp;(${ list.reviewDate })&nbsp;&nbsp;&nbsp;
 												</p>
 											</div>
@@ -464,6 +509,7 @@ $('#btnlike').on('click', function(){
 				                    
 			                    </c:choose>
 							</c:forEach><%-- DB 목록을 가져와서 뿌려주는 곳 end --%>
+							</div>
 							
                 		</c:otherwise>
                 		</c:choose>
