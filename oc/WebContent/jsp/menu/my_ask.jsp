@@ -20,45 +20,42 @@
 		}
 		form.submit();
 	}
+	
+	
 </script>
+
+
 <title>게시판</title>
 </head>
 <body>
 	<!--  ---------------------목록 쓰기-------------------------------->
 	<form name=replyform method=post action="myAskWrite.do">
-		<div align="center">
+		
 			<div class="col-md-4">
 				<div class="head_title text-left sm-text-center wow fadeInDown">
 					<h2>질문</h2>
 				</div>
 			</div>
-
-			<table>
-				<tr>
-				<td>&nbsp;</td>
-					<th align="center">제목</th>
-					<td><input name="askTitle" size="150" maxlength="80"></td>
-					<td>&nbsp;</td>
-					<th width="100" align="center">작성일자</th>
-					<td width="200"><input type="date" id="askDate" name="askDate"></td>
+<div align="center">
+			<table >
+			
+			<tr>
+					<th width="100">제 목</th>
+					<td ><input type="text" id="askTitle" name="askTitle" size="150"></td>
+					<th width="100">작성일자</th>
+					<td width="200"><input type="date" id="askDate" name="askDate" readonly="readonly"></td>
+					
 				</tr>
-				
-			</table>
-			<br>
-			<table>
+				<td>&nbsp;&nbsp;&nbsp;</td>
 				<tr>
-					<th>&nbsp;</th>
-					<th align="center">내용</th>
-					<!--(rows값)줄, cols는  (cols값)자  -->
-					<td><textarea name="askContent" cols="200" rows="10"></textarea></td>
+					<th width="100" >내 용</th>
+					<td colspan="4"><textarea cols="185" rows="10" id="askContent" name="askContent"></textarea></td>
 				</tr>
 				
 				<tr align="center">
 					<td>&nbsp;</td>
-					<td colspan="2"><input type=button value="등록" onclick="replyCheck();"> 
-						<input type="reset" value="취소">
-						&nbsp;&nbsp;&nbsp;
-					<td>&nbsp;</td>
+					<td colspan="2"><input type=button value="등록" onclick="replyCheck();">
+					<input type="reset" value="취소"></td>
 				</tr>
 			</table>
 		</div>
@@ -69,6 +66,7 @@
 	<form action="myAskWrite.do">
 		<table class=" table table-striped" >
 			<tr>
+			<td width="50" align="center">#</td>
 				<td width="100" align="center">제목</td>
 				<td width="350" align="center">내용</td>
 				<td width="80" align="center">작성일</td>
@@ -86,27 +84,31 @@
 
 			<!--목록이 있으면  -->
 			<c:forEach items="${list }" var="dto">
-				<tr onclick="location.href='myAskRead.do?key=${dto.askTitle  }'">
+				<c:if test="${dto.askNum == dto.askRe }">  <!--딥글은  askNum이랑 askRe다름  -->
+				<tr onclick="location.href='myAskRead.do?key=${dto.askNum}'">
+					<td align="center">${dto.askNum }</td>
 					<td align="center">${dto.askTitle }</td>
 					<td align="center">${dto.askContent }</td>
 					<td align="center">${dto.askDate }</td>
 					<td align="center">${dto.askStatus }</td>
 				</tr>
+				</c:if>
 			</c:forEach>
 			<!-- db 목록을 가져와서 뿌려주는 곳끝 -->
 
 		</table>
 	</form>
-	 <!-- 페이징 -->
-		<nav aria-label="Page navigation">
-			 <ul class="pagination" id="pagination">
-				 <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-				<li class="page-item"><a class="page-link" href="#">1</a></li>
-				<li class="page-item"><a class="page-link" href="#">2</a></li>
-				<li class="page-item "><a class="page-link" href="#">3</a></li>
-				<li class="page-item"><a class="page-link" href="#">Next</a></li> 
-			</ul>
-		</nav>
+	 	<div class="col-sm-6" align="center">
+				<div align="center">
+					<ul class="pagination" id="page_num">
+						<li>
+						<c:forEach var="i" begin="1" end="${tot}" >
+						 <a href="myAsklist.do?Page_num=${i}">${i}</a>
+						</c:forEach>
+						</li>
+					</ul>
+				</div>
+		</div>
 	</div>
 
 	<script>
