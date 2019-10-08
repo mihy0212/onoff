@@ -16,16 +16,29 @@
 		<div>
 			<table border="1">
 				<tr>
-					<th width="100">번호</th>
-					<td width="100" align="center">${list.askNum }</td>
-					<th width="350">제목</th>
-					<td width="100" align="center">${list.askTitle }</td>
-					<th width="100">내용</th>
-					<td width="100" align="center">${list.askNum }</td>
-					<th width="200">상태</th>
-					<td width="100" align="center">${list.askContent }</td>
-					<th width="80">작성일</th>
-					<td width="100" align="center">${list.askDate }</td>
+					<th width="50">상태</th>
+					<td width="100" align="center">${list[0].askStatus }</td>
+					<th width="50">작성일</th>
+					<td width="100" align="center">${list[0].askDate }</td>
+				</tr>
+				<tr>	
+					<th width="100">제목</th>
+					<td  colspan="5" width="100" align="center">${list[0].askTitle }</td>
+				</tr>
+				<tr>
+					<th width="100" height="200">내용</th>
+					<td colspan="5"  width="800" align="center">${list[0].askContent }</td>	
+				<tr>
+				
+			</table>
+	</div><br />
+	
+	<div>
+			<table border="1">
+				<tr>
+					
+					<th width="100" height="200">답변</th>
+					<td colspan="5"  width="800" align="center">${list[0].askRe }</td>	
 				<tr>
 				
 			</table>
@@ -33,13 +46,12 @@
 	
 
 	
-	<c:if test="${id == list.bId }">
-	<input type="button" onclick="location.href='borderUpdateForm.do?key=${list.askNum}'" value="글수정"> &nbsp;&nbsp;
-	<input type="button" onclick="location.href='borderDelete.do?key=${list.askNum}'" value= "글삭제"> &nbsp;&nbsp;
+	<input type="button" value="글수정"> &nbsp;&nbsp;
+	<input type="button" onclick="location.href='myAskdelecte.do'" value= "글삭제"> &nbsp;&nbsp;
 	
-	</c:if>
 
-	<button type="button" onclick="location.href='borderList.do'">목록으로</button></div>
+	<button type="button" onclick="location.href='myAsklist.do'">목록으로</button>
+	</div>
 	</form>
 
 

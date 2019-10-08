@@ -71,6 +71,7 @@ public class MyAskListComm implements Command {
 
 		// request 객체에 총 페이지수를 담아준다.
 		request.setAttribute("tot", tot);
+		
 
 		// ask.jsp로 이동
 		DAO.disconnect(conn);
