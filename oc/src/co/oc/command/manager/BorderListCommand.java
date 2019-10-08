@@ -21,7 +21,7 @@ public class BorderListCommand implements Command {
 		List<AskDTO> list ;
 		AskDAO dao = new AskDAO();
 		Connection conn = DAO.connect();
-		list = dao.selectAll(conn, 1, 15);
+		list = dao.selectAll(conn, 1, 100);
 		request.setAttribute("list", list); //db에서 넘어온 값을  request객체에 속성으로 삽입
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/manager/test2.jsp");
