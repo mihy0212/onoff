@@ -50,8 +50,10 @@ public class MyAskWriteComm implements Command {
 					//DB에 저장
 					AskDAO.getInstance().insert(conn, dto);
 					
-					RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/menu/my_ask.jsp");
-					dispatcher.forward(request, response);
+					//redirect는 .do에서 .do로 갈때 사용(재요청) 
+					/// forword는 .do에서 jsp갈떼사용
+					response.sendRedirect("myAsklist.do");
+					
 
 					DAO.disconnect(conn);
 					

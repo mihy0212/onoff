@@ -30,7 +30,6 @@
 			<div class="col-md-4">
 				<div class="head_title text-left sm-text-center wow fadeInDown">
 					<h2>질문</h2>
-					${userNum }
 				</div>
 			</div>
 
@@ -40,7 +39,7 @@
 					<th align="center">제목</th>
 					<td><input name="askTitle" size="150" maxlength="80"></td>
 					<td>&nbsp;</td>
-					<th width="100">작성일자</th>
+					<th width="100" align="center">작성일자</th>
 					<td width="200"><input type="date" id="askDate" name="askDate"></td>
 				</tr>
 				
@@ -64,15 +63,16 @@
 			</table>
 		</div>
 	</form>
+	<br><br><br>
 	<!--  ---------------------목록 보기-------------------------------->
-	<div>
+	<div align="center">
 	<form action="myAskWrite.do">
-		<table class=" table table-striped">
+		<table class=" table table-striped" >
 			<tr>
-				<th width="100">제목</th>
-				<th width="350">내용</th>
-				<th width="80">작성일</th>
-				<th width="200">상태</th>
+				<td width="100" align="center">제목</td>
+				<td width="350" align="center">내용</td>
+				<td width="80" align="center">작성일</td>
+				<td width="80" align="center">상태</td>
 			</tr>
 
 
@@ -97,6 +97,16 @@
 
 		</table>
 	</form>
+	 <!-- 페이징 -->
+		<nav aria-label="Page navigation">
+			 <ul class="pagination" id="pagination">
+				 <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+				<li class="page-item"><a class="page-link" href="#">1</a></li>
+				<li class="page-item"><a class="page-link" href="#">2</a></li>
+				<li class="page-item "><a class="page-link" href="#">3</a></li>
+				<li class="page-item"><a class="page-link" href="#">Next</a></li> 
+			</ul>
+		</nav>
 	</div>
 
 	<script>

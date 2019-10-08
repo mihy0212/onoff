@@ -55,8 +55,9 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/assets/css/responsive.css" />
 
-<script
-	src="${pageContext.request.contextPath }/assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+
+<%-- <script
+	src="${pageContext.request.contextPath }/assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script> --%>
 <script> 
 
 function delect(){
@@ -68,7 +69,16 @@ function delect(){
 	}
 
 
+$(function() {
+	console.log(location);
+	if(location.pathname=="/oc/myReview.do"){
+		location.href="#portfolio";
+	}
+})
+
 </script>
+
+
 </head>
 
 <body data-spy="scroll" data-target=".navbar-collapse" data-offset="100">
@@ -90,7 +100,7 @@ function delect(){
 	<div class="culmn">
 
             <section id="features" class="features bg-white">
-
+<form action="myfavorite.do">
 			<!-- Portfolio container-->
 			<div class="container">
 				<div class="row">
@@ -156,14 +166,17 @@ function delect(){
 				</div>
 			</div>
 			<!-- Portfolio container end -->
-
+			</form>
 		</section>
 		<!-- End off portfolio section -->
 
-		<!----------------------------------------------------------------나의리뷰----------------------------------------------------------------------------------------- -->
-<br><br>
+		
+	<!----------------------------------------------------------------나의리뷰----------------------------------------------------------------------------------------- -->
+	<!--이후 <br>삭제  -->
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 		<!--Test section-->
             <section id="portfolio" class="portfolio margin-top-120">
+            <form action="myReview.do">
             <br><br><br><br><br><br>
 				<div class="container">
 				<div class="row">
@@ -222,8 +235,11 @@ function delect(){
 					</div>
 				</div>
 			</div>
+			</form>
 		</section>
 		<!-- End off test section -->
+		<!--이후 <br>삭제  -->
+		<br><br><br><br><br><br><br><br><br><br><br><br>
 
 	</div>
 	 <!-------------------------------------------- Modal 리뷰작성 -------------------------------------------------->
@@ -280,7 +296,7 @@ function delect(){
   </div>
 
 	<!-- JS includes -->
-
+<%-- 
 	<script
 		src="${pageContext.request.contextPath }/assets/js/vendor/jquery-1.11.2.min.js"></script>
 	<script
@@ -306,7 +322,7 @@ function delect(){
 	<script src="${pageContext.request.contextPath }/assets/js/plugins.js"></script>
 	<script src="${pageContext.request.contextPath }/assets/js/main.js"></script>
 
-
+ --%>
 
 </body>
 </html>

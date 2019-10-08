@@ -57,6 +57,8 @@
 <script src="${pageContext.request.contextPath }/assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
 	<script src="${pageContext.request.contextPath }/assets/js/vendor/jquery-1.11.2.min.js"></script>
 
+
+
 <decorator:head></decorator:head>
 </head>
 
