@@ -68,14 +68,6 @@ function delect(){
 	}
 
 
-$('#myModal').modal("toggle");
-//반대로 모달상태를 전환함
-
-$('#myModal').modal("hide");
-//모달창 열기
-
-$('#myModal').modal("show");
-//모달창 닫음
 </script>
 </head>
 
