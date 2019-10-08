@@ -73,8 +73,8 @@ public class MainController extends HttpServlet {
 		map.put("/login.do", new LoginCheckCommand()); //로그인 정보 DB에확인 후 로그인
 		map.put("/logout.do", new LogoutCommand()); //로그아웃
 		map.put("/list.do", new BorderListCommand()); //문의글리스트보기
-		map.put("/writeForm.do", new WriteForm());
-		map.put("/borderRead.do", new BorderReadCommand());
+		map.put("/writeForm.do", new WriteForm()); //문의 답변폼
+		map.put("/borderRead.do", new BorderReadCommand()); //문의글 하나보기
 		//백승진
 		
 		
