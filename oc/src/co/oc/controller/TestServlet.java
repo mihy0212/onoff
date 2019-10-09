@@ -119,6 +119,27 @@ public class TestServlet extends HttpServlet {
 //		sdto.setUserNum("6");
 //		StoreDAO.getInstance().insert(conn, sdto);
 		
+		//가게 정보 업데이트
+//		StoreDTO sdto = new StoreDTO();
+//		sdto.setStoreName("가게3");
+//		sdto.setStoreAddr("대구광역시 중구 삼덕동 315-4");
+//		sdto.setStoreXy("35.863758, 128.607560");
+//		sdto.setStoreCateg1("1");
+//		sdto.setStoreCateg2("2");
+//		sdto.setStoreCateg3("6");
+//		sdto.setStoreTime("10:00 ~ 17:00, 연중무휴");
+//		sdto.setStoreTel("053-111-1111");
+//		sdto.setStoreMenu("볶음밥 2000원");
+//		sdto.setStoreEct("많이들 오세요~!");
+//		sdto.setStoreNum("3");
+//		StoreDAO.getInstance().update(conn, sdto);
+		
+		//가게 정보 한 건 업데이트
+//		String check = "store_addr";
+//		String content = "대구광역시 중구 삼덕동 315-4 2층";
+//		String storeNum = "3";
+//		StoreDAO.getInstance().update1(conn, check, content, storeNum);
+		
 		//가게 삭제 TEST
 //		String storeNum = "2";
 //		StoreDAO.getInstance().delete(conn, storeNum);
@@ -311,10 +332,10 @@ public class TestServlet extends HttpServlet {
 //		}
 		
 		//문의하기 일부 조회
-		List<AskDTO> list = AskDAO.getInstance().selectOne(conn, "user_num", "2", 1, 5);
-		for(AskDTO dto : list) {
-			System.out.println(dto.getAskNum()+": "+dto.getUserName()+"/"+dto.getUserGrant()+", "+dto.getStoreName()+"-->"+dto.getAskTitle());
-		}
+//		List<AskDTO> list = AskDAO.getInstance().selectOne(conn, "user_num", "2", 1, 5);
+//		for(AskDTO dto : list) {
+//			System.out.println(dto.getAskNum()+": "+dto.getUserName()+"/"+dto.getUserGrant()+", "+dto.getStoreName()+"-->"+dto.getAskTitle());
+//		}
 		
 		//접속 해제
 		DAO.disconnect(conn);

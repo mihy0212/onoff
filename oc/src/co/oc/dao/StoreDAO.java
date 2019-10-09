@@ -161,10 +161,11 @@ public class StoreDAO extends DAO {
 		return n;
 	}
 
-	// 가게 정보 수정
+	// 가게 정보 전체 수정
 	public int update(Connection conn, StoreDTO dto) {
 		int n = 0;
-		String sql = "update oc_store set" + " store_addr=?," // 1
+		String sql = "update oc_store set" 
+				+ " store_addr=?," // 1
 				+ " store_xy=?," // 2
 				+ " store_categ1=?," // 3
 				+ " store_categ2=?," // 4
@@ -197,6 +198,24 @@ public class StoreDAO extends DAO {
 		}
 		return n;
 	}
+	
+	//가게 정보 일부 변경
+		// check : 변경할 컬럼명, content: 변경할 내용
+	public int update1(Connection conn, String check, String content, String storeNum) {
+		int n = 0;
+		String sql = "update oc_store set " + check + "=? where store_num=?";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, content);
+			psmt.setString(2, storeNum);
+			n = psmt.executeUpdate();
+			System.out.println(n + "건의 가게 " + check + " 정보 수정 완료");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return n;
+	}
+	
 
 	// 가게 정보 삭제
 	public int delete(Connection conn, String storeNum) {
