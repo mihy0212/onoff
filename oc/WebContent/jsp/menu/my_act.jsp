@@ -62,7 +62,7 @@
 
 function delect(){
 	if (confirm("정말 삭제하시겠습니까??") == true){    //확인
-		location.href='delectMyReiview.do';
+		onclick="location.href='delectMyReiview.do?key=${alist.reviewNum}'"
 	}else{   //취소
 	    return;
 	}
@@ -225,6 +225,7 @@ $(function() {
 										<td align="center">
 										<input type="button" value="수정" data-target="#myModal" data-toggle="modal">
 										<input type="button" value="삭제" onclick="delect()">
+										
 										</td>
 									</tr>
 									</c:forEach>
