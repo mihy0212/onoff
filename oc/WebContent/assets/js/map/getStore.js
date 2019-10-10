@@ -2,7 +2,7 @@ var places;
 
 $(function() {
 	$.ajax({
-		url : 'map.do',
+		url : 'openStore.do',
 		type : 'GET',
 		dataType : 'json',
 		success : function(data) {
