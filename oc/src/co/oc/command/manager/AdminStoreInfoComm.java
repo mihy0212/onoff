@@ -1,7 +1,6 @@
 package co.oc.command.manager;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
 import java.util.List;
 
@@ -11,12 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.beanutils.BeanUtils;
-
 import co.oc.command.Command;
 import co.oc.dao.AddDAO;
 import co.oc.dao.DAO;
+import co.oc.dao.StoreDAO;
 import co.oc.dto.AddDTO;
+import co.oc.dto.StoreDTO;
 
 public class AdminStoreInfoComm implements Command {
 
@@ -29,9 +28,13 @@ public class AdminStoreInfoComm implements Command {
 		
 		if( userGrant.equals("S") ) {
 			Connection conn = DAO.connect();
-			List<AddDTO> addlist = AddDAO.getInstance().selectAll(conn);
 			
+			List<AddDTO> addlist = AddDAO.getInstance().selectAll(conn);
 			request.setAttribute("addlist", addlist);
+			
+			List<StoreDTO> slist = StoreDAO.getInstance().selectAll(conn);
+			request.setAttribute("slist", slist);
+			
 			DAO.disconnect(conn);
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/manager/admin_store.jsp");

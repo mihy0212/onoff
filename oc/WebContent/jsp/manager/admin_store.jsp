@@ -150,8 +150,6 @@
 					<button class="btn button is-checked" data-filter="*">전체</button>
 					<button class="btn button" data-filter=".metal">오픈 가게</button>
 					<button class="btn button" data-filter=".transition">닫은 가게</button>
-					<button class="btn button" data-filter=".alkali">등록 거절</button>
-					<button class="btn button" data-filter=".ar">등록 보류</button>&nbsp;&nbsp;
 				</div>
 				<!-- END 리뷰 헤드 부분 -->
 				<div style="clear: both;"></div>
@@ -164,19 +162,23 @@
 						<thead>
 							<tr>
 								<th width="1">No.</th>
+								<th>가게번호</th>
 								<th>가게명</th>
 								<th>주소</th>
-								<th>첨부파일</th>
-								<th >회원번호</th>
-								<th>신청일</th>
-								<th>처리상태</th>
-								<th>가게번호</th>
+								<th>좌표</th>
+								<th>분류1</th>
+								<th>분류2</th>
+								<th>분류3</th>
+								<th>좋아요 수</th>
+								<th>회원번호</th>
+								<th>가게등록일</th>
+								<th>가게상태</th>
 							</tr>
 						</thead>
 	
 						<!-- db 목록을 가져와서 뿌려주는 곳 -->
 						<!-- db에 목록이 이없으면 empty:비어있다는 뜻임  -->
-						<c:if test="${empty addlist}">
+						<c:if test="${empty slist}">
 							<tr>
 								<td colspan="9">등록된 글이 존재하지 않습니다.</td>
 							</tr>
@@ -184,21 +186,20 @@
 	
 						<!--목록이 있으면  -->
 						<!-- for문을 돌리면 list[0]을 안해도됨 -->
-						<c:forEach items="${ addlist }" var="addlist" varStatus="status">
-							<tr onclick="location.href='storeInfo.do?key=${addlist.addNum }'">
+						<c:forEach items="${ slist }" var="slist" varStatus="status">
+							<tr onclick="location.href='storeInfo.do?key=${ slist.storeNum }'">
 								<td>${ status.count }</td>
-								<td>${ addlist.storeName }</td>
-								<td>${ addlist.storeAddr }</td>
-								<td>
-									<c:choose>
-										<c:when test="${ !empty addlist.addCapture }"><font color="red">○</font></c:when>
-										<c:otherwise><font color="red">X</font></c:otherwise>
-									</c:choose>
-								</td>
-								<td>${ addlist.userNum }</td>
-								<td>${ addlist.addDay }</td>
-								<td>${ addlist.addStatus }</td>
-								<td>${ addlist.storeNum }</td>
+								<td>${ slist.storeNum }</td>
+								<td>${ slist.storeName }</td>
+								<td>${ slist.storeAddr }</td>
+								<td>${ slist.storeXy }</td>
+								<td>${ slist.storeCateg1 }</td>
+								<td>${ slist.storeCateg2 }</td>
+								<td>${ slist.storeCateg3 }</td>
+								<td>${ slist.storeLike }</td>
+								<td>${ slist.userNum }</td>
+								<td>${ slist.storeRegiday }</td>
+								<td>${ slist.storeOc }</td>
 							</tr>
 						</c:forEach>
 						<!-- db 목록을 가져와서 뿌려주는 곳끝 -->

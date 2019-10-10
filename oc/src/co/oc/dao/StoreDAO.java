@@ -50,6 +50,7 @@ public class StoreDAO extends DAO {
 				dto.setStoreLike(rs.getInt("store_like")); // 13
 				dto.setUserNum(rs.getString("user_num")); // 14
 				dto.setStoreRegiday(rs.getDate("store_regiday")); // 15
+				dto.setStoreOc(rs.getInt("store_oc")); // 16
 				list.add(dto);
 			}
 		} catch (SQLException e) {
@@ -83,6 +84,7 @@ public class StoreDAO extends DAO {
 				dto.setStoreLike(rs.getInt("store_like")); // 13
 				dto.setUserNum(rs.getString("user_num")); // 14
 				dto.setStoreRegiday(rs.getDate("store_regiday")); // 15
+				dto.setStoreOc(rs.getInt("store_oc")); // 16
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -115,6 +117,7 @@ public class StoreDAO extends DAO {
 				dto.setStoreLike(rs.getInt("store_like")); // 13
 				dto.setUserNum(rs.getString("user_num")); // 14
 				dto.setStoreRegiday(rs.getDate("store_regiday")); // 15
+				dto.setStoreOc(rs.getInt("store_oc")); // 16
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
