@@ -142,16 +142,18 @@
 										<a class="dropdown-item" href="myReview.do">리뷰 목록</a>
 										<br>
 										<c:if test="${!empty userEmail && userGrant=='C'}">
-											<a class="dropdown-item" href="storeInfo.do">내 가게 정보</a>
+											<a class="dropdown-item" href="storeInfo.do?storeNum=${ storeNum }">내 가게 정보</a>
 											<br>
-											<a class="dropdown-item" href="storeInfo.do">내 가게 리뷰</a>
+											<a class="dropdown-item" href="storeInfo.do?storeNum=${ storeNum }">내 가게 리뷰</a>
 											<br>
 										</c:if>
 										<c:if test="${!empty userEmail && userGrant=='S'}">
-										<a class="dropdown-item" href="list.do">문의 전체 보기</a>
+										<a class="dropdown-item" href="list.do">전체 문의 관리</a>
 										<br>
-										<a class="dropdown-item" href="userlist.do">유저 전체 보기</a>
-											<br>
+										<a class="dropdown-item" href="userlist.do">전체 회원 관리</a>
+										<br>
+										<a class="dropdown-item" href="adminStoreInfo.do">전체 가게 관리</a>
+										<br>
 										</c:if>
 									</c:when>
 

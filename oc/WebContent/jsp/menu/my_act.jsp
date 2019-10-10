@@ -76,34 +76,22 @@
 		console.log(location);
 		if (location.pathname == "/oc/myReview.do") {
 			location.href = "#portfolio";
+		}else if (location.pathname == "/oc/myfavorite.do") {
+			location.href = "#features";
 		}
 	})
+	
 </script>
 
 
 </head>
 
 <body>
-
-	<!-- 페이지 전환 효과 -->
-	<div id="loading">
-		<div id="loading-center">
-			<div id="loading-center-absolute">
-				<div class="object" id="object_one"></div>
-				<div class="object" id="object_two"></div>
-				<div class="object" id="object_three"></div>
-				<div class="object" id="object_four"></div>
-			</div>
-		</div>
-	</div>
-	<!--페이지 전환 효과 끝 -->
-
-		<section id="features" class="features bg-white">
+		<section id="features" class="features">
 				<!-- Portfolio container-->
 				<div class="container">
 					<div class="row">
 						<div class="main-portfolio">
-
 							<div class="col-md-4">
 								<div class="head_title text-left sm-text-center wow fadeInDown">
 									<h2>즐겨찾기</h2>
@@ -111,11 +99,9 @@
 							</div>
 
 							<div class="col-md-8">
-								<div class="filters-button-group text-right sm-text-center"
-									id="test">
-
+								<div class="filters-button-group text-right sm-text-center" id="test">
 									<button class="btn button is-checked" data-filter="*">all</button>
-									<button class="btn button" data-filter=".metal">이동상점</button>
+									<button class="btn button" data-filter=".metal" >이동상점</button>
 									<button class="btn button" data-filter=".transition">한식</button>
 									<button class="btn button" data-filter=".alkali">중식</button>
 									<button class="btn button" data-filter=".ar">일식</button>
@@ -125,7 +111,6 @@
 
 
 							<div style="clear: both;"></div>
-
 							<div class=" text-center">
 								<!-- 즐겨찾기선택 -->
 								<!-- 이동상점 -->
@@ -147,10 +132,9 @@
 
 										<!--목록이 있으면  -->
 										<!-- for문을 돌리면 list[0]을 안해도됨 -->
-										<c:forEach items="${list }" var="alist">
-											<tr class="info"
-												onclick="location.href='storeInfo.do?key=${alist.storeNum }'">
-												<td align="center">${alist.storeName }</td>
+										<c:forEach items="${list }" var="sdto">
+											<tr onclick="location.href='storeInfo.do?key=${sdto.storeNum }'">
+												<td align="center">${sdto.storeName }</td>
 											</tr>
 										</c:forEach>
 										<!-- db 목록을 가져와서 뿌려주는 곳끝 -->
@@ -213,8 +197,7 @@
 
 										<!--목록이 있으면  -->
 										<c:forEach items="${list }" var="alist">
-											<!-- var이름 고치면 오류남 -->
-											<tr class="info">
+											<tr >
 												<td scope="row" align="center"
 													onclick="location.href='storeInfo.do'">${alist.reviewNum }
 												</td>
@@ -225,10 +208,9 @@
 													onclick="location.href='storeInfo.do'">${alist.reviewDate }</td>
 												<td align="center">${alist.reviewContent}</td>
 												<td align="center">${alist.reviewStar }</td>
-												<td align="center"><input type="button" value="수정"
-													data-target="#myModal" data-toggle="modal"> <input
-													type="button" value="삭제"
-													onclick="location.href='delectMyReiview.do?key=${alist.reviewNum}'">
+												<td align="center">
+												<input type="submit" class="btn button is-checked btn_update" value="수정" data-target="#myModal" data-toggle="modal"> 
+												<input type="submit" class="btn button is-checked btn_update" value="삭제" onclick="location.href='delectMyReiview.do?key=${alist.reviewNum}'">
 
 												</td>
 											</tr>
@@ -240,10 +222,20 @@
 
 
 							</div>
-							<div style="clear: both;"></div>
+						</div>
+					</div>
+					<!-- 페이징 -->
+					<div class="col-sm-6" align="center">
+						<div align="center">
+							<ul class="pagination" id="page_num">
+								<li><c:forEach var="i" begin="1" end="${tot}">
+										<a href="myReview.do?Page_num=${i}">${i}</a>
+									</c:forEach></li>
+							</ul>
 						</div>
 					</div>
 				</div>
+				
 		</section>
 		<!-- End off test section -->
 		<!--이후 <br>삭제  -->

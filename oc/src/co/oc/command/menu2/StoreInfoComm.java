@@ -32,7 +32,8 @@ public class StoreInfoComm implements Command {
 		HttpSession session = request.getSession(false);
 		String sessionUserNum = session.getAttribute("userNum").toString();
 //		String storeNum = request.getParameter("storeNum");
-		String storeNum = request.getParameter("num");
+		String storeNum = request.getParameter("storeNum");
+//		String storeNum = "1";
 		
 		//DAO
 		Connection conn = DAO.connect();

@@ -34,8 +34,8 @@
 				
 			</table>
 	</div><br />
-	
-	<div>
+	<c:if test="${list[0].askStatus =='2'}">
+		<div>
 			<table border="1">
 				<tr>
 					
@@ -44,7 +44,9 @@
 				<tr>
 				
 			</table>
-	</div><br />
+		</div>
+	</c:if>
+	<br />
 	
 
 	
