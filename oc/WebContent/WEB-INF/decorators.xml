@@ -6,6 +6,9 @@
   <excludes>
     <pattern>reveiw.jsp</pattern>
     <pattern>/map.do</pattern>
+    <pattern>/idCheck.do*</pattern>
+    <pattern>/NickCheck.do*</pattern>
+    <pattern>/"storeNickCheck.do*</pattern>
   </excludes>
  
   <decorator name="basic-theme" page="layout.jsp">

@@ -20,6 +20,15 @@ public class StoreDTO {
 	private String userNum;
 	private Date storeRegiday;
 	private String storeRegidayString;
+	private int storeOc;
+
+	public int getStoreOc() {
+		return storeOc;
+	}
+
+	public void setStoreOc(int storeOc) {
+		this.storeOc = storeOc;
+	}
 
 	public String getStoreRegidayString() {
 		return storeRegidayString;

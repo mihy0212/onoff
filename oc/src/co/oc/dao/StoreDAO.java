@@ -272,27 +272,16 @@ public class StoreDAO extends DAO {
 
 		return list;
 	}
-	
-	// date 타입 에러 때문에 만듬
-	public List<StoreDTO> selectAllStore(Connection conn) {
+
+	// 오픈 가게 가져오기
+	public List<StoreDTO> selectOpenStore(Connection conn) {
 		List<StoreDTO> list = new ArrayList<StoreDTO>();
-		String sql = "select * from oc_store order by 1";
+		String sql = "select * from oc_store where store_oc=1 order by 1";
 		try {
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
-//			Iterator rows = (new ResultSetDynaClass(rs)).iterator();
-//			System.out.println(rows);
-//			while(rows.hasNext()) {
 			while (rs.next()) {
-//				DynaBean row = (DynaBean) rows.next();
 				StoreDTO dto = new StoreDTO();
-//				try {
-//					BeanUtils.copyProperties(dto, row);
-//					System.out.println(dto);
-//					
-//				} catch (IllegalAccessException | InvocationTargetException e) {
-//					e.printStackTrace();
-//				}
 				dto.setStoreNum(rs.getString("store_num")); // 1
 				dto.setStoreName(rs.getString("store_name")); // 2
 				dto.setStoreAddr(rs.getString("store_addr")); // 3
@@ -307,6 +296,7 @@ public class StoreDAO extends DAO {
 				dto.setStoreEct(rs.getString("store_etc")); // 12
 				dto.setStoreLike(rs.getInt("store_like")); // 13
 				dto.setUserNum(rs.getString("user_num")); // 14
+				dto.setStoreOc(rs.getInt("store_oc")); // 가게 오픈 상태, 15
 				list.add(dto);
 			}
 		} catch (SQLException e) {
@@ -314,6 +304,38 @@ public class StoreDAO extends DAO {
 		}
 		return list;
 	}
+	
+	// 닫힌 가게 가져오기
+		public List<StoreDTO> selectCloseStore(Connection conn) {
+			List<StoreDTO> list = new ArrayList<StoreDTO>();
+			String sql = "select * from oc_store where store_oc=1 order by 0";
+			try {
+				psmt = conn.prepareStatement(sql);
+				rs = psmt.executeQuery();
+				while (rs.next()) {
+					StoreDTO dto = new StoreDTO();
+					dto.setStoreNum(rs.getString("store_num")); // 1
+					dto.setStoreName(rs.getString("store_name")); // 2
+					dto.setStoreAddr(rs.getString("store_addr")); // 3
+					dto.setStoreXy(rs.getString("store_xy")); // 4
+					dto.setStoreCateg1(rs.getString("store_categ1")); // 5
+					dto.setStoreCateg2(rs.getString("store_categ2")); // 6
+					dto.setStoreCateg3(rs.getString("store_categ3")); // 7
+					dto.setStorePic(rs.getString("store_pic")); // 8
+					dto.setStoreTime(rs.getString("store_time")); // 9
+					dto.setStoreTel(rs.getString("store_tel")); // 10
+					dto.setStoreMenu(rs.getString("store_menu")); // 11
+					dto.setStoreEct(rs.getString("store_etc")); // 12
+					dto.setStoreLike(rs.getInt("store_like")); // 13
+					dto.setUserNum(rs.getString("user_num")); // 14
+					dto.setStoreOc(rs.getInt("store_oc")); // 가게 오픈 상태, 15
+					list.add(dto);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return list;
+		}
 
 	// 4. 복진영
 

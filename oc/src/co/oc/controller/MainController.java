@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 import co.oc.command.Command;
 import co.oc.command.join.CeoInsertCommand;
 import co.oc.command.join.IdCheckCommand;
@@ -22,10 +21,19 @@ import co.oc.command.join.LoginCheckCommand;
 import co.oc.command.join.LoginFormCommand;
 import co.oc.command.join.LogoutCommand;
 import co.oc.command.join.NickcheckCommand;
+<<<<<<< HEAD
 import co.oc.command.manager.AdminStoreInfoComm;
+=======
+import co.oc.command.join.StoreNickCheck;
+import co.oc.command.manager.BorderDelete;
+>>>>>>> branch 'master' of https://github.com/wlsdud6764/on-off.git
 import co.oc.command.manager.BorderListCommand;
-import co.oc.command.manager.WriteForm;
-import co.oc.command.menu.MyinfoDeleteComm;
+import co.oc.command.manager.BorderReadCommand;
+import co.oc.command.manager.UserDelete;
+import co.oc.command.manager.UserList;
+import co.oc.command.manager.UserRead;
+import co.oc.command.map.CloseStoreCommand;
+import co.oc.command.map.OpenStoreCommand;
 import co.oc.command.menu.DeldectMyReiviewComm;
 import co.oc.command.menu.MyAskListComm;
 import co.oc.command.menu.MyAskRead;
@@ -34,6 +42,7 @@ import co.oc.command.menu.MyReviewComm;
 import co.oc.command.menu.MyaskDeleteComm;
 import co.oc.command.menu.MyinfoComm;
 import co.oc.command.menu.MyinfoDeleteCheckComm;
+import co.oc.command.menu.MyinfoDeleteComm;
 import co.oc.command.menu.MyinfoUpComm;
 import co.oc.command.menu.MyinfoupFormComm;
 import co.oc.command.menu.UpdateMyReiviewComm;
@@ -75,9 +84,17 @@ public class MainController extends HttpServlet {
 		map.put("/login.do", new LoginCheckCommand()); //로그인 정보 DB에확인 후 로그인
 		map.put("/logout.do", new LogoutCommand()); //로그아웃
 		map.put("/list.do", new BorderListCommand()); //문의글리스트보기
-		map.put("/writeForm.do", new WriteForm());
-		//백승진
+//		map.put("/writeForm.do", new WriteForm()); 
+		map.put("/borderRead.do", new BorderReadCommand()); // 문의글 상세보기
+		map.put("/userlist.do", new UserList()); //유저 리스트 출력
+		map.put("/userRead.do", new UserRead()); 
+		map.put("/borderdelete.do", new BorderDelete()); //문의글 삭제
+		map.put("/userdelete.do", new UserDelete());  //유저삭제
+		map.put("/storeNickCheck.do", new StoreNickCheck()); // 스토어 이름 중복체크
 		
+		// 백승진
+		map.put("/openStore.do", new OpenStoreCommand());
+		map.put("/closeStore.do", new CloseStoreCommand());
 		
 		//복진영
 		//마이 메뉴

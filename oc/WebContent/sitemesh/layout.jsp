@@ -71,6 +71,7 @@
 	src="${pageContext.request.contextPath }/assets/js/vendor/jquery-1.11.2.min.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="assets/js/map/Search.js"></script>
 
 
 
@@ -93,7 +94,8 @@
 				<div class="container">
 					<div class="input-group">
 						<span class="input-group-addon"><i class="fa fa-search"></i></span>
-						<form id="search" name="search" action="search.do" method="post">
+						<form id="search" name="search" action="search.do" method="post"
+							onsubmit="return checkForm()">
 							<input type="text" class="form-control" placeholder="Search"
 								id="keyword" name="keyword">
 						</form>
@@ -147,6 +149,8 @@
 										</c:if>
 										<c:if test="${!empty userEmail && userGrant=='S'}">
 										<a class="dropdown-item" href="list.do">문의 전체 보기</a>
+										<br>
+										<a class="dropdown-item" href="userlist.do">유저 전체 보기</a>
 											<br>
 										</c:if>
 									</c:when>

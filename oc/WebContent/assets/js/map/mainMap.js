@@ -7,24 +7,34 @@ var infowindow = new kakao.maps.InfoWindow({
 });
 var callback;
 var myLocation;
-var placesDB;
-
+var openPlaces;
 window.onload = function() {
+	$
+			.ajax({
+				url : 'openStore.do',
+				type : 'GET',
+				dataType : 'json',
+				success : function(data) {
+					openPlaces = data;
+					for (var i = 0; i < placesDB.length; i++) {
+						var DBxy = openPlaces[i].storeXy.split(","), DBx = DBxy[0], DBy = DBxy[1]
+								.trim();
+						var DBPosition = new kakao.maps.LatLng(DBx, DBy);
+						markDBPlaces(DBPosition, i);
+					}
+				},
+				error : function(xhr, status, error) {
+					alert(error);
+				}
+			})
+
 	$.ajax({
-		url : 'map.do',
+		url : 'closeStore.do',
 		type : 'GET',
 		dataType : 'json',
 		success : function(data) {
-			placesDB = data;
-			for (var i = 0; i < placesDB.length; i++) {
-				var DBxy = placesDB[i].storeXy.split(","), DBx = DBxy[0], DBy = DBxy[1]
-						.trim();
-				var DBPosition = new kakao.maps.LatLng(DBx, DBy);
-				markDBPlaces(DBPosition, i);
-			}
-		},
-		error : function(xhr, status, error) {
-			alert(error);
+			closePlaces = data;
+			// 여기부터
 		}
 	})
 	if (navigator.geolocation) {
@@ -62,7 +72,7 @@ window.onload = function() {
 								location : new kakao.maps.LatLng(
 										35.877986299999996, 128.5795303)
 							}
-							
+
 							ps.categorySearch('FD6', callback, options);
 
 						}, function(error) {
@@ -84,8 +94,26 @@ callback = function(result, status) {
 	}
 };
 
-function markDBPlaces(DBPosition, i) {
+function markOpenPlaces(DBPosition, i) {
 	var imageSrc = 'img/openmarker.png', imageSize = new kakao.maps.Size(36, 36),
+
+	imgOptions = {
+		spriteSize : new kakao.maps.Size(35, 35),
+		spriteOrigin : new kakao.maps.Point(0, 0),
+		offset : new kakao.maps.Point(12, 48)
+
+	}, markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imgOptions), marker = new kakao.maps.Marker(
+			{
+				map : map,
+				position : DBPosition,
+				image : markerImage
+			});
+
+}
+
+function markClosePlaces(DBPosition, i) {
+	var imageSrc = 'img/closemarker.png', imageSize = new kakao.maps.Size(36,
+			36),
 
 	imgOptions = {
 		spriteSize : new kakao.maps.Size(35, 35),
