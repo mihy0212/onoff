@@ -28,15 +28,15 @@ public class MyReviewComm implements Command {
 		if (request.getParameter("Page_num") != null) {
 			pagenum = Integer.parseInt(request.getParameter("Page_num"));
 		}
-
-		int size = 5;
+		// size 보여줄 페이지당 게시글 개수. 2개당 1page
+		int size = 2;
 
 		int tot = 0;
 		int cnt = 0;
 
 		try {
 
-			cnt = ReviewDAO.getInstance().review_getPageCount(conn);
+			cnt = ReviewDAO.getInstance().review_getPageCountuserNum(conn,userNum);
 			tot = cnt / size;
 			if (cnt % size != 0) {
 				tot++;

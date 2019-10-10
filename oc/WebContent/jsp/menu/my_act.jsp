@@ -253,6 +253,7 @@ $(document).ready(function(){
 					</div>
 				</div>
 			</div>
+			
 			<!-- 페이징 -->
 			<div class="col-sm-6" align="center">
 				<div align="center">
@@ -263,8 +264,7 @@ $(document).ready(function(){
 					</ul>
 				</div>
 			</div>
-		</div>
-
+			
 	</section>
 	<!-- End off test section -->
 	<!--이후 <br>삭제  -->

@@ -24,11 +24,11 @@ public class MyAskWriteComm implements Command {
 				Connection conn = DAO.connect();
 				HttpSession session = request.getSession(false);
 				String userNum = (String)session.getAttribute("userNum");
-				 //System.out.println(userNum);
 				 
 				String date_s = request.getParameter("askDate"); 
 				SimpleDateFormat dt = new SimpleDateFormat("yyyyy-mm-dd"); 
 				Date date = null;
+				
 				try {
 					date = dt.parse(date_s);
 				} catch (ParseException e) {
@@ -39,13 +39,11 @@ public class MyAskWriteComm implements Command {
 					
 					// 빈 객체에 데이터 set
 					AskDTO dto = new AskDTO();
-					
 					dto.setUserNum(userNum);
 					dto.setAskTitle(request.getParameter("askTitle"));
 					dto.setAskContent(request.getParameter("askContent"));
 					dto.setAskDate(date);
-					
-					
+
 					//DB에 저장
 					AskDAO.getInstance().insert(conn, dto);
 					
