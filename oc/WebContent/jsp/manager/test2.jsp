@@ -15,6 +15,7 @@
 	<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
 	<thead>
 		<tr>
+			<th style="background-color : #eeeeee; text-align:center;">선택</th>
 			<th style="background-color : #eeeeee; text-align:center;">문의번호</th>
 			<th style="background-color : #eeeeee; text-align:center;">답변번호</th>
 			<th style="background-color : #eeeeee; text-align:center;">문의제목</th>
@@ -30,7 +31,8 @@
 			</c:if>
 			<c:forEach items="${list }" var="dto">
 			<tr onclick="location.href='borderRead.do?key=${dto.askNum}'">
-				<td align="center" width="20"><input type="checkbox">${dto.askNum } </td>
+				<td align="center" width="20"><input type="checkbox"></td>
+				<td align="center" width="20">${dto.askNum } </td>
 				<td width="20">&nbsp;&nbsp;${dto.askRe}  </td>
 				<td align="center" width="100">${dto.askTitle }  </td>
 				<td align="center" width="100">${dto.askContent }  </td>
@@ -40,7 +42,7 @@
 			</c:forEach>
 			<!-- db 목록을 가져와서 뿌려주는 곳 -->
 	</table> 
-	<a href="delete.do" class="btn btn-primary pull-right">삭제하기</a>
+	<a href="borderdelete.do" class="btn btn-primary pull-right">삭제하기</a>
 	</div>
 </div>
 </body>
