@@ -29,6 +29,7 @@ public class StoreInfoComm implements Command {
 		//앞선 페이지에서 클릭한 가게 번호 읽어오기
 		HttpSession session = request.getSession(false);
 		String sessionUserNum = session.getAttribute("userNum").toString();
+		
 		String storeNum = request.getParameter("storeNum");
 //		String storeNum = "1";
 		
@@ -41,18 +42,22 @@ public class StoreInfoComm implements Command {
 		request.setAttribute("storeInfo", sdto);
 		
 		//회원이 가게를 좋아요했는지 조회
-		LikeDTO ldto = new LikeDTO();
-		ldto.setStoreNum(storeNum);
-		ldto.setUserNum(sessionUserNum);
-		int likeAct = LikeDAO.getInstance().check(conn, ldto);
-		request.setAttribute("likeAct", likeAct);
+		if(sessionUserNum != null) {
+			LikeDTO ldto = new LikeDTO();
+			ldto.setStoreNum(storeNum);
+			ldto.setUserNum(sessionUserNum);
+			int likeAct = LikeDAO.getInstance().check(conn, ldto);
+			request.setAttribute("likeAct", likeAct);
+		}
 		
 		//회원이 가게를 즐겨찾기했는지 조회
-		FavoriteDTO fdto = new FavoriteDTO();
-		fdto.setUserNum(sessionUserNum);
-		fdto.setStoreNum(storeNum);
-		int favoAct = FavoriteDAO.getInstance().check(conn, fdto);
-		request.setAttribute("favoAct", favoAct);
+		if(sessionUserNum != null) {
+			FavoriteDTO fdto = new FavoriteDTO();
+			fdto.setUserNum(sessionUserNum);
+			fdto.setStoreNum(storeNum);
+			int favoAct = FavoriteDAO.getInstance().check(conn, fdto);
+			request.setAttribute("favoAct", favoAct);
+		}
 		
 		
 		//리뷰 조회
