@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.oreilly.servlet.MultipartRequest;
+
 import co.oc.command.Command;
 import co.oc.dao.DAO;
 import co.oc.dao.FavoriteDAO;
@@ -30,7 +32,7 @@ public class StoreInfoComm implements Command {
 		HttpSession session = request.getSession(false);
 		String sessionUserNum = session.getAttribute("userNum").toString();
 //		String storeNum = request.getParameter("storeNum");
-		String storeNum = "1";
+		String storeNum = request.getParameter("num");
 		
 		//DAO
 		Connection conn = DAO.connect();
