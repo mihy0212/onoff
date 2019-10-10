@@ -139,6 +139,52 @@ $(document).ready(function(){
 		}
 	});
 	
+	//리뷰 페이징 처리
+	
+	/*
+	var $page = $('<li>').attr({'class':'page-item'}).append( $('<a>').attr({'class':'page-link'}) );
+	var $page_dis = $('<li>').attr({'class':'page-item disabled'}).append( $('<a>').attr({'class':'page-link'}) );
+	var $ul = $('#pagination');
+	if( "${ pageCnt }" <= 10 ){
+		var $li = $page_dis.text('pre');
+		for(var i = 1; i<="${ pageCnt }"; i++){
+			if( "${ pageCnt }" != "${ pageNo }" ){
+				$li.after( $page.append('<a>').attr({'class':'page-link', 'href':'storeInfo.do?p='+i}).text(i) );
+			} else if( "${ pageCnt }" == "${ pageNo }" ){
+				$li.after( $page.text(i) );
+			}
+		}
+		$li.after( $page_dis.text('next') );
+		$ul.append($li);
+		
+	} else {
+		var x = "${ pageCnt }"/10;
+		var y = "${ pageNo }"/10;
+		if( y < x ){
+			$li = $page_dis.append('<a>').attr({'class':'page-link', 'href':'storeInfo.do?p='+(y-1)*10+1}).text('pre');
+			for(var i = y*10+1; i<=(y+1)*10; i++){
+				if( "${ pageCnt }" != "${ pageNo }" ){
+					$li += $page.append('<a>').attr({'class':'page-link', 'href':'storeInfo.do?p='+i}).text(i);
+				} else if( "${ pageCnt }" == "${ pageNo }" ){
+					$li += $page.text(i);
+				}
+			}
+			$li += $page_dis.append('<a>').attr({'class':'page-link', 'href':'storeInfo.do?p='+(y+1)*10+1}).text('next');
+			$ul.append($li);
+		} else if(y=x){
+			$li = $page_dis.append('<a>').attr({'class':'page-link', 'href':'storeInfo.do?p='+(y-1)*10+1}).text('pre');
+			for(var i = y*10+1; i<="${ pageCnt }"; i++){
+				if( "${ pageCnt }" != "${ pageNo }" ){
+					$li += $page.append('<a>').attr({'class':'page-link', 'href':'storeInfo.do?p='+i}).text(i);
+				} else if( "${ pageCnt }" == "${ pageNo }" ){
+					$li += $page.text(i);
+				}
+			}
+			$li += $page_dis.text('next');
+			$ul.append($li);
+		}
+	}*/
+	
 	
 	//리뷰 입력하기 (DB)
 	$('#btn_insert').on('click', function(){
@@ -869,11 +915,48 @@ function review_up_cancle(){
 					<div align="center">
 						<nav aria-label="Page navigation">
 							<ul class="pagination" id="pagination">
-								<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-								<li class="page-item"><a class="page-link" href="#">1</a></li>
-								<li class="page-item"><a class="page-link" href="#">2</a></li>
-								<li class="page-item "><a class="page-link" href="#">3</a></li>
-								<li class="page-item"><a class="page-link" href="#">Next</a></li> 
+								<c:choose>
+									<c:when test="${ pageCnt <=10}">
+										<li class="page-item disabled"><a class="page-link">pre</a></li>
+										<c:forEach begin="1" end="${ pageCnt-1 }" varStatus="st">
+											<c:if test="${ pageNo != st.count }">
+												<li class="page-item"><a class="page-link" href="storeInfo.do?p=${ st.count }&storeNum=${storeInfo.storeNum}">${ st.count }</a></li>
+											</c:if>
+											<c:if test="${ pageNo == st.count }">
+												<li class="page-item disabled"><a class="page-link">${ st.count }</a></li>
+											</c:if>
+										</c:forEach>
+										<li class="page-item disabled"><a class="page-link">next</a></li>
+									</c:when>
+									
+									<c:otherwise>
+										<c:if test="${ y < x }">
+											<li class="page-item"><a class="page-link" href="storeInfo.do?p=${ (y-1)*10+1 }&storeNum=${storeInfo.storeNum}">pre</a></li>
+											<c:forEach begin="${ y*10+1 }" end="${ (y+1)*10-1 }" varStatus="st">
+												<c:if test="${ pageNo != st.count }">
+													<li class="page-item"><a class="page-link" href="storeInfo.do?p=${ st.count }&storeNum=${storeInfo.storeNum}">${ st.count }</a></li>
+												</c:if>
+												<c:if test="${ pageNo == st.count }">
+													<li class="page-item"><a class="page-link">${ st.count }</a></li>
+												</c:if>
+											</c:forEach>
+											<li class="page-item"><a class="page-link" href="storeInfo.do?p=${ (y+1)*10+1 }&storeNum=${storeInfo.storeNum}">next</a></li>
+										</c:if>
+										<c:if test="${ y = x }">
+											<li class="page-item disabled"><a class="page-link" href="storeInfo.do?p=${ (y-1)*10+1 }&storeNum=${storeInfo.storeNum}">pre</a></li>
+											<c:forEach begin="${ y*10+1 }" end="${ pageCnt-1 }" varStatus="st">
+												<c:if test="${ pageNo != st.count }">
+													<li class="page-item"><a class="page-link" href="storeInfo.do?p=${ st.count }&storeNum=${storeInfo.storeNum}">${ st.count }</a></li>
+												</c:if>
+												<c:if test="${ pageNo == st.count }">
+													<li class="page-item disabled"><a class="page-link">${ st.count }</a></li>
+												</c:if>
+											</c:forEach>
+											<li class="page-item disabled"><a class="page-link">next</a></li>
+										</c:if>
+										
+									</c:otherwise>
+								</c:choose>
 							</ul>
 						</nav>
 					</div>

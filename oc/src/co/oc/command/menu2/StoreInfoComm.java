@@ -10,8 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.oreilly.servlet.MultipartRequest;
-
 import co.oc.command.Command;
 import co.oc.dao.DAO;
 import co.oc.dao.FavoriteDAO;
@@ -32,10 +30,7 @@ public class StoreInfoComm implements Command {
 		HttpSession session = request.getSession(false);
 		
 		String sessionUserNum = (String) session.getAttribute("userNum");
-//		String storeNum = request.getParameter("storeNum");
-
 		String storeNum = request.getParameter("storeNum");
-//		String storeNum = "1";
 		
 		//DAO
 		Connection conn = DAO.connect();
@@ -63,10 +58,33 @@ public class StoreInfoComm implements Command {
 			request.setAttribute("favoAct", favoAct);
 		}
 		
+		//리뷰 페이징 처리해서 리뷰 조회하기
+		String p = request.getParameter("p"); //페이지 번호(pageNo)
 		
-		//리뷰 조회
-		List<ReviewDTO> list = ReviewDAO.getInstance().select1(conn, "store_num", storeNum, 1, 10);
+		int pageNo = 1;
+		if(p != null && !p.isEmpty()) {
+			pageNo = Integer.parseInt(p);
+		}
+		
+		int start, end;			// 조회할 시작과 끝 레코드 번호
+		int recordTotal;		// 총레코드 갯수(DB조회)
+		int pagePerRecord = 5;	// 한페이지에 출력할 레코드 건수
+		int pageCnt;			// 페이지수
+		
+		recordTotal = ReviewDAO.getInstance().review_getPageCount(conn, "store_num", storeNum);
+		pageCnt = recordTotal/pagePerRecord + (recordTotal%pagePerRecord>0 ? 1 : 0); //마지막 페이지 번호
+
+		request.setAttribute("pageCnt", pageCnt);
+		request.setAttribute("pageNo", pageNo);
+		request.setAttribute("x", pageCnt/pagePerRecord);
+		request.setAttribute("y", pageNo/pagePerRecord);
+		request.setAttribute("pagePerRecord", pagePerRecord);
+				
+		start = (pageNo-1)*pagePerRecord + 1;	//해당 페이지의 시작 레코드
+		end = start + pagePerRecord -1;			//해당 페이지의 마지막 레코드
+		List<ReviewDTO> list = ReviewDAO.getInstance().select1(conn, "store_num", storeNum, start, end);
 		request.setAttribute("storeReview", list);
+		
 		
 		//가게 별점 평균 조회
 		String stars = String.format("%.1f", ReviewDAO.getInstance().selectStar(conn, storeNum));
@@ -74,7 +92,6 @@ public class StoreInfoComm implements Command {
 		
 		DAO.disconnect(conn);
 		
-		//값 담아 보내기
 		RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/menu2/store_info.jsp");
 		dispatcher.forward(request, response);
 	}

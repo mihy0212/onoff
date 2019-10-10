@@ -73,7 +73,7 @@ public class StoreInfoChangeComm implements Command {
 			out.print(n);
 			
 		} else if(action.equals("reviewUpdate")) {
-			
+		
 		}
 //		else if(action.equals("reviewReply")) {
 //			
