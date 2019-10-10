@@ -44,194 +44,190 @@
 </div>
 <!--페이지 전환 효과 끝 -->
 
-<section id="portfolio" class="portfolio margin-top-120">
-	<div class="container">
-		<div class="row">
-			<div class="main-portfolio roomy-80">
 				
-				<!-- 헤드 부분 -->
-				<!-- 제목 -->
-				<div class="col-md-4">
-					<div class="head_title text-left sm-text wow fadeInDown">
-						<h2><strong>가게 요청서 관리</strong></h2>
-					</div>
-				</div>
-				
-				<!-- 처리 상태 선택 -->
-				<div id="root" class="col-md-8 text-right">
-					<button class="btn button is-checked" data-filter="*">전체</button>
-					<button class="btn button" data-filter=".metal">신청 중</button>
-					<button class="btn button" data-filter=".transition">등록 허가</button>
-					<button class="btn button" data-filter=".alkali">등록 거절</button>
-					<button class="btn button" data-filter=".ar">등록 보류</button>&nbsp;&nbsp;
-				</div>
-				<!-- END 리뷰 헤드 부분 -->
-				<div style="clear: both;"></div>
-				
-				
-				<!-- 리뷰 목록 뿌려주기 -->
-				<div class="col-md-12 ">
-				
-					<table class=" table table-striped table-hover table-bordered">
-						<thead>
-							<tr>
-								<th width="1">No.</th>
-								<th>가게명</th>
-								<th>주소</th>
-								<th>첨부파일</th>
-								<th >회원번호</th>
-								<th>신청일</th>
-								<th>처리상태</th>
-								<th>가게번호</th>
-							</tr>
-						</thead>
+<!-- 헤드 부분 -->
+<!-- 제목 -->
+<div class="col-md-4">
+	<div class="head_title text-left sm-text wow fadeInDown">
+		<h2><strong>가게 요청서 관리</strong></h2>
+	</div>
+</div>
+
+<!-- 처리 상태 선택 -->
+<div class="main-portfolio">
+	<div id="root" class="col-md-8 text-right">
+		<button class="btn button is-checked" data-filter="*">전체</button>
+		<button class="btn button" data-filter=".metal">신청 중</button>
+		<button class="btn button" data-filter=".transition">등록 허가</button>
+		<button class="btn button" data-filter=".alkali">등록 거절</button>
+		<button class="btn button" data-filter=".ar">등록 보류</button>&nbsp;&nbsp;
+	</div>
+</div>
+<!-- END 리뷰 헤드 부분 -->
+<div style="clear: both;"></div>
+
+
+<!-- 리뷰 목록 뿌려주기 -->
+<div class="col-md-12 ">
+
+	<table class=" table table-striped table-hover table-bordered">
+		<thead>
+			<tr>
+				<th width="1">No.</th>
+				<th>가게명</th>
+				<th>주소</th>
+				<th>분류1</th>
+				<th>분류2</th>
+				<th>분류3</th>
+				<th>사업자등록번호</th>
+				<th>첨부파일</th>
+				<th>신청자</th>
+				<th>신청일</th>
+				<th>처리상태</th>
+				<th>가게번호</th>
+			</tr>
+		</thead>
+
+		<!-- db 목록을 가져와서 뿌려주는 곳 -->
+		<!-- db에 목록이 이없으면 empty:비어있다는 뜻임  -->
+		<c:if test="${empty addlist}">
+			<tr>
+				<td colspan="9">등록된 글이 존재하지 않습니다.</td>
+			</tr>
+		</c:if>
+
+		<!--목록이 있으면  -->
+		<!-- for문을 돌리면 list[0]을 안해도됨 -->
+		<c:forEach items="${ addlist }" var="addlist" varStatus="status">
+			<tr onclick="location.href='storeInfo.do?key=${addlist.addNum }'">
+				<td>${ status.count }</td>
+				<td>${ addlist.storeName }</td>
+				<td>${ addlist.storeAddr }</td>
+				<td>
+					<c:choose>
+						<c:when test="${ !empty addlist.addCapture }"><font color="red">○</font></c:when>
+						<c:otherwise><font color="red">X</font></c:otherwise>
+					</c:choose>
+				</td>
+				<td>${ addlist.userNum }</td>
+				<td>${ addlist.addDay }</td>
+				<td>${ addlist.addStatus }</td>
+				<td>${ addlist.storeNum }</td>
+			</tr>
+		</c:forEach>
+		<!-- db 목록을 가져와서 뿌려주는 곳끝 -->
+
+	</table>
+</div>
 	
-						<!-- db 목록을 가져와서 뿌려주는 곳 -->
-						<!-- db에 목록이 이없으면 empty:비어있다는 뜻임  -->
-						<c:if test="${empty addlist}">
-							<tr>
-								<td colspan="9">등록된 글이 존재하지 않습니다.</td>
-							</tr>
-						</c:if>
-	
-						<!--목록이 있으면  -->
-						<!-- for문을 돌리면 list[0]을 안해도됨 -->
-						<c:forEach items="${ addlist }" var="addlist" varStatus="status">
-							<tr onclick="location.href='storeInfo.do?key=${addlist.addNum }'">
-								<td>${ status.count }</td>
-								<td>${ addlist.storeName }</td>
-								<td>${ addlist.storeAddr }</td>
-								<td>
-									<c:choose>
-										<c:when test="${ !empty addlist.addCapture }"><font color="red">○</font></c:when>
-										<c:otherwise><font color="red">X</font></c:otherwise>
-									</c:choose>
-								</td>
-								<td>${ addlist.userNum }</td>
-								<td>${ addlist.addDay }</td>
-								<td>${ addlist.addStatus }</td>
-								<td>${ addlist.storeNum }</td>
-							</tr>
-						</c:forEach>
-						<!-- db 목록을 가져와서 뿌려주는 곳끝 -->
-	
-					</table>
-				</div>
-					
-				<!-- 페이징 -->
-				<div align="center">
-					<nav aria-label="Page navigation">
-						<ul class="pagination" id="pagination">
-							<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-							<li class="page-item"><a class="page-link" href="#">1</a></li>
-							<li class="page-item"><a class="page-link" href="#">2</a></li>
-							<li class="page-item "><a class="page-link" href="#">3</a></li>
-							<li class="page-item"><a class="page-link" href="#">Next</a></li> 
-						</ul>
-					</nav>
-				</div>
-				
-				<hr />
-				<!-- END 리뷰 목록 뿌려주기 -->
-				<div style="clear: both;"></div>
+<!-- 페이징 -->
+<div align="center">
+	<nav aria-label="Page navigation">
+		<ul class="pagination" id="pagination">
+			<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+			<li class="page-item"><a class="page-link" href="#">1</a></li>
+			<li class="page-item"><a class="page-link" href="#">2</a></li>
+			<li class="page-item "><a class="page-link" href="#">3</a></li>
+			<li class="page-item"><a class="page-link" href="#">Next</a></li> 
+		</ul>
+	</nav>
+</div>
+
+<hr />
+<!-- END 리뷰 목록 뿌려주기 -->
+<div style="clear: both;"></div>
+
 				
 <%------------------------------------------------------------------------------------ --%>
 				
-				<!-- 헤드 부분 -->
-				<!-- 제목 -->
-				<div class="col-md-4">
-					<div class="head_title text-left sm-text wow fadeInDown">
-						<h2><strong>전체 가게 목록</strong></h2>
-					</div>
-				</div>
-				
-				<!-- 선택?? -->
-				<div id="root" class="col-md-8 text-right">
-					<button class="btn button is-checked" data-filter="*">전체</button>
-					<button class="btn button" data-filter=".metal">오픈 가게</button>
-					<button class="btn button" data-filter=".transition">닫은 가게</button>
-				</div>
-				<!-- END 리뷰 헤드 부분 -->
-				<div style="clear: both;"></div>
-				
-				
-				<!-- 리뷰 목록 뿌려주기 -->
-				<div class="col-md-12 ">
-				
-					<table class=" table table-striped table-hover table-bordered">
-						<thead>
-							<tr>
-								<th width="1">No.</th>
-								<th>가게번호</th>
-								<th>가게명</th>
-								<th>주소</th>
-								<th>좌표</th>
-								<th>분류1</th>
-								<th>분류2</th>
-								<th>분류3</th>
-								<th>좋아요 수</th>
-								<th>회원번호</th>
-								<th>가게등록일</th>
-								<th>가게상태</th>
-							</tr>
-						</thead>
-	
-						<!-- db 목록을 가져와서 뿌려주는 곳 -->
-						<!-- db에 목록이 이없으면 empty:비어있다는 뜻임  -->
-						<c:if test="${empty slist}">
-							<tr>
-								<td colspan="9">등록된 글이 존재하지 않습니다.</td>
-							</tr>
-						</c:if>
-	
-						<!--목록이 있으면  -->
-						<!-- for문을 돌리면 list[0]을 안해도됨 -->
-						<c:forEach items="${ slist }" var="slist" varStatus="status">
-							<tr onclick="location.href='storeInfo.do?key=${ slist.storeNum }'">
-								<td>${ status.count }</td>
-								<td>${ slist.storeNum }</td>
-								<td>${ slist.storeName }</td>
-								<td>${ slist.storeAddr }</td>
-								<td>${ slist.storeXy }</td>
-								<td>${ slist.storeCateg1 }</td>
-								<td>${ slist.storeCateg2 }</td>
-								<td>${ slist.storeCateg3 }</td>
-								<td>${ slist.storeLike }</td>
-								<td>${ slist.userNum }</td>
-								<td>${ slist.storeRegiday }</td>
-								<td>${ slist.storeOc }</td>
-							</tr>
-						</c:forEach>
-						<!-- db 목록을 가져와서 뿌려주는 곳끝 -->
-	
-					</table>
-				</div>
-					
-				<!-- 페이징 -->
-				<div align="center">
-					<nav aria-label="Page navigation">
-						<ul class="pagination" id="pagination">
-							<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-							<li class="page-item"><a class="page-link" href="#">1</a></li>
-							<li class="page-item"><a class="page-link" href="#">2</a></li>
-							<li class="page-item "><a class="page-link" href="#">3</a></li>
-							<li class="page-item"><a class="page-link" href="#">Next</a></li> 
-						</ul>
-					</nav>
-				</div>
-				
-				<hr />
-				<!-- END 리뷰 목록 뿌려주기 -->
-				<div style="clear: both;"></div>
-				
-				
-				
-			</div><!-- END main-portfolio roomy-80 -->
-		</div><!-- END row -->
-	</div><!-- END container-->
-</section>
+<!-- 헤드 부분 -->
+<!-- 제목 -->
+<div class="col-md-4">
+	<div class="head_title text-left sm-text wow fadeInDown">
+		<h2><strong>전체 가게 목록</strong></h2>
+	</div>
+</div>
+
+<!-- 선택?? -->
+<div class="main-portfolio">
+	<div id="root" class="col-md-8 text-right">
+		<button class="btn button is-checked" data-filter="*">전체</button>
+		<button class="btn button" data-filter=".metal">오픈 가게</button>
+		<button class="btn button" data-filter=".transition">닫은 가게</button>
+	</div>
+</div>
+<!-- END 리뷰 헤드 부분 -->
+<div style="clear: both;"></div>
 
 
+<!-- 리뷰 목록 뿌려주기 -->
+<div class="col-md-12 ">
+
+	<table class="table table-striped table-hover table-bordered">
+		<thead>
+			<tr>
+				<th width="1">No.</th>
+				<th>가게번호</th>
+				<th>가게명</th>
+				<th>주소</th>
+				<th>좌표</th>
+				<th>분류1</th>
+				<th>분류2</th>
+				<th>분류3</th>
+				<th>좋아요 수</th>
+				<th>사업자명</th>
+				<th>가게등록일</th>
+				<th>가게상태</th>
+			</tr>
+		</thead>
+
+		<!-- db 목록을 가져와서 뿌려주는 곳 -->
+		<!-- db에 목록이 이없으면 empty:비어있다는 뜻임  -->
+		<c:if test="${empty slist}">
+			<tr>
+				<td colspan="9">등록된 글이 존재하지 않습니다.</td>
+			</tr>
+		</c:if>
+
+		<!--목록이 있으면  -->
+		<!-- for문을 돌리면 list[0]을 안해도됨 -->
+		<c:forEach items="${ slist }" var="slist" varStatus="status">
+			<tr onclick="location.href='storeInfo.do?storeNum=${ slist.storeNum }'">
+				<td>${ status.count }</td>
+				<td>${ slist.storeNum }</td>
+				<td>${ slist.storeName }</td>
+				<td>${ slist.storeAddr }</td>
+				<td>${ slist.storeXy }</td>
+				<td>${ slist.storeCateg1 }</td>
+				<td>${ slist.storeCateg2 }</td>
+				<td>${ slist.storeCateg3 }</td>
+				<td>${ slist.storeLike }</td>
+				<td>${ slist.userNum }</td>
+				<td>${ slist.storeRegiday }</td>
+				<td>${ slist.storeOc }</td>
+			</tr>
+		</c:forEach>
+		<!-- db 목록을 가져와서 뿌려주는 곳끝 -->
+
+	</table>
+</div>
+	
+<!-- 페이징 -->
+<div align="center">
+	<nav aria-label="Page navigation">
+		<ul class="pagination" id="pagination">
+			<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+			<li class="page-item"><a class="page-link" href="#">1</a></li>
+			<li class="page-item"><a class="page-link" href="#">2</a></li>
+			<li class="page-item "><a class="page-link" href="#">3</a></li>
+			<li class="page-item"><a class="page-link" href="#">Next</a></li> 
+		</ul>
+	</nav>
+</div>
+
+<hr />
+<!-- END 리뷰 목록 뿌려주기 -->
+<div style="clear: both;"></div>
 
 
 

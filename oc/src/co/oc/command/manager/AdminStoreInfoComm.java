@@ -24,7 +24,7 @@ public class AdminStoreInfoComm implements Command {
 		
 		HttpSession session = request.getSession(false);
 		String userGrant = session.getAttribute("userGrant").toString();
-		System.out.println(userGrant);
+//		System.out.println(userGrant);
 		
 		if( userGrant.equals("S") ) {
 			Connection conn = DAO.connect();
