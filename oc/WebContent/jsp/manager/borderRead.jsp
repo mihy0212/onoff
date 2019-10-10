@@ -42,16 +42,16 @@
 		<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
 		<thead>
 			<tr>
-				<th width="100" style="background-color : #eeeeee; text-align:center;">문의날짜</th>	
+				<th width="30" style="background-color : #eeeeee; text-align:center;">문의날짜</th>	
 				<th width="100" align="center">${list.askDate} </th>
 			</tr>
 			</thead>
 			<tr>
-				<th width="100" style="background-color : #eeeeee; text-align:center;">문의제목</th>
+				<th width="30" style="background-color : #eeeeee; text-align:center;">문의제목</th>
 				<td align="center">${list.askTitle }</td>
 			</tr>
 			<tr>
-				<th width="100" style="background-color : #eeeeee; text-align:center;">문의내용</th>
+				<th width="30" style="background-color : #eeeeee; text-align:center;">문의내용</th>
 				<td align="center">${list.askContent }</td>
 			</tr>
 		</table>
