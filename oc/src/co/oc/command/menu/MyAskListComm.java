@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 import co.oc.command.Command;
 import co.oc.dao.AskDAO;
 import co.oc.dao.DAO;
-import co.oc.dao.ReviewDAO;
 import co.oc.dto.AskDTO;
 
 public class MyAskListComm implements Command {
@@ -24,20 +23,21 @@ public class MyAskListComm implements Command {
 
 		HttpSession session = request.getSession(false);
 		String userNum = (String) session.getAttribute("userNum");
-
+System.out.println(userNum);
 		int pagenum = 1; 
 		if (request.getParameter("Page_num") != null) {
 			pagenum = Integer.parseInt(request.getParameter("Page_num"));
 		}
 		// size 보여줄 페이지당 게시글 개수. 2개당 1page
-		int size = 2;
+		int size = 5;
 
 		int tot = 0;
 		int cnt = 0;
 
 		try {
 
-			cnt = ReviewDAO.getInstance().review_getPageCountuserNum(conn,userNum);
+			cnt = AskDAO.getInstance().ask_getPageCountuserNum(conn,userNum);
+			System.out.println(cnt+"cnt");
 			tot = cnt / size;
 			if (cnt % size != 0) {
 				tot++;

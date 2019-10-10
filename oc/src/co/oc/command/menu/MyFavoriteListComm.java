@@ -13,9 +13,7 @@ import javax.servlet.http.HttpSession;
 import co.oc.command.Command;
 import co.oc.dao.DAO;
 import co.oc.dao.FavoriteDAO;
-import co.oc.dao.ReviewDAO;
 import co.oc.dto.FavoriteDTO;
-import co.oc.dto.LikeDTO;
 
 public class MyFavoriteListComm implements Command {
 
@@ -43,7 +41,7 @@ public class MyFavoriteListComm implements Command {
 
 		try {
 
-			cnt = ReviewDAO.getInstance().review_getPageCount(conn);
+			cnt = FavoriteDAO.getInstance().favorite_getPageCountuserNum(conn,userNum);
 			tot = cnt / size;
 			if (cnt % size != 0) {
 				tot++;

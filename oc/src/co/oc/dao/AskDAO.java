@@ -266,9 +266,9 @@ public class AskDAO extends DAO {
 	
 	//4. 복진영
 	// 페이지 수를 구하기 위해 총 게시글 수 를 구함.
-			public int review_getPageCountuserNum(Connection conn, String userNum) {
+			public int ask_getPageCountuserNum(Connection conn, String userNum) {
 				int cnt = 0;
-				String sql = "SELECT COUNT(*) FROM oc_review where user_num=?" ;
+				String sql = "SELECT COUNT(*) FROM oc_ask where user_num=?" ;
 
 				try {
 					psmt = conn.prepareStatement(sql);
@@ -283,8 +283,5 @@ public class AskDAO extends DAO {
 				}
 				return cnt;
 			}
-
-	
-	
 }
 

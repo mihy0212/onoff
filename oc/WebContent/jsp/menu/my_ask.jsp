@@ -187,7 +187,7 @@
 				<div align="center">
 					<ul class="pagination" id="page_num">
 						<li><c:forEach var="i" begin="1" end="${tot}">
-								<a href="myReview.do?Page_num=${i}">${i}</a>
+								<a href="myAsklist.do?Page_num=${i}">${i}</a>
 							</c:forEach></li>
 					</ul>
 				</div>

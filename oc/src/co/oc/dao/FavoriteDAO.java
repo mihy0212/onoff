@@ -188,7 +188,25 @@ public class FavoriteDAO extends DAO {
 	
 	//4. 복진영
 	
-	
+	//4. 복진영
+	// 페이지 수를 구하기 위해 총 게시글 수 를 구함.
+			public int favorite_getPageCountuserNum(Connection conn, String userNum) {
+				int cnt = 0;
+				String sql = "SELECT COUNT(*) FROM oc_favorite where user_num=?" ;
+
+				try {
+					psmt = conn.prepareStatement(sql);
+					psmt.setString(1, userNum);
+					rs = psmt.executeQuery();
+					if(rs.next()) {
+						// 전체 글의 개수를 가져온다.
+						cnt = rs.getInt(1);
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				return cnt;
+			}
 	
 	
 }
