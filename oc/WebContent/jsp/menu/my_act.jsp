@@ -54,251 +54,256 @@
 <!--Theme Responsive css-->
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/assets/css/responsive.css" />
+<style type="text/css">
+#features{
+	min-height: 600px;
+}
 
+</style>
 
 <%-- <script
 	src="${pageContext.request.contextPath }/assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script> --%>
-<script> 
+<script>
+	/* function delect(){
+	 if (confirm("정말 삭제하시겠습니까??") == true){    //확인
+	 onclick="location.href='delectMyReiview.do?key=${alist.reviewNum}'"
+	 }else{   //취소
+	 return;
+	 }
+	 } */
 
-function delect(){
-	if (confirm("정말 삭제하시겠습니까??") == true){    //확인
-		onclick="location.href='delectMyReiview.do?key=${alist.reviewNum}'"
-	}else{   //취소
-	    return;
-	}
-	}
-
-
-$(function() {
-	console.log(location);
-	if(location.pathname=="/oc/myReview.do"){
-		location.href="#portfolio";
-	}
-})
-
+	$(function() {
+		console.log(location);
+		if (location.pathname == "/oc/myReview.do") {
+			location.href = "#portfolio";
+		}
+	})
 </script>
 
 
 </head>
 
-<body data-spy="scroll" data-target=".navbar-collapse" data-offset="100">
+<body>
 
-<!-- 페이지 전환 효과 -->
-<div id="loading">
-	<div id="loading-center">
-		<div id="loading-center-absolute">
-			<div class="object" id="object_one"></div>
-			<div class="object" id="object_two"></div>
-			<div class="object" id="object_three"></div>
-			<div class="object" id="object_four"></div>
+	<!-- 페이지 전환 효과 -->
+	<div id="loading">
+		<div id="loading-center">
+			<div id="loading-center-absolute">
+				<div class="object" id="object_one"></div>
+				<div class="object" id="object_two"></div>
+				<div class="object" id="object_three"></div>
+				<div class="object" id="object_four"></div>
+			</div>
 		</div>
 	</div>
-</div>
-<!--페이지 전환 효과 끝 -->
+	<!--페이지 전환 효과 끝 -->
 
+		<section id="features" class="features bg-white">
+				<!-- Portfolio container-->
+				<div class="container">
+					<div class="row">
+						<div class="main-portfolio">
 
-	<div class="culmn">
-
-            <section id="features" class="features bg-white">
-<form action="myfavorite.do">
-			<!-- Portfolio container-->
-			<div class="container">
-				<div class="row">
-					<div class="main-portfolio roomy-80">
-
-						<div class="col-md-4">
-							<div class="head_title text-left sm-text-center wow fadeInDown">
-								<h2>즐겨찾기</h2>
+							<div class="col-md-4">
+								<div class="head_title text-left sm-text-center wow fadeInDown">
+									<h2>즐겨찾기</h2>
+								</div>
 							</div>
-						</div>
 
-						<div class="col-md-8">
-							<div class="filters-button-group text-right sm-text-center"
-								id="test">
+							<div class="col-md-8">
+								<div class="filters-button-group text-right sm-text-center"
+									id="test">
 
-								<button class="btn button is-checked" data-filter="*">all</button>
-								<button class="btn button" data-filter=".metal">이동상점</button>
-								<button class="btn button" data-filter=".transition">한식</button>
-								<button class="btn button" data-filter=".alkali">중식</button>
-								<button class="btn button" data-filter=".ar">일식</button>
-							</div>
-						</div>
-
-
-
-						<div style="clear: both;"></div>
-
-						<div class="grid text-center">
-							<!-- 즐겨찾기선택 -->
-							<!-- 이동상점 -->
-							<div>
-								<table class=" table table-striped table-bordered results">
-									<thead>
-										<tr>
-											<th width="80" class="col-md-1 col-xs-1">상호명</th>
-										</tr>
-									</thead>
-
-									<!-- db 목록을 가져와서 뿌려주는 곳 -->
-									<!-- db에 목록이 이없으면 empty:비어있다는 뜻임  -->
-									<c:if test="${empty list}">
-										<tr>
-											<td colspan="4">등록된 글이 존재하지 않습니다.</td>
-										</tr>
-									</c:if>
-
-									<!--목록이 있으면  -->
-									<!-- for문을 돌리면 list[0]을 안해도됨 -->
-									<c:forEach items="${list }" var="alist">
-									<tr class="info" onclick="location.href='storeInfo.do?key=${alist.storeNum }'">
-											<td align="center">${alist.storeName }</td>
-										</tr>
-									</c:forEach>
-									<!-- db 목록을 가져와서 뿌려주는 곳끝 -->
-
-								</table>
-								<hr />
+									<button class="btn button is-checked" data-filter="*">all</button>
+									<button class="btn button" data-filter=".metal">이동상점</button>
+									<button class="btn button" data-filter=".transition">한식</button>
+									<button class="btn button" data-filter=".alkali">중식</button>
+									<button class="btn button" data-filter=".ar">일식</button>
+								</div>
 							</div>
 
 
+
+							<div style="clear: both;"></div>
+
+							<div class=" text-center">
+								<!-- 즐겨찾기선택 -->
+								<!-- 이동상점 -->
+								<div>
+									<table class=" table table-striped table-bordered results">
+										<thead>
+											<tr>
+												<th width="80" class="col-md-1 col-xs-1">상호명</th>
+											</tr>
+										</thead>
+
+										<!-- db 목록을 가져와서 뿌려주는 곳 -->
+										<!-- db에 목록이 이없으면 empty:비어있다는 뜻임  -->
+										<c:if test="${empty list}">
+											<tr>
+												<td colspan="4">등록된 글이 존재하지 않습니다.</td>
+											</tr>
+										</c:if>
+
+										<!--목록이 있으면  -->
+										<!-- for문을 돌리면 list[0]을 안해도됨 -->
+										<c:forEach items="${list }" var="alist">
+											<tr class="info"
+												onclick="location.href='storeInfo.do?key=${alist.storeNum }'">
+												<td align="center">${alist.storeName }</td>
+											</tr>
+										</c:forEach>
+										<!-- db 목록을 가져와서 뿌려주는 곳끝 -->
+
+									</table>
+									<hr />
+								</div>
+
+
+							</div>
+							<div style="clear: both;"></div>
 						</div>
-						<div style="clear: both;"></div>
 					</div>
 				</div>
-			</div>
-			<!-- Portfolio container end -->
-			</form>
+				<!-- Portfolio container end -->
 		</section>
 		<!-- End off portfolio section -->
 
-		
+
 		<!----------------------------------------------------------------나의리뷰----------------------------------------------------------------------------------------- -->
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+		
 		<!--Test section-->
-            <section id="portfolio" class="portfolio margin-top-120">
-            <form action="myReview.do">
-            <br><br><br><br><br><br>
+		<section id="portfolio" class="portfolio ">
 				<div class="container">
-				<div class="row">
-					<div class="main-portfolio roomy-80">
+					<div class="row">
+						<div class="main-portfolio roomy-80">
 
-						<div class="col-md-4">
-							<div class="head_title text-left sm-text-center wow fadeInDown">
-								<h2>나의리뷰</h2>
+							<div class="col-md-4">
+								<div class="head_title text-left sm-text-center wow fadeInDown">
+									<h2>나의리뷰</h2>
+								</div>
 							</div>
-						</div>
-						<div style="clear: both;"></div>
+							<div style="clear: both;"></div>
 
-						<div class="grid text-center">
-							<!-- 별점선택 -->
-							<div>
-								<table id="users" class=" table table-striped table-bordered results">
-									<thead>
-										<tr>
-										<th >#</th>
-											<th >상호명</th>
-											<th>리뷰작성일</th>
-											<th>리뷰내용</th>
-											<th>별점</th>
-											<th>수정/삭제</th>
-										</tr>
-									</thead>
+							<div class="text-center">
+								<!-- 별점선택 -->
+								<div>
+									<table id="users"
+										class=" table table-striped table-bordered results">
+										<thead>
+											<tr>
+												<th>#</th>
+												<th>상호명</th>
+												<th>리뷰작성일</th>
+												<th>리뷰내용</th>
+												<th>별점</th>
+												<th>수정/삭제</th>
+											</tr>
+										</thead>
 
-									<!-- db 목록을 가져와서 뿌려주는 곳 -->
-									<!-- db에 목록이 이없으면 empty:비어있다는 뜻임  -->
-									<c:if test="${empty list}">
-										<tr>
-											<td colspan="7">등록된 글이 존재하지 않습니다.</td>
-										</tr>
-									</c:if>
+										<!-- db 목록을 가져와서 뿌려주는 곳 -->
+										<!-- db에 목록이 이없으면 empty:비어있다는 뜻임  -->
+										<c:if test="${empty list}">
+											<tr>
+												<td colspan="7">등록된 글이 존재하지 않습니다.</td>
+											</tr>
+										</c:if>
 
 
 
 										<!--목록이 있으면  -->
-									<c:forEach items="${list }" var="alist" ><!-- var이름 고치면 오류남 -->
-									<tr class="info"  >
-										<td scope="row" align="center"  onclick="location.href='storeInfo.do'" >${alist.reviewNum } </td>
-										<td scope="row" align="center" onclick="location.href='storeInfo.do'">${alist.storeName } </td>
-										<td scope="row" align="center" onclick="location.href='storeInfo.do'">${alist.reviewDate }</td>
-										<td align="center">${alist.reviewContent}</td>
-										<td align="center">${alist.reviewStar }</td>
-										<td align="center">
-										<input type="button" value="수정" data-target="#myModal" data-toggle="modal">
-										<input type="button" value="삭제" onclick="delect()">
-										
-										</td>
-									</tr>
-									</c:forEach>
+										<c:forEach items="${list }" var="alist">
+											<!-- var이름 고치면 오류남 -->
+											<tr class="info">
+												<td scope="row" align="center"
+													onclick="location.href='storeInfo.do'">${alist.reviewNum }
+												</td>
+												<td scope="row" align="center"
+													onclick="location.href='storeInfo.do'">${alist.storeName }
+												</td>
+												<td scope="row" align="center"
+													onclick="location.href='storeInfo.do'">${alist.reviewDate }</td>
+												<td align="center">${alist.reviewContent}</td>
+												<td align="center">${alist.reviewStar }</td>
+												<td align="center"><input type="button" value="수정"
+													data-target="#myModal" data-toggle="modal"> <input
+													type="button" value="삭제"
+													onclick="location.href='delectMyReiview.do?key=${alist.reviewNum}'">
 
-								</table>
-								<hr />
+												</td>
+											</tr>
+										</c:forEach>
+
+									</table>
+									<hr />
+								</div>
+
+
 							</div>
-
-
+							<div style="clear: both;"></div>
 						</div>
-						<div style="clear: both;"></div>
 					</div>
 				</div>
-			</div>
-			</form>
 		</section>
 		<!-- End off test section -->
 		<!--이후 <br>삭제  -->
-		<br><br><br><br><br><br><br><br><br><br><br><br>
+		
+	<!-------------------------------------------- Modal 리뷰작성 -------------------------------------------------->
+	<div class="modal fade" id="myModal" role="dialog">
+		<div class="modal-dialog modal-lg">
 
-	</div>
-	 <!-------------------------------------------- Modal 리뷰작성 -------------------------------------------------->
-		<div class="modal fade" id="myModal" role="dialog">
-    	<div class="modal-dialog modal-lg">
-    
-      	<!-- Modal content-->
-      	<div class="modal-content">
-	        <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal">&times;</button>
-	        </div>
-        <div class="modal-body">
-          
-			<div class="panel-group">
-			<div class="panel panel-success" style="margin-top: 10px;">
-				<div class="panel-heading">리뷰 수정</div>
-				<div class="panel-body">
-					<%-- form --%>
-					<form class="form-horizontal" role="form" onclick="location.href='askwrite.do'"  method="post">
-						<div class="form-group">
-							<label class="control-label col-sm-2">작성자(ID):</label>
-							<div class="col-sm-10">
-								<input type="text" class="form-control" id="user_id"
-									name="user_id" placeholder="ID" readonly="readonly">${userEmail}
-							</div>
-						</div>
-						
-						<div class="form-group">
-							<label class="control-label col-sm-2" for="pwd">내용:</label>
-							<div class="col-sm-10">
-								<textarea class="form-control" rows="5"	placeholder="ask_content" name="review_content" id="review_content"></textarea>
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="col-sm-offset-2 col-sm-10">
-								<button type="submit" class="btn btn-success" onclick="">작 성</button>
-								<button type="reset" class="btn btn-danger">초기화</button>
-							</div>
-						</div>
-					</form>
-
-
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
+				<div class="modal-body">
 
+					<div class="panel-group">
+						<div class="panel panel-success" style="margin-top: 10px;">
+							<div class="panel-heading">리뷰 수정</div>
+							<div class="panel-body">
+								<%-- form --%>
+								<form class="form-horizontal" role="form"
+									onclick="location.href='askwrite.do'" method="post">
+									<div class="form-group">
+										<label class="control-label col-sm-2">작성자(ID):</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" id="user_id"
+												name="user_id" placeholder="ID" readonly="readonly">${userEmail}
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="control-label col-sm-2" for="pwd">내용:</label>
+										<div class="col-sm-10">
+											<textarea class="form-control" rows="5"
+												placeholder="ask_content" name="review_content"
+												id="review_content"></textarea>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-sm-offset-2 col-sm-10">
+											<button type="submit" class="btn btn-success" onclick="">작
+												성</button>
+											<button type="reset" class="btn btn-danger">초기화</button>
+										</div>
+									</div>
+								</form>
+
+
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+				</div>
 			</div>
+
 		</div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-      
-    </div>
-  </div>
+	</div>
 
 	<!-- JS includes -->
 

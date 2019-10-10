@@ -15,7 +15,7 @@
 </head>
 <body>
 <div align ="center">
-<h1>${param.userEmail } 사용 가능한 아이디입니다.</h1>
+<h1>${param.storeName } 사용 가능한 아이디입니다.</h1>
 <button type="button" onclick="isclose()">확인</button>
 </div>
 </body>

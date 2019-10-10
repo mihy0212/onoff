@@ -28,36 +28,50 @@
 		window.open("NickCheck.do?userNickname=" + chkNick.value, "",
 				"width=500,height=400");
 	}
-    $(function(){
-        $("#alert-success").hide();
-        $("#alert-danger").hide();
-        $("input").keyup(function(){
-            var pwd1=$("#userPw").val();
-            var pwd2=$("#userPwck").val();
-            if(pwd1 != "" || pwd2 != ""){
-                if(pwd1 == pwd2){
-                    $("#alert-success").show();
-                    $("#alert-danger").hide();
-                    $("#submit").removeAttr("disabled");
-                }else{
-                    $("#alert-success").hide();
-                    $("#alert-danger").show();
-                    $("#submit").attr("disabled", "disabled");
-                }    
-            }
-        });
-    });
+	function storeCheck() {
+		var chkstore = document.frm.storeName;
+		if (chkstore.value == "") {
+			alert("가게이름을 입력하세요.")
+			chkstore.focus();
+			return false;
+		}
+
+		window.open("storeNickCheck.do?storeName=" + chkstore.value, "",
+				"width=500,height=400");
+	}
+	$(function() {
+		$("#alert-success").hide();
+		$("#alert-danger").hide();
+		$("input").keyup(function() {
+			var pwd1 = $("#userPw").val();
+			var pwd2 = $("#userPwck").val();
+			if (pwd1 != "" || pwd2 != "") {
+				if (pwd1 == pwd2) {
+					$("#alert-success").show();
+					$("#alert-danger").hide();
+					$("#submit").removeAttr("disabled");
+				} else {
+					$("#alert-success").hide();
+					$("#alert-danger").show();
+					$("#submit").attr("disabled", "disabled");
+				}
+			}
+		});
+	});
 </script>
 </head>
 <body>
-<br /><br /><br /><br />
+	<br />
+	<br />
+	<br />
+	<br />
 	<div class="container">
 		<div class="col-lg-3"></div>
 		<div class="col-lg-6">
 			<div class="jumbotron" style="padding-top: 20px;">
 				<h3 style="text-align: center;">회원가입 화면</h3>
 				<br />
-				<form id="frm" name="frm" method="post" action="join_ceo.do" 
+				<form id="frm" name="frm" method="post" action="join_ceo.do"
 					class="form-horizontal" enctype="multipart/form-data">
 					<div class="form-group">
 						<div class="col-sm-8" style="padding: 0px">
@@ -107,9 +121,14 @@
 					</div>
 					<h3 style="text-align: center;">가게등록</h3>
 					<div class="form-group">
+					<div class="col-sm-8" style="padding: 0px">
 						<input type="text" class="form-control" placeholder="가게이름"
-							id="storeName" name="storeName" maxlength="20">
-
+							id="storeName" name="storeName">
+					</div>
+					<div class="col-sm-4">
+						<input type="button" class="btn btn-primary form-control"
+							onclick="storeCheck()" value="중복체크">
+					</div>
 					</div>
 					<div class="form-group">
 						<input type="text" class="form-control" placeholder="주소"
@@ -147,7 +166,7 @@
 						사업자등록증 첨부 :<input type="file" name="addCapture" id="addCapture" /><br />
 
 					</div>
-				
+
 
 					<div>
 						<input type="submit" class="btn btn-primary form-control"

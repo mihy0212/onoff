@@ -54,6 +54,7 @@ public class MyReviewComm implements Command {
 
 
 		List<ReviewDTO> list = ReviewDAO.getInstance().select1(conn, "user_num", userNum, start, end); // all
+		
 		for (ReviewDTO dto : list) {
 			System.out.println(dto.getStoreName());
 		}

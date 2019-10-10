@@ -149,6 +149,8 @@
 										</c:if>
 										<c:if test="${!empty userEmail && userGrant=='S'}">
 										<a class="dropdown-item" href="list.do">문의 전체 보기</a>
+										<br>
+										<a class="dropdown-item" href="userlist.do">유저 전체 보기</a>
 											<br>
 										</c:if>
 									</c:when>
@@ -187,7 +189,7 @@
 			</div>
 		</nav>
 	</div>
-	<div style="padding-top: 50px">
+	<div style="padding-top: 150px">
 
 		<decorator:body></decorator:body>
 

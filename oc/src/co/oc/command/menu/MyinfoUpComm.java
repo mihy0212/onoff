@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.beanutils.BeanUtils;
+
 import co.oc.command.Command;
 import co.oc.dao.DAO;
 import co.oc.dao.UserDAO;
@@ -28,31 +30,31 @@ public class MyinfoUpComm implements Command {
 		UserDTO dto = new UserDTO();
 
 //		// BeanUtils을 사용하여 한번에 저장만(bean=dto)
-//		try {
-//			BeanUtils.copyProperties(dto, request.getParameterMap());
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-		dto.setUserEmail(request.getParameter("userEmail"));
-		dto.setUserPw(request.getParameter("userPw"));
-		dto.setUserName(request.getParameter("userName"));
-		dto.setUserNick(request.getParameter("userNickname"));
-		dto.setUserAddr(request.getParameter("userAddr"));
+		/*
+		 * try { BeanUtils.copyProperties(dto, request.getParameterMap()); } catch
+		 * (Exception e) { e.printStackTrace(); }
+		 */
+		
+		  dto.setUserPw(request.getParameter("userPw"));
+		  dto.setUserNick(request.getParameter("userNickname"));
+		  dto.setUserAddr(request.getParameter("userAddr"));
+		 
 
-		UserDAO.getInstance().update(conn, dto);
+		 UserDAO.getInstance().update(conn, dto);
 
-		RequestDispatcher dispatcher = null;
+		String path = null;
+
 		// 성공하면 회원정보페이지
 		if (session.getAttribute("userNum") != null) {
-			dispatcher = request.getRequestDispatcher("myinfo.do");
-			dispatcher.forward(request, response);
+			path="myinfo.do";
 		}
 		// 실패하면 회원정보 수정페이지
 		else {
-			dispatcher = request.getRequestDispatcher("myinfoupForm.do");
-			dispatcher.forward(request, response);
+			path="myinfoupForm.do";
 		}
-
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher(path);
+		dispatcher.forward(request, response);
 		// 접속 해제
 		DAO.disconnect(conn);
 
