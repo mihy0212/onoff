@@ -52,7 +52,7 @@ public class MyReviewComm implements Command {
 		int end = pagenum * size;
 		int start = end - size + 1;
 
-// 리스트를 안넘김.
+
 		List<ReviewDTO> list = ReviewDAO.getInstance().select1(conn, "user_num", userNum, start, end); // all
 		for (ReviewDTO dto : list) {
 			System.out.println(dto.getStoreName());

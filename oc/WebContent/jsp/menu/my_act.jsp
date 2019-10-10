@@ -148,9 +148,10 @@ $(function() {
 									</c:if>
 
 									<!--목록이 있으면  -->
-									<c:forEach items="${list }" var="list">
-									<tr class="info" onclick="location.href='storeInfo.do?key=${list.storeNum }'">
-											<td align="center">${list.storeName }</td>
+									<!-- for문을 돌리면 list[0]을 안해도됨 -->
+									<c:forEach items="${list }" var="alist">
+									<tr class="info" onclick="location.href='storeInfo.do?key=${alist.storeNum }'">
+											<td align="center">${alist.storeName }</td>
 										</tr>
 									</c:forEach>
 									<!-- db 목록을 가져와서 뿌려주는 곳끝 -->
@@ -171,8 +172,7 @@ $(function() {
 		<!-- End off portfolio section -->
 
 		
-	<!----------------------------------------------------------------나의리뷰----------------------------------------------------------------------------------------- -->
-	<!--이후 <br>삭제  -->
+		<!----------------------------------------------------------------나의리뷰----------------------------------------------------------------------------------------- -->
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 		<!--Test section-->
             <section id="portfolio" class="portfolio margin-top-120">
@@ -195,6 +195,7 @@ $(function() {
 								<table id="users" class=" table table-striped table-bordered results">
 									<thead>
 										<tr>
+										<th >#</th>
 											<th >상호명</th>
 											<th>리뷰작성일</th>
 											<th>리뷰내용</th>
@@ -211,11 +212,14 @@ $(function() {
 										</tr>
 									</c:if>
 
-									<!--목록이 있으면  -->
-									<c:forEach items="${list }" var="list" >
+
+
+<!--목록이 있으면  -->
+									<c:forEach items="${list }" var="list" ><!-- var이름 고치면 오류남 -->
 									<tr class="info" >
-										<td scope="row" align="center"  onclick="location.href='storeInfo.do'">${list.storeName } </td>
-										<td scope="row" align="center">${list.reviewDate }</td>
+										<td scope="row" align="center"  onclick="location.href='storeInfo.do'" >${list.reviewNum } </td>
+										<td scope="row" align="center" onclick="location.href='storeInfo.do'">${list.storeName } </td>
+										<td scope="row" align="center" onclick="location.href='storeInfo.do'">${list.reviewDate }</td>
 										<td align="center">${list.reviewContent}</td>
 										<td align="center">${list.reviewStar }</td>
 										<td align="center">
@@ -224,7 +228,7 @@ $(function() {
 										</td>
 									</tr>
 									</c:forEach>
-									<!-- db 목록을 가져와서 뿌려주는 곳끝 -->
+
 								</table>
 								<hr />
 							</div>
@@ -296,7 +300,7 @@ $(function() {
   </div>
 
 	<!-- JS includes -->
-<%-- 
+
 	<script
 		src="${pageContext.request.contextPath }/assets/js/vendor/jquery-1.11.2.min.js"></script>
 	<script
@@ -322,7 +326,7 @@ $(function() {
 	<script src="${pageContext.request.contextPath }/assets/js/plugins.js"></script>
 	<script src="${pageContext.request.contextPath }/assets/js/main.js"></script>
 
- --%>
+
 
 </body>
 </html>

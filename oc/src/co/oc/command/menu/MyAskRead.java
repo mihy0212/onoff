@@ -2,6 +2,7 @@ package co.oc.command.menu;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,21 +13,23 @@ import co.oc.command.Command;
 import co.oc.dao.AskDAO;
 import co.oc.dao.DAO;
 import co.oc.dto.AskDTO;
-
 public class MyAskRead implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Connection conn = DAO.connect();
-		// �Ķ���Ͱ� ����
-		int ask_re = Integer.parseInt(request.getParameter("ask_re"));
-
-		// �ش� ����� ���� �ҷ�����.
 	
-//		AskDTO dto = AskDAO.getInstance().selectOne(conn, "ask_re", "ask_re", 1, 1);
+	String askNum = request.getParameter("key");
+	
+	System.out.println(askNum);
+	List<AskDTO> list = AskDAO.getInstance().selectOne(conn, "ask_re", askNum, 1, 1);
+		
+	// request 객체에 list를 담아준다.
+			request.setAttribute("list", list);
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("my_ask.jsp");
-		dispatcher.forward(request, response);
-		DAO.disconnect(conn);
+	// request 객체에 총 페이지수를 담아준다.
+	RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/menu/my_ask_Read.jsp");
+	dispatcher.forward(request, response);
+	DAO.disconnect(conn);
 	}
 }
