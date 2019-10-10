@@ -21,12 +21,9 @@ import co.oc.command.join.LoginCheckCommand;
 import co.oc.command.join.LoginFormCommand;
 import co.oc.command.join.LogoutCommand;
 import co.oc.command.join.NickcheckCommand;
-<<<<<<< HEAD
 import co.oc.command.manager.AdminStoreInfoComm;
-=======
 import co.oc.command.join.StoreNickCheck;
 import co.oc.command.manager.BorderDelete;
->>>>>>> branch 'master' of https://github.com/wlsdud6764/on-off.git
 import co.oc.command.manager.BorderListCommand;
 import co.oc.command.manager.BorderReadCommand;
 import co.oc.command.manager.UserDelete;
