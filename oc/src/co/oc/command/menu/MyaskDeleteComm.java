@@ -17,13 +17,13 @@ public class MyaskDeleteComm implements Command {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Connection conn = DAO.connect();
 		// �Ķ���Ͱ� ����
-		String ask_num = request.getParameter("ask_num");
-
+		String askNum = request.getParameter("key");
 		// �ش� ����� ��ȣ�� �ش� �� ����
-		AskDAO.getInstance().delete(conn, ask_num);
+		System.out.println(askNum);
+		AskDAO.getInstance().delete(conn, askNum);
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("my_ask.jsp");
-		dispatcher.forward(request, response);
+		response.sendRedirect("myAsklist.do");
+
 
 		DAO.disconnect(conn);
 

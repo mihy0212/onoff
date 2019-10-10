@@ -6,9 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <title>질문읽기</title>
+
+
 </head>
 <body>
-<form action="myAskRead.dao">
+<form name="frm"  action="myAskRead.dao">
 	<div align="center">
 		<div>
 			<h1>글 내용 보기</h1>
@@ -47,7 +49,7 @@
 
 	
 	<input type="button" value="글수정"> &nbsp;&nbsp;
-	<input type="button" onclick="location.href='myAskdelecte.do'" value= "글삭제"> &nbsp;&nbsp;
+	<input type="button" onclick="location.href='myAskdelecte.do?key=${list[0].askNum}'"  value= "글삭제"> &nbsp;&nbsp;
 	
 
 	<button type="button" onclick="location.href='myAsklist.do'">목록으로</button>

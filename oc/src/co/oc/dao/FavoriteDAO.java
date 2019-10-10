@@ -98,9 +98,27 @@ public class FavoriteDAO extends DAO {
 	}
 	
 	
-	//즐겨찾기 추가 +삭제하기(추가를 했으면 삭제만 가능, 삭제했으면 추가만 가능) 
-		//favoCount가 0이면 즐겨찾기 가능, 1이면 즐겨찾기를 한번 했으므로 불가능
+	//회원이 해당 가게를 즐겨찾기 했는지 검증
 	public int check(Connection conn, FavoriteDTO dto) {
+		int favoCount = 0;
+		String sql = "select count(*) from oc_favorite where store_num=? and user_num=?";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, dto.getStoreNum());
+			psmt.setString(2, dto.getUserNum());
+			rs = psmt.executeQuery();
+			if(rs.next()) {
+				favoCount = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return favoCount;
+	}
+	
+	//즐겨찾기 추가 +삭제하기(추가를 했으면 삭제만 가능, 삭제했으면 추가만 가능) 
+			//favoCount가 0이면 즐겨찾기 가능, 1이면 즐겨찾기를 한번 했으므로 불가능
+	public int checkInsert(Connection conn, FavoriteDTO dto) {
 		int favoCount = 0;
 		String sql = "select count(*) from oc_favorite where store_num=? and user_num=?";
 		try {

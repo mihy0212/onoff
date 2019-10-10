@@ -6,7 +6,7 @@
 <script type="text/javascript">
 
       function delect(){
-    		if (confirm("정말 삭제하시겠습니까??") == true){    //확인
+    		if (confirm("정말 틸퇴하시겠습니까??") == true){    //확인
     			location.href='deletech.do';
     		}else{   //취소
     		    return;

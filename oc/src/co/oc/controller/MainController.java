@@ -38,8 +38,7 @@ import co.oc.command.menu.MyinfoDeleteCheckComm;
 import co.oc.command.menu.MyinfoUpComm;
 import co.oc.command.menu.MyinfoupFormComm;
 import co.oc.command.menu.UpdateMyReiviewComm;
-import co.oc.command.menu2.LikeClickComm;
-import co.oc.command.menu2.ReviewInsertComm;
+import co.oc.command.menu2.StoreInfoChangeComm;
 import co.oc.command.menu2.StoreInfoComm;
 
 
@@ -58,9 +57,9 @@ public class MainController extends HttpServlet {
 		
 		//최미현
 		map.put("/storeInfo.do", new StoreInfoComm()); //가게별 상세 정보 조회
-//		map.put("/reviewWrite.do", new ReviewWriteComm()); //회원의 가게 리뷰 쓰기
-		map.put("/likeClick.do", new LikeClickComm()); //좋아요 클릭 시 좋아요 수 변동
-		map.put("/reviewInsert.do", new ReviewInsertComm()); //리뷰 쓰기
+		map.put("/storeInfoChange.do", new StoreInfoChangeComm()); //storeInfo.jsp(가게 상세)에서 일어나는 모든 변경
+//		map.put("/", new ());
+//		map.put("/", new ());
 //		map.put("/", new ());
 //		map.put("/", new ());
 		

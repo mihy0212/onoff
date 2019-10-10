@@ -29,10 +29,8 @@
 							$('#delFrm').submit();
 						}
 					}
-				},
-				error: function(){
-					alert("서버 에러.");
 				}
+				
 			});
 		});
 	});

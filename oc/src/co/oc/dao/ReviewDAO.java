@@ -206,10 +206,13 @@ public class ReviewDAO extends DAO {
 			psmt.setString(6, dto.getReviewContent());
 			n = psmt.executeUpdate();
 			System.out.println(n + "건의 새로운 리뷰 등록 완료");
+			if(n == 0) {
+				seq = 0;
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return n;
+		return seq;
 	}
 
 	// 리뷰글 쓰기를 위한 리뷰번호 시퀀스 생성

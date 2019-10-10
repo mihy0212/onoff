@@ -93,7 +93,7 @@ public class LikeDAO extends DAO {
 		return likeCount;
 	}
 	
-	
+	//좋아요 등록/삭제(등록을 했으면 삭제만 가능, 삭제를 했으면 등록만 가능)
 	public int checkInsert(Connection conn, LikeDTO dto) {
 		int likeCount = 0;
 		String sql = "select count(*) from oc_like where store_num=? and user_num=?";

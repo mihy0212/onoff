@@ -22,6 +22,7 @@ public class MyinfoDeleteComm implements Command {
 		 // 세션이 가지고있는 로그인한 ID 정보를 가져온다
 		 HttpSession session = request.getSession(false);
 		 String userNum = (String)session.getAttribute("userNum");
+		 System.out.println(userNum);
 		 //String path = null;
 
 		 UserDAO.getInstance().delete(conn, userNum);
