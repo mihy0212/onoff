@@ -55,10 +55,9 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/assets/css/responsive.css" />
 <style type="text/css">
-#features{
+#features {
 	min-height: 600px;
 }
-
 </style>
 
 <%-- <script
@@ -76,170 +75,200 @@
 		console.log(location);
 		if (location.pathname == "/oc/myReview.do") {
 			location.href = "#portfolio";
-		}else if (location.pathname == "/oc/myfavorite.do") {
+		} else if (location.pathname == "/oc/myfavorite.do") {
 			location.href = "#features";
 		}
 	})
 	
+$(document).ready(function(){
+	$(document).ready(function() {
+
+		//카테고리1 출력하기
+		if ($('.categ1').text("01")) {
+			$('.categ1').text("음식")
+		}
+
+		//카테고리2 출력하기
+		if ($('.categ2').text("01")) {
+			$('.categ2').text("점포 가게");
+		} else if ($('.categ2').text("02")) {
+			$('.categ2').text("이동 가게");
+		}
+
+		//카테고리3 출력하기
+		if ($('.categ3').text("01")) {
+			$('.categ3').text("한식");
+		} else if ($('.categ3').text("02")) {
+			$('.categ3').text("양식");
+		} else if ($('.categ3').text("03")) {
+			$('.categ3').text("중식");
+		} else if ($('.categ3').text("04")) {
+			$('.categ3').text("일식");
+		} else if ($('.categ3').text("05")) {
+			$('.categ3').text("분식");
+		} else if ($('.categ3').text("06")) {
+			$('.categ3').text("기타");
+		}
+
+	});
+
+	//별점 표시하기
+	//console.log($('#star').children().size())
+	//console.log($('#star').children().eq(1))
+	for(var i=0; i<Math.round("${stars}"); i++){
+		$('#star').children().eq(i).attr('class','btn button is-checked');
+	}
+	
+	//리뷰에서 별점 표시하기
+	var star_num;
+	$('.reviewStars').on('click', function(){
+		star_num = $(this).attr('id').substring(4,5);
+		if($(this).css("color")=="rgb(128, 128, 128)"){
+			for(var i=1; i<=star_num; i++){
+				var starNum = "star"+i;
+				$('#'+starNum).css("color","yellow");
+			}
+		} else {
+			for(var i=5; i>=star_num; i--){
+				var starNum = "star"+i;
+				$('#'+starNum).css("color","gray");
+			}
+		}
+	});
+	
+	 
 </script>
 
 
 </head>
 
 <body>
-		<section id="features" class="features">
-				<!-- Portfolio container-->
-				<div class="container">
-					<div class="row">
-						<div class="main-portfolio">
-							<div class="col-md-4">
-								<div class="head_title text-left sm-text-center wow fadeInDown">
-									<h2>즐겨찾기</h2>
-								</div>
-							</div>
-
-							<div class="col-md-8">
-								<div class="filters-button-group text-right sm-text-center" id="test">
-									<button class="btn button is-checked" data-filter="*">all</button>
-									<button class="btn button" data-filter=".metal" >이동상점</button>
-									<button class="btn button" data-filter=".transition">한식</button>
-									<button class="btn button" data-filter=".alkali">중식</button>
-									<button class="btn button" data-filter=".ar">일식</button>
-								</div>
-							</div>
-
-
-
-							<div style="clear: both;"></div>
-							<div class=" text-center">
-								<!-- 즐겨찾기선택 -->
-								<!-- 이동상점 -->
-								<div>
-									<table class=" table table-striped table-bordered results">
-										<thead>
-											<tr>
-												<th width="80" class="col-md-1 col-xs-1">상호명</th>
-											</tr>
-										</thead>
-
-										<!-- db 목록을 가져와서 뿌려주는 곳 -->
-										<!-- db에 목록이 이없으면 empty:비어있다는 뜻임  -->
-										<c:if test="${empty list}">
-											<tr>
-												<td colspan="4">등록된 글이 존재하지 않습니다.</td>
-											</tr>
-										</c:if>
-
-										<!--목록이 있으면  -->
-										<!-- for문을 돌리면 list[0]을 안해도됨 -->
-										<c:forEach items="${list }" var="sdto">
-											<tr onclick="location.href='storeInfo.do?key=${sdto.storeNum }'">
-												<td align="center">${sdto.storeName }</td>
-											</tr>
-										</c:forEach>
-										<!-- db 목록을 가져와서 뿌려주는 곳끝 -->
-
-									</table>
-									<hr />
-								</div>
-
-
-							</div>
-							<div style="clear: both;"></div>
+	<section id="features" class="features">
+		<!-- Portfolio container-->
+		<div class="container">
+			<div class="row">
+				<div class="main-portfolio">
+					<div class="col-md-4">
+						<div class="head_title text-left sm-text-center wow fadeInDown">
+							<h2>즐겨찾기</h2>
 						</div>
+					</div>
+
+					<div class="col-md-8">
+						<div class="filters-button-group text-right sm-text-center"
+							id="test">
+							<button class="btn button is-checked" data-filter="*">all</button>
+							<button class="btn button" data-filter=".metal">이동상점</button>
+							<button class="btn button" data-filter=".transition">한식</button>
+							<button class="btn button" data-filter=".alkali">중식</button>
+							<button class="btn button" data-filter=".ar">일식</button>
+						</div>
+					</div>
+
+
+
+					<div style="clear: both;"></div>
+					<div class=" text-center">
+						<!-- 즐겨찾기선택 -->
+						<!-- 이동상점 -->
+						<div>
+							<table class=" table table-striped table-bordered results">
+								<thead>
+									<tr>
+										<th width="80" class="col-md-1 col-xs-1">상호명</th>
+									</tr>
+								</thead>
+
+								<!-- db 목록을 가져와서 뿌려주는 곳 -->
+								<!-- db에 목록이 이없으면 empty:비어있다는 뜻임  -->
+								<c:if test="${empty list}">
+									<tr>
+										<td colspan="4">등록된 글이 존재하지 않습니다.</td>
+									</tr>
+								</c:if>
+
+								<!--목록이 있으면  -->
+								<!-- for문을 돌리면 list[0]을 안해도됨 -->
+								<c:forEach items="${list }" var="sdto">
+									<tr
+										onclick="location.href='storeInfo.do?storeNum=${sdto.storeNum }'">
+										<td align="center">${sdto.storeName }</td>
+
+									</tr>
+								</c:forEach>
+								<!-- db 목록을 가져와서 뿌려주는 곳끝 -->
+
+							</table>
+							<hr />
+						</div>
+
+
+					</div>
+					<div style="clear: both;"></div>
+				</div>
+			</div>
+		</div>
+		<!-- Portfolio container end -->
+	</section>
+	<!-- End off portfolio section -->
+
+
+	<!----------------------------------------------------------------나의리뷰----------------------------------------------------------------------------------------- -->
+
+	<!--Test section-->
+	<section id="portfolio" class="portfolio ">
+		<div class="container">
+				<div class="main-portfolio roomy-80">
+
+					<div class="col-md-4">
+						<div class="head_title text-left sm-text-center wow fadeInDown">
+							<h2>나의리뷰</h2>
+						</div>
+					</div>
+					<div style="clear: both;"></div>
+					<%-- DB 리뷰 목록 --%>
+					<div class="review_list"  >
+						<c:forEach items="${list }" var="alist">
+						<c:if test="${alist.reviewNum == alist.reviewRe }">
+							<%-- 리뷰 왼쪽 영역 : 아이콘/회원 닉네임 --%>
+							<div class="col-md-2 text-center" onclick="location.href='storeInfo.do?storeNum=${alist.storeNum }'">
+								<font size="6"><i class="icon icon icon-smile text-black"></i></font>
+								<h6 class="content_user" onclick="location.href='storeInfo.do?storeNum=${alist.storeNum }'">${ alist.storeName }</h6>
+							</div>
+							<%-- 리뷰 중간 영역 : 별점/리뷰글 --%>
+							<div class="col-md-9 text-left content_star" onclick="location.href='storeInfo.do?storeNum=${alist.storeNum }'">
+								<blockquote>
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<c:forEach var="i" begin="1" end="${alist.reviewStar }" step="1">
+										<font class="reviewStarsYellow star_up${ alist.reviewNum }">★</font>
+									</c:forEach>
+									<p class="pre_css" >${ alist.reviewContent }
+										&nbsp;&nbsp;&nbsp;(${ alist.reviewDate })</p>
+								</blockquote>
+							</div>
+							<input type="submit" class="btn button is-checked btn_update" value="수정" data-target="#myModal" data-toggle="modal">
+							<input type="submit" class="btn button is-checked btn_update"value="삭제" onclick="location.href='delectMyReiview.do?key=${alist.reviewNum}'">
+								</c:if>
+						</c:forEach>
 					</div>
 				</div>
-				<!-- Portfolio container end -->
-		</section>
-		<!-- End off portfolio section -->
-
-
-		<!----------------------------------------------------------------나의리뷰----------------------------------------------------------------------------------------- -->
-		
-		<!--Test section-->
-		<section id="portfolio" class="portfolio ">
-				<div class="container">
-					<div class="row">
-						<div class="main-portfolio roomy-80">
-
-							<div class="col-md-4">
-								<div class="head_title text-left sm-text-center wow fadeInDown">
-									<h2>나의리뷰</h2>
-								</div>
-							</div>
-							<div style="clear: both;"></div>
-
-							<div class="text-center">
-								<!-- 별점선택 -->
-								<div>
-									<table id="users"
-										class=" table table-striped table-bordered results">
-										<thead>
-											<tr>
-												<th>#</th>
-												<th>상호명</th>
-												<th>리뷰작성일</th>
-												<th>리뷰내용</th>
-												<th>별점</th>
-												<th>수정/삭제</th>
-											</tr>
-										</thead>
-
-										<!-- db 목록을 가져와서 뿌려주는 곳 -->
-										<!-- db에 목록이 이없으면 empty:비어있다는 뜻임  -->
-										<c:if test="${empty list}">
-											<tr>
-												<td colspan="7">등록된 글이 존재하지 않습니다.</td>
-											</tr>
-										</c:if>
-
-
-
-										<!--목록이 있으면  -->
-										<c:forEach items="${list }" var="alist">
-											<tr >
-												<td scope="row" align="center"
-													onclick="location.href='storeInfo.do'">${alist.reviewNum }
-												</td>
-												<td scope="row" align="center"
-													onclick="location.href='storeInfo.do'">${alist.storeName }
-												</td>
-												<td scope="row" align="center"
-													onclick="location.href='storeInfo.do'">${alist.reviewDate }</td>
-												<td align="center">${alist.reviewContent}</td>
-												<td align="center">${alist.reviewStar }</td>
-												<td align="center">
-												<input type="submit" class="btn button is-checked btn_update" value="수정" data-target="#myModal" data-toggle="modal"> 
-												<input type="submit" class="btn button is-checked btn_update" value="삭제" onclick="location.href='delectMyReiview.do?key=${alist.reviewNum}'">
-
-												</td>
-											</tr>
-										</c:forEach>
-
-									</table>
-									<hr />
-								</div>
-
-
-							</div>
-						</div>
-					</div>
-					<!-- 페이징 -->
-					<div class="col-sm-6" align="center">
-						<div align="center">
-							<ul class="pagination" id="page_num">
-								<li><c:forEach var="i" begin="1" end="${tot}">
-										<a href="myReview.do?Page_num=${i}">${i}</a>
-									</c:forEach></li>
-							</ul>
-						</div>
-					</div>
+			</div>
+			<!-- 페이징 -->
+			<div class="col-sm-6" align="center">
+				<div align="center">
+					<ul class="pagination" id="page_num">
+						<li><c:forEach var="i" begin="1" end="${tot}">
+								<a href="myReview.do?Page_num=${i}">${i}</a>
+							</c:forEach></li>
+					</ul>
 				</div>
-				
-		</section>
-		<!-- End off test section -->
-		<!--이후 <br>삭제  -->
-		
+			</div>
+		</div>
+
+	</section>
+	<!-- End off test section -->
+	<!--이후 <br>삭제  -->
+
 	<!-------------------------------------------- Modal 리뷰작성 -------------------------------------------------->
 	<div class="modal fade" id="myModal" role="dialog">
 		<div class="modal-dialog modal-lg">
