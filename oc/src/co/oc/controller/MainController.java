@@ -21,6 +21,7 @@ import co.oc.command.join.LoginCheckCommand;
 import co.oc.command.join.LoginFormCommand;
 import co.oc.command.join.LogoutCommand;
 import co.oc.command.join.NickcheckCommand;
+import co.oc.command.join.StoreNickCheck;
 import co.oc.command.manager.BorderDelete;
 import co.oc.command.manager.BorderListCommand;
 import co.oc.command.manager.BorderReadCommand;
@@ -84,6 +85,7 @@ public class MainController extends HttpServlet {
 		map.put("/userRead.do", new UserRead()); 
 		map.put("/borderdelete.do", new BorderDelete()); //문의글 삭제
 		map.put("/userdelete.do", new UserDelete());  //유저삭제
+		map.put("/storeNickCheck.do", new StoreNickCheck()); // 스토어 이름 중복체크
 		
 		// 백승진
 		map.put("/openStore.do", new OpenStoreCommand());
