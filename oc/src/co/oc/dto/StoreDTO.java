@@ -22,6 +22,10 @@ public class StoreDTO {
 	private String storeRegidayString;
 	private int storeOc;
 
+	public void setStoreEtc(String storeEtc) {
+		this.storeEtc = storeEtc;
+	}
+
 	public int getStoreOc() {
 		return storeOc;
 	}
@@ -130,10 +134,6 @@ public class StoreDTO {
 		return storeEtc;
 	}
 
-	public void setStoreEct(String storeEtc) {
-		this.storeEtc = storeEtc;
-	}
-
 	public int getStoreLike() {
 		return storeLike;
 	}
@@ -163,7 +163,7 @@ public class StoreDTO {
 		return "StoreDTO [storeNum=" + storeNum + ", storeName=" + storeName + ", storeAddr=" + storeAddr + ", storeXy="
 				+ storeXy + ", storeCateg1=" + storeCateg1 + ", storeCateg2=" + storeCateg2 + ", storeCateg3="
 				+ storeCateg3 + ", storePic=" + storePic + ", storeTime=" + storeTime + ", storeTel=" + storeTel
-				+ ", storeMenu=" + storeMenu + ", storeEct=" + storeEtc + ", storeLike=" + storeLike + ", userNum="
+				+ ", storeMenu=" + storeMenu + ", storeEtc=" + storeEtc + ", storeLike=" + storeLike + ", userNum="
 				+ userNum + ", storeRegiday=" + storeRegiday + "]";
 	}
 

@@ -8,35 +8,45 @@ var infowindow = new kakao.maps.InfoWindow({
 var callback;
 var myLocation;
 var openPlaces;
+var closePlaces;
 window.onload = function() {
 	$
 			.ajax({
-				url : 'openStore.do',
+				url : 'ajaxOpenStore.do',
 				type : 'GET',
 				dataType : 'json',
 				success : function(data) {
 					openPlaces = data;
-					for (var i = 0; i < placesDB.length; i++) {
+					for (var i = 0; i < openPlaces.length; i++) {
 						var DBxy = openPlaces[i].storeXy.split(","), DBx = DBxy[0], DBy = DBxy[1]
 								.trim();
 						var DBPosition = new kakao.maps.LatLng(DBx, DBy);
-						markDBPlaces(DBPosition, i);
+						markOpenPlaces(DBPosition, i);
 					}
 				},
 				error : function(xhr, status, error) {
-					alert(error);
+					console.log(error);
 				}
 			})
 
-	$.ajax({
-		url : 'closeStore.do',
-		type : 'GET',
-		dataType : 'json',
-		success : function(data) {
-			closePlaces = data;
-			// 여기부터
-		}
-	})
+	$
+			.ajax({
+				url : 'ajaxCloseStore.do',
+				type : 'GET',
+				dataType : 'json',
+				success : function(data) {
+					closePlaces = data;
+					for (var i = 0; i < closePlaces.length; i++) {
+						var DBxy = closePlaces[i].storeXy.split(","), DBx = DBxy[0], DBy = DBxy[1]
+								.trim();
+						var DBPosition = new kakao.maps.LatLng(DBx, DBy);
+						markClosePlaces(DBPosition, i);
+					}
+				},
+				error : function(xhr, status, error) {
+					console.log(error);
+				}
+			})
 	if (navigator.geolocation) {
 		navigator.geolocation
 				.getCurrentPosition(
@@ -109,6 +119,24 @@ function markOpenPlaces(DBPosition, i) {
 				image : markerImage
 			});
 
+	(function(marker, name, like, category2, category3, time, num) {
+		kakao.maps.event.addListener(marker, 'mouseover',
+				function() {
+					displayDBwindow(marker, name, like, category2, category3,
+							time, num);
+				});
+
+		kakao.maps.event.addListener(marker, 'mouseout', function() {
+			infowindow.close();
+		});
+
+		kakao.maps.event.addListener(marker, 'click', function() {
+			window.open('www.google.com');
+		})
+
+	})(marker, openPlaces[i].storeName, openPlaces[i].storeLike,
+			openPlaces[i].storeCateg2, openPlaces[i].storeCateg3,
+			openPlaces[i].storeTime, openPlaces[i].storeNum);
 }
 
 function markClosePlaces(DBPosition, i) {
@@ -140,7 +168,7 @@ function displayPlaces(places) {
 
 		bounds.extend(placePosition);
 
-		(function(marker, title) {
+		(function(marker, title, url) {
 			kakao.maps.event.addListener(marker, 'mouseover', function() {
 				displayInfowindow(marker, title);
 			});
@@ -149,7 +177,11 @@ function displayPlaces(places) {
 				infowindow.close();
 			});
 
-		})(marker, places[i].place_name);
+			kakao.maps.event.addListener(marker, 'click', function() {
+				window.open(url);
+			})
+
+		})(marker, places[i].place_name, places[i].place_url);
 	}
 	map.setBounds(bounds);
 
@@ -158,6 +190,52 @@ function displayPlaces(places) {
 
 function displayInfowindow(marker, title) {
 	var content = '<div style="padding:5px;z-index:1;">' + title + '</div>';
+
+	infowindow.setContent(content);
+	infowindow.open(map, marker);
+}
+
+function displayDBwindow(marker, name, like, category2, category3, time, num) {
+	// 이동 유무 변환
+	if (category2 == 02) {
+		category2 = '이동';
+	} else {
+		category2 = '점포';
+	}
+
+	// 카테고리 변환
+
+	console.log(category3);
+	
+	if (category3 != 01) {
+		category3 == '한식';
+	}
+	if (category3 == 02) {
+		category3 == '양식';
+	}
+	if (category3 == 03) {
+		category3 == '중식';
+	}
+	if (category3 == 04) {
+		category3 == '일식';
+	}
+	if (category3 == 05) {
+		category3 == '분식';
+	}
+	if (category3 == 06) {
+		category3 == '기타';
+	}
+
+	console.log(category3);
+	
+	// 시간 입력 부탁
+	if (time == "") {
+		time = '시간 입력 바람';
+	}
+
+	var content = '<div style="padding:5px;z-index:1;">' + name + '<br>' + like
+			+ '<br>' + category2 + '<br>' + category3 + '<br>' + time + '<br>'
+			+ num + '<br>' + '</div>';
 
 	infowindow.setContent(content);
 	infowindow.open(map, marker);

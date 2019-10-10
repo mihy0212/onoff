@@ -78,8 +78,8 @@ public class MainController extends HttpServlet {
 		map.put("/writeForm.do", new WriteForm());
 		
 		// 백승진
-		map.put("/openStore.do", new OpenStoreCommand());
-		map.put("/closeStore.do", new CloseStoreCommand());
+		map.put("/ajaxOpenStore.do", new OpenStoreCommand());
+		map.put("/ajaxCloseStore.do", new CloseStoreCommand());
 		
 		//복진영
 		//마이 메뉴

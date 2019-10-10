@@ -46,7 +46,7 @@ public class StoreDAO extends DAO {
 				dto.setStoreTime(rs.getString("store_time")); // 9
 				dto.setStoreTel(rs.getString("store_tel")); // 10
 				dto.setStoreMenu(rs.getString("store_menu")); // 11
-				dto.setStoreEct(rs.getString("store_etc")); // 12
+				dto.setStoreEtc(rs.getString("store_etc")); // 12
 				dto.setStoreLike(rs.getInt("store_like")); // 13
 				dto.setUserNum(rs.getString("user_num")); // 14
 				dto.setStoreRegiday(rs.getDate("store_regiday")); // 15
@@ -79,7 +79,7 @@ public class StoreDAO extends DAO {
 				dto.setStoreTime(rs.getString("store_time")); // 9
 				dto.setStoreTel(rs.getString("store_tel")); // 10
 				dto.setStoreMenu(rs.getString("store_menu")); // 11
-				dto.setStoreEct(rs.getString("store_etc")); // 12
+				dto.setStoreEtc(rs.getString("store_etc")); // 12
 				dto.setStoreLike(rs.getInt("store_like")); // 13
 				dto.setUserNum(rs.getString("user_num")); // 14
 				dto.setStoreRegiday(rs.getDate("store_regiday")); // 15
@@ -111,7 +111,7 @@ public class StoreDAO extends DAO {
 				dto.setStoreTime(rs.getString("store_time")); // 9
 				dto.setStoreTel(rs.getString("store_tel")); // 10
 				dto.setStoreMenu(rs.getString("store_menu")); // 11
-				dto.setStoreEct(rs.getString("store_etc")); // 12
+				dto.setStoreEtc(rs.getString("store_etc")); // 12
 				dto.setStoreLike(rs.getInt("store_like")); // 13
 				dto.setUserNum(rs.getString("user_num")); // 14
 				dto.setStoreRegiday(rs.getDate("store_regiday")); // 15
@@ -164,8 +164,7 @@ public class StoreDAO extends DAO {
 	// 가게 정보 전체 수정
 	public int update(Connection conn, StoreDTO dto) {
 		int n = 0;
-		String sql = "update oc_store set" 
-				+ " store_addr=?," // 1
+		String sql = "update oc_store set" + " store_addr=?," // 1
 				+ " store_xy=?," // 2
 				+ " store_categ1=?," // 3
 				+ " store_categ2=?," // 4
@@ -198,9 +197,9 @@ public class StoreDAO extends DAO {
 		}
 		return n;
 	}
-	
-	//가게 정보 일부 변경
-		// check : 변경할 컬럼명, content: 변경할 내용
+
+	// 가게 정보 일부 변경
+	// check : 변경할 컬럼명, content: 변경할 내용
 	public int update1(Connection conn, String check, String content, String storeNum) {
 		int n = 0;
 		String sql = "update oc_store set " + check + "=? where store_num=?";
@@ -215,7 +214,6 @@ public class StoreDAO extends DAO {
 		}
 		return n;
 	}
-	
 
 	// 가게 정보 삭제
 	public int delete(Connection conn, String storeNum) {
@@ -259,7 +257,7 @@ public class StoreDAO extends DAO {
 				dto.setStoreTime(rs.getString("store_time")); // 9
 				dto.setStoreTel(rs.getString("store_tel")); // 10
 				dto.setStoreMenu(rs.getString("store_menu")); // 11
-				dto.setStoreEct(rs.getString("store_etc")); // 12
+				dto.setStoreEtc(rs.getString("store_etc")); // 12
 				dto.setStoreLike(rs.getInt("store_like")); // 13
 				dto.setUserNum(rs.getString("user_num")); // 14
 				dto.setStoreRegiday(rs.getDate("store_regiday")); // 15
@@ -293,7 +291,7 @@ public class StoreDAO extends DAO {
 				dto.setStoreTime(rs.getString("store_time")); // 9
 				dto.setStoreTel(rs.getString("store_tel")); // 10
 				dto.setStoreMenu(rs.getString("store_menu")); // 11
-				dto.setStoreEct(rs.getString("store_etc")); // 12
+				dto.setStoreEtc(rs.getString("store_etc")); // 12
 				dto.setStoreLike(rs.getInt("store_like")); // 13
 				dto.setUserNum(rs.getString("user_num")); // 14
 				dto.setStoreOc(rs.getInt("store_oc")); // 가게 오픈 상태, 15
@@ -304,38 +302,38 @@ public class StoreDAO extends DAO {
 		}
 		return list;
 	}
-	
+
 	// 닫힌 가게 가져오기
-		public List<StoreDTO> selectCloseStore(Connection conn) {
-			List<StoreDTO> list = new ArrayList<StoreDTO>();
-			String sql = "select * from oc_store where store_oc=1 order by 0";
-			try {
-				psmt = conn.prepareStatement(sql);
-				rs = psmt.executeQuery();
-				while (rs.next()) {
-					StoreDTO dto = new StoreDTO();
-					dto.setStoreNum(rs.getString("store_num")); // 1
-					dto.setStoreName(rs.getString("store_name")); // 2
-					dto.setStoreAddr(rs.getString("store_addr")); // 3
-					dto.setStoreXy(rs.getString("store_xy")); // 4
-					dto.setStoreCateg1(rs.getString("store_categ1")); // 5
-					dto.setStoreCateg2(rs.getString("store_categ2")); // 6
-					dto.setStoreCateg3(rs.getString("store_categ3")); // 7
-					dto.setStorePic(rs.getString("store_pic")); // 8
-					dto.setStoreTime(rs.getString("store_time")); // 9
-					dto.setStoreTel(rs.getString("store_tel")); // 10
-					dto.setStoreMenu(rs.getString("store_menu")); // 11
-					dto.setStoreEct(rs.getString("store_etc")); // 12
-					dto.setStoreLike(rs.getInt("store_like")); // 13
-					dto.setUserNum(rs.getString("user_num")); // 14
-					dto.setStoreOc(rs.getInt("store_oc")); // 가게 오픈 상태, 15
-					list.add(dto);
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
+	public List<StoreDTO> selectCloseStore(Connection conn) {
+		List<StoreDTO> list = new ArrayList<StoreDTO>();
+		String sql = "select * from oc_store where store_oc=0 order by 1";
+		try {
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			while (rs.next()) {
+				StoreDTO dto = new StoreDTO();
+				dto.setStoreNum(rs.getString("store_num")); // 1
+				dto.setStoreName(rs.getString("store_name")); // 2
+				dto.setStoreAddr(rs.getString("store_addr")); // 3
+				dto.setStoreXy(rs.getString("store_xy")); // 4
+				dto.setStoreCateg1(rs.getString("store_categ1")); // 5
+				dto.setStoreCateg2(rs.getString("store_categ2")); // 6
+				dto.setStoreCateg3(rs.getString("store_categ3")); // 7
+				dto.setStorePic(rs.getString("store_pic")); // 8
+				dto.setStoreTime(rs.getString("store_time")); // 9
+				dto.setStoreTel(rs.getString("store_tel")); // 10
+				dto.setStoreMenu(rs.getString("store_menu")); // 11
+				dto.setStoreEtc(rs.getString("store_etc")); // 12
+				dto.setStoreLike(rs.getInt("store_like")); // 13
+				dto.setUserNum(rs.getString("user_num")); // 14
+				dto.setStoreOc(rs.getInt("store_oc")); // 가게 오픈 상태, 15
+				list.add(dto);
 			}
-			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
+		return list;
+	}
 
 	// 4. 복진영
 

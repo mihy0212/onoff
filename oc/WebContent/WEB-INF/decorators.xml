@@ -6,6 +6,7 @@
   <excludes>
     <pattern>reveiw.jsp</pattern>
     <pattern>/map.do</pattern>
+    <pattern>/ajax*</pattern>
   </excludes>
  
   <decorator name="basic-theme" page="layout.jsp">
