@@ -31,7 +31,7 @@
 			</c:if>
 			<c:forEach items="${userlist }" var="dto">
 			<tr onclick="location.href='userRead.do?key=${dto.userNum}'">
-				<td align="center" width="20"><input type="checkbox"></td>
+				<td align="center" width="20"><input type="checkbox" value="${dto.userNum}"/></td>
 				<td align="center" width="20">${dto.userNum } </td>
 				<td width="20">&nbsp;&nbsp;${dto.userEmail}  </td>
 				<td align="center" width="100">${dto.userName }  </td>

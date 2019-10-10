@@ -7,57 +7,33 @@
 <title>Insert title here</title>
 </head>
 <body>
+<h1 align="center">문의 답변하기</h1><br />
+<div class="container">
+	<div class="row">
+	
 <div align="center">
-<table>
-  <tr>
-   <td>
-    <table width="100%" cellpadding="0" cellspacing="0" border="0">
-     <tr>
-      <td width="5"><img src="img/table_left.gif" width="5" height="30" /></td>
-      <td>답글</td>
-      <td width="5"><img src="img/table_right.gif" width="5" height="30" /></td>
-     </tr>
-    </table>
-   <table>
-     <tr>
-      <td>&nbsp;</td>
-      <td align="center">제목</td>
-      <td><input name="subject" size="50" maxlength="100"></td>
-      <td>&nbsp;</td>
-     </tr>
-     <tr height="1" bgcolor="#dddddd"><td colspan="4"></td></tr>
-    <tr>
-      <td>&nbsp;</td>
-      <td align="center">이름</td>
-      <td><input name="name" size="50" maxlength="50"></td>
-      <td>&nbsp;</td>
-     </tr>
-      <tr height="1" bgcolor="#dddddd"><td colspan="4"></td></tr>
-    <tr>
-      <td>&nbsp;</td>
-      <td align="center">비밀번호</td>
-      <td><input name="name" size="50" maxlength="50"></td>
-      <td>&nbsp;</td>
-     </tr>
-     <tr height="1" bgcolor="#dddddd"><td colspan="4"></td></tr>
-     <tr>
-      <td>&nbsp;</td>
-      <td align="center">내용</td>
-      <td><textarea name="contents" cols="50" rows="13"></textarea></td>
-      <td>&nbsp;</td>
-     </tr>
-     <tr height="1" bgcolor="#dddddd"><td colspan="4"></td></tr>
-     <tr height="1" bgcolor="#82B5DF"><td colspan="4"></td></tr>
-     <tr align="center">
-      <td>&nbsp;</td>
-      <td colspan="2"><input type=button value="등록">
-       <input type=button value="취소">
-      <td>&nbsp;</td>
-     </tr>
-    </table>
-   </td>
-  </tr>
- </table>
+
+		<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
+		<thead>
+			<tr>
+				<th width="30" style="background-color : #eeeeee; text-align:center;">답변번호</th>	
+				<th width="100" align="center">${list.askNum} </th>
+			</tr>
+			</thead>
+			<tr>
+				<th width="30" style="background-color : #eeeeee; text-align:center;">답변제목</th>
+				<td align="center"><input type="text" class="form-control" placeholder="제목"
+								id="title" name="title" maxlength="20"></td>
+			</tr>
+			<tr>
+				<th width="30" height="100" style="background-color : #eeeeee; text-align:center;">답변내용</th>
+				<td align="center"><input type="text" class="form-control" placeholder="내용"
+								id="content" name="content"></td>
+			</tr>
+		</table>
+		<a href="answer.do" class="btn btn-primary pull-right">답변등록하기</a>
+ </div>
+ </div>
  </div>
 </body> 
 </html>

@@ -71,8 +71,16 @@
 	src="${pageContext.request.contextPath }/assets/js/vendor/jquery-1.11.2.min.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="assets/js/map/Search.js"></script>
-
+<script>
+	function check() {
+		if ($('#keyword').val() == "") {
+			alert("키워드를 입력하세요")
+			return false;
+		}
+		var form = $('#search')
+		form.submit;
+	}
+</script>
 
 
 <decorator:head></decorator:head>
@@ -95,7 +103,7 @@
 					<div class="input-group">
 						<span class="input-group-addon"><i class="fa fa-search"></i></span>
 						<form id="search" name="search" action="search.do" method="post"
-							onsubmit="return checkForm()">
+							onsubmit="return check()">
 							<input type="text" class="form-control" placeholder="Search"
 								id="keyword" name="keyword">
 						</form>
@@ -142,18 +150,21 @@
 										<a class="dropdown-item" href="myReview.do">리뷰 목록</a>
 										<br>
 										<c:if test="${!empty userEmail && userGrant=='C'}">
-											<a class="dropdown-item" href="storeInfo.do?storeNum=${ storeNum }">내 가게 정보</a>
+											<a class="dropdown-item"
+												href="storeInfo.do?storeNum=${ storeNum }">내 가게 정보</a>
 											<br>
-											<a class="dropdown-item" href="storeInfo.do?storeNum=${ storeNum }">내 가게 리뷰</a>
+											<a class="dropdown-item"
+												href="storeInfo.do?storeNum=${ storeNum }">내 가게 리뷰</a>
 											<br>
 										</c:if>
 										<c:if test="${!empty userEmail && userGrant=='S'}">
-										<a class="dropdown-item" href="list.do">전체 문의 관리</a>
-										<br>
-										<a class="dropdown-item" href="userlist.do">전체 회원 관리</a>
-										<br>
-										<a class="dropdown-item" href="adminStoreInfo.do">전체 가게 관리</a>
-										<br>
+											<a class="dropdown-item" href="list.do">전체 문의 관리</a>
+											<br>
+											<a class="dropdown-item" href="userlist.do">전체 회원 관리</a>
+											<br>
+											<a class="dropdown-item" href="adminStoreInfo.do">전체 가게
+												관리</a>
+											<br>
 										</c:if>
 									</c:when>
 
