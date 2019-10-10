@@ -35,9 +35,9 @@ $(document).ready(function(){
 	
 	//카테고리2 출력하기
 	if($('.categ2').text("01")){
-		$('.categ2').text("점포 가게");
+		$('.categ2').text("점포");
 	} else if($('.categ2').text("02")){
-		$('.categ2').text("이동 가게");
+		$('.categ2').text("이동");
 	}
 	
 	//카테고리3 출력하기
@@ -70,6 +70,35 @@ $(document).ready(function(){
 
 </script>
 <style>
+
+th{
+	text-align: center;
+	vertical-align: middle;
+}
+
+td{
+	text-align: center;
+	vertical-align: middle;
+}
+
+.td_left{
+	text-align: left;
+}
+
+.store_move{
+	padding: 3px;
+	background-color: #D6E5FB;
+	border-radius: 8px;
+	color: #4388E8;
+}
+
+.store_move:hover{
+	padding: 3px;
+	background-color: #B6CBEA;
+	border-radius: 8px;
+	color: white;
+}
+
 </style>
 </head>
 <body data-spy="scroll" data-target=".navbar-collapse" data-offset="100">
@@ -86,6 +115,7 @@ $(document).ready(function(){
 	</div>
 </div>
 <!--페이지 전환 효과 끝 -->
+
 
 				
 <!-- 헤드 부분 -->
@@ -106,28 +136,28 @@ $(document).ready(function(){
 		<button class="btn button" data-filter=".ar">등록 보류</button>&nbsp;&nbsp;
 	</div>
 </div>
-<!-- END 리뷰 헤드 부분 -->
+<!-- END 헤드 부분 -->
 <div style="clear: both;"></div>
 
 
-<!-- 리뷰 목록 뿌려주기 -->
+<!-- 목록 뿌려주기 -->
 <div class="col-md-12 ">
 
 	<table class=" table table-striped table-hover table-bordered">
 		<thead>
 			<tr>
-				<td width="1" align="center" >No.</td>
-				<td align="center">가게명</td>
-				<td align="center">주소</td>
-				<td align="center">분류1</td>
-				<td align="center">분류2</td>
-				<td align="center">분류3</td>
-				<td align="center">인증분류</td>
-				<td align="center">첨부파일</td>
-				<td align="center">신청자</td>
-				<td align="center">신청일</td>
-				<td colspan="2" align="center">처리상태</td>
-				<td align="center">이동</td>
+				<th width="1" align="center" >No.</th>
+				<th>가게명</th>
+				<th>주소</th>
+				<th>분류1</th>
+				<th>분류2</th>
+				<th>분류3</th>
+				<th>인증분류</th>
+				<th>첨부파일</th>
+				<th>신청자</th>
+				<th>신청일</th>
+				<th colspan="2">처리상태</th>
+				<th>이동</th>
 			</tr>
 		</thead>
 
@@ -143,12 +173,12 @@ $(document).ready(function(){
 		<!-- for문을 돌리면 list[0]을 안해도됨 -->
 		<c:forEach items="${ addlist }" var="addlist" varStatus="status">
 			<tr>
-				<td align="center">${ status.count }</td>
-				<td align="center">${ addlist.storeName }</td>
-				<td align="center">${ addlist.storeAddr }</td>
-				<td class="categ1" align="center">${ addlist.storeCateg1 }</td>
-				<td class="categ2" align="center">${ addlist.storeCateg2 }</td>
-				<td class="categ3" align="center">${ addlist.storeCateg3 }</td>
+				<td>${ status.count }</td>
+				<td>${ addlist.storeName }</td>
+				<td class="td_left">${ addlist.storeAddr }</td>
+				<td class="categ1">${ addlist.storeCateg1 }</td>
+				<td class="categ2">${ addlist.storeCateg2 }</td>
+				<td class="categ3">${ addlist.storeCateg3 }</td>
 				<td align="center">
 					<c:choose>
 						<c:when test="${ !empty addlist.userLicense}">주민번호</c:when>
@@ -156,30 +186,30 @@ $(document).ready(function(){
 						<c:otherwise><font color="red">없음</font></c:otherwise>
 					</c:choose>
 				</td>
-				<td align="center">
+				<td>
 					<c:choose>
 						<c:when test="${ !empty addlist.addCapture }"><font color="red">●</font></c:when>
 						<c:otherwise><font color="red">X</font></c:otherwise>
 					</c:choose>
 				</td>
-				<td align="center">${ addlist.userNum }</td>
-				<td align="center">${ addlist.addDay }</td>
-				<td class="addStatus" align="center">
+				<td>${ addlist.userNum }</td>
+				<td>${ addlist.addDay }</td>
+				<td class="addStatus">
 					<c:choose>
-						<c:when test='${ addlist.addStatus == "1" }'>처리 중</c:when>
-						<c:when test='${ addlist.addStatus == "2" }'>등록 허가</c:when>
-						<c:when test='${ addlist.addStatus == "3" }'>등록 거절</c:when>
-						<c:when test='${ addlist.addStatus == "4" }'>등록 보류</c:when>
+						<c:when test='${ addlist.addStatus == "1" }'><font color="red">처리 중</font></c:when>
+						<c:when test='${ addlist.addStatus == "2" }'><font color="#5882FA">등록 허가</font></c:when>
+						<c:when test='${ addlist.addStatus == "3" }'><font color="#DF7401">등록 거절</font></c:when>
+						<c:when test='${ addlist.addStatus == "4" }'><font color="#298A08">등록 보류</font></c:when>
 					</c:choose>
 				</td>
-				<td align="center">
+				<td>
 					<c:if test='${ addlist.addStatus == "2" }'>
 						<span class="store_move" onclick="location.href='storeInfo.do?storeNum=${ addlist.storeNum }'">가게이동</span>
 					</c:if>
 				</td>
-				<td align="center">
+				<td>
 					<div class="main-portfolio">
-						<button class="btn button is-checked" onclick="location.href='storeInfo.do?storeNum=${ addlist.storeNum }'">이동</button>
+						<button class="btn button is-checked" onclick="location.href='addRead.do?addNum=${ addlist.addNum }'">이동</button>
 					</div>
 				</td>
 			</tr>
@@ -265,7 +295,7 @@ $(document).ready(function(){
 				<td>${ status.count }</td>
 				<td>${ slist.storeNum }</td>
 				<td>${ slist.storeName }</td>
-				<td>${ slist.storeAddr }</td>
+				<td class="td_left">${ slist.storeAddr }</td>
 				<td>${ slist.storeXy }</td>
 				<td class="categ1">${ slist.storeCateg1 }</td>
 				<td class="categ2">${ slist.storeCateg2 }</td>
@@ -273,7 +303,12 @@ $(document).ready(function(){
 				<td>${ slist.storeLike }</td>
 				<td>${ slist.userNum }</td>
 				<td>${ slist.storeRegiday }</td>
-				<td>${ slist.storeOc }</td>
+				<td>
+					<c:choose>
+						<c:when test='${ slist.storeOc == "1" }'><font color="red">OPEN</font></c:when>
+						<c:when test='${ slist.storeOc == "0" }'>CLOSE</c:when>
+					</c:choose>
+				</td>
 			</tr>
 		</c:forEach>
 		<!-- db 목록을 가져와서 뿌려주는 곳끝 -->

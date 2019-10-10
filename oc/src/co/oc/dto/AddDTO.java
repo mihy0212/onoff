@@ -19,6 +19,7 @@ public class AddDTO {
 	private String addStatus;
 	private String addRe;
 	private String storeNum;
+	private String userName;
 	
 	
 	public String getAddNum() {
@@ -111,4 +112,11 @@ public class AddDTO {
 	public void setStoreNum(String storeNum) {
 		this.storeNum = storeNum;
 	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	
 }

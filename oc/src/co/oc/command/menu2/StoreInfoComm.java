@@ -30,7 +30,8 @@ public class StoreInfoComm implements Command {
 		
 		//앞선 페이지에서 클릭한 가게 번호 읽어오기
 		HttpSession session = request.getSession(false);
-		String sessionUserNum = session.getAttribute("userNum").toString();
+		
+		String sessionUserNum = (String) session.getAttribute("userNum");
 //		String storeNum = request.getParameter("storeNum");
 
 		String storeNum = request.getParameter("storeNum");

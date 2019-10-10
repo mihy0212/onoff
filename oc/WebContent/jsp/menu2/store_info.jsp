@@ -57,14 +57,14 @@ $(document).ready(function(){
 	}
 	
 	//좋아요 표시하기
-	if( "${likeAct}" == "0"){
+	if( "${likeAct}" == "0" || "${ empty userNum }"){
 		$('#btn_like').html('<font size="5">♡</font> ${ storeInfo.storeLike }');
 	} else {
 		$('#btn_like').html('<font size="5" color="red">♥</font> ${ storeInfo.storeLike }');
 	}
 	
 	//즐겨찾기 표시하기
-	if( "${favoAct}" == "0"){
+	if( "${favoAct}" == "0" || "${ empty userNum }"){
 		$('#btn_favo').html('<font size="5">☆</font><br>즐겨찾기 하기');
 	} else {
 		$('#btn_favo').html('<font size="5" class="reviewStarsYellow">★</font><br>즐겨찾는 가게');
@@ -289,7 +289,7 @@ $(document).ready(function(){
 
 //좋아요 등록/삭제 (DB)
 function likeUpDown(){
-	if( "${ storeInfo.storeNum }" != "${storeNum }"){
+	if( "${ storeInfo.storeNum }" != "${ storeNum }" && "${ userNum }" != ""){
 		var storeNum = ${ storeInfo.storeNum };
 		
 		$.ajax({
@@ -308,12 +308,19 @@ function likeUpDown(){
 				}
 			}
 		});
+	} else if( "${ userNum }" == "" && "${ storeInfo.storeNum }" != "${ storeNum }"){
+		var con = confirm("로그인이 필요합니다. 로그인하시겠습니까?");
+		if(con){
+			location.href="loginform.do";
+		}
+	} else if( "${ storeInfo.storeNum }" == "${ storeNum }" && "${ userNum }" != ""){
+		alert("내 가게에는 좋아요를 할 수 없습니다.");
 	}
 }
 
 //즐겨찾기 등록/삭제(DB)
 function favoUpDown(){
-	if( "${ storeInfo.storeNum }" != "${storeNum }"){
+	if( "${ storeInfo.storeNum }" != "${storeNum }" && "${ userNum }" != ""){
 		var storeNum = ${ storeInfo.storeNum };
 		$.ajax({
 			url: "storeInfoChange.do",
@@ -331,6 +338,13 @@ function favoUpDown(){
 				}
 			}
 		});
+	} else if( "${ userNum }" == "" && "${ storeInfo.storeNum }" != "${ storeNum }"){
+		var con = confirm("로그인이 필요합니다. 로그인하시겠습니까?");
+		if(con){
+			location.href="loginform.do";
+		}
+	} else if( "${ storeInfo.storeNum }" == "${ storeNum }" && "${ userNum }" != ""){
+		alert("내 가게는 즐겨찾기를 할 수 없습니다.");
 	}
 }
 
@@ -724,7 +738,7 @@ function review_up_cancle(){
                 		 / 가게 사업자가 본인이 아니면 댓글을 달 수 있고 본인의 댓글은 수정/삭제할 수 있음 --%>
                 		 
 					<%-- 댓글 입력창 --%>
-					<c:if test="${ storeInfo.storeNum != storeNum }">
+					<c:if test="${ storeInfo.storeNum != storeNum && !empty userNum}">
 						<div id="divInsert" class="choose_item_text fix col-md-offset-1 div_content_ceo">
 							<div class="col-md-2 text-center">
 								<font size="6"><i class="icon icon icon-smile text-black"></i></font> <h6>${ userNick }</h6>

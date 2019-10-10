@@ -21,6 +21,7 @@ import co.oc.command.join.LoginCheckCommand;
 import co.oc.command.join.LoginFormCommand;
 import co.oc.command.join.LogoutCommand;
 import co.oc.command.join.NickcheckCommand;
+import co.oc.command.manager.AddReadComm;
 import co.oc.command.manager.AdminStoreInfoComm;
 import co.oc.command.join.StoreNickCheck;
 import co.oc.command.manager.BorderDelete;
@@ -66,7 +67,7 @@ public class MainController extends HttpServlet {
 		map.put("/storeInfoChange.do", new StoreInfoChangeComm()); //storeInfo.jsp(가게 상세)에서 일어나는 모든 변경
 		
 		map.put("/adminStoreInfo.do", new AdminStoreInfoComm()); //가게 신청 목록 및 전체 가게 관리 
-//		map.put("/", new ());
+		map.put("/addRead.do", new AddReadComm()); //가게 신청서 한 건 조회
 //		map.put("/", new ());
 //		map.put("/", new ());
 		
