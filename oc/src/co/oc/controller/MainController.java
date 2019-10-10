@@ -29,6 +29,7 @@ import co.oc.command.manager.BorderReadCommand;
 import co.oc.command.manager.UserDelete;
 import co.oc.command.manager.UserList;
 import co.oc.command.manager.UserRead;
+import co.oc.command.manager.WriteForm;
 import co.oc.command.map.CloseStoreCommand;
 import co.oc.command.map.OpenStoreCommand;
 import co.oc.command.map.SearchCommand;
@@ -83,6 +84,7 @@ public class MainController extends HttpServlet {
 		map.put("/logout.do", new LogoutCommand()); // 로그아웃
 		map.put("/list.do", new BorderListCommand()); // 문의글리스트보기
 //		map.put("/writeForm.do", new WriteForm()); 
+		map.put("/writeForm.do", new WriteForm()); //문의 답변폼으로가기
 		map.put("/borderRead.do", new BorderReadCommand()); // 문의글 상세보기
 		map.put("/userlist.do", new UserList()); // 유저 리스트 출력
 		map.put("/userRead.do", new UserRead());
