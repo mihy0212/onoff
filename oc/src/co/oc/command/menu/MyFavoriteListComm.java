@@ -69,7 +69,7 @@ public class MyFavoriteListComm implements Command {
 		
 		// review.jsp로 이동
 		DAO.disconnect(conn);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/menu/my_act.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/menu/my_act.jsp#features");
 		dispatcher.forward(request, response);
 
 	}
