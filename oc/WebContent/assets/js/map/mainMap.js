@@ -131,7 +131,7 @@ function markOpenPlaces(DBPosition, i) {
 		});
 
 		kakao.maps.event.addListener(marker, 'click', function() {
-			window.open('www.google.com');
+			window.open('storeInfo.do?storeNum='+num);
 		})
 
 	})(marker, openPlaces[i].storeName, openPlaces[i].storeLike,
@@ -154,6 +154,25 @@ function markClosePlaces(DBPosition, i) {
 				position : DBPosition,
 				image : markerImage
 			});
+
+	(function(marker, name, like, category2, category3, time, num) {
+		kakao.maps.event.addListener(marker, 'mouseover',
+				function() {
+					displayDBwindow(marker, name, like, category2, category3,
+							time, num);
+				});
+
+		kakao.maps.event.addListener(marker, 'mouseout', function() {
+			infowindow.close();
+		});
+
+		kakao.maps.event.addListener(marker, 'click', function() {
+			window.open('storeInfo.do?storeNum='+num);
+		})
+
+	})(marker, closePlaces[i].storeName, closePlaces[i].storeLike,
+			closePlaces[i].storeCateg2, closePlaces[i].storeCateg3,
+			closePlaces[i].storeTime, closePlaces[i].storeNum);
 
 }
 
@@ -189,7 +208,8 @@ function displayPlaces(places) {
 }
 
 function displayInfowindow(marker, title) {
-	var content = '<div style="padding:5px;z-index:1;">' + title + '</div>';
+	var content = '<div align="center" style="padding:5px;z-index:1;">' + title
+			+ '</div>';
 
 	infowindow.setContent(content);
 	infowindow.open(map, marker);
@@ -205,37 +225,33 @@ function displayDBwindow(marker, name, like, category2, category3, time, num) {
 
 	// 카테고리 변환
 
-	console.log(category3);
-	
-	if (category3 != 01) {
-		category3 == '한식';
+	if (category3 == 01) {
+		category3 = '한식';
 	}
 	if (category3 == 02) {
-		category3 == '양식';
+		category3 = '양식';
 	}
 	if (category3 == 03) {
 		category3 == '중식';
 	}
 	if (category3 == 04) {
-		category3 == '일식';
+		category3 = '일식';
 	}
 	if (category3 == 05) {
-		category3 == '분식';
+		category3 = '분식';
 	}
 	if (category3 == 06) {
-		category3 == '기타';
+		category3 = '기타';
 	}
 
-	console.log(category3);
-	
 	// 시간 입력 부탁
 	if (time == "") {
-		time = '시간 입력 바람';
+		time = '00:00 ~ 00:00';
 	}
 
-	var content = '<div style="padding:5px;z-index:1;">' + name + '<br>' + like
-			+ '<br>' + category2 + '<br>' + category3 + '<br>' + time + '<br>'
-			+ num + '<br>' + '</div>';
+	var content = '<div align="center" style="z-index:1;">' + name
+			+ '<br>' + category2 + '<br>' + category3 + '<br>' + time
+			+ '<br><b>좋아요</b>: ' + like + '</div>';
 
 	infowindow.setContent(content);
 	infowindow.open(map, marker);

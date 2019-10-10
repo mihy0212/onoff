@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.oreilly.servlet.MultipartRequest;
+
 import co.oc.command.Command;
 import co.oc.dao.DAO;
 import co.oc.dao.FavoriteDAO;
@@ -29,7 +31,8 @@ public class StoreInfoComm implements Command {
 		//앞선 페이지에서 클릭한 가게 번호 읽어오기
 		HttpSession session = request.getSession(false);
 		String sessionUserNum = session.getAttribute("userNum").toString();
-		
+//		String storeNum = request.getParameter("storeNum");
+
 		String storeNum = request.getParameter("storeNum");
 //		String storeNum = "1";
 		
