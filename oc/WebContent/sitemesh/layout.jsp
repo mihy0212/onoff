@@ -185,7 +185,7 @@
 			</div>
 		</nav>
 	</div>
-	<div style="padding-top: 50px">
+	<div style="padding-top: 150px">
 
 		<decorator:body></decorator:body>
 

@@ -7,19 +7,22 @@
 <!-- daum 도로명주소 찾기 api -->
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
  <script type="text/javascript">
-//모든 공백 체크 정규식
-var empJ = /\s/g;
-// 비밀번호 정규식
-var pwJ = /^[A-Za-z0-9]{4,12}$/;
-// 이름 정규식
-var nameJ = /^[가-힣]{2,4}|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/;
-// 휴대폰 번호 정규식
-var phoneJ = /^01([0|1|6|7|8|9]?)?([0-9]{3,4})?([0-9]{4})$/;
-/^[가-힣]{2,4}|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/
-var birthJ = false;
-var address = $('#user_detailaddress');
+ 
+ 
+ $(function() {
+	
+
+	//모든 공백 체크 정규식
+	var empJ = /\s/g;
+	// 비밀번호 정규식
+	var pwJ = /^[A-Za-z0-9]{4,12}$/;
+	
+	var address = $('#user_detailaddress');
     
-     $('form').on('submit',function(){
+	/*-----------------
+	폼입력값 체크
+	--------------------*/
+    $('#usercheck').on('submit',function(){
          var inval_Arr = new Array(8).fill(false);
          // 비밀번호가 같은 경우 && 비밀번호 정규식
          if (($('#user_pw').val() == ($('#user_pw2').val()))
@@ -28,14 +31,6 @@ var address = $('#user_detailaddress');
          } else {
             inval_Arr[1] = false;
             alert('비밀번호를 확인하세요.');
-            return false;
-         }
-         // 이름 정규식
-         if (nameJ.test($('#user_name').val())) {
-            inval_Arr[2] = true;   
-         } else {
-            inval_Arr[2] = false;
-            alert('이름을 확인하세요.');
             return false;
          }
    
@@ -47,19 +42,22 @@ var address = $('#user_detailaddress');
          }else
             inval_Arr[7] = true;
       
+         return true;
          //전체 유효성 검사
-         var validAll = true;
+  /*        var validAll = true;
          for(var i = 0; i < inval_Arr.length; i++){
             if(inval_Arr[i] == false){
                validAll = false;
             }
-         }
-         if(validAll == true){ // 유효성 모두 통과
-            alert('정보수정이 완려되었습니다.');      
+         } */
+        /*  if(validAll == true){ // 유효성 모두 통과
+            alert('정보수정이 완료되었습니다.');      
          } else{
             alert('정보를 다시 확인하세요.')
-         }
-       });
+         } */
+       });//su
+     
+     
    $('#user_pw').blur(function() {
       if (pwJ.test($('#user_pw').val())) {
          console.log('true');
@@ -79,7 +77,9 @@ var address = $('#user_detailaddress');
          $('#pw2_check').text('');
       }
    });
-   //이름에 특수문자 들어가지 않도록 설정
+ })
+
+  /*  //이름에 특수문자 들어가지 않도록 설정
    $("#user_name").blur(function() {
       if (nameJ.test($(this).val())) {
          console.log(nameJ.test($(this).val()));
@@ -88,19 +88,7 @@ var address = $('#user_detailaddress');
          $('#name_check').text('한글 2~4자 이내로 입력하세요. (특수기호, 공백 사용 불가)');
          $('#name_check').css('color', 'red');
       }
-   });
-  
-              // 휴대전화
-              $('#user_phone').blur(function(){
-                 if(phoneJ.test($(this).val())){
-                    console.log(nameJ.test($(this).val()));
-                    $("#phone_check").text('');
-                 } else {
-                    $('#phone_check').text('휴대폰번호를 확인해주세요 ');
-                    $('#phone_check').css('color', 'red');
-                 }
-              });
-
+   }); */
 //우편번호 찾기 버튼 클릭시 발생 이벤트
 function execPostCode() {
      new daum.Postcode({
@@ -180,11 +168,9 @@ function execPostCode() {
 			<div class="col-md-6 col-md-offset-3">
 				<h3>나의 정보수정</h3>
 			</div>
-
 		</div>
 		<div class="col-sm-6 col-md-offset-3">
-			<form action="myinfoup.do" method="post" role="form"
-				id="usercheck" name="userber" >
+			<form action="myinfoup.do" method="post" role="form" id="usercheck" name="userber" >
 				<div class="form-group">
 					<label for="user_email">아이디</label> 
 					<input type="email"  class="form-control" id="user_email" name="user_email"  value="${userEmail}" readonly="readonly">
@@ -228,7 +214,7 @@ function execPostCode() {
 					<input class="form-control" placeholder="상세주소" name="user_detailaddress" id="user_detailaddress" type="text" value="${UserDTO.userAddr}" />
 				</div>
 				<div class="form-group text-center">
-					<input type="submit" value=정보수정 class="btn btn-primary" onclick="location.href='myinfoup.do'"> 
+					<input type="submit" value=정보수정 class="btn btn-primary" > 
 					<input type=button value=취소 class="btn btn-primary"> 
 
 				</div>
