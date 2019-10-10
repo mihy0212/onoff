@@ -25,6 +25,49 @@
 
 <script src="${pageContext.request.contextPath }/assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
 <script>
+
+$(document).ready(function(){
+	
+	//카테고리1 출력하기
+	if($('.categ1').text("01")){
+		$('.categ1').text("음식")
+	}
+	
+	//카테고리2 출력하기
+	if($('.categ2').text("01")){
+		$('.categ2').text("점포 가게");
+	} else if($('.categ2').text("02")){
+		$('.categ2').text("이동 가게");
+	}
+	
+	//카테고리3 출력하기
+	if($('.categ3').text("01")){
+		$('.categ3').text("한식");
+	} else if($('.categ3').text("02")){
+		$('.categ3').text("양식");
+	} else if($('.categ3').text("03")){
+		$('.categ3').text("중식");
+	} else if($('.categ3').text("04")){
+		$('.categ3').text("일식");
+	} else if($('.categ3').text("05")){
+		$('.categ3').text("분식");
+	} else if($('.categ3').text("06")){
+		$('.categ3').text("기타");
+	}
+	
+	/*
+	if($('.addStatus').text("1")){
+		$('.addStatus').prepend( $('<span>').attr('class','add_status1').val('신청 중'));
+	} else if($('.addStatus').text("2")){
+		$('.addStatus').prepend( $('<span>').attr('class','add_status2').val('등록 허가'));
+	} else if($('.addStatus').text("3")){
+		$('.addStatus').prepend( $('<span>').attr('class','add_status3').val('등록 거절'));
+	} else if($('.addStatus').text("4")){
+		$('.addStatus').prepend( $('<span>').attr('class','add_status4').val('등록 보류'));
+	}*/
+	
+});
+
 </script>
 <style>
 </style>
@@ -73,18 +116,18 @@
 	<table class=" table table-striped table-hover table-bordered">
 		<thead>
 			<tr>
-				<th width="1">No.</th>
-				<th>가게명</th>
-				<th>주소</th>
-				<th>분류1</th>
-				<th>분류2</th>
-				<th>분류3</th>
-				<th>사업자등록번호</th>
-				<th>첨부파일</th>
-				<th>신청자</th>
-				<th>신청일</th>
-				<th>처리상태</th>
-				<th>가게번호</th>
+				<td width="1" align="center" >No.</td>
+				<td align="center">가게명</td>
+				<td align="center">주소</td>
+				<td align="center">분류1</td>
+				<td align="center">분류2</td>
+				<td align="center">분류3</td>
+				<td align="center">인증분류</td>
+				<td align="center">첨부파일</td>
+				<td align="center">신청자</td>
+				<td align="center">신청일</td>
+				<td colspan="2" align="center">처리상태</td>
+				<td align="center">이동</td>
 			</tr>
 		</thead>
 
@@ -99,20 +142,46 @@
 		<!--목록이 있으면  -->
 		<!-- for문을 돌리면 list[0]을 안해도됨 -->
 		<c:forEach items="${ addlist }" var="addlist" varStatus="status">
-			<tr onclick="location.href='storeInfo.do?key=${addlist.addNum }'">
-				<td>${ status.count }</td>
-				<td>${ addlist.storeName }</td>
-				<td>${ addlist.storeAddr }</td>
-				<td>
+			<tr>
+				<td align="center">${ status.count }</td>
+				<td align="center">${ addlist.storeName }</td>
+				<td align="center">${ addlist.storeAddr }</td>
+				<td class="categ1" align="center">${ addlist.storeCateg1 }</td>
+				<td class="categ2" align="center">${ addlist.storeCateg2 }</td>
+				<td class="categ3" align="center">${ addlist.storeCateg3 }</td>
+				<td align="center">
 					<c:choose>
-						<c:when test="${ !empty addlist.addCapture }"><font color="red">○</font></c:when>
+						<c:when test="${ !empty addlist.userLicense}">주민번호</c:when>
+						<c:when test="${ !empty addlist.storeLicense}">사업자번호</c:when>
+						<c:otherwise><font color="red">없음</font></c:otherwise>
+					</c:choose>
+				</td>
+				<td align="center">
+					<c:choose>
+						<c:when test="${ !empty addlist.addCapture }"><font color="red">●</font></c:when>
 						<c:otherwise><font color="red">X</font></c:otherwise>
 					</c:choose>
 				</td>
-				<td>${ addlist.userNum }</td>
-				<td>${ addlist.addDay }</td>
-				<td>${ addlist.addStatus }</td>
-				<td>${ addlist.storeNum }</td>
+				<td align="center">${ addlist.userNum }</td>
+				<td align="center">${ addlist.addDay }</td>
+				<td class="addStatus" align="center">
+					<c:choose>
+						<c:when test='${ addlist.addStatus == "1" }'>처리 중</c:when>
+						<c:when test='${ addlist.addStatus == "2" }'>등록 허가</c:when>
+						<c:when test='${ addlist.addStatus == "3" }'>등록 거절</c:when>
+						<c:when test='${ addlist.addStatus == "4" }'>등록 보류</c:when>
+					</c:choose>
+				</td>
+				<td align="center">
+					<c:if test='${ addlist.addStatus == "2" }'>
+						<span class="store_move" onclick="location.href='storeInfo.do?storeNum=${ addlist.storeNum }'">가게이동</span>
+					</c:if>
+				</td>
+				<td align="center">
+					<div class="main-portfolio">
+						<button class="btn button is-checked" onclick="location.href='storeInfo.do?storeNum=${ addlist.storeNum }'">이동</button>
+					</div>
+				</td>
 			</tr>
 		</c:forEach>
 		<!-- db 목록을 가져와서 뿌려주는 곳끝 -->
@@ -198,9 +267,9 @@
 				<td>${ slist.storeName }</td>
 				<td>${ slist.storeAddr }</td>
 				<td>${ slist.storeXy }</td>
-				<td>${ slist.storeCateg1 }</td>
-				<td>${ slist.storeCateg2 }</td>
-				<td>${ slist.storeCateg3 }</td>
+				<td class="categ1">${ slist.storeCateg1 }</td>
+				<td class="categ2">${ slist.storeCateg2 }</td>
+				<td class="categ3">${ slist.storeCateg3 }</td>
 				<td>${ slist.storeLike }</td>
 				<td>${ slist.userNum }</td>
 				<td>${ slist.storeRegiday }</td>

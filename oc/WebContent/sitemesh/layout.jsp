@@ -142,9 +142,9 @@
 										<a class="dropdown-item" href="myReview.do">리뷰 목록</a>
 										<br>
 										<c:if test="${!empty userEmail && userGrant=='C'}">
-											<a class="dropdown-item" href="storeInfo.do">내 가게 정보</a>
+											<a class="dropdown-item" href="storeInfo.do?storeNum=${ storeNum }">내 가게 정보</a>
 											<br>
-											<a class="dropdown-item" href="storeInfo.do">내 가게 리뷰</a>
+											<a class="dropdown-item" href="storeInfo.do?storeNum=${ storeNum }">내 가게 리뷰</a>
 											<br>
 										</c:if>
 										<c:if test="${!empty userEmail && userGrant=='S'}">
