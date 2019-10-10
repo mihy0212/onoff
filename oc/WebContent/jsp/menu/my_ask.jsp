@@ -166,7 +166,19 @@
 										<td align="center">${dto.askTitle }</td>
 										<td align="center">${dto.askContent }</td>
 										<td align="center">${dto.askDate }</td>
-										<td align="center">${dto.askStatus }</td>
+										<td>
+										<c:choose>
+											<c:when test="${dto.askStatus=='1'}">
+											<p>답변 대기 중</p>
+											</c:when>
+											<c:when test="${dto.askStatus=='2'}">
+											<p>답변 완료 </p>
+											</c:when>
+											<c:when test="${dto.askStatus=='4'}">
+											<p>답변 보류</p>
+											</c:when>
+										</c:choose>
+										</td>
 									</tr>
 								</c:if>
 							</c:forEach>

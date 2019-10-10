@@ -25,7 +25,12 @@ public class MyFavoriteListComm implements Command {
 		
 		HttpSession session = request.getSession(false);
 		String userNum = (String)session.getAttribute("userNum");
+		String storeNum = request.getParameter("storeNum");
+		String storeCateg1 = request.getParameter("storeCateg1");
+		String storeCateg2 = request.getParameter("storeCateg2");
+		String storeCateg3 = request.getParameter("storeCateg3");
 
+		
 		int pagenum = 1;
 		if (request.getParameter("Page_num") != null) {
 			pagenum = Integer.parseInt(request.getParameter("Page_num"));
@@ -53,12 +58,17 @@ public class MyFavoriteListComm implements Command {
 		int start = end - size + 1;
 
 		FavoriteDTO dto = new FavoriteDTO();
+		dto.setUserNum(userNum);
+		dto.setStoreNum(storeNum);
+		dto.setStoreCateg1(storeCateg1);
+		dto.setStoreCateg1(storeCateg2);
+		dto.setStoreCateg1(storeCateg3);
 		
 
 		List<FavoriteDTO> list =FavoriteDAO.getInstance().selectUser(conn, dto, start, end);
 		
 		for( FavoriteDTO sdto: list) {
-			System.out.println(sdto.getStoreName());
+			System.out.println("즐겨찾기"+sdto.getStoreName());
 		}
 
 		// request 객체에 list를 담아준다.

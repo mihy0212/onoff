@@ -101,7 +101,7 @@
 							<div class="col-md-8">
 								<div class="filters-button-group text-right sm-text-center" id="test">
 									<button class="btn button is-checked" data-filter="*">all</button>
-									<button class="btn button" data-filter=".metal">이동상점</button>
+									<button class="btn button" data-filter=".metal" >이동상점</button>
 									<button class="btn button" data-filter=".transition">한식</button>
 									<button class="btn button" data-filter=".alkali">중식</button>
 									<button class="btn button" data-filter=".ar">일식</button>
@@ -133,8 +133,7 @@
 										<!--목록이 있으면  -->
 										<!-- for문을 돌리면 list[0]을 안해도됨 -->
 										<c:forEach items="${list }" var="sdto">
-											<tr 
-												onclick="location.href='storeInfo.do?key=${sdto.storeNum }'">
+											<tr onclick="location.href='storeInfo.do?key=${sdto.storeNum }'">
 												<td align="center">${sdto.storeName }</td>
 											</tr>
 										</c:forEach>
