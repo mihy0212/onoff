@@ -17,7 +17,7 @@ import co.oc.dao.ReviewDAO;
 import co.oc.dto.FavoriteDTO;
 import co.oc.dto.ReviewDTO;
 
-public class MyFavoriteListComm implements Command {
+public class MyActComm implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
