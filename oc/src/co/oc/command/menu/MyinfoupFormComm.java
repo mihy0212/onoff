@@ -27,9 +27,8 @@ public class MyinfoupFormComm implements Command {
 		 String userNum = (String)session.getAttribute("userNum");
 		 //String path = null;
 		 UserDTO dto = UserDAO.getInstance().selectOne(conn, userNum);
-
-		  request.setAttribute("UserDTO", dto);
-		
+		 
+		 request.setAttribute("UserDTO", dto);
 		 
 		 RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/menu/my_info_up.jsp");
 		 dispatcher.forward(request, response);

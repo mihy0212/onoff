@@ -18,13 +18,12 @@ public class UserDelete implements Command {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Connection conn = DAO.connect();
-
-		String userNum = request.getParameter("key");
+		String userNum = request.getParameter("userNum");
 		System.out.println(userNum);
 		UserDAO.getInstance().delete(conn, userNum);
-		
+				
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/manager/userlist");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/userlist.do");
 		dispatcher.forward(request, response);
 
 		DAO.disconnect(conn);

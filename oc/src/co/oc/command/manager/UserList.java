@@ -25,7 +25,7 @@ public class UserList implements Command {
 		Connection conn = DAO.connect();
 		list = dao.selectAll(conn);
 		request.setAttribute("userlist", list); //db에서 넘어온 값을  request객체에 속성으로 삽입
-		
+		DAO.disconnect(conn);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/manager/userlist.jsp");
 		dispatcher.forward(request, response);
 	}

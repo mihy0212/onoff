@@ -24,6 +24,7 @@ public class BorderReadCommand implements Command {
 		String content = Integer.toString(key);
 		List<AskDTO> list = AskDAO.getInstance().selectOne(conn, "ask_re", content, 1, 10);
 		request.setAttribute("list", list);
+		DAO.disconnect(conn);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/manager/borderRead.jsp");
 		dispatcher.forward(request, response);		
 		

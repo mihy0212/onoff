@@ -20,6 +20,7 @@ public class AddDTO {
 	private String addRe;
 	private String storeNum;
 	private String userName;
+	private String beforeAfter;	// 검색용 : 특정 날짜 이전(1)/이후(2) 검색
 	
 	
 	public String getAddNum() {
@@ -118,5 +119,12 @@ public class AddDTO {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
+	public String getBeforeAfter() {
+		return beforeAfter;
+	}
+	public void setBeforeAfter(String beforeAfter) {
+		this.beforeAfter = beforeAfter;
+	}
+	
 	
 }

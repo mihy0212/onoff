@@ -18,6 +18,7 @@ import co.oc.dao.ReviewDAO;
 import co.oc.dao.StoreDAO;
 import co.oc.dto.FavoriteDTO;
 import co.oc.dto.LikeDTO;
+import co.oc.dto.Paging;
 import co.oc.dto.ReviewDTO;
 import co.oc.dto.StoreDTO;
 
@@ -57,38 +58,6 @@ public class StoreInfoComm implements Command {
 			int favoAct = FavoriteDAO.getInstance().check(conn, fdto);
 			request.setAttribute("favoAct", favoAct);
 		}
-		
-		//리뷰 페이징 처리해서 리뷰 조회하기
-		String p = request.getParameter("p"); //페이지 번호(pageNo)
-		
-		int pageNo = 1;
-		if(p != null && !p.isEmpty()) {
-			pageNo = Integer.parseInt(p);
-		}
-		
-		int start, end;			// 조회할 시작과 끝 레코드 번호
-		int recordTotal;		// 총레코드 갯수(DB조회)
-		int pagePerRecord = 5;	// 한페이지에 출력할 레코드 건수
-		int pageCnt;			// 페이지수
-		
-		recordTotal = ReviewDAO.getInstance().review_getPageCount(conn, "store_num", storeNum);
-		pageCnt = recordTotal/pagePerRecord + (recordTotal%pagePerRecord>0 ? 1 : 0); //마지막 페이지 번호
-
-		request.setAttribute("pageCnt", pageCnt);
-		request.setAttribute("pageNo", pageNo);
-		request.setAttribute("x", pageCnt/pagePerRecord);
-		request.setAttribute("y", pageNo/pagePerRecord);
-		request.setAttribute("pagePerRecord", pagePerRecord);
-				
-		start = (pageNo-1)*pagePerRecord + 1;	//해당 페이지의 시작 레코드
-		end = start + pagePerRecord -1;			//해당 페이지의 마지막 레코드
-		List<ReviewDTO> list = ReviewDAO.getInstance().select1(conn, "store_num", storeNum, start, end);
-		request.setAttribute("storeReview", list);
-		
-		
-		//가게 별점 평균 조회
-		String stars = String.format("%.1f", ReviewDAO.getInstance().selectStar(conn, storeNum));
-		request.setAttribute("stars", stars);
 		
 		DAO.disconnect(conn);
 		

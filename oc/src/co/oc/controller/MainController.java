@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import co.oc.command.Command;
 import co.oc.command.join.CeoInsertCommand;
+import co.oc.command.join.Homego;
 import co.oc.command.join.IdCheckCommand;
 import co.oc.command.join.JoinCeoForm;
 import co.oc.command.join.JoinFormCommand;
@@ -23,7 +24,9 @@ import co.oc.command.join.LogoutCommand;
 import co.oc.command.join.NickcheckCommand;
 import co.oc.command.join.StoreNickCheck;
 import co.oc.command.manager.AddReadComm;
+import co.oc.command.manager.AdminStoreChangeComm;
 import co.oc.command.manager.AdminStoreInfoComm;
+import co.oc.command.manager.AnswerCommand;
 import co.oc.command.manager.BorderDelete;
 import co.oc.command.manager.BorderListCommand;
 import co.oc.command.manager.BorderReadCommand;
@@ -48,6 +51,7 @@ import co.oc.command.menu.MyinfoupFormComm;
 import co.oc.command.menu.UpdateMyReiviewComm;
 import co.oc.command.menu2.StoreInfoChangeComm;
 import co.oc.command.menu2.StoreInfoComm;
+import co.oc.command.menu2.StoreReviewComm;
 
 @WebServlet("/MainController")
 public class MainController extends HttpServlet {
@@ -65,11 +69,11 @@ public class MainController extends HttpServlet {
 		//최미현
 		map.put("/storeInfo.do", new StoreInfoComm()); //가게별 상세 정보 조회
 		map.put("/storeInfoChange.do", new StoreInfoChangeComm()); //storeInfo.jsp(가게 상세)에서 일어나는 모든 변경
+		map.put("/storeReview.do", new StoreReviewComm());
 		
 		map.put("/adminStoreInfo.do", new AdminStoreInfoComm()); //가게 신청 목록 및 전체 가게 관리 
 		map.put("/addRead.do", new AddReadComm()); //가게 신청서 한 건 조회
-//		map.put("/", new ());
-//		map.put("/", new ());
+		map.put("/adminStoreChange.do", new AdminStoreChangeComm()); //admin_store에서 일어나는 모든 변경
 //		map.put("/", new ());
 
 		// 권보성
@@ -84,15 +88,16 @@ public class MainController extends HttpServlet {
 		map.put("/login.do", new LoginCheckCommand()); // 로그인 정보 DB에확인 후 로그인
 		map.put("/logout.do", new LogoutCommand()); // 로그아웃
 		map.put("/list.do", new BorderListCommand()); // 문의글리스트보기
-//		map.put("/writeForm.do", new WriteForm()); 
 		map.put("/writeForm.do", new WriteForm()); //문의 답변폼으로가기
 		map.put("/borderRead.do", new BorderReadCommand()); // 문의글 상세보기
 		map.put("/userlist.do", new UserList()); // 유저 리스트 출력
-		map.put("/userRead.do", new UserRead());
+//		map.put("/userRead.do", new UserRead());
 		map.put("/borderdelete.do", new BorderDelete()); // 문의글 삭제
 		map.put("/userdelete.do", new UserDelete()); // 유저삭제
 		map.put("/storeNickCheck.do", new StoreNickCheck()); // 스토어 이름 중복체크
-
+		map.put("/index.do", new Homego());
+		map.put("/answer.do", new AnswerCommand());
+		
 		// 백승진
 		map.put("/ajaxOpenStore.do", new OpenStoreCommand());
 		map.put("/ajaxCloseStore.do", new CloseStoreCommand());
