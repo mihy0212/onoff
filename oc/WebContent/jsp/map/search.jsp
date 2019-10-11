@@ -19,7 +19,6 @@
 </style>
 </head>
 <body>
-	<input type="hidden" id="keyword" value="${keyword}">
 	<div align="center">
 		<div class="map_wrap">
 			<div id="map" style="position: relative; overflow: hidden;"></div>
