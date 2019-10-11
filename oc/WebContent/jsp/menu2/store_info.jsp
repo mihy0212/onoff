@@ -115,6 +115,193 @@ $(document).ready(function(){
 			$(this).remove();
 		}
 	});
+	
+	
+	//별점 표시하기
+	//console.log($('#star').children().size())
+	//console.log($('#star').children().eq(1))
+	for(var i=0; i<Math.round("${stars}"); i++){
+		$('#star').children().eq(i).attr('class','btn button is-checked');
+	}
+	
+	//리뷰에서 별점 표시하기
+	var star_num;
+	$('.reviewStars').on('click', function(){
+		star_num = $(this).attr('id').substring(4,5);
+		if($(this).css("color")=="rgb(128, 128, 128)"){
+			for(var i=1; i<=star_num; i++){
+				var starNum = "star"+i;
+				$('#'+starNum).css("color","yellow");
+			}
+		} else {
+			for(var i=5; i>=star_num; i--){
+				var starNum = "star"+i;
+				$('#'+starNum).css("color","gray");
+			}
+		}
+	});
+	
+	
+	//리뷰 입력하기 (DB)
+	$('#btn_insert').on('click', function(){
+		//console.log($('#insertText').val());//텍스트창에 입력한 값
+		var starNum =0;
+		for(var i=1; i<=$('.insert_star').length; i++){
+			if($('#star'+i).css("color") == "rgb(255, 255, 0)"){
+				starNum = i;
+			}
+		}
+		console.log(starNum);
+		var content = $('#insertText').val();
+		//console.log(starNum);
+		if(starNum == 0){
+			alert("별점을 입력해 주세요.");
+			return false;
+		}
+		if(content == ""){
+			alert("리뷰 내용을 입력해 주세요.");
+		} else {
+			$.ajax({
+				url: "storeInfoChange.do",
+				type: "post",
+				data: {
+					action: "reviewInsert",
+					storeNum: "${ storeInfo.storeNum }",
+					userNum: "${ userNum }",
+					reviewStar: starNum,
+					reviewContent: content
+				},
+				dataType: "json",
+				success: function(seq){
+					if(seq != 0){
+						alert("리뷰 등록에 성공했습니다.");
+						
+						var last_list_id_num = $('.review_list').children().last().attr('id').substring(4,5);
+						var today_date = new Date().toISOString().substring(0,10);
+						
+						//copy_review를 먼저 바꾸고 클론을 붙임.
+						var copy_re = $('#copy_reivew');
+						copy_re.children().eq(0).val(seq);
+						copy_re.children().eq(1).val(seq);
+						copy_re.children().eq(2).children().eq(1).text( "${userNick}" );
+						var star_c = "★";
+						for(var i=1; i<starNum; ++i){
+							star_c += "★";
+						}
+						copy_re.children().eq(3).children().eq(0).children().eq(0).text(star_c);
+						copy_re.children().eq(3).children().eq(0).children().eq(1).html(content + " &nbsp;&nbsp;&nbsp;(" + today_date + ")");
+
+						//var new_id_num = last_list_id_num + 1;
+						//copy_re.attr('id','list'+ new_id_num);
+						//copy_re.children().eq(4).children().eq(0).attr('id','btn_up_'+new_id_num);
+						//copy_re.children().eq(4).children().eq(0).attr('id','btn_del_'+new_id_num);
+						$('#copy_reivew').clone().prependTo($('.review_list'));
+						$('.review_list').children().first().attr('id',last_list_id_num+1);
+						
+						//입력창 빈값으로 되돌리기
+						$('#star1').css("color","gray");
+						$('#star2').css("color","gray");
+						$('#star3').css("color","gray");
+						$('#star4').css("color","gray");
+						$('#star5').css("color","gray");
+						$('#insertText').val("");
+						
+					} else {
+						alert("리뷰 등록에 실패했습니다.");
+					}
+				}
+			});
+		}
+		
+	});
+
+	//리뷰 삭제
+	$('.review_list').on('click', '.btn_delete', function(){
+		//console.log($(this).parent().parent().attr('id'));
+		var parentDiv = $(this).parent().parent();
+		var reviewNum = parentDiv.children().eq(0).val();
+
+		var con = confirm("정말 삭제하시겠습니까?");
+		if(con){
+			$.ajax({
+				url: "storeInfoChange.do",
+				data: {
+					action: "reviewDelete",
+					reviewNum: reviewNum
+				},
+				dataType: "json",
+				success: function(result){
+					if(result != 0){
+						parentDiv.remove();
+					} else {
+						alert("리뷰를 삭제하지 못했습니다.")
+					}
+				}
+			});
+		}
+		
+	});
+	
+	
+	//리뷰 업데이트
+	$('.btn_update').on('click', function(){
+		var parentDiv = $(this).parent().parent();
+		var reviewNum = parentDiv.children().eq(0).val();
+		
+		var blockquote = parentDiv.children().eq(3).children().eq(0);
+		var con1 = blockquote.children().last().text();
+		var con2 = con1.substring(0,con1.length-15);
+		console.log(con2)
+		
+		var starNum = 0;
+		for(var i=0; i<5; i++){
+			if(blockquote.children().eq(i).text() == "★"){
+				starNum += 1;
+			}
+		}
+		console.log(starNum);
+		star_up${ list.reviewNum }
+		blockquote.hide();//blockquote 숨김처리
+		var span_star = $('<blockquote>');
+		for(var i=1; i<=starNum; i++){
+			span_star.append( $('<span>').attr({'class':'reviewStars', 'id':'star'+i, 'style':'color:yellow;'}).text("★") );
+		}
+		for(var i=1; i<=5-starNum; i++){
+			span_star.append( $('<span>').attr({'class':'reviewStars', 'id':'star'+i, 'style':'color:gray;'}).text("★") );
+		}
+		span_star.append( $('<textarea>').attr({'cols':'73', 'rows':'3'}).val(con2) );
+		parentDiv.children().eq(3).append(span_star);
+		
+		//버튼 변경
+		parentDiv.children().eq(4).children().eq(0).hide();
+		parentDiv.children().eq(4).children().eq(1).hide();
+		parentDiv.children().eq(4).append(
+				$('<button>').attr({'type':'button', 'class':'btn button is-checked'}).text('변경').click(review_update),
+				$('<button>').attr({'type':'button', 'class':'btn button is-checked'}).text('취소').click(review_up_cancle)
+				);
+		
+	})
+	
+	//리뷰 댓글달기
+	$('.btn_reply').on('click', function(){
+		console.log($(this));
+	});
+	
+	$(window).resize(function(){
+	    $("iframe.myFrame").height($(window).height()-50);
+	    $("iframe.myFrame").width($(window).width()-50);
+	  });
+	
+});
+
+
+$(function(){
+	$("iframe.myFrame").load(function(){ //iframe 컨텐츠가 로드 된 후에 호출됩니다.
+		var frame = $(this).get(0);
+		var doc = (frame.contentDocument) ? frame.contentDocument : frame.contentWindow.document;
+		$(this).height(doc.body.scrollHeight);
+		$(this).width(doc.body.scrollWidth);
+	});
 });
 
 
@@ -288,7 +475,7 @@ function review_up_cancle(){
 								<div class="col-md-11">
 									<h4 class="m-top-50">주<strong>소 |&nbsp;&nbsp;&nbsp;</strong>
 										<font size="4">${ storeInfo.storeAddr }</font>
-										<input type="hidden" id="addr_xy" value="${ stroeInfo.storeXy }">
+										<input type="hidden" id="addr_xy" value="${ storeInfo.storeXy }">
 									</h4>
 									<div class="teamskillbar clearfix m-top-2 text-uppercase" data-percent="20%">
 										<div class="teamskillbar-bar" style="width: 80%;"></div>
@@ -401,7 +588,7 @@ function review_up_cancle(){
 
 <!-- 가게 리뷰 -->
 
-<iframe src="storeReview.do"></iframe>
+<iframe src="storeReview.do?storeNum=${ storeInfo.storeNum }" style="width:100%;border:0;height:500px"></iframe>
 
 
 <!-- JS includes -->

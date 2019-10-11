@@ -17,6 +17,29 @@
 <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,400i,700,700i" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
+
+
+<!-- 메뉴바 css  -->
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/assets/css/slick.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/assets/css/slick-theme.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/assets/css/animate.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/assets/css/iconfont.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/assets/css/font-awesome.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/assets/css/bootstrap.css">
+
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/assets/css/magnific-popup.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/assets/css/bootsnav.css">
+
+
+
 <!-- 화면 전환 및 폰트와 제목 디자인 -->
 <!--For Plugins external css-->
 <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/plugins.css" />
@@ -26,6 +49,8 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/responsive.css" />
 
 <script src="${pageContext.request.contextPath }/assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+<script
+	src="${pageContext.request.contextPath }/assets/js/vendor/jquery-1.11.2.min.js"></script>
 <script> 
 
 $(document).ready(function(){
@@ -203,15 +228,6 @@ $(document).ready(function(){
 	
 });
 
-function review_update(){
-	//console.log($(this).parent().parent());
-	var divParent = $(this).parent().parent();
-	
-}
-
-function review_up_cancle(){
-	console.log($(this).parent().parent());
-}
 
 </script>
 

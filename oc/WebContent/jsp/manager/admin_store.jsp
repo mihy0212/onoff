@@ -56,9 +56,34 @@ $(document).ready(function(){
 	}
 	
 	//상태 표시
+	/*
 	$('.ask_status').on('click', function(){
-		
-	})
+		var askStatus = $(this);
+		var askStatNum;
+		if( $(this).attr('id') == 'ask_status_all'){
+			askStatNum = "All";
+		} else if( $(this).attr('id') == 'ask_status_1'){
+			askStatNum = "1";
+		} else if( $(this).attr('id') == 'ask_status_2'){
+			askStatNum = "2";
+		} else if( $(this).attr('id') == 'ask_status_3'){
+			askStatNum = "3";
+		} else if( $(this).attr('id') == 'ask_status_4'){
+			askStatNum = "4";
+		}
+		$.ajax({
+			url: "storeInfoChange.do",
+			data: {
+				askStatus: askStatNum
+			},
+			dataType: "json",
+			success: function(result){
+				if(result != null){
+					
+				}
+			}
+		});
+	});*/
 	
 });
 

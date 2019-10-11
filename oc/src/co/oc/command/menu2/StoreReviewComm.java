@@ -53,7 +53,7 @@ public class StoreReviewComm implements Command {
 		
 		DAO.disconnect(conn);
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/menu2/store_info.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/menu2/store_review.jsp");
 		dispatcher.forward(request, response);
 
 	}

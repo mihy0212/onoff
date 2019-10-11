@@ -117,7 +117,7 @@ public class AddDAO extends DAO {
 		 List<AddDTO> list = new ArrayList<AddDTO>();
 		 String where = " where 1=1 ";
 		 if (adto != null) {
-			 if ( adto.getAddStatus() != null) {	//1. 처리 상태별 조회 
+			 if ( adto.getAddStatus() != null && adto.getAddStatus() != "All") {	//1. 처리 상태별 조회 
 				 where += " and add_status = ? ";
 			 }
 			 if ( adto.getAddNum() != null) {	//2. 신청번호별 조회

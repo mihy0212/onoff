@@ -10,7 +10,8 @@
     <pattern>/NickCheck.do*</pattern>
     <pattern>/"storeNickCheck.do*</pattern>
     <pattern>/deletech.do*</pattern>
-       <pattern>layoutTest.jsp</pattern>
+    <pattern>/storeReview.do*</pattern>
+    <pattern>layoutTest.jsp</pattern>
   </excludes>
  
   <decorator name="basic-theme" page="layout.jsp">
