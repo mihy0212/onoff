@@ -25,7 +25,7 @@ public class MyinfoUpComm implements Command {
 		Connection conn = DAO.connect();
 		// 세션이 가지고있는 로그인한 ID 정보를 가져온다
 		HttpSession session = request.getSession(false);
-		String userNum = (String) session.getAttribute("key");
+		String userNum = (String) session.getAttribute("userNum");
 		// String path = null;
 		UserDTO dto = new UserDTO();
 
@@ -39,14 +39,16 @@ public class MyinfoUpComm implements Command {
 		  dto.setUserNick(request.getParameter("userNickname"));
 		  dto.setUserAddr(request.getParameter("userAddr"));
 		 
-		  System.out.println(userNum);
+		  System.out.println("userNum: "+userNum);
 
-		 UserDAO.getInstance().update(conn, dto);
+		 int n= UserDAO.getInstance().update(conn, dto);
+		 
+		 System.out.println(dto);
 
 		 String path = null;
 
 		// 성공하면 회원정보페이지
-		if (session.getAttribute("userNum") != null) {
+		if (n != 0) {
 			path="myinfo.do";
 		}
 		// 실패하면 회원정보 수정페이지

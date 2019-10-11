@@ -6,8 +6,8 @@
 <script type="text/javascript">
 
       function delect(){
-    		if (confirm("정말 틸퇴하시겠습니까??") == true){    //확인
-    			location.href='deletech.do';
+    		if (confirm("정말 틸퇴하시겠습니까??") == true){ //확인
+    			window.open("deletech.do","탈퇴 비밀번호 확인","width=500,height=600");
     		}else{   //취소
     		    return;
     		}

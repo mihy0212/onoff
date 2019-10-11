@@ -25,6 +25,7 @@ import co.oc.command.join.NickcheckCommand;
 import co.oc.command.join.StoreNickCheck;
 import co.oc.command.manager.AddReadComm;
 import co.oc.command.manager.AdminStoreInfoComm;
+import co.oc.command.manager.AnswerCommand;
 import co.oc.command.manager.BorderDelete;
 import co.oc.command.manager.BorderListCommand;
 import co.oc.command.manager.BorderReadCommand;
@@ -94,6 +95,7 @@ public class MainController extends HttpServlet {
 		map.put("/userdelete.do", new UserDelete()); // 유저삭제
 		map.put("/storeNickCheck.do", new StoreNickCheck()); // 스토어 이름 중복체크
 		map.put("/index.do", new Homego());
+		map.put("/answer.do", new AnswerCommand());
 		
 		// 백승진
 		map.put("/ajaxOpenStore.do", new OpenStoreCommand());

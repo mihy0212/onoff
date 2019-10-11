@@ -16,23 +16,18 @@
 
 		<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
 		<thead>
-			<c:forEach items="${list }" var="dto">
-			<tr>
-				<th width="100" style="background-color : #eeeeee; text-align:center;">답변번호</th>	
-				<th width="100" align="center">${list.askNum} </th>
-			</tr>
 			</thead>
 			<tr>
-				<th width="30" style="background-color : #eeeeee; text-align:center;">답변제목</th>
+				<th width="50" style="background-color : #eeeeee; text-align:center;">답변제목</th>
 				<td align="center"><input type="text" class="form-control" placeholder="제목"
 								id="title" name="title" maxlength="20"></td>
 			</tr>
 			<tr>
-				<th width="30" style="background-color : #eeeeee; text-align:center;">답변내용</th>
+				<th width="50" style="background-color : #eeeeee; text-align:center;">답변내용</th>
 				<td rowspan="4" align="center"><textarea cols="150" rows="10"
-								id="Content" name="Content"></textarea></td>
+								id="content" name="content"></textarea></td>
 			</tr>
-			</c:forEach>	
+	
 		</table>
 		
 		<a href="answer.do" class="btn btn-primary pull-right">답변등록하기</a>
