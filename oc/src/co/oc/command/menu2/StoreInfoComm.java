@@ -59,31 +59,6 @@ public class StoreInfoComm implements Command {
 			request.setAttribute("favoAct", favoAct);
 		}
 		
-		//리뷰 페이징 처리해서 리뷰 조회하기
-		String p = request.getParameter("p"); //페이지 번호(pageNo)
-		
-		int pageNo = 1;
-		if(p != null && !p.isEmpty()) {
-			pageNo = Integer.parseInt(p);
-		}
-		
-		Paging paging = new Paging();
-		paging.setPageUnit(10); //한 페이지에 출력할 레코드 건수
-		paging.setPageSize(10); //페이지바에 나타날 페이지 번호 수(이전 1 2 3 ...10 다음)
-		paging.setPage(pageNo);	//현재 페이지
-		paging.setTotalRecord(ReviewDAO.getInstance().review_getPageCount(conn, "store_num", storeNum)); //총 레코드 건수
-		request.setAttribute("paging", paging);
-		
-		int first = paging.getFirst();
-		int last = paging.getLast(); 
-		List<ReviewDTO> list = ReviewDAO.getInstance().select1(conn, "store_num", storeNum, first, last);
-		request.setAttribute("storeReview", list);
-		
-		
-		//가게 별점 평균 조회
-		String stars = String.format("%.1f", ReviewDAO.getInstance().selectStar(conn, storeNum));
-		request.setAttribute("stars", stars);
-		
 		DAO.disconnect(conn);
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/menu2/store_info.jsp");

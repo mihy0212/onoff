@@ -112,6 +112,118 @@ public class AddDAO extends DAO {
 		return list;
 	}
 	
+	//검색 조회
+	public List<AddDTO> selectSearch(Connection conn, AddDTO adto, int start, int end) throws Exception {
+		 List<AddDTO> list = new ArrayList<AddDTO>();
+		 String where = " where 1=1 ";
+		 if (adto != null) {
+			 if ( adto.getAddStatus() != null) {	//1. 처리 상태별 조회 
+				 where += " and add_status = ? ";
+			 }
+			 if ( adto.getAddNum() != null) {	//2. 신청번호별 조회
+				 where += " and add_num = ? ";
+			 }
+			 if ( adto.getStoreName() != null) {	//3. 가게명으로 조히
+				 where += " and store_name like '%' || ? || '%' ";
+			 }
+			 if ( adto.getStoreAddr() != null) {	//4. 가게 주소로 조회
+				 where += " and store_addr like '%' || ? || '%' ";
+			 }
+			 if ( adto.getStoreCateg1() != null) {	//5. 카테고리1로 조회
+				 where += " and store_categ1 = ? ";
+			 }
+			 if ( adto.getStoreCateg2() != null) {	//6. 카테고리2로 조회
+				 where += " and store_categ2 = ? ";
+			 }
+			 if ( adto.getStoreCateg3() != null) {	//7. 카테고리 3으로 조회
+				 where += " and store_categ3 = ? ";
+			 }
+			 if ( adto.getStoreLicense() == "null" && adto.getUserLicense() == "null") { //8. 거절 조건 검색(사업자 번호/주민번호 둘 다 없을 경우:코드 번호 "null")
+				 where += " and store_license is null and user_license is null ";
+			 }
+			 if ( adto.getAddCapture() == "null") { //9. 거절 조건 검색(캡처가 없을 경우:코드 번호 "null")
+				 where += " and add_capture is null ";
+			 }
+			 if ( adto.getUserName() != null) {	//10. 회원 이름으로 검색
+				 where += " and user_name like '%' || ? || '%' ";
+			 }
+			 if ( adto.getAddDay() != null && adto.getBeforeAfter() == "1" ) {	//11. 등록 신청일로 검색
+				 where += " and add_day <= ? ";
+			 }
+			 if ( adto.getAddDay() != null && adto.getBeforeAfter() == "2" ) {	//12. 등록 신청일로 검색
+				 where += " and add_day >= ? ";
+			 }
+		 }
+		 String sql ="select *"
+		 		+ " from (select a1.*, rownum rnum"
+		 				+ " from (select a.*, u.user_name, u.user_nick"
+		 						+ " from oc_add a join oc_user u on (a.user_num=u.user_num) "
+		 						+ where + " order by a.add_num desc)a1"
+		 				+ " where rownum<=?)a2"
+		 		+ " where a2.rnum >=?";
+		try {
+			
+			psmt = conn.prepareStatement(sql);
+			int i=0;
+			if (adto != null) {
+				if ( adto.getAddStatus() != null) {	//1.
+					psmt.setString(++i, adto.getAddStatus());
+				}
+				if ( adto.getAddNum() != null) {	//2.
+					psmt.setString(++i, adto.getAddNum());
+				}
+				if ( adto.getStoreName() != null) { 	//3
+					psmt.setString(++i, adto.getStoreName());
+				}
+				if ( adto.getStoreAddr() != null) { 	//4
+					psmt.setString(++i, adto.getStoreAddr());
+				}
+				if ( adto.getStoreCateg1() != null) { 	//5
+					psmt.setString(++i, adto.getStoreCateg1());
+				}
+				if ( adto.getStoreCateg2() != null) {	//6 
+					psmt.setString(++i, adto.getStoreCateg2());
+				}
+				if ( adto.getStoreCateg3() != null) { 	//7
+					psmt.setString(++i, adto.getStoreCateg3());
+				}
+				if ( adto.getUserName() != null) { 	//10
+					psmt.setString(++i, adto.getUserName());
+				}
+				if ( adto.getAddDay() != null ) {
+					psmt.setDate(++i, adto.getAddDay());
+				}
+			}
+			psmt.setInt(++i, start);
+			psmt.setInt(++i, end);
+			rs = psmt.executeQuery();
+			
+			while (rs.next()) {
+				AddDTO dto = new AddDTO();
+				dto.setAddNum(rs.getString("add_num"));				//1
+				dto.setStoreName(rs.getString("store_name"));		//2
+				dto.setStoreAddr(rs.getString("store_addr"));		//3
+				dto.setStoreXy(rs.getString("store_xy"));			//4	
+				dto.setStoreCateg1(rs.getString("store_categ1"));	//5
+				dto.setStoreCateg2(rs.getString("store_categ2"));	//6
+				dto.setStoreCateg3(rs.getString("store_categ3"));	//7
+				dto.setStoreLicense(rs.getString("store_license"));	//8
+				dto.setUserLicense(rs.getString("user_license"));	//9
+				dto.setAddCapture(rs.getString("add_capture"));		//10
+				dto.setUserNum(rs.getString("user_num"));			//11
+				dto.setAddDay(rs.getDate("add_day"));				//12
+				dto.setAddStatus(rs.getString("add_status"));		//13
+				dto.setAddRe(rs.getString("add_re"));				//14
+				dto.setStoreNum(rs.getString("store_num"));			//15
+				dto.setUserName(rs.getString("user_name"));			//16
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}	
+	
 	//신청서 단건 조회
 	public AddDTO selectAddNum(Connection conn, String addNum) {
 		AddDTO dto = new AddDTO();;

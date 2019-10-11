@@ -401,7 +401,7 @@ function review_up_cancle(){
 
 <!-- 가게 리뷰 -->
 
-
+<iframe src="storeReview.do"></iframe>
 
 
 <!-- JS includes -->

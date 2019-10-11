@@ -49,6 +49,7 @@ import co.oc.command.menu.MyinfoupFormComm;
 import co.oc.command.menu.UpdateMyReiviewComm;
 import co.oc.command.menu2.StoreInfoChangeComm;
 import co.oc.command.menu2.StoreInfoComm;
+import co.oc.command.menu2.StoreReviewComm;
 
 @WebServlet("/MainController")
 public class MainController extends HttpServlet {
@@ -66,10 +67,10 @@ public class MainController extends HttpServlet {
 		//최미현
 		map.put("/storeInfo.do", new StoreInfoComm()); //가게별 상세 정보 조회
 		map.put("/storeInfoChange.do", new StoreInfoChangeComm()); //storeInfo.jsp(가게 상세)에서 일어나는 모든 변경
+		map.put("/storeReview.do", new StoreReviewComm());
 		
 		map.put("/adminStoreInfo.do", new AdminStoreInfoComm()); //가게 신청 목록 및 전체 가게 관리 
 		map.put("/addRead.do", new AddReadComm()); //가게 신청서 한 건 조회
-//		map.put("/", new ());
 //		map.put("/", new ());
 //		map.put("/", new ());
 
