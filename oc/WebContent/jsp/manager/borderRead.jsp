@@ -59,7 +59,7 @@
 		</c:choose>
 	</c:forEach>
 	
-	<a href="delete.do" class="btn btn-primary pull-right">삭제하기</a>
+	<!-- <a href="delete.do" class="btn btn-primary pull-right">삭제하기</a> -->
 	<a href="writeForm.do" class="btn btn-primary pull-right">답변하기</a>
 	
 	

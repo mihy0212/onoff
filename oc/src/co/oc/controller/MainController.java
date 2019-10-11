@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import co.oc.command.Command;
 import co.oc.command.join.CeoInsertCommand;
+import co.oc.command.join.Homego;
 import co.oc.command.join.IdCheckCommand;
 import co.oc.command.join.JoinCeoForm;
 import co.oc.command.join.JoinFormCommand;
@@ -21,9 +22,9 @@ import co.oc.command.join.LoginCheckCommand;
 import co.oc.command.join.LoginFormCommand;
 import co.oc.command.join.LogoutCommand;
 import co.oc.command.join.NickcheckCommand;
+import co.oc.command.join.StoreNickCheck;
 import co.oc.command.manager.AddReadComm;
 import co.oc.command.manager.AdminStoreInfoComm;
-import co.oc.command.join.StoreNickCheck;
 import co.oc.command.manager.BorderDelete;
 import co.oc.command.manager.BorderListCommand;
 import co.oc.command.manager.BorderReadCommand;
@@ -93,7 +94,7 @@ public class MainController extends HttpServlet {
 		map.put("/borderdelete.do", new BorderDelete()); // 문의글 삭제
 		map.put("/userdelete.do", new UserDelete()); // 유저삭제
 		map.put("/storeNickCheck.do", new StoreNickCheck()); // 스토어 이름 중복체크
-
+		map.put("/index.do", new Homego());
 		// 백승진
 		map.put("/ajaxOpenStore.do", new OpenStoreCommand());
 		map.put("/ajaxCloseStore.do", new CloseStoreCommand());

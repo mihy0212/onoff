@@ -4,12 +4,18 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script type="text/javascript">
+function setCheckUserList(){
+	var checkbox = $("input:checkbox[name=userList]:checked");
+}
+</script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
 <br /><br /><br />
 <h1 align="center">유저 리스트</h1><br />
+<form>
 <div class="container">
 	<div class="row">
 	<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
@@ -30,8 +36,8 @@
 			</tr>
 			</c:if>
 			<c:forEach items="${userlist }" var="dto">
-			<tr onclick="location.href='userRead.do?key=${dto.userNum}'">
-				<td align="center" width="20"><input type="checkbox" value="${dto.userNum}"/></td>
+			<tr>
+				<td align="center" width="20"><input id='c1' type="checkbox" value="${dto.userNum}"/></td>				
 				<td align="center" width="20">${dto.userNum } </td>
 				<td width="20">&nbsp;&nbsp;${dto.userEmail}  </td>
 				<td align="center" width="100">${dto.userName }  </td>
@@ -40,10 +46,13 @@
 				<td align="center" width="100">${dto.userInday }</td>
 			</tr>
 			</c:forEach>
+			
 			<!-- db 목록을 가져와서 뿌려주는 곳 -->
 	</table> 
-	<a href="userdelete.do" class="btn btn-primary pull-right">삭제하기</a>
+	 <a href='userdelete.do?userNum='$('#c1').value class="btn btn-primary pull-right">삭제하기</a>
 	</div>
 </div>
+</form>
+
 </body>
 </html>
