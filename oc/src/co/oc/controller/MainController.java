@@ -85,15 +85,15 @@ public class MainController extends HttpServlet {
 		map.put("/login.do", new LoginCheckCommand()); // 로그인 정보 DB에확인 후 로그인
 		map.put("/logout.do", new LogoutCommand()); // 로그아웃
 		map.put("/list.do", new BorderListCommand()); // 문의글리스트보기
-//		map.put("/writeForm.do", new WriteForm()); 
 		map.put("/writeForm.do", new WriteForm()); //문의 답변폼으로가기
 		map.put("/borderRead.do", new BorderReadCommand()); // 문의글 상세보기
 		map.put("/userlist.do", new UserList()); // 유저 리스트 출력
-		map.put("/userRead.do", new UserRead());
+//		map.put("/userRead.do", new UserRead());
 		map.put("/borderdelete.do", new BorderDelete()); // 문의글 삭제
 		map.put("/userdelete.do", new UserDelete()); // 유저삭제
 		map.put("/storeNickCheck.do", new StoreNickCheck()); // 스토어 이름 중복체크
 		map.put("/index.do", new Homego());
+		
 		// 백승진
 		map.put("/ajaxOpenStore.do", new OpenStoreCommand());
 		map.put("/ajaxCloseStore.do", new CloseStoreCommand());
