@@ -50,8 +50,8 @@
 				<td><input type="password" name="passwd" id="passwd"></td>
 			</tr>
 			</table>
-				<input id="secession" onclick="location.href='delete.do'" value="탈퇴">
-					<input id="secession" onclick="location.href='myinfo.do'" value="취소">
+				<button type="submit"  id="secession" onclick="location.href='delete.do'" value="탈퇴">탈퇴</button>
+				<button type="button" id="secession" onclick="location.href='myinfo.do'" value="취소">취소</button>
 		</div>
 	</form>
 	<hr>
