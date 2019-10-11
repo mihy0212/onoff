@@ -22,6 +22,7 @@ public class StoreReviewComm implements Command {
 		
 		//앞선 페이지에서 클릭한 가게 번호 읽어오기
 		String storeNum = request.getParameter("storeNum");
+//		System.out.println(storeNum);
 		
 		//DAO
 		Connection conn = DAO.connect();
@@ -35,11 +36,12 @@ public class StoreReviewComm implements Command {
 		}
 		
 		Paging paging = new Paging();
-		paging.setPageUnit(10); //한 페이지에 출력할 레코드 건수
+		paging.setPageUnit(5); //한 페이지에 출력할 레코드 건수
 		paging.setPageSize(10); //페이지바에 나타날 페이지 번호 수(이전 1 2 3 ...10 다음)
 		paging.setPage(pageNo);	//현재 페이지
 		paging.setTotalRecord(ReviewDAO.getInstance().review_getPageCount(conn, "store_num", storeNum)); //총 레코드 건수
 		request.setAttribute("paging", paging);
+		System.out.println(paging.getTotalRecord());
 		
 		int first = paging.getFirst();
 		int last = paging.getLast(); 

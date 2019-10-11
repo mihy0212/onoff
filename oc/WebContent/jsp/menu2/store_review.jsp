@@ -17,40 +17,23 @@
 <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,400i,700,700i" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
-
-
 <!-- 메뉴바 css  -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/assets/css/slick.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/assets/css/slick-theme.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/assets/css/animate.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/assets/css/iconfont.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/assets/css/font-awesome.min.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/assets/css/bootstrap.css">
-
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/assets/css/magnific-popup.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/assets/css/bootsnav.css">
-
-
+<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/slick.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/slick-theme.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/animate.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/iconfont.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/font-awesome.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/bootstrap.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/magnific-popup.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/bootsnav.css">
 
 <!-- 화면 전환 및 폰트와 제목 디자인 -->
-<!--For Plugins external css-->
-<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/plugins.css" />
-<!--Theme custom css -->
-<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/style.css">
-<!--Theme Responsive css-->
-<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/responsive.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/plugins.css" /><!--For Plugins external css-->
+<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/style.css"><!--Theme custom css -->
+<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/responsive.css" /><!--Theme Responsive css-->
 
 <script src="${pageContext.request.contextPath }/assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
-<script
-	src="${pageContext.request.contextPath }/assets/js/vendor/jquery-1.11.2.min.js"></script>
+<script src="${pageContext.request.contextPath }/assets/js/vendor/jquery-1.11.2.min.js"></script>
 <script> 
 
 $(document).ready(function(){
@@ -181,10 +164,11 @@ $(document).ready(function(){
 	});
 	
 	
-	//리뷰 업데이트
+	//리뷰 수정
 	$('.btn_update').on('click', function(){
 		var parentDiv = $(this).parent().parent();
 		var reviewNum = parentDiv.children().eq(0).val();
+		console.log(reviewNum)
 		
 		var blockquote = parentDiv.children().eq(3).children().eq(0);
 		var con1 = blockquote.children().last().text();
@@ -216,7 +200,7 @@ $(document).ready(function(){
 		parentDiv.children().eq(4).append(
 				$('<button>').attr({'type':'button', 'class':'btn button is-checked'}).text('변경').click(review_update),
 				$('<button>').attr({'type':'button', 'class':'btn button is-checked'}).text('취소').click(review_up_cancle)
-				);
+		);
 		
 	})
 	
@@ -333,7 +317,7 @@ $(document).ready(function(){
 				
 					<%-- 가게 사업자가 본인이면 댓글을 달 수는 없고 대댓만 달 수 있고, 대댓을 수정/삭제 할 수 있음.
                 		 / 가게 사업자가 본인이 아니면 댓글을 달 수 있고 본인의 댓글은 수정/삭제할 수 있음 --%>
-                		 
+                	${userNum }	 ${storeNum } ${storeInfo.storeNum }
 					<%-- 댓글 입력창 --%>
 					<c:if test="${ storeInfo.storeNum != storeNum && !empty userNum}">
 						<div id="divInsert" class="choose_item_text fix col-md-offset-1 div_content_ceo">
@@ -463,7 +447,7 @@ $(document).ready(function(){
 					</div>
 					
 					<!-- 페이징 -->
-					<form name="pagefrm" action="storeInfo.do">
+					<form name="pagefrm" action="storeReview.do">
 						<input type="hidden" name="p">
 						<input type="hidden" name="storeNum" value="${ storeInfo.storeNum }">
 					</form>

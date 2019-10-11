@@ -71,6 +71,30 @@ $(document).ready(function(){
 		$('#btn_favo').html('<font size="5" class="reviewStarsYellow">★</font><br>즐겨찾는 가게');
 	}
 	
+	//별점 표시하기
+	//console.log($('#star').children().size())
+	//console.log($('#star').children().eq(1))
+	for(var i=0; i<Math.round("${stars}"); i++){
+		$('#star').children().eq(i).attr('class','btn button is-checked');
+	}
+	
+	//리뷰에서 별점 표시하기
+	var star_num;
+	$('.reviewStars').on('click', function(){
+		star_num = $(this).attr('id').substring(4,5);
+		if($(this).css("color")=="rgb(128, 128, 128)"){
+			for(var i=1; i<=star_num; i++){
+				var starNum = "star"+i;
+				$('#'+starNum).css("color","yellow");
+			}
+		} else {
+			for(var i=5; i>=star_num; i--){
+				var starNum = "star"+i;
+				$('#'+starNum).css("color","gray");
+			}
+		}
+	});
+	
 	//가게 정보 수정하기
 	$('.store_info_update').on('click', function(){
 		var id = $(this).attr('id');
@@ -116,30 +140,51 @@ $(document).ready(function(){
 		}
 	});
 	
+	//리뷰 페이징 처리
 	
-	//별점 표시하기
-	//console.log($('#star').children().size())
-	//console.log($('#star').children().eq(1))
-	for(var i=0; i<Math.round("${stars}"); i++){
-		$('#star').children().eq(i).attr('class','btn button is-checked');
-	}
-	
-	//리뷰에서 별점 표시하기
-	var star_num;
-	$('.reviewStars').on('click', function(){
-		star_num = $(this).attr('id').substring(4,5);
-		if($(this).css("color")=="rgb(128, 128, 128)"){
-			for(var i=1; i<=star_num; i++){
-				var starNum = "star"+i;
-				$('#'+starNum).css("color","yellow");
-			}
-		} else {
-			for(var i=5; i>=star_num; i--){
-				var starNum = "star"+i;
-				$('#'+starNum).css("color","gray");
+	/*
+	var $page = $('<li>').attr({'class':'page-item'}).append( $('<a>').attr({'class':'page-link'}) );
+	var $page_dis = $('<li>').attr({'class':'page-item disabled'}).append( $('<a>').attr({'class':'page-link'}) );
+	var $ul = $('#pagination');
+	if( "${ pageCnt }" <= 10 ){
+		var $li = $page_dis.text('pre');
+		for(var i = 1; i<="${ pageCnt }"; i++){
+			if( "${ pageCnt }" != "${ pageNo }" ){
+				$li.after( $page.append('<a>').attr({'class':'page-link', 'href':'storeInfo.do?p='+i}).text(i) );
+			} else if( "${ pageCnt }" == "${ pageNo }" ){
+				$li.after( $page.text(i) );
 			}
 		}
-	});
+		$li.after( $page_dis.text('next') );
+		$ul.append($li);
+		
+	} else {
+		var x = "${ pageCnt }"/10;
+		var y = "${ pageNo }"/10;
+		if( y < x ){
+			$li = $page_dis.append('<a>').attr({'class':'page-link', 'href':'storeInfo.do?p='+(y-1)*10+1}).text('pre');
+			for(var i = y*10+1; i<=(y+1)*10; i++){
+				if( "${ pageCnt }" != "${ pageNo }" ){
+					$li += $page.append('<a>').attr({'class':'page-link', 'href':'storeInfo.do?p='+i}).text(i);
+				} else if( "${ pageCnt }" == "${ pageNo }" ){
+					$li += $page.text(i);
+				}
+			}
+			$li += $page_dis.append('<a>').attr({'class':'page-link', 'href':'storeInfo.do?p='+(y+1)*10+1}).text('next');
+			$ul.append($li);
+		} else if(y=x){
+			$li = $page_dis.append('<a>').attr({'class':'page-link', 'href':'storeInfo.do?p='+(y-1)*10+1}).text('pre');
+			for(var i = y*10+1; i<="${ pageCnt }"; i++){
+				if( "${ pageCnt }" != "${ pageNo }" ){
+					$li += $page.append('<a>').attr({'class':'page-link', 'href':'storeInfo.do?p='+i}).text(i);
+				} else if( "${ pageCnt }" == "${ pageNo }" ){
+					$li += $page.text(i);
+				}
+			}
+			$li += $page_dis.text('next');
+			$ul.append($li);
+		}
+	}*/
 	
 	
 	//리뷰 입력하기 (DB)
@@ -243,7 +288,7 @@ $(document).ready(function(){
 	});
 	
 	
-	//리뷰 업데이트
+	//리뷰 수정
 	$('.btn_update').on('click', function(){
 		var parentDiv = $(this).parent().parent();
 		var reviewNum = parentDiv.children().eq(0).val();
@@ -251,7 +296,6 @@ $(document).ready(function(){
 		var blockquote = parentDiv.children().eq(3).children().eq(0);
 		var con1 = blockquote.children().last().text();
 		var con2 = con1.substring(0,con1.length-15);
-		console.log(con2)
 		
 		var starNum = 0;
 		for(var i=0; i<5; i++){
@@ -259,8 +303,8 @@ $(document).ready(function(){
 				starNum += 1;
 			}
 		}
-		console.log(starNum);
-		star_up${ list.reviewNum }
+		console.log(reviewNum);
+
 		blockquote.hide();//blockquote 숨김처리
 		var span_star = $('<blockquote>');
 		for(var i=1; i<=starNum; i++){
@@ -285,25 +329,145 @@ $(document).ready(function(){
 	//리뷰 댓글달기
 	$('.btn_reply').on('click', function(){
 		console.log($(this));
-	});
+	})
 	
-	$(window).resize(function(){
-	    $("iframe.myFrame").height($(window).height()-50);
-	    $("iframe.myFrame").width($(window).width()-50);
-	  });
 	
 });
 
+//좋아요 등록/삭제 (DB)
+function likeUpDown(){
+	if( "${ storeInfo.storeNum }" != "${ storeNum }" && "${ userNum }" != ""){
+		var storeNum = ${ storeInfo.storeNum };
+		
+		$.ajax({
+			url: "storeInfoChange.do",
+			data: {
+				action: "likeClick",
+				userNum: "${ userNum }",
+				storeNum: "${ storeInfo.storeNum }"
+			},
+			dataType: "json",
+			success: function(result){
+				if(result.likeChk == 0){
+					$('#btn_like').html('<font size="5" color="red">♥</font>' + result.likeCount);	
+				} else {
+					$('#btn_like').html('<font size="5">♡</font>' + result.likeCount);
+				}
+			}
+		});
+	} else if( "${ userNum }" == "" && "${ storeInfo.storeNum }" != "${ storeNum }"){
+		var con = confirm("로그인이 필요합니다. 로그인하시겠습니까?");
+		if(con){
+			location.href="loginform.do";
+		}
+	} else if( "${ storeInfo.storeNum }" == "${ storeNum }" && "${ userNum }" != ""){
+		alert("내 가게에는 좋아요를 할 수 없습니다.");
+	}
+}
 
-$(function(){
-	$("iframe.myFrame").load(function(){ //iframe 컨텐츠가 로드 된 후에 호출됩니다.
-		var frame = $(this).get(0);
-		var doc = (frame.contentDocument) ? frame.contentDocument : frame.contentWindow.document;
-		$(this).height(doc.body.scrollHeight);
-		$(this).width(doc.body.scrollWidth);
-	});
-});
+//즐겨찾기 등록/삭제(DB)
+function favoUpDown(){
+	if( "${ storeInfo.storeNum }" != "${storeNum }" && "${ userNum }" != ""){
+		var storeNum = ${ storeInfo.storeNum };
+		$.ajax({
+			url: "storeInfoChange.do",
+			data: {
+				action: "favoClick",
+				userNum: "${ userNum }",
+				storeNum: "${ storeInfo.storeNum }"
+			},
+			dataType: "json",
+			success: function(result){
+				if(result == 0){
+					$('#btn_favo').html('<font size="5" class="reviewStarsYellow">★</font><br>즐겨찾는 가게');	
+				} else {
+					$('#btn_favo').html('<font size="5">☆</font><br>즐겨찾기 하기');
+				}
+			}
+		});
+	} else if( "${ userNum }" == "" && "${ storeInfo.storeNum }" != "${ storeNum }"){
+		var con = confirm("로그인이 필요합니다. 로그인하시겠습니까?");
+		if(con){
+			location.href="loginform.do";
+		}
+	} else if( "${ storeInfo.storeNum }" == "${ storeNum }" && "${ userNum }" != ""){
+		alert("내 가게는 즐겨찾기를 할 수 없습니다.");
+	}
+}
 
+//가게 정보 수정 (DB)
+function info_update2(){
+	var inputParent;
+	var inputTag;
+	var content;
+	var check;
+	var btnUpdate = $(this);
+	var id = btnUpdate.attr('id');
+	//console.log(id);
+	if(id == 'addr' || id == 'tel'){
+		inputParent = $(this).parent().parent().parent().children().eq(1).children().eq(0);
+		inputTag = inputParent.children().eq(2);
+		content = inputTag.val();
+		//console.log(content);
+		check = "store_" + id;
+	} else if(id == 'time' || id == 'menu' || id == 'etc'){
+		inputParent = $(this).parent().parent().parent().children().eq(1).children().eq(2);
+		inputTag = inputParent.children().eq(1);
+		content = inputTag.val();
+		check = "store_" + id;
+	}
+	var con = confirm("입력한 내용으로 변경하시겠습니까?");
+	if(con){
+		$.ajax({
+			url: "storeInfoChange.do",
+			type: "post",
+			data: {
+				action: "storeInfoUpdate",
+				check: check,
+				content: content,
+				storeNum: "${ storeInfo.storeNum }"
+			},
+			dataType: "json",
+			success: function(result){
+				if(result == 1){
+					if(id == 'addr' || id == 'tel'){
+						inputTag.after( $('<font>').attr({'size':'4'}).text( content ) );
+						inputParent.children().eq(1).remove; //숨겨진 예전정보 삭제
+						inputTag.remove();
+						btnUpdate.parent().append( $('<span>').attr({'class':'icon icon icon-cogwheels16', 'id': id}) );
+						btnUpdate.remove();
+						btnUpdate.parent().children().eq(1).remove();
+					} else if(id == 'time' || id == 'menu' || id == 'etc'){
+						inputParent.append( $('<p>').text( content ) );
+						inputParent.children().eq(0).remove; //숨겨진 예전정보 삭제
+						inputTag.remove();
+						btnUpdate.parent().append( $('<span>').attr({'class':'icon icon icon-cogwheels16 type_1', 'id': id}) );
+						btnUpdate.remove();
+						btnUpdate.parent().children().eq(1).remove();
+					}
+				} else {
+					alert("변경에 실패했습니다.")
+				}
+			}
+		})
+	} else {
+		if(id == 'addr' || id == 'tel'){
+			var inputParent = $(this).parent().parent().parent().children().eq(1).children().eq(0);
+			inputParent.children().eq(1).show();
+			inputParent.children().eq(2).remove();
+			$(this).parent().append( $('<span>').attr({'class':'icon icon icon-cogwheels16', 'id': id }) );
+			$(this).remove();
+			$(this).parent().children().eq(1).remove();
+		} else if(id == 'time' || id == 'menu' || id == 'etc'){
+			var inputParent = $(this).parent().parent().parent().children().eq(1).children().eq(2);
+			inputParent.children().eq(1).remove();
+			inputParent.children().eq(0).show();
+			$(this).parent().append( $('<span>').attr({'class':'icon icon icon-cogwheels16 type_1', 'id': id}) );
+			$(this).remove();
+			$(this).parent().children().eq(1).remove();
+		}
+	}
+}
 
 function review_update(){
 	//console.log($(this).parent().parent());
@@ -475,7 +639,7 @@ function review_up_cancle(){
 								<div class="col-md-11">
 									<h4 class="m-top-50">주<strong>소 |&nbsp;&nbsp;&nbsp;</strong>
 										<font size="4">${ storeInfo.storeAddr }</font>
-										<input type="hidden" id="addr_xy" value="${ storeInfo.storeXy }">
+										<input type="hidden" id="addr_xy" value="${ stroeInfo.storeXy }">
 									</h4>
 									<div class="teamskillbar clearfix m-top-2 text-uppercase" data-percent="20%">
 										<div class="teamskillbar-bar" style="width: 80%;"></div>
@@ -587,8 +751,190 @@ function review_up_cancle(){
 
 
 <!-- 가게 리뷰 -->
+<section id="portfolio" class="portfolio margin-top-120">
+	<div class="container">
+		<div class="row">
+			<div class="main-portfolio roomy-80">
+				
+				<!-- 리뷰 헤드 부분 -->
+				<!-- 제목 -->
+				<div class="col-md-4">
+					<div class="head_title text-left sm-text wow fadeInDown">
+						<h2><strong>리뷰</strong></h2>
+					</div>
+				</div>
+				
+				<!-- 가게 전체 별점 -->
+				<div id="star" class="col-md-8 text-right">
+					<button class="btn button is-checked" data-filter="*">★</button>
+					<button class="btn button" data-filter=".metal">★</button>
+					<button class="btn button" data-filter=".transition">★</button>
+					<button class="btn button" data-filter=".alkali">★</button>
+					<button class="btn button" data-filter=".ar">★</button>&nbsp;&nbsp;
+					<font size="5"><strong>${ stars }</strong></font> /5.0
+				</div>
+				
+				<!-- END 리뷰 헤드 부분 -->
+				<div style="clear: both;"></div>
+				
+				
+				<!-- 리뷰 목록 뿌려주기 -->
+				<div class="col-md-12 ">
+				
+					<%-- 가게 사업자가 본인이면 댓글을 달 수는 없고 대댓만 달 수 있고, 대댓을 수정/삭제 할 수 있음.
+                		 / 가게 사업자가 본인이 아니면 댓글을 달 수 있고 본인의 댓글은 수정/삭제할 수 있음 --%>
+                		 
+					<%-- 댓글 입력창 --%>
+					<c:if test="${ storeInfo.storeNum != storeNum && !empty userNum}">
+						<div id="divInsert" class="choose_item_text fix col-md-offset-1 div_content_ceo">
+							<div class="col-md-2 text-center">
+								<font size="6"><i class="icon icon icon-smile text-black"></i></font> <h6>${ userNick }</h6>
+							</div>
+							<div class="col-md-9 text-left">
+								<blockquote>
+									<span class="reviewStars insert_star" id="star1">★</span>
+									<span class="reviewStars insert_star" id="star2">★</span>
+									<span class="reviewStars insert_star" id="star3">★</span>
+									<span class="reviewStars insert_star" id="star4">★</span>
+									<span class="reviewStars insert_star" id="star5">★</span>
+									<br><textarea cols="73" rows="3" id="insertText" name="insertText"></textarea>
+								</blockquote>
+							</div>
+							<div class="col-md-1">
+								<button id="btn_insert" class="btn button is-checked" type="button">확인</button>
+							</div>
+						</div>
+					</c:if><%-- END 댓글 입력창 --%>
+				
+					<!-- DB 리뷰 목록 : 등록된 리뷰가 없을 때-->
+					<c:if test="${storeReview.isEmpty()}">
+						<div class="choose_item_text fix">
+							<p> 등록된 리뷰가 없습니다. </p>
+						</div>
+					</c:if>
+					
+					<%-- DB 리뷰 목록 --%>
+					<div class="review_list">
+						<c:forEach items="${ storeReview }" var="list" varStatus="status">
+						
+							<c:choose>
+							
+								<%-- 1. 리뷰글(글번호와 댓글 번호가 일치) --%>
+								<c:when test="${ list.reviewRe == list.reviewNum }">
+									<div id="list${status.count}" class="choose_item_text fix div_content_user">
+										<input type="hidden" value="${ list.reviewNum }">
+										<input type="hidden" value="${ list.reviewRe }">
+										
+										<%-- 리뷰 왼쪽 영역 : 아이콘/회원 닉네임 --%>
+										<div class="col-md-2 text-center">
+											<font size="6"><i class="icon icon icon-smile text-black"></i></font>
+											<h6 class="content_user">${ list.userNick }</h6>
+										</div>
+										<%-- 리뷰 중간 영역 : 별점/리뷰글 --%>
+										<div class="col-md-9 text-left content_star">
+											<blockquote>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												<c:forEach var="i" begin="1" end="${ list.reviewStar }" step="1">
+													<font class="reviewStarsYellow star_up${ list.reviewNum }">★</font>
+												</c:forEach>
+												<p class="pre_css">${ list.reviewContent } &nbsp;&nbsp;&nbsp;(${ list.reviewDate })</p>
+											</blockquote>
+										</div>
+										<%-- 리뷰 오른쪽 영역 : 댓글/수정/삭제 버튼 --%>
+										<div class="col-md-1">
+											<c:choose>
+												<c:when test="${ storeInfo.storeNum == storeNum && list.userNum != userNum }">
+													<br><button id="btn_re_${status.count}" class="btn button is-checked btn_reply" type="button">댓글</button>
+												</c:when>
+												<c:when test="${ storeInfo.storeNum != storeNum && list.userNum == userNum }">
+													<button id="btn_up_${status.count}" class="btn button is-checked btn_update" type="button">수정</button>
+													<button id="btn_del_${status.count}" class="btn button is-checked btn_delete" type="button">삭제</button>
+												</c:when>
+											</c:choose>
+										</div>
+										
+									</div>
+								</c:when>
+								
+								<%-- 2. 리뷰 댓글(글번호와 댓글 번호 불일치) 사장님만 댓글 달 수 있으므로- 수정/삭제 할 수 있음 --%>
+								<c:otherwise>
+									<div id="list${status.count}" class="choose_item_text fix col-md-offset-1 div_content_ceo">
+										<input type="hidden" value="${ list.reviewNum }">
+										<input type="hidden" value="${ list.reviewRe }">
+										<%-- 리뷰 왼쪽 영역 : 아이콘/회원 닉네임 --%>
+										<div class="col-md-2 text-center">
+											<font size="6"><i class="icon icon icon-restaurant2 text-black"></i></font>
+											<h6 class="content_user">${ list.storeName }</h6>
+										</div>
+										<%-- 리뷰 중간 영역 : 별점/리뷰글 --%>
+										<div class="col-md-9 text-left content_reply">
+											<blockquote>
+												<p class="pre_css">${ list.reviewContent } &nbsp;&nbsp;&nbsp;(${ list.reviewDate })</p>
+											</blockquote>
+										</div>
+										<%-- 리뷰 오른쪽 영역 : 수정/삭제 버튼 --%>
+										<div class="col-md-1">
+											<c:if test="${ storeInfo.storeNum == storeNum }">
+												<button id="btn_up_${status.count}" class="btn button is-checked btn_update" type="button">수정</button>
+												<button id="btn_del_${status.count}" class="btn button is-checked btn_delete" type="button">삭제</button>
+											</c:if>
+										</div>
+									</div>
+								</c:otherwise>
+							
+							</c:choose>
+						</c:forEach>
+					</div>
+					<%-- END DB 리뷰 목록 --%>
+               		
+               		<%-- 리뷰글 삽입을 위한 히든 div --%>
+               		<div class="hidden">
+						<div id="copy_reivew" class="choose_item_text fix div_content_user">
+							<input type="hidden" value="#">
+							<input type="hidden" value="#">
+							
+							<%-- 리뷰 왼쪽 영역 : 아이콘/회원 닉네임 --%>
+							<div class="col-md-2 text-center">
+								<font size="6"><i class="icon icon icon-smile text-black"></i></font>
+								<h6 class="content_user"></h6>
+							</div>
+							<%-- 리뷰 중간 영역 : 별점/리뷰글 --%>
+							<div class="col-md-9 text-left content_star">
+								<blockquote>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<font class="reviewStarsYellow">★</font>
+									<p class="pre_css"></p>
+								</blockquote>
+							</div>
+							<%-- 리뷰 오른쪽 영역 : 댓글/수정/삭제 버튼 --%>
+							<div class="col-md-1">
+								<button class="btn button is-checked btn_update" type="button">수정</button>
+								<button class="btn button is-checked btn_delete" type="button">삭제</button>
+							</div>
+						</div>
+					</div>
+					
+					<!-- 페이징 -->
+					<form name="pagefrm" action="storeInfo.do">
+						<input type="hidden" name="p">
+						<input type="hidden" name="storeNum" value="${ storeInfo.storeNum }">
+					</form>
+					
+					<u:paging pgfunc="doList" paging="${ paging }"></u:paging>
+					<script>
+					function doList(p) {
+						document.pagefrm.p.value = p;
+						document.pagefrm.submit();
+					}
+					</script>
+					
+				</div>
+				<!-- END 리뷰 목록 뿌려주기 -->
+				<div style="clear: both;"></div>
+				
+			</div><!-- END main-portfolio roomy-80 -->
+		</div><!-- END row -->
+	</div><!-- END container-->
+</section>
 
-<iframe src="storeReview.do?storeNum=${ storeInfo.storeNum }" style="width:100%;border:0;height:500px"></iframe>
 
 
 <!-- JS includes -->
