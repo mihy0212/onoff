@@ -71,14 +71,12 @@
 	 }
 	 } */
 
-	$(function() {
-		console.log(location);
-		if (location.pathname == "/oc/myReview.do") {
-			location.href = "#portfolio";
-		} else if (location.pathname == "/oc/myfavorite.do") {
-			location.href = "#features";
-		}
-	})
+		$(function() {
+			console.log(location);
+			if (location.pathname == "/oc/myReview.do") {			
+				location.href = "#portfolio";
+			}
+		});
 	
 $(document).ready(function(){
 	$(document).ready(function() {
@@ -170,7 +168,6 @@ $(document).ready(function(){
 					<div style="clear: both;"></div>
 					<div class=" text-center">
 						<!-- 즐겨찾기선택 -->
-						<!-- 이동상점 -->
 						<div>
 							<table class=" table table-striped table-bordered results">
 								<thead>
@@ -183,15 +180,14 @@ $(document).ready(function(){
 								<!-- db에 목록이 이없으면 empty:비어있다는 뜻임  -->
 								<c:if test="${empty list}">
 									<tr>
-										<td colspan="4">등록된 글이 존재하지 않습니다.</td>
+										<td colspan="4">등록된 좋아요가 존재하지 않습니다.</td>
 									</tr>
 								</c:if>
 
 								<!--목록이 있으면  -->
 								<!-- for문을 돌리면 list[0]을 안해도됨 -->
 								<c:forEach items="${list }" var="sdto">
-									<tr
-										onclick="location.href='storeInfo.do?storeNum=${sdto.storeNum }'">
+									<tr onclick="location.href='storeInfo.do?storeNum=${sdto.storeNum }'">
 										<td align="center">${sdto.storeName }</td>
 
 									</tr>
@@ -228,8 +224,9 @@ $(document).ready(function(){
 					<div style="clear: both;"></div>
 					<%-- DB 리뷰 목록 --%>
 					<div class="review_list"  >
-						<c:forEach items="${list }" var="alist">
-						<c:if test="${alist.reviewNum == alist.reviewRe }">
+						<c:forEach items="${riviewlist }" var="alist">
+						<%-- ${riviewlist } --%>
+						<%-- ${alist.reviewNum} --%>
 							<%-- 리뷰 왼쪽 영역 : 아이콘/회원 닉네임 --%>
 							<div class="col-md-2 text-center" onclick="location.href='storeInfo.do?storeNum=${alist.storeNum }'">
 								<font size="6"><i class="icon icon icon-smile text-black"></i></font>
@@ -248,11 +245,11 @@ $(document).ready(function(){
 							</div>
 							<input type="submit" class="btn button is-checked btn_update" value="수정" data-target="#myModal" data-toggle="modal">
 							<input type="submit" class="btn button is-checked btn_update"value="삭제" onclick="location.href='delectMyReiview.do?key=${alist.reviewNum}'">
-								</c:if>
 						</c:forEach>
 					</div>
 				</div>
 			</div>
+			
 			<!-- 페이징 -->
 			<div class="col-sm-6" align="center">
 				<div align="center">
@@ -263,8 +260,7 @@ $(document).ready(function(){
 					</ul>
 				</div>
 			</div>
-		</div>
-
+			
 	</section>
 	<!-- End off test section -->
 	<!--이후 <br>삭제  -->

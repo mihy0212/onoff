@@ -23,13 +23,12 @@ public class MyAskListComm implements Command {
 
 		HttpSession session = request.getSession(false);
 		String userNum = (String) session.getAttribute("userNum");
-		System.out.println(userNum);
-		int pagenum = 1; // 페이지 번호
+System.out.println(userNum);
+		int pagenum = 1; 
 		if (request.getParameter("Page_num") != null) {
 			pagenum = Integer.parseInt(request.getParameter("Page_num"));
 		}
-
-// size 보여줄 페이지당 게시글 개수. 5개당 1page
+		// size 보여줄 페이지당 게시글 개수. 2개당 1page
 		int size = 5;
 
 		int tot = 0;
@@ -37,27 +36,23 @@ public class MyAskListComm implements Command {
 
 		try {
 
-			// 총 게시글 개수.
-			cnt = AskDAO.getInstance().ask_getPageCount(conn);
-			// 페이지 번호
+			cnt = AskDAO.getInstance().ask_getPageCountuserNum(conn,userNum);
+			System.out.println(cnt+"cnt");
 			tot = cnt / size;
 			if (cnt % size != 0) {
 				tot++;
 			}
 
 		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-// 1page 1 ~ 5 5개
-// 2page 6 ~ 10 5개
-// 3page 11 ~ 16 5개
+
 
 		int end = pagenum * size;
 		int start = end - size + 1;
 
-		System.out.println("st" + start);
-		System.out.println("en" + end);
 
 		// 리뷰게시판 불러오기.
 		List<AskDTO> list = AskDAO.getInstance().selectOne(conn, "user_num", userNum, start, end);
@@ -65,14 +60,14 @@ public class MyAskListComm implements Command {
 			System.out.println(dto.getAskNum());
 		}
 
+
 		// request 객체에 list를 담아준다.
 		request.setAttribute("list", list);
 
 		// request 객체에 총 페이지수를 담아준다.
 		request.setAttribute("tot", tot);
 		
-
-		// ask.jsp로 이동
+		// review.jsp로 이동
 		DAO.disconnect(conn);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/menu/my_ask.jsp");
 		dispatcher.forward(request, response);

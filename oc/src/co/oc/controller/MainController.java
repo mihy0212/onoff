@@ -22,6 +22,7 @@ import co.oc.command.join.LoginFormCommand;
 import co.oc.command.join.LogoutCommand;
 import co.oc.command.join.NickcheckCommand;
 import co.oc.command.join.StoreNickCheck;
+import co.oc.command.manager.AddReadComm;
 import co.oc.command.manager.AdminStoreInfoComm;
 import co.oc.command.manager.BorderDelete;
 import co.oc.command.manager.BorderListCommand;
@@ -34,11 +35,10 @@ import co.oc.command.map.CloseStoreCommand;
 import co.oc.command.map.OpenStoreCommand;
 import co.oc.command.map.SearchCommand;
 import co.oc.command.menu.DeldectMyReiviewComm;
+import co.oc.command.menu.MyActComm;
 import co.oc.command.menu.MyAskListComm;
 import co.oc.command.menu.MyAskRead;
 import co.oc.command.menu.MyAskWriteComm;
-import co.oc.command.menu.MyFavoriteListComm;
-import co.oc.command.menu.MyReviewComm;
 import co.oc.command.menu.MyaskDeleteComm;
 import co.oc.command.menu.MyinfoComm;
 import co.oc.command.menu.MyinfoDeleteCheckComm;
@@ -61,12 +61,13 @@ public class MainController extends HttpServlet {
 
 	public void init(ServletConfig config) throws ServletException {
 		map = new HashMap<String, Command>();
-
-		// 최미현
-		map.put("/storeInfo.do", new StoreInfoComm()); // 가게별 상세 정보 조회
-		map.put("/storeInfoChange.do", new StoreInfoChangeComm()); // storeInfo.jsp(가게 상세)에서 일어나는 모든 변경
-
-		map.put("/adminStoreInfo.do", new AdminStoreInfoComm()); // 가게 신청 목록 및 전체 가게 관리
+		
+		//최미현
+		map.put("/storeInfo.do", new StoreInfoComm()); //가게별 상세 정보 조회
+		map.put("/storeInfoChange.do", new StoreInfoChangeComm()); //storeInfo.jsp(가게 상세)에서 일어나는 모든 변경
+		
+		map.put("/adminStoreInfo.do", new AdminStoreInfoComm()); //가게 신청 목록 및 전체 가게 관리 
+		map.put("/addRead.do", new AddReadComm()); //가게 신청서 한 건 조회
 //		map.put("/", new ());
 //		map.put("/", new ());
 //		map.put("/", new ());
@@ -105,9 +106,9 @@ public class MainController extends HttpServlet {
 		map.put("/myinfoupForm.do", new MyinfoupFormComm());// formjsp로 이동
 		map.put("/myinfoup.do", new MyinfoUpComm());// 수정
 
-		map.put("/myReview.do", new MyReviewComm());// 리뷰리스트
-		map.put("/myfavorite.do", new MyFavoriteListComm());// 즐겨찾기리스트
-		map.put("/updateMyReiview.do", new UpdateMyReiviewComm());
+		map.put("/myReview.do", new MyActComm());// 리뷰리스트
+		map.put("/myfavorite.do", new MyActComm());// 즐겨찾기리스트
+		map.put("/updateMyReiview.do", new UpdateMyReiviewComm());//리뷰수정
 		map.put("/delectMyReiview.do", new DeldectMyReiviewComm());// 리뷰삭제
 
 		map.put("/myAskWrite.do", new MyAskWriteComm());// 문의리스트

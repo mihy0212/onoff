@@ -93,14 +93,11 @@
 			</div>
 			<div align="center">
 				<table>
-
 					<tr>
 						<th width="80">제 목</th>
-						<td><input type="text" id="askTitle" name="askTitle"
-							size="100"></td>
+						<td><input type="text" id="askTitle" name="askTitle" size="100"></td>
 						<th width="80">작성일자</th>
-						<td width="150"><input type="date" id="askDate"
-							name="askDate" readonly="readonly"></td>
+						<td width="150"><input type="date" id="askDate" name="askDate" readonly="readonly"></td>
 
 					</tr>
 					<td>&nbsp;&nbsp;&nbsp;</td>
@@ -111,7 +108,7 @@
 					</tr>
 					<tr align="center">
 						<td>&nbsp;</td>
-						<td colspan="2"><input type="submit"
+						<td colspan="2"><input type="button"
 							class="btn button is-checked btn_update" value="등록"
 							onclick="replyCheck();"> <input type="reset"
 							class="btn button is-checked btn_update" value="취소"></td>
@@ -161,7 +158,7 @@
 							<c:forEach items="${list }" var="dto">
 								<c:if test="${dto.askNum == dto.askRe }">
 									<!--딥글은  askNum이랑 askRe다름  -->
-									<tr onclick="location.href='myAskRead.do?key=${dto.askNum}'">
+									<tr onclick="location.href='myinfoup.do?key=${dto.userNum}'">
 										<td align="center">${dto.askNum }</td>
 										<td align="center">${dto.askTitle }</td>
 										<td align="center">${dto.askContent }</td>
@@ -185,23 +182,23 @@
 							<!-- db 목록을 가져와서 뿌려주는 곳끝 -->
 
 						</table>
-
+<!-- 페이징 -->
+			<div class="col-sm-6" align="center">
+				<div align="center">
+					<ul class="pagination" id="page_num">
+						<li><c:forEach var="i" begin="1" end="${tot}">
+								<a href="myAsklist.do?Page_num=${i}">${i}</a>
+							</c:forEach></li>
+					</ul>
+				</div>
+			</div>
 					</form>
 
-					<!-- 페이징 -->
-					<div class="col-sm-6" align="center">
-						<div align="center">
-							<ul class="pagination" id="page_num">
-								<li><c:forEach var="i" begin="1" end="${tot}">
-										<a href="myAsklist.do?Page_num=${i}">${i}</a>
-									</c:forEach></li>
-							</ul>
-						</div>
-					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	
 	<script>
 		document.getElementById('askDate').value = new Date().toISOString()
 				.substring(0, 10);
@@ -234,6 +231,8 @@
 
 	<script src="${pageContext.request.contextPath }/assets/js/plugins.js"></script>
 	<script src="${pageContext.request.contextPath }/assets/js/main.js"></script>
+
+
 
 </body>
 </html>

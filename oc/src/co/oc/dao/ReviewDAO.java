@@ -265,15 +265,14 @@ public class ReviewDAO extends DAO {
 	}
 	
 	// 페이지 수를 구하기 위해 총 게시글 수 를 구함.
-	public int review_getPageCount(Connection conn) {
+		//culumn : 검색할 컬럼명, content: 검색할 내용
+	public int review_getPageCount(Connection conn, String culumn, String content) {
 		int cnt = 0;
-		String sql = "SELECT COUNT(*) FROM oc_review";
-
+		String sql = "select count(*) from oc_review where " + culumn + "=" + content;
 		try {
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery(sql);
 			if(rs.next()) {
-				// 전체 글의 개수를 가져온다.
 				cnt = rs.getInt(1);
 			}
 		} catch (SQLException e) {
@@ -291,7 +290,24 @@ public class ReviewDAO extends DAO {
 	
 	
 	// 4. 복진영
+	// 페이지 수를 구하기 위해 총 게시글 수 를 구함.
+		public int review_getPageCountuserNum(Connection conn, String userNum) {
+			int cnt = 0;
+			String sql = "SELECT COUNT(*) FROM oc_review where user_num=?" ;
 
+			try {
+				psmt = conn.prepareStatement(sql);
+				psmt.setString(1, userNum);
+				rs = psmt.executeQuery();
+				if(rs.next()) {
+					// 전체 글의 개수를 가져온다.
+					cnt = rs.getInt(1);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return cnt;
+		}
 
 
 }

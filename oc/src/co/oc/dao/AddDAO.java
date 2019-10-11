@@ -112,6 +112,56 @@ public class AddDAO extends DAO {
 		return list;
 	}
 	
+	//신청서 단건 조회
+	public AddDTO selectAddNum(Connection conn, String addNum) {
+		AddDTO dto = new AddDTO();;
+		String sql = "select a.add_num,"//1
+				+ " a.store_name,"		//2
+				+ " a.store_addr,"		//3
+				+ " a.store_xy,"		//4
+				+ " a.store_categ1,"	//5
+				+ " a.store_categ2,"	//6
+				+ " a.store_categ3,"	//7
+				+ " a.store_license,"	//8
+				+ " a.user_license,"	//9
+				+ " a.add_capture,"		//10
+				+ " a.user_num,"		//11
+				+ " u.user_name,"		//12
+				+ " a.add_day,"			//13
+				+ " a.add_status,"		//14
+				+ " a.add_re,"			//15
+				+ " a.store_num"		//16
+				+ " from oc_add a join oc_user u on(a.user_num = u.user_num)"
+				+ " where a.add_num=?";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, addNum);
+			rs = psmt.executeQuery();
+			while(rs.next()) {
+				dto.setAddNum(rs.getString("add_num"));				//1
+				dto.setStoreName(rs.getString("store_name"));		//2
+				dto.setStoreAddr(rs.getString("store_addr"));		//3
+				dto.setStoreXy(rs.getString("store_xy"));			//4	
+				dto.setStoreCateg1(rs.getString("store_categ1"));	//5
+				dto.setStoreCateg2(rs.getString("store_categ2"));	//6
+				dto.setStoreCateg3(rs.getString("store_categ3"));	//7
+				dto.setStoreLicense(rs.getString("store_license"));	//8
+				dto.setUserLicense(rs.getString("user_license"));	//9
+				dto.setAddCapture(rs.getString("add_capture"));		//10
+				dto.setUserNum(rs.getString("user_num"));			//11
+				dto.setAddDay(rs.getDate("add_day"));				//12
+				dto.setAddStatus(rs.getString("add_status"));		//13
+				dto.setAddRe(rs.getString("add_re"));				//14
+				dto.setStoreNum(rs.getString("store_num"));			//15
+				dto.setUserName(rs.getString("user_name"));			//16	
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return dto;
+	}
+	
+	
 	//사업자 신청 새로 등록
 	public int insert(Connection conn, AddDTO dto) {
 		int n = 0;
