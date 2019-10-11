@@ -36,11 +36,10 @@ import co.oc.command.map.CloseStoreCommand;
 import co.oc.command.map.OpenStoreCommand;
 import co.oc.command.map.SearchCommand;
 import co.oc.command.menu.DeldectMyReiviewComm;
+import co.oc.command.menu.MyActComm;
 import co.oc.command.menu.MyAskListComm;
 import co.oc.command.menu.MyAskRead;
 import co.oc.command.menu.MyAskWriteComm;
-import co.oc.command.menu.MyFavoriteListComm;
-import co.oc.command.menu.MyReviewComm;
 import co.oc.command.menu.MyaskDeleteComm;
 import co.oc.command.menu.MyinfoComm;
 import co.oc.command.menu.MyinfoDeleteCheckComm;
@@ -108,9 +107,9 @@ public class MainController extends HttpServlet {
 		map.put("/myinfoupForm.do", new MyinfoupFormComm());// formjsp로 이동
 		map.put("/myinfoup.do", new MyinfoUpComm());// 수정
 
-		map.put("/myReview.do", new MyReviewComm());// 리뷰리스트
-		map.put("/myfavorite.do", new MyFavoriteListComm());// 즐겨찾기리스트
-		map.put("/updateMyReiview.do", new UpdateMyReiviewComm());
+		map.put("/myReview.do", new MyActComm());// 리뷰리스트
+		map.put("/myfavorite.do", new MyActComm());// 즐겨찾기리스트
+		map.put("/updateMyReiview.do", new UpdateMyReiviewComm());//리뷰수정
 		map.put("/delectMyReiview.do", new DeldectMyReiviewComm());// 리뷰삭제
 
 		map.put("/myAskWrite.do", new MyAskWriteComm());// 문의리스트

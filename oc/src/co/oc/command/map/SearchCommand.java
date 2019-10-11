@@ -3,6 +3,8 @@ package co.oc.command.map;
 import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,14 +21,10 @@ public class SearchCommand implements Command {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String keyword = request.getParameter("keyword");
-		Connection conn = DAO.connect();
-		ArrayList<StoreDTO> list = StoreDAO.getInstance().searchStore(conn, keyword);
+		request.setAttribute("keyword", keyword);
 		
-		request.setAttribute("list", list);
 		
-		DAO.disconnect(conn);
-		
-		RequestDispatcher dispatcher=request.getRequestDispatcher("jsp/map/search.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/map/search.jsp");
 		dispatcher.forward(request, response);
 	}
 

@@ -240,11 +240,11 @@ public class StoreDAO extends DAO {
 	// 가게 이름 검색
 	public ArrayList<StoreDTO> searchStore(Connection conn, String keyword) {
 		ArrayList<StoreDTO> list = new ArrayList<StoreDTO>();
-		String sql = "select * from oc_store where store_name like'%?%'";
+		String sql = "select * from oc_store where store_name like ?";
 
 		try {
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, keyword);
+			psmt.setString(1, "%" + keyword + "%");
 			rs = psmt.executeQuery();
 
 			while (rs.next()) {

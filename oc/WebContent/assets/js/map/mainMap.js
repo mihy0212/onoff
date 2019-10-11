@@ -51,16 +51,15 @@ window.onload = function() {
 		navigator.geolocation
 				.getCurrentPosition(
 						function(position) {
-							var container = document.getElementById('map'), mapOption = {
-								center : new kakao.maps.LatLng(
-										position.coords.latitude,
-										position.coords.longitude),
-								level : 4
-							};
-
 							currentLocation = new kakao.maps.LatLng(
 									position.coords.latitude,
 									position.coords.longitude);
+							
+							var container = document.getElementById('map'), mapOption = {
+								center : currentLocation,										
+								level : 4
+							};
+
 							map = new kakao.maps.Map(container, mapOption);
 
 							var imageSrc = 'img/mylocationEdit.png', imageSize = new kakao.maps.Size(
@@ -79,8 +78,7 @@ window.onload = function() {
 							myLocation.setMap(map);
 
 							var options = {
-								location : new kakao.maps.LatLng(
-										35.877986299999996, 128.5795303)
+								location : currentLocation
 							}
 
 							ps.categorySearch('FD6', callback, options);

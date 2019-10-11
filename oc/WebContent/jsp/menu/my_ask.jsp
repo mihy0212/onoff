@@ -158,7 +158,7 @@
 							<c:forEach items="${list }" var="dto">
 								<c:if test="${dto.askNum == dto.askRe }">
 									<!--딥글은  askNum이랑 askRe다름  -->
-									<tr onclick="location.href='myAskRead.do?key=${dto.askNum}'">
+									<tr onclick="location.href='myinfoup.do?key=${dto.userNum}'">
 										<td align="center">${dto.askNum }</td>
 										<td align="center">${dto.askTitle }</td>
 										<td align="center">${dto.askContent }</td>

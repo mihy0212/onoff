@@ -13,7 +13,7 @@
 <style>
 #map {
 	width: 100%;
-	height: 870px;
+	height: 780px;
 	margin-top: 0px;
 }
 </style>
