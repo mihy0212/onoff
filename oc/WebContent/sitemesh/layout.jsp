@@ -69,12 +69,8 @@
 	src="${pageContext.request.contextPath }/assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
 <script
 	src="${pageContext.request.contextPath }/assets/js/vendor/jquery-1.11.2.min.js"></script>
-<<<<<<< HEAD
-=======
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="assets/js/map/Search.js"></script>
->>>>>>> branch 'master' of https://github.com/wlsdud6764/on-off.git
 
 
 
@@ -97,16 +93,13 @@
 				<div class="container">
 					<div class="input-group">
 						<span class="input-group-addon"><i class="fa fa-search"></i></span>
-<<<<<<< HEAD
 						<input type="text" class="form-control" placeholder="Search"
 							id="keyword" name="keyword" onkeydown="JavaScript:enterCheck();">
-=======
 						<form id="search" name="search" action="search.do" method="post"
 							onsubmit="return checkForm()">
 							<input type="text" class="form-control" placeholder="Search"
 								id="keyword" name="keyword">
 						</form>
->>>>>>> branch 'master' of https://github.com/wlsdud6764/on-off.git
 						<span class="input-group-addon close-search"><i
 							class="fa fa-times"></i></span>
 					</div>

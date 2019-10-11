@@ -99,8 +99,7 @@ public class UserDAO extends DAO {
 	// 회원 수정
 	public int update(Connection conn, UserDTO dto) {
 		int n = 0;
-		String sql = "update oc_user set"
-				+ " user_pw=?," // 1
+		String sql = "update oc_user set" + " user_pw=?," // 1
 				+ " user_nick=?," // 2
 				+ " user_addr=?," // 3
 				+ " user_xy=?," // 4
@@ -202,6 +201,30 @@ public class UserDAO extends DAO {
 	}
 
 	// 3. 백승진
+
+	// 자기 정보 수정
+	public int updateMyInfo(Connection conn, UserDTO dto) {
+		int n = 0;
+		String sql = "update oc_user set" + " user_pw=?," // 1
+				+ " user_nick=?," // 2
+				+ " user_addr=?" // 3
+				+ " where user_num=?"; // 7
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, dto.getUserPw());
+			psmt.setString(2, dto.getUserNick());
+			psmt.setString(3, dto.getUserAddr());
+			psmt.setString(4, dto.getUserNum());
+			
+			n = psmt.executeUpdate();
+			
+			
+			System.out.println(n + "건의 회원정보 수정 완료");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return n;
+	}
 
 	// 4. 복진영
 

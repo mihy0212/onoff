@@ -34,28 +34,31 @@ public class MyinfoUpComm implements Command {
 		 * try { BeanUtils.copyProperties(dto, request.getParameterMap()); } catch
 		 * (Exception e) { e.printStackTrace(); }
 		 */
+
+		dto.setUserPw(request.getParameter("userPw"));
+		dto.setUserNick(request.getParameter("userNickname"));
+		dto.setUserAddr(request.getParameter("userAddr"));
+		dto.setUserNum(userNum);
 		
-		  dto.setUserPw(request.getParameter("userPw"));
-		  dto.setUserNick(request.getParameter("userNickname"));
-		  dto.setUserAddr(request.getParameter("userAddr"));
-		 
-		  System.out.println("userNum: "+userNum);
+		// 유저 비번 null 값으로 나옴
+		
+		System.out.println(dto.getUserPw());
+		
+		int n = UserDAO.getInstance().updateMyInfo(conn, dto);
 
-		 int n= UserDAO.getInstance().update(conn, dto);
-		 
-		 System.out.println(dto);
+		System.out.println(n);
 
-		 String path = null;
+		String path = null;
 
 		// 성공하면 회원정보페이지
 		if (n != 0) {
-			path="myinfo.do";
+			path = "myinfo.do";
 		}
 		// 실패하면 회원정보 수정페이지
 		else {
-			path="myinfoupForm.do";
+			path = "myinfoupForm.do";
 		}
-		
+
 		RequestDispatcher dispatcher = request.getRequestDispatcher(path);
 		dispatcher.forward(request, response);
 		// 접속 해제
