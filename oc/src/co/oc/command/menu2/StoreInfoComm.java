@@ -18,6 +18,7 @@ import co.oc.dao.ReviewDAO;
 import co.oc.dao.StoreDAO;
 import co.oc.dto.FavoriteDTO;
 import co.oc.dto.LikeDTO;
+import co.oc.dto.Paging;
 import co.oc.dto.ReviewDTO;
 import co.oc.dto.StoreDTO;
 
@@ -66,23 +67,16 @@ public class StoreInfoComm implements Command {
 			pageNo = Integer.parseInt(p);
 		}
 		
-		int start, end;			// 조회할 시작과 끝 레코드 번호
-		int recordTotal;		// 총레코드 갯수(DB조회)
-		int pagePerRecord = 5;	// 한페이지에 출력할 레코드 건수
-		int pageCnt;			// 페이지수
+		Paging paging = new Paging();
+		paging.setPageUnit(10); //한 페이지에 출력할 레코드 건수
+		paging.setPageSize(10); //페이지바에 나타날 페이지 번호 수(이전 1 2 3 ...10 다음)
+		paging.setPage(pageNo);	//현재 페이지
+		paging.setTotalRecord(ReviewDAO.getInstance().review_getPageCount(conn, "store_num", storeNum)); //총 레코드 건수
+		request.setAttribute("paging", paging);
 		
-		recordTotal = ReviewDAO.getInstance().review_getPageCount(conn, "store_num", storeNum);
-		pageCnt = recordTotal/pagePerRecord + (recordTotal%pagePerRecord>0 ? 1 : 0); //마지막 페이지 번호
-
-		request.setAttribute("pageCnt", pageCnt);
-		request.setAttribute("pageNo", pageNo);
-		request.setAttribute("x", pageCnt/pagePerRecord);
-		request.setAttribute("y", pageNo/pagePerRecord);
-		request.setAttribute("pagePerRecord", pagePerRecord);
-				
-		start = (pageNo-1)*pagePerRecord + 1;	//해당 페이지의 시작 레코드
-		end = start + pagePerRecord -1;			//해당 페이지의 마지막 레코드
-		List<ReviewDTO> list = ReviewDAO.getInstance().select1(conn, "store_num", storeNum, start, end);
+		int first = paging.getFirst();
+		int last = paging.getLast(); 
+		List<ReviewDTO> list = ReviewDAO.getInstance().select1(conn, "store_num", storeNum, first, last);
 		request.setAttribute("storeReview", list);
 		
 		
