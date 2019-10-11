@@ -8,6 +8,16 @@
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
  <script type="text/javascript">
  
+ function NickCheck() {
+		var chkNick = document.frm.userNickname;
+		if(chkNick.value == "") {
+			alert("닉네임을 입력하세요.")
+			chkNick.focus();
+			return false;
+		}
+		
+		window.open("NickCheck.do?userNickname="+chkNick.value,"","width=500,height=400");
+	}
  
  $(function() {
 	
@@ -43,20 +53,6 @@
             inval_Arr[7] = true;
       
          return true;
-         //전체 유효성 검사
-  /*        var validAll = true;
-         for(var i = 0; i < inval_Arr.length; i++){
-            if(inval_Arr[i] == false){
-               validAll = false;
-            }
-         } */
-        /*  if(validAll == true){ // 유효성 모두 통과
-            alert('정보수정이 완료되었습니다.');      
-         } else{
-            alert('정보를 다시 확인하세요.')
-         } */
-       });//su
-     
      
    $('#user_pw').blur(function() {
       if (pwJ.test($('#user_pw').val())) {
@@ -77,18 +73,13 @@
          $('#pw2_check').text('');
       }
    });
- })
+ });
+ 
+ 
+ 
+ 
 
-  /*  //이름에 특수문자 들어가지 않도록 설정
-   $("#user_name").blur(function() {
-      if (nameJ.test($(this).val())) {
-         console.log(nameJ.test($(this).val()));
-         $("#name_check").text('');
-      } else {
-         $('#name_check').text('한글 2~4자 이내로 입력하세요. (특수기호, 공백 사용 불가)');
-         $('#name_check').css('color', 'red');
-      }
-   }); */
+
 //우편번호 찾기 버튼 클릭시 발생 이벤트
 function execPostCode() {
      new daum.Postcode({
@@ -197,9 +188,14 @@ function execPostCode() {
 				</div>
 
 				<div class="form-group">
-					<label for="user_birth">닉네임</label> 
-					<input type="text" class="form-control" id="ninckname" name="ninckname" value="${UserDTO.userNick}" >
-					<div class="eheck_font" id="birth_check"></div>
+					<div class="col-sm-8" style="padding: 0px">
+						<label for="userNickNum">닉네임</label> 
+					<input type="text" class="form-control" id="userNickname" name="userNickname"  value="${userNickname}">
+					</div>
+						<div class="col-sm-4">
+						<br>
+							<input type="button" class="btn btn-primary form-control" onclick="NickCheck()" value="중복체크">
+						</div>
 				</div>
 
 
@@ -214,7 +210,7 @@ function execPostCode() {
 					<input class="form-control" placeholder="상세주소" name="user_detailaddress" id="user_detailaddress" type="text" value="${UserDTO.userAddr}" />
 				</div>
 				<div class="form-group text-center">
-					<input type="submit" value=정보수정 class="btn btn-primary" > 
+					<input type="submit" value=정보수정 class="btn btn-primary oncl" onclick="location.href='myAskRead.do?key=${dto.askNum}'" > 
 					<input type=button value=취소 class="btn btn-primary"> 
 
 				</div>

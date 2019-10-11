@@ -35,7 +35,7 @@ public class ReviewComm implements Command {
 		try {
 
 			// 총 게시글 개수.
-			cnt = ReviewDAO.getInstance().review_getPageCount(conn);
+			//cnt = ReviewDAO.getInstance().review_getPageCount(conn);
 			//페이지 번호
 			tot = cnt / size;
 			if (cnt % size != 0) {

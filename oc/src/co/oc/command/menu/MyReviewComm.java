@@ -60,7 +60,7 @@ public class MyReviewComm implements Command {
 		}
 
 		// request 객체에 list를 담아준다.
-		request.setAttribute("list", list);
+		request.setAttribute("riviewlist", list);
 
 		// request 객체에 총 페이지수를 담아준다.
 		request.setAttribute("tot", tot);
