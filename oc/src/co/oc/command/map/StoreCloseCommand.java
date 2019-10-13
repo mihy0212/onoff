@@ -2,9 +2,8 @@ package co.oc.command.map;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,22 +11,24 @@ import javax.servlet.http.HttpServletResponse;
 import co.oc.command.Command;
 import co.oc.dao.DAO;
 import co.oc.dao.StoreDAO;
-import co.oc.dto.StoreDTO;
-import net.sf.json.JSONArray;
+import co.oc.dao.TimeDAO;
 
-public class CloseStoreCommand implements Command {
+public class StoreCloseCommand implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Connection conn = DAO.connect();
-		List<StoreDTO> list = StoreDAO.getInstance().selectCloseStore(conn);
 
-		String map = JSONArray.fromObject(list).toString();
+		String userNum = request.getParameter("userNum");
 
-		response.setContentType("text/html; charset=UTF-8");
-		response.getWriter().print(map);
+		StoreDAO.getInstance().storeClose(conn, userNum);
+		TimeDAO.getInstance().storeCloseLog(conn, userNum);
 
 		DAO.disconnect(conn);
+
+		// 홈으로 돌아가게 하기(홈 .do 알아내기)
+		RequestDispatcher dispatcher = request.getRequestDispatcher("");
+		dispatcher.forward(request, response);
 	}
 
 }

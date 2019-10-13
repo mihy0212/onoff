@@ -12,7 +12,12 @@ var closePlaces;
 var clusterer = new kakao.maps.MarkerClusterer({
 	map : map
 });
+var userNum;
+var userGrant;
+var storeOc;
 window.onload = function() {
+	userNum = $('#userNum').val();
+	userGrant = $('#userGrant').val();
 	$
 			.ajax({
 				url : 'ajaxOpenStore.do',
@@ -97,6 +102,44 @@ window.onload = function() {
 		alert('GPS를 지원하지 않습니다');
 	}
 
+	// userNum 로그인 안 했을 시 어떻게 나오는 지 확인하고 조건문 수정
+	console.log(userGrant);
+
+	// 유저로 로그인 되있고 사장 일 시 가게 열기/닫기 버튼을 만듬
+	if (userNum != "" && userGrant != null) {
+		$.ajax({
+			url : 'ajaxStoreState.do',
+			data : {
+				user : userNum
+			},
+			type : 'GET',
+			dataType : 'json',
+			success : function(data) {
+
+				// 데이터 어떻게 넘어오는지 보고 변수 지정
+				console.log(data);
+
+				storeButton(data);
+
+			},
+			error : function(xhr, status, error) {
+				console.log(error);
+			}
+		})
+	}
+}
+
+// 가게 상태에 따라 버튼을 만듬
+function storeButton(result) {
+	if (result == "0") {
+		$('#dv').append(
+				'<input type="button" onclick="storeOpen.do" value="open">');
+	}
+
+	if (result == "1") {
+		$('#dv').append(
+				'<input type="button" onclick="storeClose.do" value="close">');
+	}
 }
 
 callback = function(result, status) {
@@ -373,12 +416,12 @@ function displayKakao(places) {
 			kakao.maps.event.addListener(marker, 'click', function() {
 				window.open(url);
 			})
-			
-			itemEl.onclick =  function () {
+
+			itemEl.onclick = function() {
 				infowindow.close();
-                displayInfowindow(marker, title);
-                map.setCenter(marker.getPosition());
-            };
+				displayInfowindow(marker, title);
+				map.setCenter(marker.getPosition());
+			};
 
 		})(marker, places[i].place_name, places[i].place_url);
 
