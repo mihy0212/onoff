@@ -338,6 +338,55 @@ public class StoreDAO extends DAO {
 		return list;
 	}
 
+	// 가게 상태 조회
+	public int storeState(Connection conn, String userNum) {
+
+		int storeState = 0;
+		String sql = "select store_oc from oc_store where user_num = ?";
+
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, userNum);
+
+			rs = psmt.executeQuery();
+
+			if (rs.next()) {
+				storeState = rs.getInt("store_oc");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return storeState;
+
+	}
+
+	public void storeOpen(Connection conn, String userNum) {
+		String sql = "update oc_store set store_oc=1 where user_num=?";
+		
+		try {
+			psmt=conn.prepareStatement(sql);
+			psmt.setString(1, userNum);
+			
+			psmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void storeClose(Connection conn, String userNum) {
+		String sql = "update oc_store set store_oc=0 where user_num=?";
+		
+		try {
+			psmt=conn.prepareStatement(sql);
+			psmt.setString(1, userNum);
+			
+			psmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
 	// 4. 복진영
 
 }

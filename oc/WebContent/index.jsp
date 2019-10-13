@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +11,8 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="assets/js/map/mainMap.js"></script>
-<link rel="stylesheet" type="text/css" href="assets/css/map/placeList.css">
+<link rel="stylesheet" type="text/css"
+	href="assets/css/map/placeList.css">
 <style>
 #map {
 	width: 100%;
@@ -20,7 +22,10 @@
 </style>
 </head>
 <body>
-	<div align="center">
+	<input type="hidden" id="userNum" name="userNum" value="${userNum}">
+	<input type="hidden" id="userGrant" name="userGrant"
+		value="${userGrant}">
+	<div id="dv" align="center">
 		<div class="map_wrap">
 			<div id="map" style="position: relative; overflow: hidden;"></div>
 

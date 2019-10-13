@@ -27,11 +27,7 @@ public class OpenStoreCommand implements Command {
 		response.setContentType("text/html; charset=UTF-8");
 		response.getWriter().print(map);
 
-		try {
-			conn.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		DAO.disconnect(conn);
 	}
 
 }

@@ -37,6 +37,9 @@ import co.oc.command.manager.WriteForm;
 import co.oc.command.map.CloseStoreCommand;
 import co.oc.command.map.OpenStoreCommand;
 import co.oc.command.map.SearchCommand;
+import co.oc.command.map.StoreCloseCommand;
+import co.oc.command.map.StoreOpenCommand;
+import co.oc.command.map.StoreStateCommand;
 import co.oc.command.menu.DeldectMyReiviewComm;
 import co.oc.command.menu.MyActComm;
 import co.oc.command.menu.MyAskListComm;
@@ -65,15 +68,15 @@ public class MainController extends HttpServlet {
 
 	public void init(ServletConfig config) throws ServletException {
 		map = new HashMap<String, Command>();
-		
-		//최미현
-		map.put("/storeInfo.do", new StoreInfoComm()); //가게별 상세 정보 조회
-		map.put("/storeInfoChange.do", new StoreInfoChangeComm()); //storeInfo.jsp(가게 상세)에서 일어나는 모든 변경
-		map.put("/storeReview.do", new StoreReviewComm()); //리뷰 조회
-		
-		map.put("/adminStoreInfo.do", new AdminStoreInfoComm()); //가게 신청 목록 및 전체 가게 관리 
-		map.put("/addRead.do", new AddReadComm()); //가게 신청서 한 건 조회
-		map.put("/adminStoreChange.do", new AdminStoreChangeComm()); //admin_store에서 일어나는 모든 변경
+
+		// 최미현
+		map.put("/storeInfo.do", new StoreInfoComm()); // 가게별 상세 정보 조회
+		map.put("/storeInfoChange.do", new StoreInfoChangeComm()); // storeInfo.jsp(가게 상세)에서 일어나는 모든 변경
+		map.put("/storeReview.do", new StoreReviewComm()); // 리뷰 조회
+
+		map.put("/adminStoreInfo.do", new AdminStoreInfoComm()); // 가게 신청 목록 및 전체 가게 관리
+		map.put("/addRead.do", new AddReadComm()); // 가게 신청서 한 건 조회
+		map.put("/adminStoreChange.do", new AdminStoreChangeComm()); // admin_store에서 일어나는 모든 변경
 //		map.put("/", new ());
 
 		// 권보성
@@ -88,7 +91,7 @@ public class MainController extends HttpServlet {
 		map.put("/login.do", new LoginCheckCommand()); // 로그인 정보 DB에확인 후 로그인
 		map.put("/logout.do", new LogoutCommand()); // 로그아웃
 		map.put("/list.do", new BorderListCommand()); // 문의글리스트보기
-		map.put("/writeForm.do", new WriteForm()); //문의 답변폼으로가기
+		map.put("/writeForm.do", new WriteForm()); // 문의 답변폼으로가기
 		map.put("/borderRead.do", new BorderReadCommand()); // 문의글 상세보기
 		map.put("/userlist.do", new UserList()); // 유저 리스트 출력
 //		map.put("/userRead.do", new UserRead());
@@ -97,11 +100,14 @@ public class MainController extends HttpServlet {
 		map.put("/storeNickCheck.do", new StoreNickCheck()); // 스토어 이름 중복체크
 		map.put("/index.do", new Homego());
 		map.put("/answer.do", new AnswerCommand());
-		
+
 		// 백승진
 		map.put("/ajaxOpenStore.do", new OpenStoreCommand());
 		map.put("/ajaxCloseStore.do", new CloseStoreCommand());
 		map.put("/search.do", new SearchCommand());
+		map.put("/ajaxStoreState.do", new StoreStateCommand());
+		map.put("/storeOpen.do", new StoreOpenCommand());
+		map.put("/storeClose.do", new StoreCloseCommand());
 
 		// 복진영
 		// 마이 메뉴
@@ -113,7 +119,7 @@ public class MainController extends HttpServlet {
 
 		map.put("/myReview.do", new MyActComm());// 리뷰리스트
 		map.put("/myfavorite.do", new MyActComm());// 즐겨찾기리스트
-		map.put("/updateMyReiview.do", new UpdateMyReiviewComm());//리뷰수정
+		map.put("/updateMyReiview.do", new UpdateMyReiviewComm());// 리뷰수정
 		map.put("/delectMyReiview.do", new DeldectMyReiviewComm());// 리뷰삭제
 
 		map.put("/myAskWrite.do", new MyAskWriteComm());// 문의리스트
