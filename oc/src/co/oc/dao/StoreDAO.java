@@ -131,7 +131,7 @@ public class StoreDAO extends DAO {
 		 String where = " where 1=1 ";
 		 if (sdto != null) {
 			 if ( sdto.getStoreOpen() != null && sdto.getStoreOpen() != "All") {	//1. 가게 오픈 여부 조회
-				 where += " and store_oc = ? ";
+				 where += " and store_oc like ? ";
 			 }
 		 }
 		 String sql ="select *"
@@ -187,7 +187,7 @@ public class StoreDAO extends DAO {
 				//culumn : 검색할 컬럼명, content: 검색할 내용
 	public int getPageCount(Connection conn, String culumn, String content) {
 		int cnt = 0;
-		String sql = "select count(*) from oc_store where " + culumn + "=" + content;
+		String sql = "select count(*) from oc_store where " + culumn + " like " + content;
 		try {
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery(sql);

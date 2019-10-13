@@ -118,7 +118,7 @@ public class AddDAO extends DAO {
 		 String where = " where 1=1 ";
 		 if (adto != null) {
 			 if ( adto.getAddStatus() != null && adto.getAddStatus() != "All") {	//1. 처리 상태별 조회 
-				 where += " and add_status = ? ";
+				 where += " and add_status like ? ";
 			 }
 			 if ( adto.getAddNum() != null) {	//2. 신청번호별 조회
 				 where += " and add_num = ? ";
@@ -228,7 +228,7 @@ public class AddDAO extends DAO {
 			//culumn : 검색할 컬럼명, content: 검색할 내용
 	public int getPageCount(Connection conn, String culumn, String content) {
 		int cnt = 0;
-		String sql = "select count(*) from oc_add where " + culumn + "=" + content;
+		String sql = "select count(*) from oc_add where " + culumn + " like " + content;
 		try {
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery(sql);
