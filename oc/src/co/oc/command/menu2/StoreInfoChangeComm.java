@@ -29,10 +29,9 @@ public class StoreInfoChangeComm implements Command {
 		PrintWriter out = response.getWriter();
 		Connection conn = DAO.connect();
 		
-		String action = request.getParameter("action");
+		String choice = request.getParameter("choice");
 		
-		
-		if(action.equals("likeClick")) {
+		if(choice.equals("likeClick")) {
 			LikeDTO ldto = new LikeDTO();
 			ldto.setStoreNum(request.getParameter("storeNum"));
 			ldto.setUserNum(request.getParameter("userNum"));
@@ -44,40 +43,67 @@ public class StoreInfoChangeComm implements Command {
 			obj.put("likeCount",likeCount);
 			out.print(obj.toJSONString());
 			
-		} else if(action.equals("favoClick")) {
+		} else if(choice.equals("favoClick")) {
 			FavoriteDTO dto = new FavoriteDTO();
 			dto.setStoreNum(request.getParameter("storeNum"));
 			dto.setUserNum(request.getParameter("userNum"));
 			int favoCount = FavoriteDAO.getInstance().checkInsert(conn, dto);
 			out.print(favoCount);
 			
-		} else if(action.equals("storeInfoUpdate")) {
+		} else if(choice.equals("storeInfoUpdate")) {
 			String check = request.getParameter("check");
 			String content = request.getParameter("content");
 			String storeNum = request.getParameter("storeNum");
 			int n = StoreDAO.getInstance().update1(conn, check, content, storeNum);
 			out.print(n);
 			
-		} else if(action.equals("reviewInsert")) {
+		} else if(choice.equals("reviewInsert")) {
 			ReviewDTO dto = new ReviewDTO();
-			dto.setStoreNum(request.getParameter("storeNum"));
+			String storeNum = request.getParameter("storeNum");
+			dto.setStoreNum(storeNum);
 			dto.setUserNum(request.getParameter("userNum"));
 			dto.setReviewStar(request.getParameter("reviewStar"));
 			dto.setReviewContent(request.getParameter("reviewContent"));
 			int n = ReviewDAO.getInstance().insert(conn, dto);
-			out.print(n);
+			//out.print(n);
+			if(n != 0) {
+				response.sendRedirect("storeInfo.do?storeNum="+storeNum);
+			}
 			
-		} else if(action.equals("reviewDelete")) {
+		} else if(choice.equals("reviewDelete")) {
 			String reviewNum = request.getParameter("reviewNum");
 			int n = ReviewDAO.getInstance().delete(conn, reviewNum);
 			out.print(n);
 			
-		} else if(action.equals("reviewUpdate")) {
-		
+		} else if(choice.equals("reviewUpdate")) {
+			ReviewDTO dto = new ReviewDTO();
+			String storeNum = request.getParameter("storeNum");
+			dto.setReviewNum(request.getParameter("reviewNum"));
+			dto.setReviewStar(request.getParameter("reviewStar"));
+			dto.setReviewContent(request.getParameter("reviewContent"));
+			int n = ReviewDAO.getInstance().update(conn, dto);
+			double stars = ReviewDAO.getInstance().selectStar(conn, storeNum);
+			
+			JSONObject obj = new JSONObject();
+			obj.put("n", n);
+			obj.put("stars", stars);
+			out.print(obj.toJSONString());
+			
+		} else if(choice.equals("reviewReply")) {
+			ReviewDTO dto = new ReviewDTO();
+			dto.setReviewRe(request.getParameter("reviewRe"));
+			String storeNum = request.getParameter("storeNum");
+			System.out.println(storeNum);
+			dto.setStoreNum(storeNum);
+			dto.setUserNum(request.getParameter("userNum"));
+			dto.setReviewContent(request.getParameter("reviewContent"));
+			int n = ReviewDAO.getInstance().insert(conn, dto);
+			if(n != 0) {
+				response.sendRedirect("storeInfo.do?storeNum="+storeNum);
+			} else {
+				System.out.println("리뷰 댓글 등록 실패");
+			}
 		}
-//		else if(action.equals("reviewReply")) {
-//			
-//		}
 		
 		DAO.disconnect(conn);
 

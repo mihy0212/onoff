@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="u" %>
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 <head>
@@ -55,13 +56,12 @@ $(document).ready(function(){
 		$('.categ3').text("기타");
 	}
 	
-	//상태 표시
-	/*
+	//상태에 따른 검색
 	$('.ask_status').on('click', function(){
-		var askStatus = $(this);
-		var askStatNum;
+		var addStatus = $(this);
+		var addStatNum;
 		if( $(this).attr('id') == 'ask_status_all'){
-			askStatNum = "All";
+			askStatNum = "%";
 		} else if( $(this).attr('id') == 'ask_status_1'){
 			askStatNum = "1";
 		} else if( $(this).attr('id') == 'ask_status_2'){
@@ -71,19 +71,7 @@ $(document).ready(function(){
 		} else if( $(this).attr('id') == 'ask_status_4'){
 			askStatNum = "4";
 		}
-		$.ajax({
-			url: "storeInfoChange.do",
-			data: {
-				askStatus: askStatNum
-			},
-			dataType: "json",
-			success: function(result){
-				if(result != null){
-					
-				}
-			}
-		});
-	});*/
+	});
 	
 });
 
@@ -120,7 +108,8 @@ td{
 
 </style>
 </head>
-<body data-spy="scroll" data-target=".navbar-collapse" data-offset="100">
+<body data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
+<div style="padding-top: 50px"></div>
 
 <!-- 페이지 전환 효과 -->
 <div id="loading">
@@ -150,7 +139,7 @@ td{
 	<div id="root" class="col-md-8 text-right">
 		<form class="form-inline">
 			<button class="btn button ask_status" id="ask_status_all">전체</button>
-			<button class="btn button ask_status" id="ask_status_1">신청 중</button>
+			<button class="btn button ask_status" id="ask_status_1">처리 전</button>
 			<button class="btn button ask_status" id="ask_status_2">등록 허가</button>
 			<button class="btn button ask_status" id="ask_status_3">등록 거절</button>
 			<button class="btn button ask_status" id="ask_status_4">등록 보류</button>&nbsp;&nbsp;
@@ -245,17 +234,20 @@ td{
 </div>
 	
 <!-- 페이징 -->
-<div align="center">
-	<nav aria-label="Page navigation">
-		<ul class="pagination" id="pagination">
-			<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-			<li class="page-item"><a class="page-link" href="#">1</a></li>
-			<li class="page-item"><a class="page-link" href="#">2</a></li>
-			<li class="page-item "><a class="page-link" href="#">3</a></li>
-			<li class="page-item"><a class="page-link" href="#">Next</a></li> 
-		</ul>
-	</nav>
-</div>
+<!-- 페이징 -->
+<form id="pagefrm" name="pagefrm" action="adminStoreInfo.do">
+	<input type="hidden" name="p">
+	<input type="hidden" name="aculumn">
+	<input type="hidden" name="acontent">
+</form>
+
+<u:paging pgfunc="doList" paging="${ apaging }"></u:paging>
+<script>
+function doList(p) {
+	document.pagefrm.p.value = p;
+	document.pagefrm.submit();
+}
+</script>
 
 <hr />
 <!-- END 리뷰 목록 뿌려주기 -->
@@ -265,6 +257,7 @@ td{
 <%------------------------------------------------------------------------------------ --%>
 				
 <!-- 헤드 부분 -->
+<div style="padding-top: 50px"></div>
 <!-- 제목 -->
 <div class="col-md-4">
 	<div class="head_title text-left sm-text wow fadeInDown">
@@ -300,6 +293,7 @@ td{
 				<th>분류3</th>
 				<th>좋아요 수</th>
 				<th>사업자명</th>
+				<th>사업자별명</th>
 				<th>가게등록일</th>
 				<th>가게상태</th>
 			</tr>
@@ -326,7 +320,8 @@ td{
 				<td class="categ2">${ slist.storeCateg2 }</td>
 				<td class="categ3">${ slist.storeCateg3 }</td>
 				<td>${ slist.storeLike }</td>
-				<td>${ slist.userNum }</td>
+				<td>${ slist.userName }</td>
+				<td>${ slist.userNick }</td>
 				<td>${ slist.storeRegiday }</td>
 				<td>
 					<c:choose>
@@ -342,17 +337,19 @@ td{
 </div>
 	
 <!-- 페이징 -->
-<div align="center">
-	<nav aria-label="Page navigation">
-		<ul class="pagination" id="pagination">
-			<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-			<li class="page-item"><a class="page-link" href="#">1</a></li>
-			<li class="page-item"><a class="page-link" href="#">2</a></li>
-			<li class="page-item "><a class="page-link" href="#">3</a></li>
-			<li class="page-item"><a class="page-link" href="#">Next</a></li> 
-		</ul>
-	</nav>
-</div>
+<form id="pagefrm" name="pagefrm" action="adminStoreInfo.do">
+	<input type="hidden" name="p">
+	<input type="hidden" name="bculumn" value="">
+	<input type="hidden" name="bcontent" value="">
+</form>
+
+<u:paging pgfunc="doList" paging="${ bpaging }"></u:paging>
+<script>
+function doList(p) {
+	document.pagefrm.p.value = p;
+	document.pagefrm.submit();
+}
+</script>
 
 <hr />
 <!-- END 리뷰 목록 뿌려주기 -->

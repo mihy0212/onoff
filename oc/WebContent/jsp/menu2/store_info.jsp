@@ -43,17 +43,17 @@ $(document).ready(function(){
 	}
 	
 	//카테고리3 출력하기
-	if( "${ storeInfo.storeCateg2 }" == "01" ){
+	if( "${ storeInfo.storeCateg3 }" == "01" ){
 		$('#categ3').text("한식");
-	} else if( "${ storeInfo.storeCateg2 }" == "02" ){
+	} else if( "${ storeInfo.storeCateg3 }" == "02" ){
 		$('#categ3').text("양식");
-	} else if( "${ storeInfo.storeCateg2 }" == "03" ){
+	} else if( "${ storeInfo.storeCateg3 }" == "03" ){
 		$('#categ3').text("중식");
-	} else if( "${ storeInfo.storeCateg2 }" == "04" ){
+	} else if( "${ storeInfo.storeCateg3 }" == "04" ){
 		$('#categ3').text("일식");
-	} else if( "${ storeInfo.storeCateg2 }" == "05" ){
+	} else if( "${ storeInfo.storeCateg3 }" == "05" ){
 		$('#categ3').text("분식");
-	} else if( "${ storeInfo.storeCateg2 }" == "06" ){
+	} else if( "${ storeInfo.storeCateg3 }" == "06" ){
 		$('#categ3').text("기타");
 	}
 	
@@ -80,18 +80,60 @@ $(document).ready(function(){
 	
 	//리뷰에서 별점 표시하기
 	var star_num;
-	$('.reviewStars').on('click', function(){
+	$('.review_list_div').on('click', '.reviewStars', function(){
 		star_num = $(this).attr('id').substring(4,5);
 		if($(this).css("color")=="rgb(128, 128, 128)"){
-			for(var i=1; i<=star_num; i++){
-				var starNum = "star"+i;
-				$('#'+starNum).css("color","yellow");
+			for(var i=0; i<star_num; i++){
+				//var starNum = "star"+i;
+				//$('#'+starNum).css("color","yellow");
+				$(this).parent().children().eq(i).css("color","yellow");
 			}
 		} else {
 			for(var i=5; i>=star_num; i--){
-				var starNum = "star"+i;
-				$('#'+starNum).css("color","gray");
+				//var starNum = "star"+i;
+				//$('#'+starNum).css("color","gray");
+				$(this).parent().children().eq(i).css("color","gray");
 			}
+		}
+	});
+	
+	//카테고리 수정1
+	$('.store_categ').on('click', '#categ1', function(){
+		if( "${ storeNum }" == "${ storeInfo.storeNum }" ){
+			$('#categ1').hide();
+			var select = $('<select>').attr('id','categ1_sel').append(
+					$('<option>').val('01').text('음식점')
+			);
+			var btn = $('<span>').attr({'class':'icon icon icon-arrows-1', 'id':'categ1_up'}).click(info_update3)
+			$('#categ1').after(select, btn);
+		}
+	});
+	//카테고리 수정2
+	$('.store_categ').on('click', '#categ2', function(){
+		if( "${ storeNum }" == "${ storeInfo.storeNum }" ){
+			$('#categ2').hide();
+			var select = $('<select>').attr('id','categ2_sel').append(
+					$('<option>').val('01').text('점포 가게'),
+					$('<option>').val('02').text('이동 가게')
+			);
+			var btn = $('<span>').attr({'class':'icon icon icon-arrows-1', 'id':'categ2_up'}).click(info_update3)
+			$('#categ2').after(select, btn);
+		}
+	});
+	//카테고리 수정3
+	$('.store_categ').on('click', '#categ3', function(){
+		if( "${ storeNum }" == "${ storeInfo.storeNum }" ){
+			$('#categ3').hide();
+			var select = $('<select>').attr('id','categ3_sel').append(
+					$('<option>').val('01').text('한식'), 
+					$('<option>').val('02').text('양식'),
+					$('<option>').val('03').text('중식'),
+					$('<option>').val('04').text('일식'),
+					$('<option>').val('05').text('분식'),
+					$('<option>').val('06').text('기타')
+			);
+			var btn = $('<span>').attr({'class':'icon icon icon-arrows-1', 'id':'categ3_up'}).click(info_update3)
+			$('#categ3').after(select, btn);
 		}
 	});
 	
@@ -111,7 +153,7 @@ $(document).ready(function(){
 			//$('<input>').attr({'type':'hidden'}).val('전송받은 xy좌표값') ); //나중에 지도 검색 시 입력하는 부분
 			//console.log( $(this).parent().parent().children().eq(1) )
 			$(this).parent().append( $('<span>').attr({'class':'icon icon icon-arrows-1', 'id':'addr'}).click(info_update2) );
-			$(this).remove();
+			$(this).hide();
 			
 		//전화번호 변경
 		} else if(id == 'tel'){
@@ -122,7 +164,36 @@ $(document).ready(function(){
 			old_text_tag.hide();
 			h4.children().eq(1).after( $('<input>').attr({'type':'text', 'style':'width:40%;font-size:12pt;', 'placeholder':'예) 010-0000-0000'}).val(old_text) ); //eq(2)인풋부
 			$(this).parent().append( $('<span>').attr({'class':'icon icon icon-arrows-1', 'id':'tel'}).click(info_update2) );
-			$(this).remove();
+			$(this).hide();
+			/*	
+		} else if(id == 'categori'){
+			var h4 = $(this).parent().parent().parent().children().eq(1).children().eq(0).children().eq(0);
+			var categori1 = h4.children().eq(1);
+			var categori2 = h4.children().eq(2);
+			var categori3 = h4.children().eq(3);
+			categori1.hide();
+			categori2.hide();
+			categori3.hide();
+			
+			var cate2txt = categori2.text();
+			var select1 = $('<select>').attr('id','categ1_sel').append(
+					$('<option>').val('01').text('음식점')
+			);
+			var select2 = $('<select>').attr('id','categ2_sel').append(
+					$('<option>').val('01').text('점포 가게'), 
+					$('<option>').val('02').text('이동 가게')
+			);
+			var select3 = $('<select>').attr('id','categ3_sel').append(
+					$('<option>').val('01').text('한식'), 
+					$('<option>').val('02').text('양식'),
+					$('<option>').val('03').text('중식'),
+					$('<option>').val('04').text('일식'),
+					$('<option>').val('05').text('분식'),
+					$('<option>').val('06').text('기타')
+			);
+			categori3.after( select1, select2, select3 );
+			$(this).parent().append( $('<span>').attr({'class':'icon icon icon-arrows-1', 'id':'categori'}).click(info_update3) );
+			$(this).hide();*/
 			
 		//평균 운영 시간 | 메뉴 | 기타 변경
 		} else {
@@ -136,12 +207,11 @@ $(document).ready(function(){
 			old_text_tag.hide(); //blockquote.children().eq(0)숩겨진 에전 정보
 			blockquote.append( $('<textarea>').attr({'cols':'45','rows':'10'}).val(old_text) ); //blockquote.children().eq(1)인풋부
 			$(this).parent().append( $('<span>').attr({'class':'icon icon icon-arrows-1', 'id':id}).click(info_update2) );
-			$(this).remove();
+			$(this).hide();
 		}
 	});
 	
 	//리뷰 페이징 처리
-	
 	/*
 	var $page = $('<li>').attr({'class':'page-item'}).append( $('<a>').attr({'class':'page-link'}) );
 	var $page_dis = $('<li>').attr({'class':'page-item disabled'}).append( $('<a>').attr({'class':'page-link'}) );
@@ -191,26 +261,34 @@ $(document).ready(function(){
 	$('#btn_insert').on('click', function(){
 		//console.log($('#insertText').val());//텍스트창에 입력한 값
 		var starNum =0;
-		for(var i=1; i<=$('.insert_star').length; i++){
-			if($('#star'+i).css("color") == "rgb(255, 255, 0)"){
-				starNum = i;
+		for(var i=0; i<$('.insert_star').length; i++){
+			if($('.insert_star').eq(i).css("color") == "rgb(255, 255, 0)"){
+				starNum = i+1;
 			}
 		}
 		console.log(starNum);
 		var content = $('#insertText').val();
-		//console.log(starNum);
 		if(starNum == 0){
 			alert("별점을 입력해 주세요.");
 			return false;
 		}
+		$('#reviewStar').val(starNum);
 		if(content == ""){
 			alert("리뷰 내용을 입력해 주세요.");
+		}
+		var con = confirm("입력한 내용으로 리뷰를 등록하시겠습니까?");
+		if(con){
+			$('#reviewin_frm').submit();
 		} else {
+			return false;
+		}
+		/*
+		else {
 			$.ajax({
 				url: "storeInfoChange.do",
 				type: "post",
 				data: {
-					action: "reviewInsert",
+					choice: "reviewInsert",
 					storeNum: "${ storeInfo.storeNum }",
 					userNum: "${ userNum }",
 					reviewStar: starNum,
@@ -220,7 +298,7 @@ $(document).ready(function(){
 				success: function(seq){
 					if(seq != 0){
 						alert("리뷰 등록에 성공했습니다.");
-						
+
 						var last_list_id_num = $('.review_list').children().last().attr('id').substring(4,5);
 						var today_date = new Date().toISOString().substring(0,10);
 						
@@ -239,7 +317,7 @@ $(document).ready(function(){
 						//var new_id_num = last_list_id_num + 1;
 						//copy_re.attr('id','list'+ new_id_num);
 						//copy_re.children().eq(4).children().eq(0).attr('id','btn_up_'+new_id_num);
-						//copy_re.children().eq(4).children().eq(0).attr('id','btn_del_'+new_id_num);
+						//copy_re.children().eq(4).children().eq(1).attr('id','btn_del_'+new_id_num);
 						$('#copy_reivew').clone().prependTo($('.review_list'));
 						$('.review_list').children().first().attr('id',last_list_id_num+1);
 						
@@ -250,14 +328,13 @@ $(document).ready(function(){
 						$('#star4').css("color","gray");
 						$('#star5').css("color","gray");
 						$('#insertText').val("");
-						
+
 					} else {
 						alert("리뷰 등록에 실패했습니다.");
 					}
 				}
 			});
-		}
-		
+		}*/
 	});
 
 	//리뷰 삭제
@@ -271,7 +348,7 @@ $(document).ready(function(){
 			$.ajax({
 				url: "storeInfoChange.do",
 				data: {
-					action: "reviewDelete",
+					choice: "reviewDelete",
 					reviewNum: reviewNum
 				},
 				dataType: "json",
@@ -288,30 +365,34 @@ $(document).ready(function(){
 	});
 	
 	
-	//리뷰 수정
+	//리뷰 수정1
 	$('.btn_update').on('click', function(){
 		var parentDiv = $(this).parent().parent();
 		var reviewNum = parentDiv.children().eq(0).val();
 		
-		var blockquote = parentDiv.children().eq(3).children().eq(0);
-		var con1 = blockquote.children().last().text();
+		//리뷰 내용
+		var blockquote1 = parentDiv.children().eq(3).children().eq(0);
+		var con1 = blockquote1.children().last().text();
 		var con2 = con1.substring(0,con1.length-15);
 		
+		//별 갯수
 		var starNum = 0;
 		for(var i=0; i<5; i++){
-			if(blockquote.children().eq(i).text() == "★"){
+			if(blockquote1.children().eq(i).text() == "★"){
 				starNum += 1;
 			}
 		}
-		console.log(reviewNum);
 
-		blockquote.hide();//blockquote 숨김처리
+		blockquote1.hide();//blockquote 숨김처리
 		var span_star = $('<blockquote>');
-		for(var i=1; i<=starNum; i++){
-			span_star.append( $('<span>').attr({'class':'reviewStars', 'id':'star'+i, 'style':'color:yellow;'}).text("★") );
-		}
-		for(var i=1; i<=5-starNum; i++){
-			span_star.append( $('<span>').attr({'class':'reviewStars', 'id':'star'+i, 'style':'color:gray;'}).text("★") );
+		if( parentDiv.attr('class') == 'choose_item_text fix div_content_user'){
+			var i=1;
+			for(; i<=starNum; i++){
+				span_star.append( $('<span>').attr({'class':'reviewStars update_star'+reviewNum, 'id':'star'+i, 'style':'color:yellow;'}).text("★") );
+			}
+			for(; i<=5; i++){
+				span_star.append( $('<span>').attr({'class':'reviewStars update_star'+reviewNum, 'id':'star'+i, 'style':'color:gray;'}).text("★") );
+			}
 		}
 		span_star.append( $('<textarea>').attr({'cols':'73', 'rows':'3'}).val(con2) );
 		parentDiv.children().eq(3).append(span_star);
@@ -322,14 +403,24 @@ $(document).ready(function(){
 		parentDiv.children().eq(4).append(
 				$('<button>').attr({'type':'button', 'class':'btn button is-checked'}).text('변경').click(review_update),
 				$('<button>').attr({'type':'button', 'class':'btn button is-checked'}).text('취소').click(review_up_cancle)
-				);
+		);
 		
-	})
+	});
 	
 	//리뷰 댓글달기
-	$('.btn_reply').on('click', function(){
-		console.log($(this));
-	})
+	$('.btn_reply').on('click', function(){		
+		$('.reply_copy').remove();
+		
+		var divParent = $(this).parent().parent();
+		$(this).parent().parent().after( $('#copy_reply').clone() );
+		
+		var div_num = divParent.children().eq(0).val();
+		var reply_div = divParent.next();
+		reply_div.attr({'class':'choose_item_text fix col-md-offset-1 div_content_ceo reply_copy', 'id':div_num});
+		$('.reply_copy').children().eq(0).children().eq(6).children().eq(0).click(reply_insert);
+		$('.reply_copy').children().eq(0).children().eq(6).children().eq(1).click(reply_in_cancle);
+		
+	});
 	
 	
 });
@@ -342,7 +433,7 @@ function likeUpDown(){
 		$.ajax({
 			url: "storeInfoChange.do",
 			data: {
-				action: "likeClick",
+				choice: "likeClick",
 				userNum: "${ userNum }",
 				storeNum: "${ storeInfo.storeNum }"
 			},
@@ -372,7 +463,7 @@ function favoUpDown(){
 		$.ajax({
 			url: "storeInfoChange.do",
 			data: {
-				action: "favoClick",
+				choice: "favoClick",
 				userNum: "${ userNum }",
 				storeNum: "${ storeInfo.storeNum }"
 			},
@@ -422,7 +513,7 @@ function info_update2(){
 			url: "storeInfoChange.do",
 			type: "post",
 			data: {
-				action: "storeInfoUpdate",
+				choice: "storeInfoUpdate",
 				check: check,
 				content: content,
 				storeNum: "${ storeInfo.storeNum }"
@@ -432,18 +523,16 @@ function info_update2(){
 				if(result == 1){
 					if(id == 'addr' || id == 'tel'){
 						inputTag.after( $('<font>').attr({'size':'4'}).text( content ) );
-						inputParent.children().eq(1).remove; //숨겨진 예전정보 삭제
+						inputParent.children().eq(1).remove(); //숨겨진 예전정보 삭제
 						inputTag.remove();
-						btnUpdate.parent().append( $('<span>').attr({'class':'icon icon icon-cogwheels16', 'id': id}) );
+						btnUpdate.parent().children().eq(0).show();
 						btnUpdate.remove();
-						btnUpdate.parent().children().eq(1).remove();
 					} else if(id == 'time' || id == 'menu' || id == 'etc'){
 						inputParent.append( $('<p>').text( content ) );
-						inputParent.children().eq(0).remove; //숨겨진 예전정보 삭제
+						inputParent.children().eq(0).remove(); //숨겨진 예전정보 삭제
 						inputTag.remove();
-						btnUpdate.parent().append( $('<span>').attr({'class':'icon icon icon-cogwheels16 type_1', 'id': id}) );
+						btnUpdate.parent().children().eq(0).show();
 						btnUpdate.remove();
-						btnUpdate.parent().children().eq(1).remove();
 					}
 				} else {
 					alert("변경에 실패했습니다.")
@@ -455,28 +544,204 @@ function info_update2(){
 			var inputParent = $(this).parent().parent().parent().children().eq(1).children().eq(0);
 			inputParent.children().eq(1).show();
 			inputParent.children().eq(2).remove();
-			$(this).parent().append( $('<span>').attr({'class':'icon icon icon-cogwheels16', 'id': id }) );
+			btnUpdate.parent().children().eq(0).show();
 			$(this).remove();
 			$(this).parent().children().eq(1).remove();
 		} else if(id == 'time' || id == 'menu' || id == 'etc'){
 			var inputParent = $(this).parent().parent().parent().children().eq(1).children().eq(2);
 			inputParent.children().eq(1).remove();
 			inputParent.children().eq(0).show();
-			$(this).parent().append( $('<span>').attr({'class':'icon icon icon-cogwheels16 type_1', 'id': id}) );
+			btnUpdate.parent().children().eq(0).show();
 			$(this).remove();
 			$(this).parent().children().eq(1).remove();
 		}
 	}
 }
 
-function review_update(){
-	//console.log($(this).parent().parent());
-	var divParent = $(this).parent().parent();
-	
+//카테고리 수정
+function info_update3(){
+	var id = $(this).attr('id');
+	var check;
+	var content;
+	if( id == 'categ1_up'){
+		content = $('#categ1_sel > option:selected').val();
+		check = 'store_categ1';
+	} else if( id == 'categ2_up' ){
+		content = $('#categ2_sel > option:selected').val();
+		check = 'store_categ2';
+	} else if( id == 'categ3_up' ){
+		content = $('#categ3_sel > option:selected').val();
+		check = 'store_categ3';
+	}
+	var con = confirm("선택한 내용으로 카테고리를 변경하시겠습니까?")
+	if(con){
+		$.ajax({
+			url: "storeInfoChange.do",
+			type: "post",
+			data: {
+				choice: "storeInfoUpdate",
+				check: check,
+				content: content,
+				storeNum: "${ storeInfo.storeNum }"
+			},
+			dataType: "json",
+			success: function(result){
+				if(result == 1){
+					if( id == 'categ1_up' ){
+						$('#categ1').show();
+						if( content == '01'){
+							$('#categ1').text('음식점');
+						}
+						$('#categ1_sel').remove();
+						$('#categ1_up').remove();
+					} else if( id == 'categ2_up'){
+						$('#categ2').show();
+						if( content == '01'){
+							$('#categ2').text('점포 가게');
+						} else if( content == '02'){
+							$('#categ2').text('이동 가게');
+						}
+						$('#categ2_sel').remove();
+						$('#categ2_up').remove();
+					} else if( id == 'categ3_up'){
+						$('#categ3').show();
+						if( content == '01'){
+							$('#categ3').text('한식');
+						} else if( content == '02'){
+							$('#categ3').text('양식');
+						} else if( content == '03'){
+							$('#categ3').text('중식');
+						} else if( content == '04'){
+							$('#categ3').text('일식');
+						} else if( content == '05'){
+							$('#categ3').text('분식');
+						} else if( content == '06'){
+							$('#categ3').text('기타');
+						}
+						$('#categ3_sel').remove();
+						$('#categ3_up').remove();
+					}
+				} else {
+					alert("변경에 실패했습니다.")
+				}
+			}
+		})
+	} else {
+		if( id == 'categ1_up' ){
+			$('#categ1').show();
+			$('#categ1_sel').remove();
+			$('#categ1_up').remove();
+		} else if( id == 'categ2_up' ){
+			$('#categ2').show();
+			$('#categ2_sel').remove();
+			$('#categ2_up').remove();
+		} else if( id == 'categ3_up' ){
+			$('#categ3').show();
+			$('#categ3_sel').remove();
+			$('#categ3_up').remove();
+		}
+	}
 }
 
+//리뷰 수정2
+function review_update(){
+	//console.log($(this).parent().parent());
+	var thisbtn = $(this);
+	var divParent = $(this).parent().parent();
+	var reviewNum = divParent.children().eq(0).val();
+	var blockquote1 = divParent.children().eq(3).children().eq(0);
+	var blockquote2 = divParent.children().eq(3).children().eq(1);
+	var starNum = 0;
+	for(var i=0; i<$('.update_star'+reviewNum).length; i++){
+		if($('.update_star'+reviewNum).eq(i).css("color") == "rgb(255, 255, 0)"){
+			starNum = i+1;
+		}
+	}
+	var reviewContent = blockquote2.children().eq(5).val();
+	if(starNum == 0 && divParent.attr('class') == 'choose_item_text fix div_content_user'){
+		alert("별점을 입력해 주세요.");
+		return false;
+	}
+	if(reviewContent == ""){
+		alert("리뷰 내용을 입력해 주세요.");
+		return false;
+	}
+	var con = confirm("입력한 내용으로 리뷰를 변경하시겠습니까?");
+	if(con){
+		$.ajax({
+			url: "storeInfoChange.do",
+			type: "post",
+			data: {
+				choice: "reviewUpdate",
+				storeNum: "${ storeInfo.storeNum }",
+				reviewNum: reviewNum,
+				reviewStar: starNum,
+				reviewContent: reviewContent
+			},
+			dataType: "json",
+			success: function(result){
+				if(result.n != 0){
+					alert("리뷰 변경에 성공했습니다.");
+
+					var blockquote3 = $('<blockquote>');
+					for(var i=1; i<=starNum; i++){
+						blockquote3.append( $('<font>').attr({'class':'reviewStarsYellow star_up'+reviewNum}).text("★") );
+					}
+					var today_date = new Date().toISOString().substring(0,10);
+					blockquote3.append( $('<p>').attr({'class':'pre_css'}).html(reviewContent + " &nbsp;&nbsp;&nbsp;(" + today_date + ")") );
+					divParent.children().eq(3).append(blockquote3);
+					blockquote1.remove();
+					blockquote2.remove();
+					
+					//버튼 변경
+					divParent.children().eq(4).children().eq(0).show();
+					divParent.children().eq(4).children().eq(1).show();
+					divParent.children().eq(4).children().eq(3).remove();
+					divParent.children().eq(4).children().eq(2).remove();
+					
+					//가게 총 별점 변경
+					var stars_c = $('#star').children().eq(5).children().eq(0).text(result.stars.toFixed(1));
+					for(var i=0; i<Math.round(stars_c); i++){
+						$('#star').children().eq(i).attr('class','btn button is-checked');
+					}
+
+				} else {
+					alert("리뷰 변경에 실패했습니다.");
+				}
+			}
+		});
+	}
+}
+
+//리뷰 수정 취소
 function review_up_cancle(){
-	console.log($(this).parent().parent());
+	var divParent = $(this).parent().parent();
+	console.log(divParent);
+	var blockquote1 = divParent.children().eq(3).children().eq(0);
+	var blockquote2 = divParent.children().eq(3).children().eq(1);
+	blockquote1.show();
+	blockquote2.remove();
+	divParent.children().eq(4).children().eq(0).show();
+	divParent.children().eq(4).children().eq(1).show();
+	divParent.children().eq(4).children().eq(2).remove();
+	divParent.children().eq(4).children().eq(3).remove();
+	divParent.children().eq(4).children().eq(2).remove();
+}
+
+//리뷰 댓글 입력
+function reply_insert(){
+	var con = confirm("댓글을 등록하시겠습니까?");
+	if(con){
+		var reviewRe = $('.reply_copy').attr('id');
+		$('.reply_copy').children().eq(0).children().eq(1).val(reviewRe);
+		$('.reply_copy').children().eq(0).submit();
+	} else {
+		return false;
+	}
+}
+
+function reply_in_cancle(){
+	$('.reply_copy').remove();
 }
 
 </script>
@@ -534,7 +799,7 @@ function review_up_cancle(){
 
 
 
-<body data-spy="scroll" data-target=".navbar-collapse" data-offset="100">
+<body data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
 
 <!-- 페이지 전환 효과 -->
 <div id="loading">
@@ -573,8 +838,8 @@ function review_up_cancle(){
                             
 							<!-- 슬라이드2 : 가게 사진 -->
 							<div class="service_slid_text">
-								<span class="icon icon icon-sports-2 text-black"></span>
-								<h5 class="text-black m-top-20">UI/UX Design</h5>
+								<span class="icon icon icon-restaurant text-black"></span>
+								<h5 class="text-black m-top-20">${ storeInfo.storeName }</h5>
 							</div>
 						</div>
 					</div>
@@ -779,32 +1044,38 @@ function review_up_cancle(){
 				
 				
 				<!-- 리뷰 목록 뿌려주기 -->
-				<div class="col-md-12 ">
+				<div class="review_list_div col-md-12 ">
 				
 					<%-- 가게 사업자가 본인이면 댓글을 달 수는 없고 대댓만 달 수 있고, 대댓을 수정/삭제 할 수 있음.
                 		 / 가게 사업자가 본인이 아니면 댓글을 달 수 있고 본인의 댓글은 수정/삭제할 수 있음 --%>
                 		 
-					<%-- 댓글 입력창 --%>
-					<c:if test="${ storeInfo.storeNum != storeNum && !empty userNum}">
-						<div id="divInsert" class="choose_item_text fix col-md-offset-1 div_content_ceo">
-							<div class="col-md-2 text-center">
-								<font size="6"><i class="icon icon icon-smile text-black"></i></font> <h6>${ userNick }</h6>
+					<%-- 리뷰 입력창 --%>
+					<form id="reviewin_frm" name="reviewin_frm" method="post" action="storeInfoChange.do">
+						<c:if test="${ storeInfo.storeNum != storeNum && !empty userNum}">
+							<input type="hidden" name="choice" value="reviewInsert">
+							<input type="hidden" name="storeNum" value="${ storeInfo.storeNum }">
+							<input type="hidden" name="userNum" value="${ userNum }">
+							<input type="hidden" name="reviewStar" id="reviewStar">
+							<div id="divInsert" class="choose_item_text fix col-md-offset-1 div_content_ceo">
+								<div class="col-md-2 text-center">
+									<font size="6"><i class="icon icon icon-smile text-black"></i></font> <h6>${ userNick }</h6>
+								</div>
+								<div class="col-md-9 text-left">
+									<blockquote>
+										<span class="reviewStars insert_star" id="star1">★</span>
+										<span class="reviewStars insert_star" id="star2">★</span>
+										<span class="reviewStars insert_star" id="star3">★</span>
+										<span class="reviewStars insert_star" id="star4">★</span>
+										<span class="reviewStars insert_star" id="star5">★</span>
+										<br><textarea cols="73" rows="3" id="insertText" name="reviewContent"></textarea>
+									</blockquote>
+								</div>
+								<div class="col-md-1">
+									<button id="btn_insert" class="btn button is-checked" type="button">확인</button>
+								</div>
 							</div>
-							<div class="col-md-9 text-left">
-								<blockquote>
-									<span class="reviewStars insert_star" id="star1">★</span>
-									<span class="reviewStars insert_star" id="star2">★</span>
-									<span class="reviewStars insert_star" id="star3">★</span>
-									<span class="reviewStars insert_star" id="star4">★</span>
-									<span class="reviewStars insert_star" id="star5">★</span>
-									<br><textarea cols="73" rows="3" id="insertText" name="insertText"></textarea>
-								</blockquote>
-							</div>
-							<div class="col-md-1">
-								<button id="btn_insert" class="btn button is-checked" type="button">확인</button>
-							</div>
-						</div>
-					</c:if><%-- END 댓글 입력창 --%>
+						</c:if>
+					</form><%-- END 댓글 입력창 --%>
 				
 					<!-- DB 리뷰 목록 : 등록된 리뷰가 없을 때-->
 					<c:if test="${storeReview.isEmpty()}">
@@ -860,18 +1131,18 @@ function review_up_cancle(){
 									<div id="list${status.count}" class="choose_item_text fix col-md-offset-1 div_content_ceo">
 										<input type="hidden" value="${ list.reviewNum }">
 										<input type="hidden" value="${ list.reviewRe }">
-										<%-- 리뷰 왼쪽 영역 : 아이콘/회원 닉네임 --%>
+										<%-- 댓글 왼쪽 영역 : 아이콘/회원 닉네임 --%>
 										<div class="col-md-2 text-center">
 											<font size="6"><i class="icon icon icon-restaurant2 text-black"></i></font>
 											<h6 class="content_user">${ list.storeName }</h6>
 										</div>
-										<%-- 리뷰 중간 영역 : 별점/리뷰글 --%>
+										<%-- 댓글 중간 영역 : 별점/리뷰글 --%>
 										<div class="col-md-9 text-left content_reply">
 											<blockquote>
 												<p class="pre_css">${ list.reviewContent } &nbsp;&nbsp;&nbsp;(${ list.reviewDate })</p>
 											</blockquote>
 										</div>
-										<%-- 리뷰 오른쪽 영역 : 수정/삭제 버튼 --%>
+										<%-- 댓글 오른쪽 영역 : 수정/삭제 버튼 --%>
 										<div class="col-md-1">
 											<c:if test="${ storeInfo.storeNum == storeNum }">
 												<button id="btn_up_${status.count}" class="btn button is-checked btn_update" type="button">수정</button>
@@ -909,6 +1180,36 @@ function review_up_cancle(){
 								<button class="btn button is-checked btn_update" type="button">수정</button>
 								<button class="btn button is-checked btn_delete" type="button">삭제</button>
 							</div>
+						</div>
+					</div>
+					
+					<%-- 리뷰댓글 삽입을 위한 히든 div --%>
+					<div class="hidden">
+						<div id="copy_reply" class="choose_item_text fix col-md-offset-1 div_content_ceo hidden_re">
+						<form id="replyFrm" name="replyFrm" method="post" action="storeInfoChange.do">
+							<input type="hidden" name="choice" value="reviewReply">
+							<input type="hidden" name="reviewRe" value="reviewRe">
+							<input type="hidden" name="userNum" value="${ userNum }">
+							<input type="hidden" name="storeNum" value="${ storeInfo.storeNum }">
+							<%-- 댓글 왼쪽 영역 : 아이콘/회원 닉네임 --%>
+							<div class="col-md-2 text-center">
+								<font size="6"><i class="icon icon icon-restaurant2 text-black"></i></font>
+								<h6 class="content_user">${ storeInfo.storeName }</h6>
+							</div>
+							<%-- 댓글 중간 영역 : 댓글내용 --%>
+							<div class="col-md-9 text-left content_reply">
+								<blockquote>
+									<br><textarea cols="70" rows="3" id="insertText" name="reviewContent"></textarea>
+								</blockquote>
+							</div>
+							<%-- 댓글 오른쪽 영역 : 수정/삭제 버튼 --%>
+							<div class="col-md-1">
+								<c:if test="${ storeInfo.storeNum == storeNum }">
+									<button class="btn button is-checked btn_reply_submit" type="button">확인</button>
+									<button class="btn button is-checked btn_reply_cancel" type="button">취소</button>
+								</c:if>
+							</div>
+							</form>
 						</div>
 					</div>
 					

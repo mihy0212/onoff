@@ -113,7 +113,7 @@ public class AddDAO extends DAO {
 	}
 	
 	//검색 조회
-	public List<AddDTO> selectSearch(Connection conn, AddDTO adto, int start, int end) throws Exception {
+	public List<AddDTO> selectSearch(Connection conn, AddDTO adto, int start, int end) {
 		 List<AddDTO> list = new ArrayList<AddDTO>();
 		 String where = " where 1=1 ";
 		 if (adto != null) {
@@ -222,7 +222,24 @@ public class AddDAO extends DAO {
 			e.printStackTrace();
 		}
 		return list;
-	}	
+	}
+	
+	// 페이지 수를 구하기 위해 총 게시글 수 를 구함.
+			//culumn : 검색할 컬럼명, content: 검색할 내용
+	public int getPageCount(Connection conn, String culumn, String content) {
+		int cnt = 0;
+		String sql = "select count(*) from oc_add where " + culumn + "=" + content;
+		try {
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery(sql);
+			if(rs.next()) {
+				cnt = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return cnt;
+	}
 	
 	//신청서 단건 조회
 	public AddDTO selectAddNum(Connection conn, String addNum) {

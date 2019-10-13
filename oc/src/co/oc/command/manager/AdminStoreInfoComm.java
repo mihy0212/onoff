@@ -15,6 +15,7 @@ import co.oc.dao.AddDAO;
 import co.oc.dao.DAO;
 import co.oc.dao.StoreDAO;
 import co.oc.dto.AddDTO;
+import co.oc.dto.Paging;
 import co.oc.dto.StoreDTO;
 
 public class AdminStoreInfoComm implements Command {
@@ -24,15 +25,56 @@ public class AdminStoreInfoComm implements Command {
 		
 		HttpSession session = request.getSession(false);
 		String userGrant = session.getAttribute("userGrant").toString();
-//		System.out.println(userGrant);
 		
 		if( userGrant.equals("S") ) {
 			Connection conn = DAO.connect();
 			
-			List<AddDTO> addlist = AddDAO.getInstance().selectAll(conn);
+			String p = request.getParameter("p"); //페이지 번호(pageNo)
+			String aculumn = request.getParameter("aculumn");
+			String acontent = request.getParameter("acontent");
+			String bculumn = request.getParameter("bculumn");
+			String bcontent = request.getParameter("bcontent");
+
+			int pageNo = 1;
+			if(p != null && !p.isEmpty()) {
+				pageNo = Integer.parseInt(p);
+			}
+			if( aculumn == null ) {
+				aculumn = "add_status";
+				acontent = "%";
+			}
+			if( bculumn == null ) {
+				bculumn = "store_oc";
+				bcontent = "%";
+			}
+			
+			Paging apaging = new Paging();
+			apaging.setPageUnit(10); //한 페이지에 출력할 레코드 건수
+			apaging.setPageSize(10); //페이지바에 나타날 페이지 번호 수(이전 1 2 3 ...10 다음)
+			apaging.setPage(pageNo);	//현재 페이지
+			apaging.setTotalRecord(AddDAO.getInstance().getPageCount(conn, aculumn, acontent)); //총 레코드 건수
+			request.setAttribute("apaging", apaging);
+			
+			int afirst = apaging.getFirst();
+			int alast = apaging.getLast();
+			AddDTO adto = new AddDTO();
+			adto.setAddStatus(acontent);
+			List<AddDTO> addlist = AddDAO.getInstance().selectSearch(conn, adto, afirst, alast);
 			request.setAttribute("addlist", addlist);
 			
-			List<StoreDTO> slist = StoreDAO.getInstance().selectAll(conn);
+			
+			Paging bpaging = new Paging();
+			bpaging.setPageUnit(10); //한 페이지에 출력할 레코드 건수
+			bpaging.setPageSize(10); //페이지바에 나타날 페이지 번호 수(이전 1 2 3 ...10 다음)
+			bpaging.setPage(pageNo);	//현재 페이지
+			bpaging.setTotalRecord(StoreDAO.getInstance().getPageCount(conn, bculumn, bcontent)); //총 레코드 건수
+			request.setAttribute("bpaging", bpaging);
+			
+			int bfirst = apaging.getFirst();
+			int blast = apaging.getLast();
+			StoreDTO sdto = new StoreDTO();
+			sdto.setStoreOpen(bcontent);
+			List<StoreDTO> slist = StoreDAO.getInstance().selectSearch(conn, sdto, bfirst, blast);
 			request.setAttribute("slist", slist);
 			
 			DAO.disconnect(conn);

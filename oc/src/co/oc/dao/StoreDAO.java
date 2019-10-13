@@ -50,7 +50,7 @@ public class StoreDAO extends DAO {
 				dto.setStoreLike(rs.getInt("store_like")); // 13
 				dto.setUserNum(rs.getString("user_num")); // 14
 				dto.setStoreRegiday(rs.getDate("store_regiday")); // 15
-				dto.setStoreOc(rs.getInt("store_oc")); // 16
+				dto.setStoreOpen(rs.getString("store_oc")); // 16
 				list.add(dto);
 			}
 		} catch (SQLException e) {
@@ -84,7 +84,7 @@ public class StoreDAO extends DAO {
 				dto.setStoreLike(rs.getInt("store_like")); // 13
 				dto.setUserNum(rs.getString("user_num")); // 14
 				dto.setStoreRegiday(rs.getDate("store_regiday")); // 15
-				dto.setStoreOc(rs.getInt("store_oc")); // 16
+				dto.setStoreOpen(rs.getString("store_oc")); // 16
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -117,12 +117,87 @@ public class StoreDAO extends DAO {
 				dto.setStoreLike(rs.getInt("store_like")); // 13
 				dto.setUserNum(rs.getString("user_num")); // 14
 				dto.setStoreRegiday(rs.getDate("store_regiday")); // 15
-				dto.setStoreOc(rs.getInt("store_oc")); // 16
+				dto.setStoreOpen(rs.getString("store_oc")); // 16
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return dto;
+	}
+	
+	//검색 조회
+	public List<StoreDTO> selectSearch(Connection conn, StoreDTO sdto, int start, int end) {
+		 List<StoreDTO> list = new ArrayList<StoreDTO>();
+		 String where = " where 1=1 ";
+		 if (sdto != null) {
+			 if ( sdto.getStoreOpen() != null && sdto.getStoreOpen() != "All") {	//1. 가게 오픈 여부 조회
+				 where += " and store_oc = ? ";
+			 }
+		 }
+		 String sql ="select *"
+		 		+ " from (select a1.*, rownum rnum"
+		 				+ " from (select s.*, u.user_name, u.user_nick"
+		 						+ " from oc_store s join oc_user u on (s.user_num=u.user_num) "
+		 						+ where + " order by s.store_num desc)a1"
+		 				+ " where rownum<=?)a2"
+		 		+ " where a2.rnum >=?";
+		try {
+			
+			psmt = conn.prepareStatement(sql);
+			int i=0;
+			if (sdto != null) {
+				if ( sdto.getStoreOpen() != null) {	//1.
+					psmt.setString(++i, sdto.getStoreOpen());
+				}
+			}
+			psmt.setInt(++i, start);
+			psmt.setInt(++i, end);
+			rs = psmt.executeQuery();
+			
+			while (rs.next()) {
+				StoreDTO dto = new StoreDTO();
+				dto.setStoreNum(rs.getString("store_num")); // 1
+				dto.setStoreName(rs.getString("store_name")); // 2
+				dto.setStoreAddr(rs.getString("store_addr")); // 3
+				dto.setStoreXy(rs.getString("store_xy")); // 4
+				dto.setStoreCateg1(rs.getString("store_categ1")); // 5
+				dto.setStoreCateg2(rs.getString("store_categ2")); // 6
+				dto.setStoreCateg3(rs.getString("store_categ3")); // 7
+				dto.setStorePic(rs.getString("store_pic")); // 8
+				dto.setStoreTime(rs.getString("store_time")); // 9
+				dto.setStoreTel(rs.getString("store_tel")); // 10
+				dto.setStoreMenu(rs.getString("store_menu")); // 11
+				dto.setStoreEtc(rs.getString("store_etc")); // 12
+				dto.setStoreLike(rs.getInt("store_like")); // 13
+				dto.setUserNum(rs.getString("user_num")); // 14
+				dto.setStoreRegiday(rs.getDate("store_regiday")); // 15
+				dto.setStoreOpen(rs.getString("store_oc")); // 16
+				dto.setUserName(rs.getString("user_name")); // 17
+				dto.setUserNick(rs.getString("user_nick")); // 18
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	
+	// 페이지 수를 구하기 위해 총 게시글 수 를 구함.
+				//culumn : 검색할 컬럼명, content: 검색할 내용
+	public int getPageCount(Connection conn, String culumn, String content) {
+		int cnt = 0;
+		String sql = "select count(*) from oc_store where " + culumn + "=" + content;
+		try {
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery(sql);
+			if(rs.next()) {
+				cnt = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return cnt;
 	}
 
 	// 새로운 가게 정보 등록
