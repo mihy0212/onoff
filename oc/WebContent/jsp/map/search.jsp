@@ -9,7 +9,7 @@
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9e415eb9e7187154cd9c6308c036f0a6&libraries=services"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="assets/js/map/Search.js"></script>
+<script src="assets/js/map/search.js"></script>
 <style>
 #map {
 	width: 100%;

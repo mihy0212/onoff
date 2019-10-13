@@ -42,7 +42,7 @@
 			</c:forEach>
 			<!-- db 목록을 가져와서 뿌려주는 곳 -->
 	</table> 
-	<a href="borderdelete.do" class="btn btn-primary pull-right">삭제하기</a>
+<!-- 	<a href="borderdelete.do" class="btn btn-primary pull-right">삭제하기</a> -->
 	</div>
 </div>
 </body>

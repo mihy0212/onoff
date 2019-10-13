@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="u" %>
 
 <!doctype html>
 <html class="no-js" lang="en">
@@ -139,6 +140,52 @@ $(document).ready(function(){
 		}
 	});
 	
+	//리뷰 페이징 처리
+	
+	/*
+	var $page = $('<li>').attr({'class':'page-item'}).append( $('<a>').attr({'class':'page-link'}) );
+	var $page_dis = $('<li>').attr({'class':'page-item disabled'}).append( $('<a>').attr({'class':'page-link'}) );
+	var $ul = $('#pagination');
+	if( "${ pageCnt }" <= 10 ){
+		var $li = $page_dis.text('pre');
+		for(var i = 1; i<="${ pageCnt }"; i++){
+			if( "${ pageCnt }" != "${ pageNo }" ){
+				$li.after( $page.append('<a>').attr({'class':'page-link', 'href':'storeInfo.do?p='+i}).text(i) );
+			} else if( "${ pageCnt }" == "${ pageNo }" ){
+				$li.after( $page.text(i) );
+			}
+		}
+		$li.after( $page_dis.text('next') );
+		$ul.append($li);
+		
+	} else {
+		var x = "${ pageCnt }"/10;
+		var y = "${ pageNo }"/10;
+		if( y < x ){
+			$li = $page_dis.append('<a>').attr({'class':'page-link', 'href':'storeInfo.do?p='+(y-1)*10+1}).text('pre');
+			for(var i = y*10+1; i<=(y+1)*10; i++){
+				if( "${ pageCnt }" != "${ pageNo }" ){
+					$li += $page.append('<a>').attr({'class':'page-link', 'href':'storeInfo.do?p='+i}).text(i);
+				} else if( "${ pageCnt }" == "${ pageNo }" ){
+					$li += $page.text(i);
+				}
+			}
+			$li += $page_dis.append('<a>').attr({'class':'page-link', 'href':'storeInfo.do?p='+(y+1)*10+1}).text('next');
+			$ul.append($li);
+		} else if(y=x){
+			$li = $page_dis.append('<a>').attr({'class':'page-link', 'href':'storeInfo.do?p='+(y-1)*10+1}).text('pre');
+			for(var i = y*10+1; i<="${ pageCnt }"; i++){
+				if( "${ pageCnt }" != "${ pageNo }" ){
+					$li += $page.append('<a>').attr({'class':'page-link', 'href':'storeInfo.do?p='+i}).text(i);
+				} else if( "${ pageCnt }" == "${ pageNo }" ){
+					$li += $page.text(i);
+				}
+			}
+			$li += $page_dis.text('next');
+			$ul.append($li);
+		}
+	}*/
+	
 	
 	//리뷰 입력하기 (DB)
 	$('#btn_insert').on('click', function(){
@@ -194,6 +241,7 @@ $(document).ready(function(){
 						//copy_re.children().eq(4).children().eq(0).attr('id','btn_up_'+new_id_num);
 						//copy_re.children().eq(4).children().eq(0).attr('id','btn_del_'+new_id_num);
 						$('#copy_reivew').clone().prependTo($('.review_list'));
+						$('.review_list').children().first().attr('id',last_list_id_num+1);
 						
 						//입력창 빈값으로 되돌리기
 						$('#star1').css("color","gray");
@@ -213,7 +261,7 @@ $(document).ready(function(){
 	});
 
 	//리뷰 삭제
-	$('.btn_delete').on('click', function(){
+	$('.review_list').on('click', '.btn_delete', function(){
 		//console.log($(this).parent().parent().attr('id'));
 		var parentDiv = $(this).parent().parent();
 		var reviewNum = parentDiv.children().eq(0).val();
@@ -240,7 +288,7 @@ $(document).ready(function(){
 	});
 	
 	
-	//리뷰 업데이트
+	//리뷰 수정
 	$('.btn_update').on('click', function(){
 		var parentDiv = $(this).parent().parent();
 		var reviewNum = parentDiv.children().eq(0).val();
@@ -248,7 +296,6 @@ $(document).ready(function(){
 		var blockquote = parentDiv.children().eq(3).children().eq(0);
 		var con1 = blockquote.children().last().text();
 		var con2 = con1.substring(0,con1.length-15);
-		console.log(con2)
 		
 		var starNum = 0;
 		for(var i=0; i<5; i++){
@@ -256,8 +303,8 @@ $(document).ready(function(){
 				starNum += 1;
 			}
 		}
-		console.log(starNum);
-		star_up${ list.reviewNum }
+		console.log(reviewNum);
+
 		blockquote.hide();//blockquote 숨김처리
 		var span_star = $('<blockquote>');
 		for(var i=1; i<=starNum; i++){
@@ -866,17 +913,18 @@ function review_up_cancle(){
 					</div>
 					
 					<!-- 페이징 -->
-					<div align="center">
-						<nav aria-label="Page navigation">
-							<ul class="pagination" id="pagination">
-								<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-								<li class="page-item"><a class="page-link" href="#">1</a></li>
-								<li class="page-item"><a class="page-link" href="#">2</a></li>
-								<li class="page-item "><a class="page-link" href="#">3</a></li>
-								<li class="page-item"><a class="page-link" href="#">Next</a></li> 
-							</ul>
-						</nav>
-					</div>
+					<form name="pagefrm" action="storeInfo.do">
+						<input type="hidden" name="p">
+						<input type="hidden" name="storeNum" value="${ storeInfo.storeNum }">
+					</form>
+					
+					<u:paging pgfunc="doList" paging="${ paging }"></u:paging>
+					<script>
+					function doList(p) {
+						document.pagefrm.p.value = p;
+						document.pagefrm.submit();
+					}
+					</script>
 					
 				</div>
 				<!-- END 리뷰 목록 뿌려주기 -->

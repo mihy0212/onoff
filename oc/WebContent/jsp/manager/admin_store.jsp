@@ -55,16 +55,35 @@ $(document).ready(function(){
 		$('.categ3').text("기타");
 	}
 	
+	//상태 표시
 	/*
-	if($('.addStatus').text("1")){
-		$('.addStatus').prepend( $('<span>').attr('class','add_status1').val('신청 중'));
-	} else if($('.addStatus').text("2")){
-		$('.addStatus').prepend( $('<span>').attr('class','add_status2').val('등록 허가'));
-	} else if($('.addStatus').text("3")){
-		$('.addStatus').prepend( $('<span>').attr('class','add_status3').val('등록 거절'));
-	} else if($('.addStatus').text("4")){
-		$('.addStatus').prepend( $('<span>').attr('class','add_status4').val('등록 보류'));
-	}*/
+	$('.ask_status').on('click', function(){
+		var askStatus = $(this);
+		var askStatNum;
+		if( $(this).attr('id') == 'ask_status_all'){
+			askStatNum = "All";
+		} else if( $(this).attr('id') == 'ask_status_1'){
+			askStatNum = "1";
+		} else if( $(this).attr('id') == 'ask_status_2'){
+			askStatNum = "2";
+		} else if( $(this).attr('id') == 'ask_status_3'){
+			askStatNum = "3";
+		} else if( $(this).attr('id') == 'ask_status_4'){
+			askStatNum = "4";
+		}
+		$.ajax({
+			url: "storeInfoChange.do",
+			data: {
+				askStatus: askStatNum
+			},
+			dataType: "json",
+			success: function(result){
+				if(result != null){
+					
+				}
+			}
+		});
+	});*/
 	
 });
 
@@ -129,11 +148,17 @@ td{
 <!-- 처리 상태 선택 -->
 <div class="main-portfolio">
 	<div id="root" class="col-md-8 text-right">
-		<button class="btn button is-checked" data-filter="*">전체</button>
-		<button class="btn button" data-filter=".metal">신청 중</button>
-		<button class="btn button" data-filter=".transition">등록 허가</button>
-		<button class="btn button" data-filter=".alkali">등록 거절</button>
-		<button class="btn button" data-filter=".ar">등록 보류</button>&nbsp;&nbsp;
+		<form class="form-inline">
+			<button class="btn button ask_status" id="ask_status_all">전체</button>
+			<button class="btn button ask_status" id="ask_status_1">신청 중</button>
+			<button class="btn button ask_status" id="ask_status_2">등록 허가</button>
+			<button class="btn button ask_status" id="ask_status_3">등록 거절</button>
+			<button class="btn button ask_status" id="ask_status_4">등록 보류</button>&nbsp;&nbsp;
+<!-- 			<div class="form-group m-top-30">
+				<input type="text" class="form-control" placeholder="검색어 입력">
+				<button class="btn button is-checked">▶</button>
+			</div> -->
+		</form>
 	</div>
 </div>
 <!-- END 헤드 부분 -->

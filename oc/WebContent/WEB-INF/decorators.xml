@@ -4,12 +4,14 @@
   <!-- 이 부분은 데코레이터 적용에서 제외할 부분.-->
   <!-- <pattern>xxx.do</pattern> 과 같은 형식으로 적어주면 됨. -->
   <excludes>
-    <pattern>reveiw.jsp</pattern>
     <pattern>/map.do</pattern>
     <pattern>/ajax*</pattern>
     <pattern>/idCheck.do*</pattern>
     <pattern>/NickCheck.do*</pattern>
     <pattern>/"storeNickCheck.do*</pattern>
+    <pattern>/deletech.do*</pattern>
+    <pattern>/storeReview.do*</pattern>
+    <pattern>layoutTest.jsp</pattern>
   </excludes>
  
   <decorator name="basic-theme" page="layout.jsp">

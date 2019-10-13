@@ -8,7 +8,6 @@
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
  <script type="text/javascript">
  
- 
  $(function() {
 	
 
@@ -18,7 +17,6 @@
 	var pwJ = /^[A-Za-z0-9]{4,12}$/;
 	
 	var address = $('#user_detailaddress');
-    
 	/*-----------------
 	폼입력값 체크
 	--------------------*/
@@ -137,6 +135,7 @@ function execPostCode() {
  }
 
 </script>
+ 
  
  
     <title>회원정보 수정화면</title>

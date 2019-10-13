@@ -23,7 +23,7 @@ public class BorderListCommand implements Command {
 		Connection conn = DAO.connect();
 		list = dao.selectAll(conn, 1, 100);
 		request.setAttribute("list", list); //db에서 넘어온 값을  request객체에 속성으로 삽입
-		
+		DAO.disconnect(conn);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/manager/test2.jsp");
 		dispatcher.forward(request, response);
 	}
