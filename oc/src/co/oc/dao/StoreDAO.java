@@ -146,8 +146,8 @@ public class StoreDAO extends DAO {
 					psmt.setString(++i, sdto.getStoreOpen());
 				}
 			}
-			psmt.setInt(++i, start);
 			psmt.setInt(++i, end);
+			psmt.setInt(++i, start);
 			rs = psmt.executeQuery();
 
 			while (rs.next()) {
@@ -182,7 +182,8 @@ public class StoreDAO extends DAO {
 	// culumn : 검색할 컬럼명, content: 검색할 내용
 	public int getPageCount(Connection conn, String culumn, String content) {
 		int cnt = 0;
-		String sql = "select count(*) from oc_store where " + culumn + " like " + content;
+		String sql = "select count(*) from oc_store where " + culumn + " like '" + content + "'";
+		System.out.println(sql);
 		try {
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery(sql);

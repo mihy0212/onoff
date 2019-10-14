@@ -24,7 +24,7 @@ public class AdminStoreInfoComm implements Command {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession(false);
-		String userGrant = session.getAttribute("userGrant").toString();
+		String userGrant = (String) session.getAttribute("userGrant");
 		
 		if( userGrant.equals("S") ) {
 			Connection conn = DAO.connect();
@@ -39,18 +39,18 @@ public class AdminStoreInfoComm implements Command {
 			if(p != null && !p.isEmpty()) {
 				pageNo = Integer.parseInt(p);
 			}
-			if( aculumn == null ) {
+			if( aculumn == null || aculumn.isEmpty() ) {
 				aculumn = "add_status";
 				acontent = "%";
 			}
-			if( bculumn == null ) {
+			if( bculumn == null || bculumn.isEmpty()) {
 				bculumn = "store_oc";
 				bcontent = "%";
 			}
-			
+
 			Paging apaging = new Paging();
-			apaging.setPageUnit(10); //한 페이지에 출력할 레코드 건수
-			apaging.setPageSize(10); //페이지바에 나타날 페이지 번호 수(이전 1 2 3 ...10 다음)
+			apaging.setPageUnit(2); //한 페이지에 출력할 레코드 건수
+			apaging.setPageSize(2); //페이지바에 나타날 페이지 번호 수(이전 1 2 3 ...10 다음)
 			apaging.setPage(pageNo);	//현재 페이지
 			apaging.setTotalRecord(AddDAO.getInstance().getPageCount(conn, aculumn, acontent)); //총 레코드 건수
 			request.setAttribute("apaging", apaging);
@@ -61,7 +61,6 @@ public class AdminStoreInfoComm implements Command {
 			adto.setAddStatus(acontent);
 			List<AddDTO> addlist = AddDAO.getInstance().selectSearch(conn, adto, afirst, alast);
 			request.setAttribute("addlist", addlist);
-			
 			
 			Paging bpaging = new Paging();
 			bpaging.setPageUnit(10); //한 페이지에 출력할 레코드 건수
@@ -86,6 +85,10 @@ public class AdminStoreInfoComm implements Command {
 		}
 		
 
+	}
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		execute(request, response);
 	}
 
 }

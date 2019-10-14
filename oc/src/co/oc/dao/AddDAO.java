@@ -161,6 +161,7 @@ public class AddDAO extends DAO {
 		 						+ where + " order by a.add_num desc)a1"
 		 				+ " where rownum<=?)a2"
 		 		+ " where a2.rnum >=?";
+		
 		try {
 			
 			psmt = conn.prepareStatement(sql);
@@ -194,10 +195,10 @@ public class AddDAO extends DAO {
 					psmt.setDate(++i, adto.getAddDay());
 				}
 			}
-			psmt.setInt(++i, start);
 			psmt.setInt(++i, end);
+			psmt.setInt(++i, start);
+			System.out.println(sql);
 			rs = psmt.executeQuery();
-			
 			while (rs.next()) {
 				AddDTO dto = new AddDTO();
 				dto.setAddNum(rs.getString("add_num"));				//1
@@ -228,7 +229,7 @@ public class AddDAO extends DAO {
 			//culumn : 검색할 컬럼명, content: 검색할 내용
 	public int getPageCount(Connection conn, String culumn, String content) {
 		int cnt = 0;
-		String sql = "select count(*) from oc_add where " + culumn + " like " + content;
+		String sql = "select count(*) from oc_add where " + culumn + " like '" + content + "'";
 		try {
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery(sql);

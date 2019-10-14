@@ -29,7 +29,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/bootsnav.css">
 
 <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/plugins.css" /><!--For Plugins external css-->
-<%-- <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/style.css"><!--Theme custom css --> --%>
+<%-- <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/style.css"><!--Theme custom css -- --%>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/responsive.css" /><!--Theme Responsive css-->
 
 <script src="${pageContext.request.contextPath }/assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
@@ -169,18 +169,17 @@
 </div>
 
 <!-- JS includes -->
-<script src="${pageContext.request.contextPath }assets/js/vendor/jquery-1.11.2.min.js"></script>
-<script src="${pageContext.request.contextPath }assets/js/vendor/bootstrap.min.js"></script>
-<script src="${pageContext.request.contextPath }assets/js/jquery.magnific-popup.js"></script>
+<script src="${pageContext.request.contextPath }/assets/js/vendor/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath }/assets/js/jquery.magnific-popup.js"></script>
 <!--<script src="assets/js/jquery.easypiechart.min.js"></script>-->
-<script src="${pageContext.request.contextPath }assets/js/jquery.easing.1.3.js"></script>
+<script src="${pageContext.request.contextPath }/assets/js/jquery.easing.1.3.js"></script>
 <!--<script src="assets/js/slick.js"></script>-->
-<script src="${pageContext.request.contextPath }assets/js/slick.min.js"></script>
-<script src="${pageContext.request.contextPath }assets/js/js.isotope.js"></script>
-<script src="${pageContext.request.contextPath }assets/js/jquery.collapse.js"></script>
-<script src="${pageContext.request.contextPath }assets/js/bootsnav.js"></script>
+<script src="${pageContext.request.contextPath }/assets/js/slick.min.js"></script>
+<script src="${pageContext.request.contextPath }/assets/js/js.isotope.js"></script>
+<script src="${pageContext.request.contextPath }/assets/js/jquery.collapse.js"></script>
+<script src="${pageContext.request.contextPath }/assets/js/bootsnav.js"></script>
 <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
-<script src="${pageContext.request.contextPath }assets/js/plugins.js"></script>
-<script src="${pageContext.request.contextPath }assets/js/main.js"></script>
+<%-- <script src="${pageContext.request.contextPath }/assets/js/plugins.js"></script> --%>
+<script src="${pageContext.request.contextPath }/assets/js/main.js"></script>
 </body>
 </html>

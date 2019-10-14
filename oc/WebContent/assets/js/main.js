@@ -33,10 +33,10 @@ jQuery( document ).ready( function ( $ ) {
      * WOW
      ---------------------------------------------*/
 
-    var wow = new WOW( {
-        mobile: false // trigger animations on mobile devices (default is true)
-    } );
-    wow.init();
+//    var wow = new WOW( {
+//        mobile: false // trigger animations on mobile devices (default is true)
+//    } );
+//    wow.init();
 
 // magnificPopup
 
@@ -87,10 +87,10 @@ jQuery( document ).ready( function ( $ ) {
 // Counter 
 //---------------------------------------------
 
-    $( '.statistic-counter' ).counterUp( {
-        delay: 10,
-        time: 2000
-    } );
+//    $( '.statistic-counter' ).counterUp( {
+//        delay: 10,
+//        time: 2000
+//    } );
 
 //---------------------------------------------
 // Scroll Up 
