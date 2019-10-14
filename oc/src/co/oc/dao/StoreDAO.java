@@ -50,7 +50,7 @@ public class StoreDAO extends DAO {
 				dto.setStoreLike(rs.getInt("store_like")); // 13
 				dto.setUserNum(rs.getString("user_num")); // 14
 				dto.setStoreRegiday(rs.getDate("store_regiday")); // 15
-				dto.setStoreOpen(rs.getString("store_oc")); // 16
+				dto.setStoreOc(rs.getString("store_oc")); // 16
 				list.add(dto);
 			}
 		} catch (SQLException e) {
@@ -84,7 +84,7 @@ public class StoreDAO extends DAO {
 				dto.setStoreLike(rs.getInt("store_like")); // 13
 				dto.setUserNum(rs.getString("user_num")); // 14
 				dto.setStoreRegiday(rs.getDate("store_regiday")); // 15
-				dto.setStoreOpen(rs.getString("store_oc")); // 16
+				dto.setStoreOc(rs.getString("store_oc")); // 16
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -117,43 +117,40 @@ public class StoreDAO extends DAO {
 				dto.setStoreLike(rs.getInt("store_like")); // 13
 				dto.setUserNum(rs.getString("user_num")); // 14
 				dto.setStoreRegiday(rs.getDate("store_regiday")); // 15
-				dto.setStoreOpen(rs.getString("store_oc")); // 16
+				dto.setStoreOc(rs.getString("store_oc")); // 16
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return dto;
 	}
-	
-	//검색 조회
+
+	// 검색 조회
 	public List<StoreDTO> selectSearch(Connection conn, StoreDTO sdto, int start, int end) {
-		 List<StoreDTO> list = new ArrayList<StoreDTO>();
-		 String where = " where 1=1 ";
-		 if (sdto != null) {
-			 if ( sdto.getStoreOpen() != null && sdto.getStoreOpen() != "All") {	//1. 가게 오픈 여부 조회
-				 where += " and store_oc like ? ";
-			 }
-		 }
-		 String sql ="select *"
-		 		+ " from (select a1.*, rownum rnum"
-		 				+ " from (select s.*, u.user_name, u.user_nick"
-		 						+ " from oc_store s join oc_user u on (s.user_num=u.user_num) "
-		 						+ where + " order by s.store_num desc)a1"
-		 				+ " where rownum<=?)a2"
-		 		+ " where a2.rnum >=?";
+		List<StoreDTO> list = new ArrayList<StoreDTO>();
+		String where = " where 1=1 ";
+		if (sdto != null) {
+			if (sdto.getStoreOc() != null && sdto.getStoreOc() != "All") { // 1. 가게 오픈 여부 조회
+				where += " and store_oc like ? ";
+			}
+		}
+		String sql = "select *" + " from (select a1.*, rownum rnum" + " from (select s.*, u.user_name, u.user_nick"
+				+ " from oc_store s join oc_user u on (s.user_num=u.user_num) " + where
+				+ " order by s.store_num desc)a1" + " where rownum<=?)a2" + " where a2.rnum >=?";
 		try {
-			
+
 			psmt = conn.prepareStatement(sql);
-			int i=0;
+			int i = 0;
 			if (sdto != null) {
-				if ( sdto.getStoreOpen() != null) {	//1.
-					psmt.setString(++i, sdto.getStoreOpen());
+				if (sdto.getStoreOc() != null) { // 1.
+					psmt.setString(++i, sdto.getStoreOc());
 				}
 			}
-			psmt.setInt(++i, start);
 			psmt.setInt(++i, end);
+			psmt.setInt(++i, start);
+			System.out.println(sql);
 			rs = psmt.executeQuery();
-			
+
 			while (rs.next()) {
 				StoreDTO dto = new StoreDTO();
 				dto.setStoreNum(rs.getString("store_num")); // 1
@@ -171,7 +168,7 @@ public class StoreDAO extends DAO {
 				dto.setStoreLike(rs.getInt("store_like")); // 13
 				dto.setUserNum(rs.getString("user_num")); // 14
 				dto.setStoreRegiday(rs.getDate("store_regiday")); // 15
-				dto.setStoreOpen(rs.getString("store_oc")); // 16
+				dto.setStoreOc(rs.getString("store_oc")); // 16
 				dto.setUserName(rs.getString("user_name")); // 17
 				dto.setUserNick(rs.getString("user_nick")); // 18
 				list.add(dto);
@@ -181,17 +178,17 @@ public class StoreDAO extends DAO {
 		}
 		return list;
 	}
-	
-	
+
 	// 페이지 수를 구하기 위해 총 게시글 수 를 구함.
-				//culumn : 검색할 컬럼명, content: 검색할 내용
+	// culumn : 검색할 컬럼명, content: 검색할 내용
 	public int getPageCount(Connection conn, String culumn, String content) {
 		int cnt = 0;
-		String sql = "select count(*) from oc_store where " + culumn + " like " + content;
+		String sql = "select count(*) from oc_store where " + culumn + " like '" + content + "'";
+		System.out.println(sql);
 		try {
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery(sql);
-			if(rs.next()) {
+			if (rs.next()) {
 				cnt = rs.getInt(1);
 			}
 		} catch (SQLException e) {
@@ -338,7 +335,8 @@ public class StoreDAO extends DAO {
 				dto.setStoreEtc(rs.getString("store_etc")); // 12
 				dto.setStoreLike(rs.getInt("store_like")); // 13
 				dto.setUserNum(rs.getString("user_num")); // 14
-				dto.setStoreRegiday(rs.getDate("store_regiday")); // 15
+				dto.setStoreOc(rs.getString("store_oc")); // 가게 오픈 상태, 15
+//				dto.setStoreRegiday(rs.getDate("store_regiday")); // 15
 
 				list.add(dto);
 			}
@@ -372,7 +370,7 @@ public class StoreDAO extends DAO {
 				dto.setStoreEtc(rs.getString("store_etc")); // 12
 				dto.setStoreLike(rs.getInt("store_like")); // 13
 				dto.setUserNum(rs.getString("user_num")); // 14
-				dto.setStoreOc(rs.getInt("store_oc")); // 가게 오픈 상태, 15
+				dto.setStoreOc(rs.getString("store_oc")); // 가게 오픈 상태, 15
 				list.add(dto);
 			}
 		} catch (SQLException e) {
@@ -404,7 +402,7 @@ public class StoreDAO extends DAO {
 				dto.setStoreEtc(rs.getString("store_etc")); // 12
 				dto.setStoreLike(rs.getInt("store_like")); // 13
 				dto.setUserNum(rs.getString("user_num")); // 14
-				dto.setStoreOc(rs.getInt("store_oc")); // 가게 오픈 상태, 15
+				dto.setStoreOc(rs.getString("store_oc")); // 가게 오픈 상태, 15
 				list.add(dto);
 			}
 		} catch (SQLException e) {
@@ -414,9 +412,9 @@ public class StoreDAO extends DAO {
 	}
 
 	// 가게 상태 조회
-	public int storeState(Connection conn, String userNum) {
+	public String storeState(Connection conn, String userNum) {
 
-		int storeState = 0;
+		String storeState = null;
 		String sql = "select store_oc from oc_store where user_num = ?";
 
 		try {
@@ -426,7 +424,7 @@ public class StoreDAO extends DAO {
 			rs = psmt.executeQuery();
 
 			if (rs.next()) {
-				storeState = rs.getInt("store_oc");
+				storeState = rs.getString("store_oc");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -438,24 +436,24 @@ public class StoreDAO extends DAO {
 
 	public void storeOpen(Connection conn, String userNum) {
 		String sql = "update oc_store set store_oc=1 where user_num=?";
-		
+
 		try {
-			psmt=conn.prepareStatement(sql);
+			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, userNum);
-			
+
 			psmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void storeClose(Connection conn, String userNum) {
 		String sql = "update oc_store set store_oc=0 where user_num=?";
-		
+
 		try {
-			psmt=conn.prepareStatement(sql);
+			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, userNum);
-			
+
 			psmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

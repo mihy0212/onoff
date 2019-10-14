@@ -114,12 +114,12 @@ jQuery( document ).ready( function ( $ ) {
 
 // scrool Down
 
-//$('.scrooldown a').bind('click', function () {
-//    $('html , body').stop().animate({
-//        scrollTop: $($(this).attr('href')).offset().top - 160
-//    }, 1500, 'easeInOutExpo');
-//    event.preventDefault();
-//});
+$('.scrooldown a').bind('click', function () {
+    $('html , body').stop().animate({
+        scrollTop: $($(this).attr('href')).offset().top - 160
+    }, 1500, 'easeInOutExpo');
+    event.preventDefault();
+});
 
     //End
 

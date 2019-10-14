@@ -15,12 +15,12 @@ import co.oc.dao.StoreDAO;
 import co.oc.dto.StoreDTO;
 import net.sf.json.JSONArray;
 
-public class CloseStoreCommand implements Command {
+public class AjaxOpenStoreCommand implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Connection conn = DAO.connect();
-		List<StoreDTO> list = StoreDAO.getInstance().selectCloseStore(conn);
+		List<StoreDTO> list = StoreDAO.getInstance().selectOpenStore(conn);
 
 		String map = JSONArray.fromObject(list).toString();
 

@@ -9,22 +9,7 @@
 <title>가게 관리</title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
-<!--Google Font link-->
-<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,400i,700,700i" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-<!-- 화면 전환 및 폰트와 제목 디자인 -->
-<!--For Plugins external css-->
-<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/plugins.css" />
-<!--Theme custom css -->
-<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/style.css">
-<!--Theme Responsive css-->
-<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/responsive.css" />
-
-<script src="${pageContext.request.contextPath }/assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/style.css"><!--Theme custom css -->
 <script>
 
 $(document).ready(function(){
@@ -60,16 +45,37 @@ $(document).ready(function(){
 	$('.ask_status').on('click', function(){
 		var addStatus = $(this);
 		var addStatNum;
+
 		if( $(this).attr('id') == 'ask_status_all'){
-			askStatNum = "%";
+			location.href = "adminStoreInfo.do";
 		} else if( $(this).attr('id') == 'ask_status_1'){
 			askStatNum = "1";
+			location.href = "adminStoreInfo.do?aculumn=add_status&acontent=" + askStatNum;
 		} else if( $(this).attr('id') == 'ask_status_2'){
 			askStatNum = "2";
+			location.href = "adminStoreInfo.do?aculumn=add_status&acontent=" + askStatNum;
 		} else if( $(this).attr('id') == 'ask_status_3'){
 			askStatNum = "3";
+			location.href = "adminStoreInfo.do?aculumn=add_status&acontent=" + askStatNum;
 		} else if( $(this).attr('id') == 'ask_status_4'){
 			askStatNum = "4";
+			location.href = "adminStoreInfo.do?aculumn=add_status&acontent=" + askStatNum;
+		}
+	});
+	
+	//가게 오픈 여부에 따른 검색
+	$('.open_status').on('click', function(){
+		var openStatus = $(this);
+		var openStatNum;
+
+		if( $(this).attr('id') == 'open_status_all'){
+			location.href = "adminStoreInfo.do";
+		} else if( $(this).attr('id') == 'open_status_1'){
+			openStatNum = "1";
+			location.href = "adminStoreInfo.do?bculumn=store_oc&bcontent=" + openStatNum;
+		} else if( $(this).attr('id') == 'open_status_0'){
+			openStatNum = "0";
+			location.href = "adminStoreInfo.do?bculumn=store_oc&bcontent=" + openStatNum;
 		}
 	});
 	
@@ -137,17 +143,17 @@ td{
 <!-- 처리 상태 선택 -->
 <div class="main-portfolio">
 	<div id="root" class="col-md-8 text-right">
-		<form class="form-inline">
-			<button class="btn button ask_status" id="ask_status_all">전체</button>
-			<button class="btn button ask_status" id="ask_status_1">처리 전</button>
-			<button class="btn button ask_status" id="ask_status_2">등록 허가</button>
-			<button class="btn button ask_status" id="ask_status_3">등록 거절</button>
-			<button class="btn button ask_status" id="ask_status_4">등록 보류</button>&nbsp;&nbsp;
+
+			<button type="button" class="btn button ask_status" id="ask_status_all">전체</button>
+			<button type="button" class="btn button ask_status" id="ask_status_1">처리 중</button>
+			<button type="button" class="btn button ask_status" id="ask_status_2">등록 허가</button>
+			<button type="button" class="btn button ask_status" id="ask_status_3">등록 거절</button>
+			<button type="button" class="btn button ask_status" id="ask_status_4">등록 보류</button>&nbsp;&nbsp;
 <!-- 			<div class="form-group m-top-30">
 				<input type="text" class="form-control" placeholder="검색어 입력">
 				<button class="btn button is-checked">▶</button>
 			</div> -->
-		</form>
+
 	</div>
 </div>
 <!-- END 헤드 부분 -->
@@ -160,6 +166,7 @@ td{
 	<table class=" table table-striped table-hover table-bordered">
 		<thead>
 			<tr>
+				<!-- <th><input type='checkbox' name="check_a" class="check_a all" value="all"></th> -->
 				<th width="1" align="center" >No.</th>
 				<th>가게명</th>
 				<th>주소</th>
@@ -171,7 +178,7 @@ td{
 				<th>신청자</th>
 				<th>신청일</th>
 				<th colspan="2">처리상태</th>
-				<th>이동</th>
+				<th>신청서 보기</th>
 			</tr>
 		</thead>
 
@@ -179,51 +186,52 @@ td{
 		<!-- db에 목록이 이없으면 empty:비어있다는 뜻임  -->
 		<c:if test="${empty addlist}">
 			<tr>
-				<td colspan="9">등록된 글이 존재하지 않습니다.</td>
+				<td colspan="12">등록된 글이 존재하지 않습니다.</td>
 			</tr>
 		</c:if>
 
 		<!--목록이 있으면  -->
 		<!-- for문을 돌리면 list[0]을 안해도됨 -->
-		<c:forEach items="${ addlist }" var="addlist" varStatus="status">
+		<c:forEach items="${ addlist }" var="alist" varStatus="status">
 			<tr>
+				<%-- <td><input type='checkbox' name="check_a" value="${ alist.storeNum }"></td> --%>
 				<td>${ status.count }</td>
-				<td>${ addlist.storeName }</td>
-				<td class="td_left">${ addlist.storeAddr }</td>
-				<td class="categ1">${ addlist.storeCateg1 }</td>
-				<td class="categ2">${ addlist.storeCateg2 }</td>
-				<td class="categ3">${ addlist.storeCateg3 }</td>
+				<td>${ alist.storeName }</td>
+				<td class="td_left">${ alist.storeAddr }</td>
+				<td class="categ1">${ alist.storeCateg1 }</td>
+				<td class="categ2">${ alist.storeCateg2 }</td>
+				<td class="categ3">${ alist.storeCateg3 }</td>
 				<td align="center">
 					<c:choose>
-						<c:when test="${ !empty addlist.userLicense}">주민번호</c:when>
-						<c:when test="${ !empty addlist.storeLicense}">사업자번호</c:when>
+						<c:when test="${ !empty alist.userLicense}">주민번호</c:when>
+						<c:when test="${ !empty alist.storeLicense}">사업자번호</c:when>
 						<c:otherwise><font color="red">없음</font></c:otherwise>
 					</c:choose>
 				</td>
 				<td>
 					<c:choose>
-						<c:when test="${ !empty addlist.addCapture }"><font color="red">●</font></c:when>
+						<c:when test="${ !empty alist.addCapture }"><font color="red">●</font></c:when>
 						<c:otherwise><font color="red">X</font></c:otherwise>
 					</c:choose>
 				</td>
-				<td>${ addlist.userNum }</td>
-				<td>${ addlist.addDay }</td>
+				<td>${ alist.userName }</td>
+				<td>${ alist.addDay }</td>
 				<td class="addStatus">
 					<c:choose>
-						<c:when test='${ addlist.addStatus == "1" }'><font color="red">처리 중</font></c:when>
-						<c:when test='${ addlist.addStatus == "2" }'><font color="#5882FA">등록 허가</font></c:when>
-						<c:when test='${ addlist.addStatus == "3" }'><font color="#DF7401">등록 거절</font></c:when>
-						<c:when test='${ addlist.addStatus == "4" }'><font color="#298A08">등록 보류</font></c:when>
+						<c:when test='${ alist.addStatus == "1" }'><font color="red">처리 중</font></c:when>
+						<c:when test='${ alist.addStatus == "2" }'><font color="#5882FA">등록 허가</font></c:when>
+						<c:when test='${ alist.addStatus == "3" }'><font color="#DF7401">등록 거절</font></c:when>
+						<c:when test='${ alist.addStatus == "4" }'><font color="#298A08">등록 보류</font></c:when>
 					</c:choose>
 				</td>
 				<td>
-					<c:if test='${ addlist.addStatus == "2" }'>
-						<span class="store_move" onclick="location.href='storeInfo.do?storeNum=${ addlist.storeNum }'">가게이동</span>
+					<c:if test='${ alist.addStatus == "2" }'>
+						<span class="store_move" onclick="location.href='storeInfo.do?storeNum=${ alist.storeNum }'">가게이동</span>
 					</c:if>
 				</td>
 				<td>
 					<div class="main-portfolio">
-						<button class="btn button is-checked" onclick="location.href='addRead.do?addNum=${ addlist.addNum }'">이동</button>
+						<button class="btn button is-checked" onclick="location.href='addRead.do?addNum=${ alist.addNum }'">보기</button>
 					</div>
 				</td>
 			</tr>
@@ -235,17 +243,17 @@ td{
 	
 <!-- 페이징 -->
 <!-- 페이징 -->
-<form id="pagefrm" name="pagefrm" action="adminStoreInfo.do">
+<form id="apagefrm" name="apagefrm" action="adminStoreInfo.do">
 	<input type="hidden" name="p">
-	<input type="hidden" name="aculumn">
-	<input type="hidden" name="acontent">
+	<input type="hidden" name="aculumn" value="${ param.aculumn }">
+	<input type="hidden" name="acontent" value="${ param.acontent }">
 </form>
 
-<u:paging pgfunc="doList" paging="${ apaging }"></u:paging>
+<u:paging pgfunc="adoList" paging="${ apaging }"></u:paging>
 <script>
-function doList(p) {
-	document.pagefrm.p.value = p;
-	document.pagefrm.submit();
+function adoList(p) {
+	document.apagefrm.p.value = p;
+	document.apagefrm.submit();
 }
 </script>
 
@@ -268,9 +276,9 @@ function doList(p) {
 <!-- 선택?? -->
 <div class="main-portfolio">
 	<div id="root" class="col-md-8 text-right">
-		<button class="btn button is-checked" data-filter="*">전체</button>
-		<button class="btn button" data-filter=".metal">오픈 가게</button>
-		<button class="btn button" data-filter=".transition">닫은 가게</button>
+		<button class="btn button open_status" id="open_status_all">전체</button>
+		<button class="btn button open_status" id="open_status_1">오픈 가게</button>
+		<button class="btn button open_status" id="open_status_0">닫은 가게</button>
 	</div>
 </div>
 <!-- END 리뷰 헤드 부분 -->
@@ -283,6 +291,7 @@ function doList(p) {
 	<table class="table table-striped table-hover table-bordered">
 		<thead>
 			<tr>
+				<th><input type='checkbox' name="check_b" class="check_b all" value="all"></th>
 				<th width="1">No.</th>
 				<th>가게번호</th>
 				<th>가게명</th>
@@ -303,30 +312,31 @@ function doList(p) {
 		<!-- db에 목록이 이없으면 empty:비어있다는 뜻임  -->
 		<c:if test="${empty slist}">
 			<tr>
-				<td colspan="9">등록된 글이 존재하지 않습니다.</td>
+				<td colspan="13">등록된 글이 존재하지 않습니다.</td>
 			</tr>
 		</c:if>
 
 		<!--목록이 있으면  -->
 		<!-- for문을 돌리면 list[0]을 안해도됨 -->
-		<c:forEach items="${ slist }" var="slist" varStatus="status">
-			<tr onclick="location.href='storeInfo.do?storeNum=${ slist.storeNum }'">
+		<c:forEach items="${ slist }" var="stlist" varStatus="status">
+			<tr onclick="location.href='storeInfo.do?storeNum=${ stlist.storeNum }'">
+				<th><input type='checkbox' name="check_b" class="check_b ${ stlist.storeNum }" value="${ stlist.storeNum }"></th>
 				<td>${ status.count }</td>
-				<td>${ slist.storeNum }</td>
-				<td>${ slist.storeName }</td>
-				<td class="td_left">${ slist.storeAddr }</td>
-				<td>${ slist.storeXy }</td>
-				<td class="categ1">${ slist.storeCateg1 }</td>
-				<td class="categ2">${ slist.storeCateg2 }</td>
-				<td class="categ3">${ slist.storeCateg3 }</td>
-				<td>${ slist.storeLike }</td>
-				<td>${ slist.userName }</td>
-				<td>${ slist.userNick }</td>
-				<td>${ slist.storeRegiday }</td>
+				<td>${ stlist.storeNum }</td>
+				<td>${ stlist.storeName }</td>
+				<td class="td_left">${ stlist.storeAddr }</td>
+				<td>${ stlist.storeXy }</td>
+				<td class="categ1">${ stlist.storeCateg1 }</td>
+				<td class="categ2">${ stlist.storeCateg2 }</td>
+				<td class="categ3">${ stlist.storeCateg3 }</td>
+				<td>${ stlist.storeLike }</td>
+				<td>${ stlist.userName }</td>
+				<td>${ stlist.userNick }</td>
+				<td>${ stlist.storeRegiday }</td>
 				<td>
 					<c:choose>
-						<c:when test='${ slist.storeOc == "1" }'><font color="red">OPEN</font></c:when>
-						<c:when test='${ slist.storeOc == "0" }'>CLOSE</c:when>
+						<c:when test='${ stlist.storeOc == "1" }'><font color="red">OPEN</font></c:when>
+						<c:when test='${ stlist.storeOc == "0" }'>CLOSE</c:when>
 					</c:choose>
 				</td>
 			</tr>
@@ -337,17 +347,17 @@ function doList(p) {
 </div>
 	
 <!-- 페이징 -->
-<form id="pagefrm" name="pagefrm" action="adminStoreInfo.do">
+<form id="bpagefrm" name="bpagefrm" action="adminStoreInfo.do">
 	<input type="hidden" name="p">
 	<input type="hidden" name="bculumn" value="">
 	<input type="hidden" name="bcontent" value="">
 </form>
 
-<u:paging pgfunc="doList" paging="${ bpaging }"></u:paging>
+<u:paging pgfunc="bdoList" paging="${ bpaging }"></u:paging>
 <script>
-function doList(p) {
-	document.pagefrm.p.value = p;
-	document.pagefrm.submit();
+function bdoList(p) {
+	document.bpagefrm.p.value = p;
+	document.bpagefrm.submit();
 }
 </script>
 
@@ -357,19 +367,5 @@ function doList(p) {
 
 
 
-<!-- JS includes -->
-<script src="${pageContext.request.contextPath }/assets/js/vendor/jquery-1.11.2.min.js"></script>
-<script src="${pageContext.request.contextPath }/assets/js/vendor/bootstrap.min.js"></script>
-<script src="${pageContext.request.contextPath }/assets/js/jquery.magnific-popup.js"></script>
-<!--<script src="assets/js/jquery.easypiechart.min.js"></script>-->
-<script src="${pageContext.request.contextPath }/assets/js/jquery.easing.1.3.js"></script>
-<!--<script src="assets/js/slick.js"></script>-->
-<script src="${pageContext.request.contextPath }/assets/js/slick.min.js"></script>
-<script src="${pageContext.request.contextPath }/assets/js/js.isotope.js"></script>
-<script src="${pageContext.request.contextPath }/assets/js/jquery.collapse.js"></script>
-<script src="${pageContext.request.contextPath }/assets/js/bootsnav.js"></script> 
-<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
-<script src="${pageContext.request.contextPath }/assets/js/plugins.js"></script>
-<script src="${pageContext.request.contextPath }/assets/js/main.js"></script>
 </body>
 </html>

@@ -2,25 +2,29 @@ package co.oc.command.map;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.List;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import co.oc.command.Command;
 import co.oc.dao.DAO;
-import co.oc.dao.StoreDAO;
-import co.oc.dto.StoreDTO;
+import co.oc.dao.FavoriteDAO;
+import co.oc.dto.FavoriteDTO;
 import net.sf.json.JSONArray;
 
-public class OpenStoreCommand implements Command {
+public class AjaxFavoriteStoreCommand implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Connection conn = DAO.connect();
-		List<StoreDTO> list = StoreDAO.getInstance().selectOpenStore(conn);
+		HttpSession session = request.getSession(false);
+
+		String userNum = (String) session.getAttribute("userNum");
+
+		ArrayList<FavoriteDTO> list = FavoriteDAO.getInstance().userFavorite(conn, userNum);
 
 		String map = JSONArray.fromObject(list).toString();
 
@@ -28,6 +32,7 @@ public class OpenStoreCommand implements Command {
 		response.getWriter().print(map);
 
 		DAO.disconnect(conn);
+
 	}
 
 }

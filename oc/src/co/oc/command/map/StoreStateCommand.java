@@ -18,9 +18,9 @@ public class StoreStateCommand implements Command {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Connection conn = DAO.connect();
 		String userNum = request.getParameter("user");
-		int storeState = StoreDAO.getInstance().storeState(conn, userNum);
+		String storeState = StoreDAO.getInstance().storeState(conn, userNum);
 
-		String oc = Integer.toString(storeState);
+		String oc = storeState;
 
 		response.setContentType("text/html; charset=UTF-8");
 		response.getWriter().print(oc);

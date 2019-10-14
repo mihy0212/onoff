@@ -161,6 +161,7 @@ public class AddDAO extends DAO {
 		 						+ where + " order by a.add_num desc)a1"
 		 				+ " where rownum<=?)a2"
 		 		+ " where a2.rnum >=?";
+		
 		try {
 			
 			psmt = conn.prepareStatement(sql);
@@ -194,10 +195,9 @@ public class AddDAO extends DAO {
 					psmt.setDate(++i, adto.getAddDay());
 				}
 			}
-			psmt.setInt(++i, start);
 			psmt.setInt(++i, end);
+			psmt.setInt(++i, start);
 			rs = psmt.executeQuery();
-			
 			while (rs.next()) {
 				AddDTO dto = new AddDTO();
 				dto.setAddNum(rs.getString("add_num"));				//1
@@ -228,7 +228,7 @@ public class AddDAO extends DAO {
 			//culumn : 검색할 컬럼명, content: 검색할 내용
 	public int getPageCount(Connection conn, String culumn, String content) {
 		int cnt = 0;
-		String sql = "select count(*) from oc_add where " + culumn + " like " + content;
+		String sql = "select count(*) from oc_add where " + culumn + " like '" + content + "'";
 		try {
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery(sql);
@@ -368,17 +368,28 @@ public class AddDAO extends DAO {
 		//그 storeNum을 AddDTO에 담도록 command 작성하기  
 	public int updatePermit(Connection conn, AddDTO dto) {
 		int n = 0;
-		String sql = "update oc_add set"
-				+ " add_status=?,"
-				+ " add_re=?,"
-				+ " store_num=?"
-				+ " where add_num=?";
+		String sql = null;
+		if(dto.getAddRe() != null) {
+			sql = "update oc_add set add_status=?,"
+					+ " add_re=?,"
+					+ " store_num=?"
+					+ " where add_num=?";
+		} else {
+			sql = "update oc_add set"
+					+ " add_status=?,"
+					+ " store_num=?"
+					+ " where add_num=?";
+		}
+		
 		try {
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, dto.getAddStatus());
-			psmt.setString(2, dto.getAddRe());
-			psmt.setString(3, dto.getStoreNum());
-			psmt.setString(4, dto.getAddNum());
+			int i=0;
+			psmt.setString(++i, dto.getAddStatus());
+			if(dto.getAddRe() != null) {
+				psmt.setString(++i, dto.getAddRe());
+			}
+			psmt.setString(++i, dto.getStoreNum());
+			psmt.setString(++i, dto.getAddNum());
 			n = psmt.executeUpdate();
 			System.out.println(n + "건의 신청 정보 수정 완료");
 		} catch (SQLException e) {

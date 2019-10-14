@@ -7,6 +7,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import co.oc.command.Command;
 import co.oc.dao.AddDAO;
@@ -23,6 +24,7 @@ public class AddReadComm implements Command {
 		
 		AddDTO adto = AddDAO.getInstance().selectAddNum(conn, addNum);
 		request.setAttribute("adto", adto);
+		request.getSession().setAttribute("adto", adto);
 		
 		DAO.disconnect(conn);
 		
