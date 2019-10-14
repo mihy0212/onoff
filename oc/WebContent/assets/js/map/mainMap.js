@@ -20,22 +20,6 @@ window.onload = function() {
 	userNum = $('#userNum').val();
 	userGrant = $('#userGrant').val();
 
-	if (userNum != "") {
-		$.ajax({
-			url : 'ajaxFavoriteStore.do',
-			type : 'GET',
-			data : {
-				userNum : userNum
-			},
-			dataType : 'json',
-			success : function(data) {
-				favoritePlaces = data;
-				console.log(favoritePlaces);
-				markerShow();
-			}
-		})
-	}
-
 	if (navigator.geolocation) {
 		navigator.geolocation
 				.getCurrentPosition(
@@ -72,6 +56,7 @@ window.onload = function() {
 
 							ps.categorySearch('FD6', callback, options);
 
+							markerShowStart();
 						}, function(error) {
 							console.error(error);
 						}, {
@@ -110,7 +95,72 @@ window.onload = function() {
 	}
 }
 
-function markerShow() {
+function markerShowStart() {
+	if (userNum != "") {
+		$.ajax({
+			url : 'ajaxFavoriteStore.do',
+			type : 'GET',
+			data : {
+				userNum : userNum
+			},
+			dataType : 'json',
+			success : function(data) {
+				favoritePlaces = data;
+				console.log(favoritePlaces);
+				openMarkerShow();
+				closeMarkerShow();
+			}
+		})
+	} else {
+		noLogInMarkerShow();
+	}
+}
+
+function noLogInMarkerShow() {
+	$
+			.ajax({
+				url : 'ajaxOpenStore.do',
+				type : 'GET',
+				dataType : 'json',
+				success : function(data) {
+					openPlaces = data;
+					for (var i = 0; i < openPlaces.length; i++) {
+						var DBxy = openPlaces[i].storeXy.split(","), DBx = DBxy[0], DBy = DBxy[1]
+								.trim();
+						var DBPosition = new kakao.maps.LatLng(DBx, DBy);
+
+						markOpenPlaces(DBPosition, i);
+
+					}
+				},
+				error : function(xhr, status, error) {
+					console.log(error);
+				}
+			})
+
+	$
+			.ajax({
+				url : 'ajaxCloseStore.do',
+				type : 'GET',
+				dataType : 'json',
+				success : function(data) {
+					closePlaces = data;
+					for (var i = 0; i < closePlaces.length; i++) {
+						var DBxy = closePlaces[i].storeXy.split(","), DBx = DBxy[0], DBy = DBxy[1]
+								.trim();
+						var DBPosition = new kakao.maps.LatLng(DBx, DBy);
+
+						markClosePlaces(DBPosition, i);
+
+					}
+				},
+				error : function(xhr, status, error) {
+					console.log(error);
+				}
+			})
+}
+
+function openMarkerShow() {
 	$
 			.ajax({
 				url : 'ajaxOpenStore.do',
@@ -129,9 +179,12 @@ function markerShow() {
 
 							// 즐겨찾기가 되있는지 체크
 							for (var k = 0; k < favoritePlaces.length; k++) {
-								console.log(openPlaces[i].storeNum);
+
+								console.log(i, k);
+
 								if (openPlaces[i].storeNum == favoritePlaces[k].storeNum) {
 									favBoolean = true;
+									break;
 								} else {
 									favBoolean = false;
 								}
@@ -151,7 +204,9 @@ function markerShow() {
 					console.log(error);
 				}
 			})
+}
 
+function closeMarkerShow() {
 	$
 			.ajax({
 				url : 'ajaxCloseStore.do',
@@ -168,8 +223,10 @@ function markerShow() {
 
 							// 즐겨찾기가 되있는지 체크
 							for (var k = 0; k < favoritePlaces.length; k++) {
+								console.log(i, k);
 								if (closePlaces[i].storeNum == favoritePlaces[k].storeNum) {
 									favBoolean = true;
+									break;
 								} else {
 									favBoolean = false;
 								}

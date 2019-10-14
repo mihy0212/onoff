@@ -158,21 +158,21 @@ public class FavoriteDAO extends DAO {
 
 	// 특정 회원의 즐겨찾기 목록 쿼리
 	public ArrayList<FavoriteDTO> userFavorite(Connection conn, String userNum) {
-		ArrayList<FavoriteDTO> list=new ArrayList<FavoriteDTO>();
-		
+		ArrayList<FavoriteDTO> list = new ArrayList<FavoriteDTO>();
+
 		String sql = "select * from oc_favorite where user_num=?";
-		
+
 		try {
-			psmt=conn.prepareStatement(sql);
+			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, userNum);
-			rs=psmt.executeQuery();
-			
-			while(rs.next()) {
-				FavoriteDTO dto=new FavoriteDTO();
-				
+			rs = psmt.executeQuery();
+
+			while (rs.next()) {
+				FavoriteDTO dto = new FavoriteDTO();
+
 				dto.setUserNum(rs.getString("user_num"));
 				dto.setStoreNum(rs.getString("store_num"));
-				
+
 				list.add(dto);
 			}
 		} catch (SQLException e) {
