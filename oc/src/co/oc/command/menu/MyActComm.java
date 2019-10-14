@@ -10,11 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
+
 import co.oc.command.Command;
 import co.oc.dao.DAO;
 import co.oc.dao.FavoriteDAO;
+import co.oc.dao.LikeDAO;
 import co.oc.dao.ReviewDAO;
+import co.oc.dao.StoreDAO;
 import co.oc.dto.FavoriteDTO;
+import co.oc.dto.LikeDTO;
 import co.oc.dto.ReviewDTO;
 
 public class MyActComm implements Command {
@@ -29,6 +34,8 @@ public class MyActComm implements Command {
 		String storeCateg1 = request.getParameter("storeCateg1");
 		String storeCateg2 = request.getParameter("storeCateg2");
 		String storeCateg3 = request.getParameter("storeCateg3");
+		
+		String choice = request.getParameter("choice");
 //----------------------------------------페이징 처리--------------------------------------
 		
 		int pagenum = 1;
@@ -81,14 +88,42 @@ public class MyActComm implements Command {
 //----------------------------------------Favorite--------------------------------------	
 		
 //----------------------------------------Review--------------------------------------		
-		List<ReviewDTO> list1 = ReviewDAO.getInstance().select1(conn, "user_num", userNum, start, end); // all
 		
-		for (ReviewDTO adto : list1) {
-			System.out.println(adto.getStoreName());
+		
+		
+		if(choice != null) {
+			if(choice.equals("reviewDelete")) {
+				String reviewNum = request.getParameter("key");
+				System.out.println(reviewNum);
+				ReviewDAO.getInstance().delete(conn, reviewNum);
+			} 
+			
+			
+			
+			else if(choice.equals("reviewUpdate")) {
+				ReviewDTO dto2 = new ReviewDTO();
+				dto2.setUserNum(request.getParameter("userNum"));
+				dto2.setReviewNum(request.getParameter("reviewNum"));
+				dto2.setReviewStar(request.getParameter("reviewStar"));
+				dto2.setReviewContent(request.getParameter("reviewContent"));
+				int n = ReviewDAO.getInstance().update(conn, dto2);
+				double stars = ReviewDAO.getInstance().selectStar(conn, storeNum);
+				
+	
+				JSONObject obj = new JSONObject();
+				obj.put("n", n);
+				obj.put("stars", stars);
+				
+			} 
 		}
-
-		// request 객체에 list를 담아준다.
-		request.setAttribute("riviewlist", list1);
+		
+			List<ReviewDTO> list1 = ReviewDAO.getInstance().select1(conn, "user_num", userNum, start, end); // all
+			
+			for (ReviewDTO adto : list1) {
+				System.out.println(adto.getStoreName());
+			}
+			// request 객체에 list를 담아준다.
+			 request.setAttribute("riviewlist", list1);
 		//System.out.println(list1);
 
 		// request 객체에 총 페이지수를 담아준다.
@@ -99,5 +134,6 @@ public class MyActComm implements Command {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/menu/my_act.jsp");
 		dispatcher.forward(request, response);
 //----------------------------------------Review--------------------------------------	
-	}
+	
+}
 }
