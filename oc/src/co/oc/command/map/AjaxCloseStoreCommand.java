@@ -15,7 +15,7 @@ import co.oc.dao.StoreDAO;
 import co.oc.dto.StoreDTO;
 import net.sf.json.JSONArray;
 
-public class CloseStoreCommand implements Command {
+public class AjaxCloseStoreCommand implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

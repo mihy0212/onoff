@@ -334,7 +334,7 @@ public class StoreDAO extends DAO {
 				dto.setStoreEtc(rs.getString("store_etc")); // 12
 				dto.setStoreLike(rs.getInt("store_like")); // 13
 				dto.setUserNum(rs.getString("user_num")); // 14
-				dto.setStoreOc(rs.getInt("store_oc")); // 가게 오픈 상태, 15
+				dto.setStoreOc(rs.getString("store_oc")); // 가게 오픈 상태, 15
 //				dto.setStoreRegiday(rs.getDate("store_regiday")); // 15
 
 				list.add(dto);
@@ -369,7 +369,7 @@ public class StoreDAO extends DAO {
 				dto.setStoreEtc(rs.getString("store_etc")); // 12
 				dto.setStoreLike(rs.getInt("store_like")); // 13
 				dto.setUserNum(rs.getString("user_num")); // 14
-				dto.setStoreOc(rs.getInt("store_oc")); // 가게 오픈 상태, 15
+				dto.setStoreOc(rs.getString("store_oc")); // 가게 오픈 상태, 15
 				list.add(dto);
 			}
 		} catch (SQLException e) {
@@ -401,7 +401,7 @@ public class StoreDAO extends DAO {
 				dto.setStoreEtc(rs.getString("store_etc")); // 12
 				dto.setStoreLike(rs.getInt("store_like")); // 13
 				dto.setUserNum(rs.getString("user_num")); // 14
-				dto.setStoreOc(rs.getInt("store_oc")); // 가게 오픈 상태, 15
+				dto.setStoreOc(rs.getString("store_oc")); // 가게 오픈 상태, 15
 				list.add(dto);
 			}
 		} catch (SQLException e) {
@@ -411,9 +411,9 @@ public class StoreDAO extends DAO {
 	}
 
 	// 가게 상태 조회
-	public int storeState(Connection conn, String userNum) {
+	public String storeState(Connection conn, String userNum) {
 
-		int storeState = 0;
+		String storeState = null;
 		String sql = "select store_oc from oc_store where user_num = ?";
 
 		try {
@@ -423,7 +423,7 @@ public class StoreDAO extends DAO {
 			rs = psmt.executeQuery();
 
 			if (rs.next()) {
-				storeState = rs.getInt("store_oc");
+				storeState = rs.getString("store_oc");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

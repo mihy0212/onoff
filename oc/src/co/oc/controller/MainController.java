@@ -32,9 +32,9 @@ import co.oc.command.manager.BorderListCommand;
 import co.oc.command.manager.BorderReadCommand;
 import co.oc.command.manager.UserDelete;
 import co.oc.command.manager.UserList;
-import co.oc.command.manager.UserRead;
 import co.oc.command.manager.WriteForm;
-import co.oc.command.map.CloseStoreCommand;
+import co.oc.command.map.AjaxFavoriteStoreCommand;
+import co.oc.command.map.AjaxCloseStoreCommand;
 import co.oc.command.map.OpenStoreCommand;
 import co.oc.command.map.SearchCommand;
 import co.oc.command.map.StoreCloseCommand;
@@ -103,11 +103,12 @@ public class MainController extends HttpServlet {
 
 		// 백승진
 		map.put("/ajaxOpenStore.do", new OpenStoreCommand());
-		map.put("/ajaxCloseStore.do", new CloseStoreCommand());
+		map.put("/ajaxCloseStore.do", new AjaxCloseStoreCommand());
 		map.put("/search.do", new SearchCommand());
 		map.put("/ajaxStoreState.do", new StoreStateCommand());
 		map.put("/storeOpen.do", new StoreOpenCommand());
 		map.put("/storeClose.do", new StoreCloseCommand());
+		map.put("/ajaxFavoriteStore.do", new AjaxFavoriteStoreCommand());
 
 		// 복진영
 		// 마이 메뉴
