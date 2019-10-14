@@ -8,9 +8,18 @@
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
  <script type="text/javascript">
  
+ function NickCheck() {
+		var chkNick = document.frm.userNickname;
+		if(chkNick.value == "") {
+			alert("닉네임을 입력하세요.")
+			chkNick.focus();
+			return false;
+		}
+		
+		window.open("NickCheck.do?userNickname="+chkNick.value,"","width=500,height=400");
+	}
+ 
  $(function() {
-	
-
 	//모든 공백 체크 정규식
 	var empJ = /\s/g;
 	// 비밀번호 정규식
@@ -23,8 +32,8 @@
     $('#usercheck').on('submit',function(){
          var inval_Arr = new Array(8).fill(false);
          // 비밀번호가 같은 경우 && 비밀번호 정규식
-         if (($('#user_pw').val() == ($('#user_pw2').val()))
-               && pwJ.test($('#user_pw').val())) {
+         if (($('#userPw').val() == ($('#userPw2').val()))
+               && pwJ.test($('#userPw').val())) {
             inval_Arr[1] = true;
          } else {
             inval_Arr[1] = false;
@@ -56,8 +65,8 @@
        });//su
      
      
-   $('#user_pw').blur(function() {
-      if (pwJ.test($('#user_pw').val())) {
+   $('#userPw').blur(function() {
+      if (pwJ.test($('#userPw').val())) {
          console.log('true');
          $('#pw_check').text('');
       } else {
@@ -67,8 +76,8 @@
       }
    });
    //1~2 패스워드 일치 확인
-   $('#user_pw2').blur(function() {
-      if ($('#user_pw').val() != $(this).val()) {
+   $('#userPw2').blur(function() {
+      if ($('#userPw').val() != $(this).val()) {
          $('#pw2_check').text('비밀번호가 일치하지 않습니다.');
          $('#pw2_check').css('color', 'red');
       } else {
@@ -77,16 +86,7 @@
    });
  })
 
-  /*  //이름에 특수문자 들어가지 않도록 설정
-   $("#user_name").blur(function() {
-      if (nameJ.test($(this).val())) {
-         console.log(nameJ.test($(this).val()));
-         $("#name_check").text('');
-      } else {
-         $('#name_check').text('한글 2~4자 이내로 입력하세요. (특수기호, 공백 사용 불가)');
-         $('#name_check').css('color', 'red');
-      }
-   }); */
+
 //우편번호 찾기 버튼 클릭시 발생 이벤트
 function execPostCode() {
      new daum.Postcode({
@@ -126,10 +126,10 @@ function execPostCode() {
             
             
             /* $("[name=user_oaddress]").val(data.zonecode); */
-            $("[name=user_address]").val(fullRoadAddr);
+            $("[name=userAddr]").val(fullRoadAddr);
             
             /* document.getElementById('user_oaddress').value = data.zonecode; //5자리 새우편번호 사용 */
-            document.getElementById('user_address').value = fullRoadAddr;
+            document.getElementById('userAddr').value = fullRoadAddr;
         }
      }).open();
  }
@@ -178,43 +178,47 @@ function execPostCode() {
 
 				<div class="form-group">
 					<label for="pw">비밀번호</label> 
-					<input type="password" class="form-control" id="user_pw" name="user_pw"
+					<input type="password" class="form-control" id="userPw" name="userPw"
 						placeholder="PASSWORD"  >
 					<div class="eheck_font" id="pw_check"></div>
 				</div>
 				<div class="form-group">
 					<label for="pw2">비밀번호 확인</label> <input type="password"
-						class="form-control" id="user_pw2" name="user_pw2"
+						class="form-control" id="userPw2" name="userPw2"
 						placeholder="Confirm Password">
 					<div class="eheck_font" id="pw2_check"></div>
 				</div>
 
 				<div class="form-group">
-					<label for="userNum">이름</label> 
-					<input type="text"class="form-control" id="userNum" name="userNum" value="${UserDTO.userNum}" readonly="readonly">
+					<label for="userName">이름</label> 
+					<input type="text"class="form-control" id="userName" name="userName" value="${UserDTO.userName}" readonly="readonly">
 					<div class="eheck_font" id="name_check"></div>
 				</div>
 
 				<div class="form-group">
-					<label for="user_birth">닉네임</label> 
-					<input type="text" class="form-control" id="ninckname" name="ninckname" value="${UserDTO.userNick}" >
-					<div class="eheck_font" id="birth_check"></div>
-				</div>
+	<div class="col-sm-8" style="padding: 0px">
+	<input type="text" class="form-control" placeholder="닉네임" id="userNickname" name="userNickname">
+	</div>
+		<div class="col-sm-4">
+	<input type="button" class="btn btn-primary form-control"
+		onclick="NickCheck()" value="중복체크">
+	</div>
+	</div>
 
 
 
 				<div class="form-group">
-					<input class="form-control" style="top: 5px;" placeholder="도로명 주소" name="user_address" id="user_address" type="text" readonly="readonly" />
+					<input class="form-control" style="top: 5px;" placeholder="도로명 주소" name="userAddr" id="userAddr" type="text" readonly="readonly" />
 						<button type="button" class="btn btn-default" onclick="execPostCode();">
 						<i class="fa fa-search"></i> 주소 찾기
 					</button>
 				</div>
 				<div class="form-group">
-					<input class="form-control" placeholder="상세주소" name="user_detailaddress" id="user_detailaddress" type="text" value="${UserDTO.userAddr}" />
+					<input class="form-control" placeholder="상세주소" name="userAddr" id="userAddr" type="text" value="${UserDTO.userAddr}" />
 				</div>
 				<div class="form-group text-center">
 					<input type="submit" value=정보수정 class="btn btn-primary" > 
-					<input type=button value=취소 class="btn btn-primary"> 
+					<input type="reset" onclick="location.href='myinfo.do'" value=취소 class="btn btn-primary"> 
 
 				</div>
 			</form>

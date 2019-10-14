@@ -26,7 +26,6 @@ public class MyinfoUpComm implements Command {
 		// 세션이 가지고있는 로그인한 ID 정보를 가져온다
 		HttpSession session = request.getSession(false);
 		String userNum = (String) session.getAttribute("userNum");
-		// String path = null;
 		UserDTO dto = new UserDTO();
 
 //		// BeanUtils을 사용하여 한번에 저장만(bean=dto)
@@ -40,8 +39,9 @@ public class MyinfoUpComm implements Command {
 		dto.setUserAddr(request.getParameter("userAddr"));
 		dto.setUserNum(userNum);
 		
-		// 유저 비번 null 값으로 나옴
 		
+		// 유저 비번 null 값으로 나옴
+		System.out.println(dto.getUserNick());
 		System.out.println(dto.getUserPw());
 		
 		int n = UserDAO.getInstance().updateMyInfo(conn, dto);

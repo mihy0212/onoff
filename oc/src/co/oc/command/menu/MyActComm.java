@@ -64,10 +64,10 @@ public class MyActComm implements Command {
 		dto.setUserNum(userNum);
 		dto.setStoreNum(storeNum);
 		dto.setStoreCateg1(storeCateg1);
-		dto.setStoreCateg1(storeCateg2);
-		dto.setStoreCateg1(storeCateg3);
-		List<FavoriteDTO> list =FavoriteDAO.getInstance().selectUser(conn, dto, start, end);
+		dto.setStoreCateg2(storeCateg2);
+		dto.setStoreCateg3(storeCateg3);
 		
+		List<FavoriteDTO> list =FavoriteDAO.getInstance().selectUser(conn, dto, start, end);
 		for( FavoriteDTO sdto: list) {
 			System.out.println("즐겨찾기"+sdto.getStoreName());
 		}
