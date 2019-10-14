@@ -19,8 +19,8 @@ public class AdminStoreChangeComm implements Command {
 		
 		String choice = request.getParameter("choice");
 		
-		if(choice.equals("addStatus")) {
-
+		if(choice.equals("regiChange")) {
+			request.getParameter("addStatus");
 		}
 		
 		DAO.disconnect(conn);

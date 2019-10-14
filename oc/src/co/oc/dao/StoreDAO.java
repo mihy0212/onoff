@@ -148,6 +148,7 @@ public class StoreDAO extends DAO {
 			}
 			psmt.setInt(++i, end);
 			psmt.setInt(++i, start);
+			System.out.println(sql);
 			rs = psmt.executeQuery();
 
 			while (rs.next()) {

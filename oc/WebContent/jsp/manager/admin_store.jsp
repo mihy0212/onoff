@@ -47,7 +47,6 @@ $(document).ready(function(){
 		var addStatNum;
 
 		if( $(this).attr('id') == 'ask_status_all'){
-			askStatNum = "all";
 			location.href = "adminStoreInfo.do";
 		} else if( $(this).attr('id') == 'ask_status_1'){
 			askStatNum = "1";
@@ -70,7 +69,6 @@ $(document).ready(function(){
 		var openStatNum;
 
 		if( $(this).attr('id') == 'open_status_all'){
-			openStatNum = "all";
 			location.href = "adminStoreInfo.do";
 		} else if( $(this).attr('id') == 'open_status_1'){
 			openStatNum = "1";
@@ -147,7 +145,7 @@ td{
 	<div id="root" class="col-md-8 text-right">
 
 			<button type="button" class="btn button ask_status" id="ask_status_all">전체</button>
-			<button type="button" class="btn button ask_status" id="ask_status_1">처리 전</button>
+			<button type="button" class="btn button ask_status" id="ask_status_1">처리 중</button>
 			<button type="button" class="btn button ask_status" id="ask_status_2">등록 허가</button>
 			<button type="button" class="btn button ask_status" id="ask_status_3">등록 거절</button>
 			<button type="button" class="btn button ask_status" id="ask_status_4">등록 보류</button>&nbsp;&nbsp;
@@ -168,6 +166,7 @@ td{
 	<table class=" table table-striped table-hover table-bordered">
 		<thead>
 			<tr>
+				<!-- <th><input type='checkbox' name="check_a" class="check_a all" value="all"></th> -->
 				<th width="1" align="center" >No.</th>
 				<th>가게명</th>
 				<th>주소</th>
@@ -179,7 +178,7 @@ td{
 				<th>신청자</th>
 				<th>신청일</th>
 				<th colspan="2">처리상태</th>
-				<th>이동</th>
+				<th>신청서 보기</th>
 			</tr>
 		</thead>
 
@@ -187,7 +186,7 @@ td{
 		<!-- db에 목록이 이없으면 empty:비어있다는 뜻임  -->
 		<c:if test="${empty addlist}">
 			<tr>
-				<td colspan="9">등록된 글이 존재하지 않습니다.</td>
+				<td colspan="12">등록된 글이 존재하지 않습니다.</td>
 			</tr>
 		</c:if>
 
@@ -195,6 +194,7 @@ td{
 		<!-- for문을 돌리면 list[0]을 안해도됨 -->
 		<c:forEach items="${ addlist }" var="alist" varStatus="status">
 			<tr>
+				<%-- <td><input type='checkbox' name="check_a" value="${ alist.storeNum }"></td> --%>
 				<td>${ status.count }</td>
 				<td>${ alist.storeName }</td>
 				<td class="td_left">${ alist.storeAddr }</td>
@@ -231,7 +231,7 @@ td{
 				</td>
 				<td>
 					<div class="main-portfolio">
-						<button class="btn button is-checked" onclick="location.href='addRead.do?addNum=${ alist.addNum }'">이동</button>
+						<button class="btn button is-checked" onclick="location.href='addRead.do?addNum=${ alist.addNum }'">보기</button>
 					</div>
 				</td>
 			</tr>
@@ -291,6 +291,7 @@ function adoList(p) {
 	<table class="table table-striped table-hover table-bordered">
 		<thead>
 			<tr>
+				<th><input type='checkbox' name="check_b" class="check_b all" value="all"></th>
 				<th width="1">No.</th>
 				<th>가게번호</th>
 				<th>가게명</th>
@@ -311,7 +312,7 @@ function adoList(p) {
 		<!-- db에 목록이 이없으면 empty:비어있다는 뜻임  -->
 		<c:if test="${empty slist}">
 			<tr>
-				<td colspan="9">등록된 글이 존재하지 않습니다.</td>
+				<td colspan="13">등록된 글이 존재하지 않습니다.</td>
 			</tr>
 		</c:if>
 
@@ -319,6 +320,7 @@ function adoList(p) {
 		<!-- for문을 돌리면 list[0]을 안해도됨 -->
 		<c:forEach items="${ slist }" var="stlist" varStatus="status">
 			<tr onclick="location.href='storeInfo.do?storeNum=${ stlist.storeNum }'">
+				<th><input type='checkbox' name="check_b" class="check_b ${ stlist.storeNum }" value="${ stlist.storeNum }"></th>
 				<td>${ status.count }</td>
 				<td>${ stlist.storeNum }</td>
 				<td>${ stlist.storeName }</td>

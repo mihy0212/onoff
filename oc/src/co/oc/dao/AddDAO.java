@@ -197,7 +197,6 @@ public class AddDAO extends DAO {
 			}
 			psmt.setInt(++i, end);
 			psmt.setInt(++i, start);
-			System.out.println(sql);
 			rs = psmt.executeQuery();
 			while (rs.next()) {
 				AddDTO dto = new AddDTO();
@@ -369,17 +368,28 @@ public class AddDAO extends DAO {
 		//그 storeNum을 AddDTO에 담도록 command 작성하기  
 	public int updatePermit(Connection conn, AddDTO dto) {
 		int n = 0;
-		String sql = "update oc_add set"
-				+ " add_status=?,"
-				+ " add_re=?,"
-				+ " store_num=?"
-				+ " where add_num=?";
+		String sql = null;
+		if(dto.getAddRe() != null) {
+			sql = "update oc_add set add_status=?,"
+					+ " add_re=?,"
+					+ " store_num=?"
+					+ " where add_num=?";
+		} else {
+			sql = "update oc_add set"
+					+ " add_status=?,"
+					+ " store_num=?"
+					+ " where add_num=?";
+		}
+		
 		try {
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, dto.getAddStatus());
-			psmt.setString(2, dto.getAddRe());
-			psmt.setString(3, dto.getStoreNum());
-			psmt.setString(4, dto.getAddNum());
+			int i=0;
+			psmt.setString(++i, dto.getAddStatus());
+			if(dto.getAddRe() != null) {
+				psmt.setString(++i, dto.getAddRe());
+			}
+			psmt.setString(++i, dto.getStoreNum());
+			psmt.setString(++i, dto.getAddNum());
 			n = psmt.executeUpdate();
 			System.out.println(n + "건의 신청 정보 수정 완료");
 		} catch (SQLException e) {
