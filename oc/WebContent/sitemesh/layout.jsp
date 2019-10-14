@@ -75,11 +75,6 @@
 						<span class="input-group-addon"><i class="fa fa-search"></i></span>
 						<input type="text" class="form-control" placeholder="Search"
 							id="keyword" name="keyword" onkeydown="JavaScript:enterCheck();">
-						<form id="search" name="search" action="search.do" method="post"
-							onsubmit="return checkForm()">
-							<input type="text" class="form-control" placeholder="Search"
-								id="keyword" name="keyword">
-						</form>
 						<span class="input-group-addon close-search"><i
 							class="fa fa-times"></i></span>
 					</div>

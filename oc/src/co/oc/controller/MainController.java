@@ -116,7 +116,7 @@ public class MainController extends HttpServlet {
 		// 백승진
 		map.put("/ajaxOpenStore.do", new AjaxOpenStoreCommand());
 		map.put("/ajaxCloseStore.do", new AjaxCloseStoreCommand());
-		map.put("/search.do", new SearchCommand());
+		map.put("/ajaxSearch.do", new SearchCommand());
 		map.put("/ajaxStoreState.do", new StoreStateCommand());
 		map.put("/storeOpen.do", new StoreOpenCommand());
 		map.put("/storeClose.do", new StoreCloseCommand());

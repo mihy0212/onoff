@@ -554,7 +554,7 @@ function searchLocation() {
 	});
 
 	$.ajax({
-		url : 'search.do',
+		url : 'ajaxSearch.do',
 		data : {
 			keyword : keyword
 		},
@@ -562,8 +562,7 @@ function searchLocation() {
 		dataType : 'json',
 		success : function(data) {
 
-			// 데이터 어떻게 넘어오는지 보고 변수 지정
-			console.log(data);
+			DBSearchResultMarker(data);
 
 		},
 		error : function(xhr, status, error) {
@@ -659,13 +658,7 @@ function getListItem(index, places) {
 			+ '   <h5>'
 			+ places.place_name + '</h5>';
 
-	if (places.road_address_name) {
-		itemStr += '    <span>' + places.road_address_name + '</span>'
-				+ '   <span class="jibun gray">' + places.address_name
-				+ '</span>';
-	} else {
 		itemStr += '    <span>' + places.address_name + '</span>';
-	}
 
 	itemStr += '  <span class="tel">' + places.phone + '</span>' + '</div>';
 
