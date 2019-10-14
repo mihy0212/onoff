@@ -138,7 +138,7 @@ function markerShow() {
 							}
 
 							if (favBoolean) {
-								markOpenFavoritePlaces(DBposition, i);
+								markOpenFavoritePlaces(DBPosition, i);
 							} else {
 								markOpenPlaces(DBPosition, i);
 							}
