@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import co.oc.command.Command;
 import co.oc.command.join.CeoInsertCommand;
 import co.oc.command.join.FindFormCommand;
+import co.oc.command.join.GoFindPW;
 import co.oc.command.join.GoidfindCommand;
 import co.oc.command.join.Homego;
 import co.oc.command.join.IDFindCommand;
@@ -26,6 +27,7 @@ import co.oc.command.join.LoginCheckCommand;
 import co.oc.command.join.LoginFormCommand;
 import co.oc.command.join.LogoutCommand;
 import co.oc.command.join.NickcheckCommand;
+import co.oc.command.join.PWFindCommand;
 import co.oc.command.join.StoreNickCheck;
 import co.oc.command.manager.AddReadComm;
 import co.oc.command.manager.AdminStoreChangeComm;
@@ -108,7 +110,8 @@ public class MainController extends HttpServlet {
 		map.put("/findform.do", new FindFormCommand());// ID/PW 선택폼
 		map.put("/idfindform", new IDFindFormCommand()); //ID 폼
 		map.put("/goidfindtest.do", new GoidfindCommand()); //아이디찾기 폼
-		//map.put("/, value)dd
+		map.put("/gopwform.do", new GoFindPW()); //패스워드 찾기폼
+		map.put("/pwfind.do", new PWFindCommand()); //패스워드 찾는 코맨드
 
 		// 백승진
 		map.put("/ajaxOpenStore.do", new AjaxOpenStoreCommand());

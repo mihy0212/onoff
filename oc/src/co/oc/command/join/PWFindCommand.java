@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,7 +13,7 @@ import co.oc.dao.DAO;
 import co.oc.dao.UserDAO;
 import co.oc.dto.UserDTO;
 
-public class IDFindCommand implements Command {
+public class PWFindCommand implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -22,14 +21,16 @@ public class IDFindCommand implements Command {
 		UserDAO dao = new UserDAO();
 		UserDTO dto = new UserDTO();
 		PrintWriter out = response.getWriter();
-		String id = request.getParameter("userName");
-		dto.setUserName(id);
+		String id = request.getParameter("userEmail");
+		String name = request.getParameter("userName");
+		dto.setUserEmail(id);
+		dto.setUserName(name);
 		Connection conn = DAO.connect();
-		String chk = dao.findid(conn, dto);
+		String pw = dao.findpw(conn, dto);
 		DAO.disconnect(conn);
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
-		if (chk == null) {
+		if (pw == null) {
 			out.print("<script>");
 			out.print("alert(\"존재하지 않은 사용자 정보입니다\");");
 			out.print("location.href='loginform.do'");
@@ -37,7 +38,7 @@ public class IDFindCommand implements Command {
 
 		} else {
 			out.print("<script>");
-			out.print("alert(\"찾으시는 아이디는 "+chk+"입니다.\");");
+			out.print("alert(\"찾으시는 아이디는 "+pw+"입니다.\");");
 			out.print("location.href='loginform.do'");
 			out.print("</script>");
 		
