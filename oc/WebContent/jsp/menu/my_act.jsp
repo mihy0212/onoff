@@ -128,22 +128,22 @@
 				 */
 			}else if( $(this).attr('id') == 'categ02_3_01'){
 				categNum = "01";
-				location.href = "myfavorite.do?storeCateg2=01 storeCateg3=" + categNum;
+				location.href = "myfavorite.do?storeCateg2=01 & storeCateg3=" + categNum;
 			} else if( $(this).attr('id') == 'categ02_3_02'){
 				categNum = "02";
-				location.href = "myfavorite.do?storeCateg2=01 storeCateg3=" + categNum;
+				location.href = "myfavorite.do?storeCateg2=01 & storeCateg3=" + categNum;
 			} else if( $(this).attr('id') == 'categ02_3_03'){
 				categNum = "03";
-				location.href = "myfavorite.do?storeCateg2=01 storeCateg3=" + categNum;
+				location.href = "myfavorite.do?storeCateg2=01 &  storeCateg3=" + categNum;
 			} else if( $(this).attr('id') == 'categ02_3_04'){
 				categNum = "04";
-				location.href = "myfavorite.do?storeCateg2=01 storeCateg3=" + categNum;
+				location.href = "myfavorite.do?storeCateg2=01 & storeCateg3=" + categNum;
 			}else if( $(this).attr('id') == 'categ02_3_05'){
 				categNum = "05";
-				location.href = "myfavorite.do?storeCateg2=01 storeCateg3=" + categNum;
+				location.href = "myfavorite.do?storeCateg2=01 & storeCateg3=" + categNum;
 			}else if( $(this).attr('id') == 'categ02_3_06'){
 				categNum = "06";
-				location.href = "myfavorite.do?storeCateg2=01 storeCateg3=" + categNum;
+				location.href = "myfavorite.do?storeCateg2=01 & storeCateg3=" + categNum;
 			}
 		});
 		
@@ -171,8 +171,8 @@
 
 		$("#categ2_02").mouseout(function (){
 	  		$("#catego3").hide();
-	    }); */
-	}); */
+	    }); 
+	});*/
 
 	
 	//리뷰에서 별점 표시하기
@@ -226,8 +226,9 @@
 										<button type="button" class="btn button categ"  id="categ01_3_05">분식</button>
 										<button type="button" class="btn button categ"  id="categ01_3_06">기타</button>
 								<!-- </div> -->
+								
 								<!-- <div id="catego2_2" style="display: none;">   -->
-								  	<button type="button" class="btn button categ"  id="categ02_3_01">한식</button>
+								  		<button type="button" class="btn button categ"  id="categ02_3_01">한식</button>
 										<button type="button" class="btn button categ" id="categ02_3_02">양식</button>
 										<button type="button" class="btn button categ" id="categ02_3_03">중식</button>
 										<button type="button" class="btn button categ"  id="categ02_3_04">일식</button>
@@ -327,8 +328,8 @@
 									<input type="hidden" value="${ alist.reviewRe }">
 							<%-- 리뷰 왼쪽 영역 : 아이콘/회원 닉네임 --%>
 							<div class="col-md-2 text-center" onclick="location.href='storeInfo.do?storeNum=${alist.storeNum }'">
-								<font size="6"><i class="icon icon icon-smile text-black"></i></font>
-								<h6 class="content_user" onclick="location.href='storeInfo.do?storeNum=${alist.storeNum }'">${ alist.userNick }</h6>
+								<font size="6"><i class="icon icon icon-restaurant text-black"></i></font>
+								<h6 class="content_user" onclick="location.href='storeInfo.do?storeNum=${alist.storeNum }'">${ alist.storeName }</h6>
 							</div>
 							<%-- 리뷰 중간 영역 : 별점/리뷰글 --%>
 							<div class="col-md-9 text-left content_star" onclick="location.href='storeInfo.do?storeNum=${alist.storeNum }'">

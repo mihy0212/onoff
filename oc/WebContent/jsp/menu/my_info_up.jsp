@@ -218,7 +218,7 @@ function execPostCode() {
 				</div>
 				<div class="form-group text-center">
 					<input type="submit" value=정보수정 class="btn btn-primary" > 
-					<input type=button value=취소 class="btn btn-primary"> 
+					<input type="reset" onclick="location.href='myinfo.do'" value=취소 class="btn btn-primary"> 
 
 				</div>
 			</form>
