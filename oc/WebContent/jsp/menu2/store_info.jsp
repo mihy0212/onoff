@@ -10,7 +10,7 @@
 <title>가게 정보 상세 보기</title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
+<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/style.css"><!--Theme custom css -->
 <script> 
 
 $(document).ready(function(){

@@ -29,7 +29,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/bootsnav.css">
 
 <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/plugins.css" /><!--For Plugins external css-->
-<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/style.css"><!--Theme custom css -->
+<%-- <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/style.css"><!--Theme custom css -- --%>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/responsive.css" /><!--Theme Responsive css-->
 
 <script src="${pageContext.request.contextPath }/assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>

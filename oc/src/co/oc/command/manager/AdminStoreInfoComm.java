@@ -24,7 +24,7 @@ public class AdminStoreInfoComm implements Command {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession(false);
-		String userGrant = session.getAttribute("userGrant").toString();
+		String userGrant = (String) session.getAttribute("userGrant");
 		
 		if( userGrant.equals("S") ) {
 			Connection conn = DAO.connect();
@@ -62,7 +62,6 @@ public class AdminStoreInfoComm implements Command {
 			List<AddDTO> addlist = AddDAO.getInstance().selectSearch(conn, adto, afirst, alast);
 			request.setAttribute("addlist", addlist);
 			
-			
 			Paging bpaging = new Paging();
 			bpaging.setPageUnit(10); //한 페이지에 출력할 레코드 건수
 			bpaging.setPageSize(10); //페이지바에 나타날 페이지 번호 수(이전 1 2 3 ...10 다음)
@@ -86,6 +85,10 @@ public class AdminStoreInfoComm implements Command {
 		}
 		
 
+	}
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		execute(request, response);
 	}
 
 }

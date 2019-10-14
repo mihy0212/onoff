@@ -9,22 +9,7 @@
 <title>가게 관리</title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
-<!--Google Font link-->
-<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,400i,700,700i" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-<!-- 화면 전환 및 폰트와 제목 디자인 -->
-<!--For Plugins external css-->
-<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/plugins.css" />
-<!--Theme custom css -->
-<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/style.css">
-<!--Theme Responsive css-->
-<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/responsive.css" />
-
-<script src="${pageContext.request.contextPath }/assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/style.css"><!--Theme custom css -->
 <script>
 
 $(document).ready(function(){
@@ -60,6 +45,7 @@ $(document).ready(function(){
 	$('.ask_status').on('click', function(){
 		var addStatus = $(this);
 		var addStatNum;
+
 		if( $(this).attr('id') == 'ask_status_all'){
 			askStatNum = "%";
 		} else if( $(this).attr('id') == 'ask_status_1'){
@@ -185,45 +171,45 @@ td{
 
 		<!--목록이 있으면  -->
 		<!-- for문을 돌리면 list[0]을 안해도됨 -->
-		<c:forEach items="${ addlist }" var="addlist" varStatus="status">
+		<c:forEach items="${ addlist }" var="alist" varStatus="status">
 			<tr>
 				<td>${ status.count }</td>
-				<td>${ addlist.storeName }</td>
-				<td class="td_left">${ addlist.storeAddr }</td>
-				<td class="categ1">${ addlist.storeCateg1 }</td>
-				<td class="categ2">${ addlist.storeCateg2 }</td>
-				<td class="categ3">${ addlist.storeCateg3 }</td>
+				<td>${ alist.storeName }</td>
+				<td class="td_left">${ alist.storeAddr }</td>
+				<td class="categ1">${ alist.storeCateg1 }</td>
+				<td class="categ2">${ alist.storeCateg2 }</td>
+				<td class="categ3">${ alist.storeCateg3 }</td>
 				<td align="center">
 					<c:choose>
-						<c:when test="${ !empty addlist.userLicense}">주민번호</c:when>
-						<c:when test="${ !empty addlist.storeLicense}">사업자번호</c:when>
+						<c:when test="${ !empty alist.userLicense}">주민번호</c:when>
+						<c:when test="${ !empty alist.storeLicense}">사업자번호</c:when>
 						<c:otherwise><font color="red">없음</font></c:otherwise>
 					</c:choose>
 				</td>
 				<td>
 					<c:choose>
-						<c:when test="${ !empty addlist.addCapture }"><font color="red">●</font></c:when>
+						<c:when test="${ !empty alist.addCapture }"><font color="red">●</font></c:when>
 						<c:otherwise><font color="red">X</font></c:otherwise>
 					</c:choose>
 				</td>
-				<td>${ addlist.userNum }</td>
-				<td>${ addlist.addDay }</td>
+				<td>${ alist.userName }</td>
+				<td>${ alist.addDay }</td>
 				<td class="addStatus">
 					<c:choose>
-						<c:when test='${ addlist.addStatus == "1" }'><font color="red">처리 중</font></c:when>
-						<c:when test='${ addlist.addStatus == "2" }'><font color="#5882FA">등록 허가</font></c:when>
-						<c:when test='${ addlist.addStatus == "3" }'><font color="#DF7401">등록 거절</font></c:when>
-						<c:when test='${ addlist.addStatus == "4" }'><font color="#298A08">등록 보류</font></c:when>
+						<c:when test='${ alist.addStatus == "1" }'><font color="red">처리 중</font></c:when>
+						<c:when test='${ alist.addStatus == "2" }'><font color="#5882FA">등록 허가</font></c:when>
+						<c:when test='${ alist.addStatus == "3" }'><font color="#DF7401">등록 거절</font></c:when>
+						<c:when test='${ alist.addStatus == "4" }'><font color="#298A08">등록 보류</font></c:when>
 					</c:choose>
 				</td>
 				<td>
-					<c:if test='${ addlist.addStatus == "2" }'>
-						<span class="store_move" onclick="location.href='storeInfo.do?storeNum=${ addlist.storeNum }'">가게이동</span>
+					<c:if test='${ alist.addStatus == "2" }'>
+						<span class="store_move" onclick="location.href='storeInfo.do?storeNum=${ alist.storeNum }'">가게이동</span>
 					</c:if>
 				</td>
 				<td>
 					<div class="main-portfolio">
-						<button class="btn button is-checked" onclick="location.href='addRead.do?addNum=${ addlist.addNum }'">이동</button>
+						<button class="btn button is-checked" onclick="location.href='addRead.do?addNum=${ alist.addNum }'">이동</button>
 					</div>
 				</td>
 			</tr>
@@ -235,7 +221,7 @@ td{
 	
 <!-- 페이징 -->
 <!-- 페이징 -->
-<form id="pagefrm" name="pagefrm" action="adminStoreInfo.do">
+<form id="apagefrm" name="apagefrm" action="adminStoreInfo.do">
 	<input type="hidden" name="p">
 	<input type="hidden" name="aculumn">
 	<input type="hidden" name="acontent">
@@ -309,24 +295,24 @@ function doList(p) {
 
 		<!--목록이 있으면  -->
 		<!-- for문을 돌리면 list[0]을 안해도됨 -->
-		<c:forEach items="${ slist }" var="slist" varStatus="status">
-			<tr onclick="location.href='storeInfo.do?storeNum=${ slist.storeNum }'">
+		<c:forEach items="${ slist }" var="stlist" varStatus="status">
+			<tr onclick="location.href='storeInfo.do?storeNum=${ stlist.storeNum }'">
 				<td>${ status.count }</td>
-				<td>${ slist.storeNum }</td>
-				<td>${ slist.storeName }</td>
-				<td class="td_left">${ slist.storeAddr }</td>
-				<td>${ slist.storeXy }</td>
-				<td class="categ1">${ slist.storeCateg1 }</td>
-				<td class="categ2">${ slist.storeCateg2 }</td>
-				<td class="categ3">${ slist.storeCateg3 }</td>
-				<td>${ slist.storeLike }</td>
-				<td>${ slist.userName }</td>
-				<td>${ slist.userNick }</td>
-				<td>${ slist.storeRegiday }</td>
+				<td>${ stlist.storeNum }</td>
+				<td>${ stlist.storeName }</td>
+				<td class="td_left">${ stlist.storeAddr }</td>
+				<td>${ stlist.storeXy }</td>
+				<td class="categ1">${ stlist.storeCateg1 }</td>
+				<td class="categ2">${ stlist.storeCateg2 }</td>
+				<td class="categ3">${ stlist.storeCateg3 }</td>
+				<td>${ stlist.storeLike }</td>
+				<td>${ stlist.userName }</td>
+				<td>${ stlist.userNick }</td>
+				<td>${ stlist.storeRegiday }</td>
 				<td>
 					<c:choose>
-						<c:when test='${ slist.storeOc == "1" }'><font color="red">OPEN</font></c:when>
-						<c:when test='${ slist.storeOc == "0" }'>CLOSE</c:when>
+						<c:when test='${ stlist.storeOc == "1" }'><font color="red">OPEN</font></c:when>
+						<c:when test='${ stlist.storeOc == "0" }'>CLOSE</c:when>
 					</c:choose>
 				</td>
 			</tr>
@@ -337,7 +323,7 @@ function doList(p) {
 </div>
 	
 <!-- 페이징 -->
-<form id="pagefrm" name="pagefrm" action="adminStoreInfo.do">
+<form id="bpagefrm" name="bpagefrm" action="adminStoreInfo.do">
 	<input type="hidden" name="p">
 	<input type="hidden" name="bculumn" value="">
 	<input type="hidden" name="bcontent" value="">
@@ -357,19 +343,5 @@ function doList(p) {
 
 
 
-<!-- JS includes -->
-<script src="${pageContext.request.contextPath }/assets/js/vendor/jquery-1.11.2.min.js"></script>
-<script src="${pageContext.request.contextPath }/assets/js/vendor/bootstrap.min.js"></script>
-<script src="${pageContext.request.contextPath }/assets/js/jquery.magnific-popup.js"></script>
-<!--<script src="assets/js/jquery.easypiechart.min.js"></script>-->
-<script src="${pageContext.request.contextPath }/assets/js/jquery.easing.1.3.js"></script>
-<!--<script src="assets/js/slick.js"></script>-->
-<script src="${pageContext.request.contextPath }/assets/js/slick.min.js"></script>
-<script src="${pageContext.request.contextPath }/assets/js/js.isotope.js"></script>
-<script src="${pageContext.request.contextPath }/assets/js/jquery.collapse.js"></script>
-<script src="${pageContext.request.contextPath }/assets/js/bootsnav.js"></script> 
-<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
-<script src="${pageContext.request.contextPath }/assets/js/plugins.js"></script>
-<script src="${pageContext.request.contextPath }/assets/js/main.js"></script>
 </body>
 </html>
