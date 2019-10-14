@@ -108,7 +108,7 @@ public class MainController extends HttpServlet {
 		map.put("/findform.do", new FindFormCommand());// ID/PW 선택폼
 		map.put("/idfindform", new IDFindFormCommand()); //ID 폼
 		map.put("/goidfindtest.do", new GoidfindCommand()); //아이디찾기 폼
-		//map.put("/, value)
+		//map.put("/, value)dd
 
 		// 백승진
 		map.put("/ajaxOpenStore.do", new AjaxOpenStoreCommand());
