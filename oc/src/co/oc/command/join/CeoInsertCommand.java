@@ -65,7 +65,7 @@ public class CeoInsertCommand implements Command {
 				else
 					path = "jsp/join/joinFail.jsp";
 
-				// 인서트 하는 구문 삽입
+				// 인서트 하는 구문 삽입dd
 				RequestDispatcher dispatcher = request.getRequestDispatcher(path);
 				dispatcher.forward(request, response);
 
