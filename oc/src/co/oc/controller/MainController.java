@@ -12,7 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import co.oc.command.Command;
 import co.oc.command.join.CeoInsertCommand;
+import co.oc.command.join.FindFormCommand;
+import co.oc.command.join.GoidfindCommand;
 import co.oc.command.join.Homego;
+import co.oc.command.join.IDFindCommand;
+import co.oc.command.join.IDFindFormCommand;
 import co.oc.command.join.IdCheckCommand;
 import co.oc.command.join.JoinCeoForm;
 import co.oc.command.join.JoinFormCommand;
@@ -98,8 +102,13 @@ public class MainController extends HttpServlet {
 		map.put("/borderdelete.do", new BorderDelete()); // 문의글 삭제
 		map.put("/userdelete.do", new UserDelete()); // 유저삭제
 		map.put("/storeNickCheck.do", new StoreNickCheck()); // 스토어 이름 중복체크
-		map.put("/index.do", new Homego());
-		map.put("/answer.do", new AnswerCommand());
+		map.put("/index.do", new Homego()); //홈화면가기
+		map.put("/answer.do", new AnswerCommand()); //답변폼가기
+		map.put("/idfind.do", new IDFindCommand()); //아이디찾기
+		map.put("/findform.do", new FindFormCommand());// ID/PW 선택폼
+		map.put("/idfindform", new IDFindFormCommand()); //ID 폼
+		map.put("/goidfindtest.do", new GoidfindCommand()); //아이디찾기 폼
+		//map.put("/, value)dd
 
 		// 백승진
 		map.put("/ajaxOpenStore.do", new AjaxOpenStoreCommand());

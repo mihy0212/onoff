@@ -18,10 +18,20 @@ public class FavoriteDAO extends DAO {
 	// 전체 회원 즐겨찾기 조회
 	public List<FavoriteDTO> selectAll(Connection conn, int start, int end) {
 		List<FavoriteDTO> list = new ArrayList<FavoriteDTO>();
-		String sql = "select *" + " from (select rownum as rnum, a1.*" + " from (select f.user_num," + " f.store_num,"
-				+ " s.store_name," + " s.store_categ1," + " s.store_categ2," + " s.store_categ3," + " f.favo_date"
-				+ " from oc_favorite f join oc_store s" + " on (f.store_num = s.store_num)"
-				+ " order by f.favo_date) a1" + " where rownum<=?) a2" + " where a2.rnum>=?";
+		String sql = "select *"
+					+ " from (select rownum as rnum, a1.*"
+							+ " from (select f.user_num,"
+										+ " f.store_num,"
+										+ " s.store_name,"
+										+ " s.store_categ1,"
+										+ " s.store_categ2,"
+										+ " s.store_categ3,"
+										+ " f.favo_date"
+										+ " from oc_favorite f join oc_store s"
+										+ " on (f.store_num = s.store_num)"
+										+ " order by f.favo_date) a1"
+							+ " where rownum<=?) a2"
+					+ " where a2.rnum>=?";
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, end);
@@ -47,11 +57,21 @@ public class FavoriteDAO extends DAO {
 	// 즐겨찾기 유저별 카테고리별 조회
 	public List<FavoriteDTO> selectUser(Connection conn, FavoriteDTO dto, int start, int end) {
 		List<FavoriteDTO> list = new ArrayList<FavoriteDTO>();
-		String sql = "select *" + " from (select rownum as rnum, a1.*" + " from (select f.user_num," + " f.store_num,"
-				+ " s.store_name," + " s.store_categ1," + " s.store_categ2," + " s.store_categ3," + " f.favo_date"
-				+ " from oc_favorite f join oc_store s" + " on (f.store_num = s.store_num)"
-				+ " where f.user_num=? and s.store_categ1 like '%'|| ? ||'%' and s.store_categ2 like '%'|| ? ||'%' and s.store_categ3 like '%'|| ? ||'%'"
-				+ " order by f.favo_date) a1" + " where rownum<=?) a2" + " where a2.rnum>=?";
+		String sql = "select *" 
+					+ " from (select rownum as rnum, a1.*" 
+							+ " from (select f.user_num," 
+										+ " f.store_num,"
+										+ " s.store_name," 
+										+ " s.store_categ1," 
+										+ " s.store_categ2," 
+										+ " s.store_categ3," 
+										+ " f.favo_date"
+										+ " from oc_favorite f join oc_store s" 
+										+ " on (f.store_num = s.store_num)"
+										+ " where f.user_num=? and s.store_categ1 like '%'|| ? ||'%' and s.store_categ2 like '%'|| ? ||'%' and s.store_categ3 like '%'|| ? ||'%'"
+										+ " order by f.favo_date) a1"
+							+ " where rownum<=?) a2"
+					+ " where a2.rnum>=?";
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, dto.getUserNum());
