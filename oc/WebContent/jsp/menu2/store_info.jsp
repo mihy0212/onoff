@@ -10,29 +10,9 @@
 <title>가게 정보 상세 보기</title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!--Google Font link-->
-<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,400i,700,700i" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
-<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/slick.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/slick-theme.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/animate.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/iconfont.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/font-awesome.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/bootstrap.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/magnific-popup.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/bootsnav.css">
-
-<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/plugins.css" />
-<!--For Plugins external css-->
 <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/style.css"><!--Theme custom css -->
-<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/responsive.css" />
-<!--Theme Responsive css-->
 
-<script src="${pageContext.request.contextPath }/assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
-<script src="${pageContext.request.contextPath }/assets/js/vendor/jquery-1.11.2.min.js"></script>
 <script> 
 
 $(document).ready(function(){
@@ -79,8 +59,6 @@ $(document).ready(function(){
 	}
 	
 	//별점 표시하기
-	//console.log($('#star').children().size())
-	//console.log($('#star').children().eq(1))
 	for(var i=0; i<Math.round("${stars}"); i++){
 		$('#star').children().eq(i).attr('class','btn button is-checked');
 	}
@@ -1243,18 +1221,5 @@ function reply_in_cancle(){
 	</div><!-- END container-->
 </section>
 
-<!-- JS includes -->
-<script src="${pageContext.request.contextPath }/assets/js/vendor/bootstrap.min.js"></script>
-<script src="${pageContext.request.contextPath }/assets/js/jquery.magnific-popup.js"></script>
-<!--<script src="assets/js/jquery.easypiechart.min.js"></script>-->
-<script src="${pageContext.request.contextPath }/assets/js/jquery.easing.1.3.js"></script>
-<!--<script src="assets/js/slick.js"></script>-->
-<script src="${pageContext.request.contextPath }/assets/js/slick.min.js"></script>
-<script src="${pageContext.request.contextPath }/assets/js/js.isotope.js"></script>
-<script src="${pageContext.request.contextPath }/assets/js/jquery.collapse.js"></script>
-<script src="${pageContext.request.contextPath }/assets/js/bootsnav.js"></script>
-<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
-<%-- <script src="${pageContext.request.contextPath }/assets/js/plugins.js"></script> --%>
-<script src="${pageContext.request.contextPath }/assets/js/main.js"></script>
 </body>
 </html>

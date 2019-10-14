@@ -369,26 +369,30 @@ public class AddDAO extends DAO {
 	public int updatePermit(Connection conn, AddDTO dto) {
 		int n = 0;
 		String sql = null;
-		if(dto.getAddRe() != null) {
-			sql = "update oc_add set add_status=?,"
-					+ " add_re=?,"
+		if(dto.getAddStatus().equals("1")) {
+			sql = "update oc_add set"
+					+ " add_status=?"
+					+ " where add_num=?";
+		} if(dto.getAddStatus().equals("2")) {
+			sql = "update oc_add set"
+					+ " add_status=?,"
 					+ " store_num=?"
 					+ " where add_num=?";
 		} else {
 			sql = "update oc_add set"
 					+ " add_status=?,"
-					+ " store_num=?"
+					+ " add_re=?"
 					+ " where add_num=?";
 		}
-		
 		try {
 			psmt = conn.prepareStatement(sql);
 			int i=0;
 			psmt.setString(++i, dto.getAddStatus());
-			if(dto.getAddRe() != null) {
+			if(dto.getAddStatus().equals("2")) {
+				psmt.setString(++i, dto.getStoreNum());
+			} else if(dto.getAddStatus().equals("3") || dto.getAddStatus().equals("4")) {
 				psmt.setString(++i, dto.getAddRe());
 			}
-			psmt.setString(++i, dto.getStoreNum());
 			psmt.setString(++i, dto.getAddNum());
 			n = psmt.executeUpdate();
 			System.out.println(n + "건의 신청 정보 수정 완료");

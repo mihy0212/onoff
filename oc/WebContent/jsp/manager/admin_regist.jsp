@@ -42,28 +42,75 @@ $(document).ready(function(){
 	
 	$('.regiBtn').on('click', function(){
 		var id = $(this).attr('id');
-		var con;
 		if(id == "regi_submit"){
 			$('#regifrm').children().eq(1).val('2');
-			con = confirm("${ adto.storeName }의 가게 등록을 허가하시겠습니까?")
-		} else if(id == "regi_reject"){
+			var con = confirm("${ adto.storeName }의 가게 등록을 허가하시겠습니까?")
+			if(con){
+				$('#regifrm').submit();
+			} else {
+				return false;
+			}
+		} else if(id == "regi_reject" || id == "regi_post"){
 			$('#addRe_hidden').attr('class','non-hidden');
-			$('#regifrm').children().eq(1).val('3');
-			var addRe = $('#addRe_textarea').val();
-			$('#regifrm').children().eq(2).val(addRe);
-			con = confirm("${ adto.storeName }의 가게 등록을 거절하시겠습니까?")
-		} else if(id == "regi_post"){
-			$('#regifrm').children().eq(1).val('4');
-			con = confirm("${ adto.storeName }의 가게 등록을 보류하시겠습니까?")
+			$('#re_submit').click(re_submit);
+			$('#re_cancle').click(re_cancle);
+		} else if(id == "regi_cancle"){
+			var con = confirm("${ adto.storeName }를 신청 중 상태로 되돌리시겠습니까?");
+			if(con){
+				$.ajax({
+					url: "adminStoreChange.do",
+					dataType: "json",
+					type: "post",
+					data: {
+						addStatus: "1",
+						addNum: "${adto.addNum}"
+					},
+					success: function(result){
+						alert("${ adto.storeName }의 신청 상태가 변경되었습니다.");
+						$('#addRe_hidden').attr('class','hidden');
+						$('#addRe_textarea').val("");
+					}
+				});
+				$('#add_status').children().eq(0).attr('color','red').text("처리 중");
+			}
 		}
-		if(con){
-			$('#regifrm').submit();			
-		} else {
-			return false;
-		}
-		
 	});
 });
+
+function re_submit(){
+	var addRe = $('#addRe_textarea').val();
+	var addNum = "${adto.addNum}";
+	var con;
+	var addStatus;
+	if(id == "regi_reject"){
+		con = confirm("${ adto.storeName }의 가게 등록을 거절하시겠습니까?");
+		addStatus = "2";
+	} else if(id == "regi_post"){
+		con = confirm("${ adto.storeName }의 가게 등록을 보류하시겠습니까?");
+		addStatus = "3";
+	}
+	if(con){
+		$.ajax({
+			url: "adminStoreChange.do",
+			dataType: "json",
+			type: "post",
+			data: {
+				addStatus: addStatus,
+				addRe: addRe,
+				addNum: "${adto.addNum}"
+			},
+			success: function(result){
+				alert("${ adto.storeName }의 가게 등록이 거절되었습니다.");
+				$('#addRe_hidden').attr('class','hidden');
+				$('#addRe_textarea').val("");
+			}
+		});
+	}
+}
+
+function re_cancle(){
+	
+}
 
 </script>
 <style>
@@ -106,7 +153,7 @@ td{
 <!-- 헤드 부분 -->
 <!-- 제목 -->
 <div class="head_title text-left sm-text wow fadeInDown">
-	<h2><strong> ${ adto.addNum }) ${ adto.storeName } </strong><font size="5" color="gray">의 등록 요청서</font></h2>
+	<h2><strong> [${ adto.addNum }] ${ adto.storeName } </strong><font size="5" color="gray">의 등록 요청서</font></h2>
 </div>
 
 <!-- 신청서 내용 -->
@@ -115,7 +162,7 @@ td{
 			<tr>
 				<th width="10">요청 No.</th><td width="30">${ adto.addNum }</td>
 				<th width="10">신청일</th><td width="30">${ adto.addDay }</td>
-				<th width="10">신청 상태</th><td width="30">
+				<th width="10">신청 상태</th><td width="30" id="add_status">
 					<c:choose>
 						<c:when test='${ adto.addStatus == "1" }'><font color="red">처리 중</font></c:when>
 						<c:when test='${ adto.addStatus == "2" }'><font color="#5882FA">등록 허가</font></c:when>
@@ -149,27 +196,43 @@ td{
 				<th>인증 캡처</th><td colspan="5"><img src="${pageContext.request.contextPath }/jsp/join/image/${ adto.addCapture }"></td>
 			</tr>
 		</table>
-
-		<button type="button" class="regiBtn" id="regi_submit">등록 허가</button>
-		<button type="button" class="regiBtn" id="regi_reject">등록 거절</button>
-		<button type="button" class="regiBtn" id="regi_post">등록 보류</button>
 		
+		<form name="regifrm" id="regifrm" method="post" action="adminStoreChange.do">
+			<input type="hidden" name="choice" value="regiChange">
+			<input type="hidden" name="addStatus" value="1">
+		</form>
+		
+		<c:if test="${ adto.addStatus == '1' }">
+			<button type="button" class="regiBtn" id="regi_submit">등록 허가</button>
+			<button type="button" class="regiBtn" id="regi_reject">등록 거절</button>
+			<button type="button" class="regiBtn" id="regi_post">등록 보류</button>
+		</c:if>
+		<c:if test="${ adto.addStatus == '2' }">
+			<button type="button" class="regiBtn" id="regi_cancle">허가 취소</button>
+		</c:if>
+		<c:if test="${ adto.addStatus == '3' }">
+			<button type="button" class="regiBtn" id="regi_cancle">거절 취소</button>
+		</c:if>
+		<c:if test="${ adto.addStatus == '4' }">
+			<button type="button" class="regiBtn" id="regi_cancle">보류 취소</button>
+		</c:if>
+		
+		<br><br>
 		<div class="hidden" id="addRe_hidden">
 			<table class="table table-striped table-hover table-bordered">
 				<tr>
 					<th>등록 거절 사유</th>
 				</tr>
 				<tr>
-					<td><textarea id="addRe_textarea" cols="100" rows="40"></textarea></td>
+					<td><textarea id="addRe_textarea" cols="100" rows="10"></textarea></td>
 				</tr>
 			</table>
+			<button type="button" class="addReBtn" id="re_submit">확인</button>
+			<button type="button" class="addReBtn" id="re_cancle">취소</button>
 		</div> 
 		
-	<form name="regifrm" id="regifrm" method="post" action="adminStoreChange.do">
-		<input type="hidden" name="choice" value="regiChange">
-		<input type="hidden" name="addStatus" value="1">
-		<input type="hidden" name="addRe">
-	</form>
+		<span class="listback">가게 관리 페이지로</span>
+		
 </div>
 
 <hr />
