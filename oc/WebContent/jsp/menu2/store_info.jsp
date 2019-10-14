@@ -11,21 +11,6 @@
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!--Google Font link-->
-<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,400i,700,700i" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-<!-- 화면 전환 및 폰트와 제목 디자인 -->
-<!--For Plugins external css-->
-<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/plugins.css" />
-<!--Theme custom css -->
-<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/style.css">
-<!--Theme Responsive css-->
-<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/responsive.css" />
-
-<script src="${pageContext.request.contextPath }/assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
 <script> 
 
 $(document).ready(function(){
@@ -1238,20 +1223,7 @@ function reply_in_cancle(){
 
 
 
-<!-- JS includes -->
-<script src="${pageContext.request.contextPath }/assets/js/vendor/jquery-1.11.2.min.js"></script>
-<script src="${pageContext.request.contextPath }/assets/js/vendor/bootstrap.min.js"></script>
-<script src="${pageContext.request.contextPath }/assets/js/jquery.magnific-popup.js"></script>
-<!--<script src="assets/js/jquery.easypiechart.min.js"></script>-->
-<script src="${pageContext.request.contextPath }/assets/js/jquery.easing.1.3.js"></script>
-<!--<script src="assets/js/slick.js"></script>-->
-<script src="${pageContext.request.contextPath }/assets/js/slick.min.js"></script>
-<script src="${pageContext.request.contextPath }/assets/js/js.isotope.js"></script>
-<script src="${pageContext.request.contextPath }/assets/js/jquery.collapse.js"></script>
-<script src="${pageContext.request.contextPath }/assets/js/bootsnav.js"></script> 
-<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
-<script src="${pageContext.request.contextPath }/assets/js/plugins.js"></script>
-<script src="${pageContext.request.contextPath }/assets/js/main.js"></script>
+
 
 </body>
 </html>
