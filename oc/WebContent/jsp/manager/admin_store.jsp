@@ -64,6 +64,23 @@ $(document).ready(function(){
 		}
 	});
 	
+	//가게 오픈 여부에 따른 검색
+	$('.open_status').on('click', function(){
+		var openStatus = $(this);
+		var openStatNum;
+
+		if( $(this).attr('id') == 'open_status_all'){
+			openStatNum = "all";
+			location.href = "adminStoreInfo.do";
+		} else if( $(this).attr('id') == 'open_status_1'){
+			openStatNum = "1";
+			location.href = "adminStoreInfo.do?bculumn=store_oc&bcontent=" + openStatNum;
+		} else if( $(this).attr('id') == 'open_status_0'){
+			openStatNum = "0";
+			location.href = "adminStoreInfo.do?bculumn=store_oc&bcontent=" + openStatNum;
+		}
+	});
+	
 });
 
 </script>
@@ -259,9 +276,9 @@ function adoList(p) {
 <!-- 선택?? -->
 <div class="main-portfolio">
 	<div id="root" class="col-md-8 text-right">
-		<button class="btn button is-checked" data-filter="*">전체</button>
-		<button class="btn button" data-filter=".metal">오픈 가게</button>
-		<button class="btn button" data-filter=".transition">닫은 가게</button>
+		<button class="btn button open_status" id="open_status_all">전체</button>
+		<button class="btn button open_status" id="open_status_1">오픈 가게</button>
+		<button class="btn button open_status" id="open_status_0">닫은 가게</button>
 	</div>
 </div>
 <!-- END 리뷰 헤드 부분 -->

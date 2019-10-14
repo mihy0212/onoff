@@ -50,7 +50,7 @@ public class StoreDAO extends DAO {
 				dto.setStoreLike(rs.getInt("store_like")); // 13
 				dto.setUserNum(rs.getString("user_num")); // 14
 				dto.setStoreRegiday(rs.getDate("store_regiday")); // 15
-				dto.setStoreOpen(rs.getString("store_oc")); // 16
+				dto.setStoreOc(rs.getString("store_oc")); // 16
 				list.add(dto);
 			}
 		} catch (SQLException e) {
@@ -84,7 +84,7 @@ public class StoreDAO extends DAO {
 				dto.setStoreLike(rs.getInt("store_like")); // 13
 				dto.setUserNum(rs.getString("user_num")); // 14
 				dto.setStoreRegiday(rs.getDate("store_regiday")); // 15
-				dto.setStoreOpen(rs.getString("store_oc")); // 16
+				dto.setStoreOc(rs.getString("store_oc")); // 16
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -117,7 +117,7 @@ public class StoreDAO extends DAO {
 				dto.setStoreLike(rs.getInt("store_like")); // 13
 				dto.setUserNum(rs.getString("user_num")); // 14
 				dto.setStoreRegiday(rs.getDate("store_regiday")); // 15
-				dto.setStoreOpen(rs.getString("store_oc")); // 16
+				dto.setStoreOc(rs.getString("store_oc")); // 16
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -130,7 +130,7 @@ public class StoreDAO extends DAO {
 		List<StoreDTO> list = new ArrayList<StoreDTO>();
 		String where = " where 1=1 ";
 		if (sdto != null) {
-			if (sdto.getStoreOpen() != null && sdto.getStoreOpen() != "All") { // 1. 가게 오픈 여부 조회
+			if (sdto.getStoreOc() != null && sdto.getStoreOc() != "All") { // 1. 가게 오픈 여부 조회
 				where += " and store_oc like ? ";
 			}
 		}
@@ -142,8 +142,8 @@ public class StoreDAO extends DAO {
 			psmt = conn.prepareStatement(sql);
 			int i = 0;
 			if (sdto != null) {
-				if (sdto.getStoreOpen() != null) { // 1.
-					psmt.setString(++i, sdto.getStoreOpen());
+				if (sdto.getStoreOc() != null) { // 1.
+					psmt.setString(++i, sdto.getStoreOc());
 				}
 			}
 			psmt.setInt(++i, end);
@@ -167,7 +167,7 @@ public class StoreDAO extends DAO {
 				dto.setStoreLike(rs.getInt("store_like")); // 13
 				dto.setUserNum(rs.getString("user_num")); // 14
 				dto.setStoreRegiday(rs.getDate("store_regiday")); // 15
-				dto.setStoreOpen(rs.getString("store_oc")); // 16
+				dto.setStoreOc(rs.getString("store_oc")); // 16
 				dto.setUserName(rs.getString("user_name")); // 17
 				dto.setUserNick(rs.getString("user_nick")); // 18
 				list.add(dto);

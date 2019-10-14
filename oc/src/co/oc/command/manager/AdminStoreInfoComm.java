@@ -72,7 +72,7 @@ public class AdminStoreInfoComm implements Command {
 			int bfirst = apaging.getFirst();
 			int blast = apaging.getLast();
 			StoreDTO sdto = new StoreDTO();
-			sdto.setStoreOpen(bcontent);
+			sdto.setStoreOc(bcontent);
 			List<StoreDTO> slist = StoreDAO.getInstance().selectSearch(conn, sdto, bfirst, blast);
 			request.setAttribute("slist", slist);
 			
