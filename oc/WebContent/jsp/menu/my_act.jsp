@@ -77,45 +77,103 @@
 				location.href = "#portfolio";
 			}
 		});
-	
-$(document).ready(function(){
-	$(document).ready(function() {
+	 
 
+	
+	$(document).ready(function() {
 		//카테고리1 출력하기
-		if ($('.categ1').text("01")) {
+		if($('.categ1').text("01")){
 			$('.categ1').text("음식")
 		}
-
+		
 		//카테고리2 출력하기
-		if ($('.categ2').text("01")) {
-			$('.categ2').text("점포 가게");
-		} else if ($('.categ2').text("02")) {
-			$('.categ2').text("이동 가게");
+		if($('.categ2').text("01")){
+			$('.categ2').text("점포");
+		} else if($('.categ2').text("02")){
+			$('.categ2').text("이동");
 		}
-
+		
 		//카테고리3 출력하기
-		if ($('.categ3').text("01")) {
+		if($('.categ3').text("01")){
 			$('.categ3').text("한식");
-		} else if ($('.categ3').text("02")) {
+		} else if($('.categ3').text("02")){
 			$('.categ3').text("양식");
-		} else if ($('.categ3').text("03")) {
+		} else if($('.categ3').text("03")){
 			$('.categ3').text("중식");
-		} else if ($('.categ3').text("04")) {
+		} else if($('.categ3').text("04")){
 			$('.categ3').text("일식");
-		} else if ($('.categ3').text("05")) {
+		} else if($('.categ3').text("05")){
 			$('.categ3').text("분식");
-		} else if ($('.categ3').text("06")) {
+		} else if($('.categ3').text("06")){
 			$('.categ3').text("기타");
 		}
+		
+	
+		//카테고리에 따른 검색
+		$('.categ').on('click', function(){
+			var storeCateg3= $(this);
+			var categNum;
 
-	});
+			if( $(this).attr('id') == 'categ_all'){
+				categNum = "all";
+				location.href = "myfavorite.do";
+				
+			}else if( $(this).attr('id') == 'categ2_01'){
+				categNum = "01";
+				location.href = "myfavorite.do?storeCateg2=" + categNum;
+				
+			/* }else if( $(this).attr('id') == 'categ2_02'){
+				categNum = "02";
+				location.href = "myfavorite.do?storeCateg2=" + categNum;	
+				 */
+			}else if( $(this).attr('id') == 'categ02_3_01'){
+				categNum = "01";
+				location.href = "myfavorite.do?storeCateg2=01 & storeCateg3=" + categNum;
+			} else if( $(this).attr('id') == 'categ02_3_02'){
+				categNum = "02";
+				location.href = "myfavorite.do?storeCateg2=01 & storeCateg3=" + categNum;
+			} else if( $(this).attr('id') == 'categ02_3_03'){
+				categNum = "03";
+				location.href = "myfavorite.do?storeCateg2=01 &  storeCateg3=" + categNum;
+			} else if( $(this).attr('id') == 'categ02_3_04'){
+				categNum = "04";
+				location.href = "myfavorite.do?storeCateg2=01 & storeCateg3=" + categNum;
+			}else if( $(this).attr('id') == 'categ02_3_05'){
+				categNum = "05";
+				location.href = "myfavorite.do?storeCateg2=01 & storeCateg3=" + categNum;
+			}else if( $(this).attr('id') == 'categ02_3_06'){
+				categNum = "06";
+				location.href = "myfavorite.do?storeCateg2=01 & storeCateg3=" + categNum;
+			}
+		});
+		
+});	
+/*  hide. */	
+	/* $(function (){
+		$("#categ_all").mouseover(function (){
+		  	$("#catego2").show();
+	    });
 
-	//별점 표시하기
-	//console.log($('#star').children().size())
-	//console.log($('#star').children().eq(1))
-	for(var i=0; i<Math.round("${stars}"); i++){
-		$('#star').children().eq(i).attr('class','btn button is-checked');
-	}
+		$("#categ2_01").mouseover(function (){
+	  	  $("#catego3").show();
+	    });
+
+		$("#categ2_02").mouseover(function (){
+	  		$("#catego3").show();
+	    });
+	/* 	$("#categ_all").mouseout(function (){
+		  	$("#catego2").hide();
+	    });
+
+		$("#categ2_01").mouseout(function (){
+	  	  $("#catego3").hide();
+	    });
+
+		$("#categ2_02").mouseout(function (){
+	  		$("#catego3").hide();
+	    }); 
+	});*/
+
 	
 	//리뷰에서 별점 표시하기
 	var star_num;
@@ -140,7 +198,7 @@ $(document).ready(function(){
 
 </head>
 
-<body>
+<body data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
 	<section id="features" class="features">
 		<!-- Portfolio container-->
 		<div class="container">
@@ -152,16 +210,34 @@ $(document).ready(function(){
 						</div>
 					</div>
 
-					<div class="col-md-8">
-						<div class="filters-button-group text-right sm-text-center"
-							id="test">
-							<button class="btn button is-checked" data-filter="*">all</button>
-							<button class="btn button" data-filter=".metal">이동상점</button>
-							<button class="btn button" data-filter=".transition">한식</button>
-							<button class="btn button" data-filter=".alkali">중식</button>
-							<button class="btn button" data-filter=".ar">일식</button>
+				<div class="col-md-8">
+						<div class="filters-button-group text-right sm-text-center" id="test">
+							<button type="button" class="btn button categ" id="categ_all">all</button>
+								<!-- <div id="catego2" style="display: none;">  --> 
+									<button class="btn button categ"  id="categ2_01" >이동상점</button>
+								 	 <button class="btn button categ" id="categ2_02"  >점포상점</button>
+								</div>
+								
+								<!-- <div id="catego2_1" style="display: none;">   -->
+								  	<button type="button" class="btn button categ"  id="categ01_3_01">한식</button>
+										<button type="button" class="btn button categ" id="categ01_3_02">양식</button>
+										<button type="button" class="btn button categ" id="categ01_3_03">중식</button>
+										<button type="button" class="btn button categ"  id="categ01_3_04">일식</button>
+										<button type="button" class="btn button categ"  id="categ01_3_05">분식</button>
+										<button type="button" class="btn button categ"  id="categ01_3_06">기타</button>
+								<!-- </div> -->
+								
+								<!-- <div id="catego2_2" style="display: none;">   -->
+								  		<button type="button" class="btn button categ"  id="categ02_3_01">한식</button>
+										<button type="button" class="btn button categ" id="categ02_3_02">양식</button>
+										<button type="button" class="btn button categ" id="categ02_3_03">중식</button>
+										<button type="button" class="btn button categ"  id="categ02_3_04">일식</button>
+										<button type="button" class="btn button categ"  id="categ02_3_05">분식</button>
+										<button type="button" class="btn button categ"  id="categ02_3_06">기타</button>
+								<!-- </div> -->
 						</div>
 					</div>
+
 
 
 
@@ -172,7 +248,9 @@ $(document).ready(function(){
 							<table class=" table table-striped table-bordered results">
 								<thead>
 									<tr>
-										<th width="80" class="col-md-1 col-xs-1">상호명</th>
+										<th>분류3</th>
+										<th  >상호명</th>
+										
 									</tr>
 								</thead>
 
@@ -188,19 +266,27 @@ $(document).ready(function(){
 								<!-- for문을 돌리면 list[0]을 안해도됨 -->
 								<c:forEach items="${list }" var="sdto">
 									<tr onclick="location.href='storeInfo.do?storeNum=${sdto.storeNum }'">
-										<td align="center">${sdto.storeName }</td>
+										<td class=storeCateg3>
+										<c:choose>
+											<c:when test='${ sdto.storeCateg3 == "01" }'>한식</c:when>
+											<c:when test='${ sdto.storeCateg3 == "02" }'>양식</c:when>
+											<c:when test='${ sdto.storeCateg3 == "03" }'>중식</c:when>
+											<c:when test='${ sdto.storeCateg3 == "04" }'>일식</c:when>
+											<c:when test='${ sdto.storeCateg3 == "05" }'>분식</c:when>
+											<c:when test='${ sdto.storeCateg3 == "06" }'>기타</c:when>
+										</c:choose>
+										</td>
+							<td align="center">${sdto.storeName }</td>
 
 									</tr>
 								</c:forEach>
 								<!-- db 목록을 가져와서 뿌려주는 곳끝 -->
 
 							</table>
-							<hr />
 						</div>
 
 
 					</div>
-					<div style="clear: both;"></div>
 				</div>
 			</div>
 		</div>
@@ -242,8 +328,8 @@ $(document).ready(function(){
 									<input type="hidden" value="${ alist.reviewRe }">
 							<%-- 리뷰 왼쪽 영역 : 아이콘/회원 닉네임 --%>
 							<div class="col-md-2 text-center" onclick="location.href='storeInfo.do?storeNum=${alist.storeNum }'">
-								<font size="6"><i class="icon icon icon-smile text-black"></i></font>
-								<h6 class="content_user" onclick="location.href='storeInfo.do?storeNum=${alist.storeNum }'">${ alist.userNick }</h6>
+								<font size="6"><i class="icon icon icon-restaurant text-black"></i></font>
+								<h6 class="content_user" onclick="location.href='storeInfo.do?storeNum=${alist.storeNum }'">${ alist.storeName }</h6>
 							</div>
 							<%-- 리뷰 중간 영역 : 별점/리뷰글 --%>
 							<div class="col-md-9 text-left content_star" onclick="location.href='storeInfo.do?storeNum=${alist.storeNum }'">

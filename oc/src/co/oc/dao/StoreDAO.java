@@ -198,8 +198,9 @@ public class StoreDAO extends DAO {
 	}
 
 	// 새로운 가게 정보 등록
-	public int insert(Connection conn, StoreDTO dto) {
+	public String insert(Connection conn, StoreDTO dto) {
 		int n = 0;
+		String storeNum = null;
 		String sql = "insert into oc_store (store_num," // 1
 				+ " store_name," // 2
 				+ " store_addr," // 3
@@ -229,11 +230,31 @@ public class StoreDAO extends DAO {
 			psmt.setString(11, dto.getStoreEtc());
 			psmt.setString(12, dto.getUserNum());
 			n = psmt.executeUpdate();
+			if(n != 0) {
+				storeNum = findStoreNum(conn,dto.getUserNum());
+			}
 			System.out.println(n + "건의 새로운 가게 정보 등록 성공");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return n;
+		return storeNum;
+	}
+	
+	//가게 넘버 가지고 오기
+	private String findStoreNum(Connection conn, String userNum) {
+		String storeNum = null;
+		String sql = "select store_num from oc_store where user_num=?";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, userNum);
+			rs = psmt.executeQuery();
+			if(rs.next()) {
+				storeNum = rs.getString("store_num");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return storeNum;
 	}
 
 	// 가게 정보 전체 수정
@@ -307,6 +328,22 @@ public class StoreDAO extends DAO {
 
 	// 2. 권보성
 
+	public boolean isstoreCheck(Connection conn, String store) {
+		boolean chk = true; // 존재하지 않으면
+		String sql = "select store_name from oc_store where store_name = ?";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, store);
+			rs = psmt.executeQuery();
+			if (rs.next()) {
+				chk = false; // 존재 하면
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return chk;
+	}
+	
 	// 3. 백승진
 
 	// 가게 이름 검색

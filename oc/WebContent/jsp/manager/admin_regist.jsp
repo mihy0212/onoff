@@ -41,14 +41,27 @@ $(document).ready(function(){
 	}
 	
 	$('.regiBtn').on('click', function(){
-		var id=$(this).attr(id);
+		var id = $(this).attr('id');
+		var con;
 		if(id == "regi_submit"){
-			location.href=""
+			$('#regifrm').children().eq(1).val('2');
+			con = confirm("${ adto.storeName }의 가게 등록을 허가하시겠습니까?")
 		} else if(id == "regi_reject"){
-			
+			$('#addRe_hidden').attr('class','non-hidden');
+			$('#regifrm').children().eq(1).val('3');
+			var addRe = $('#addRe_textarea').val();
+			$('#regifrm').children().eq(2).val(addRe);
+			con = confirm("${ adto.storeName }의 가게 등록을 거절하시겠습니까?")
 		} else if(id == "regi_post"){
-			
+			$('#regifrm').children().eq(1).val('4');
+			con = confirm("${ adto.storeName }의 가게 등록을 보류하시겠습니까?")
 		}
+		if(con){
+			$('#regifrm').submit();			
+		} else {
+			return false;
+		}
+		
 	});
 });
 
@@ -141,9 +154,20 @@ td{
 		<button type="button" class="regiBtn" id="regi_reject">등록 거절</button>
 		<button type="button" class="regiBtn" id="regi_post">등록 보류</button>
 		
+		<div class="hidden" id="addRe_hidden">
+			<table class="table table-striped table-hover table-bordered">
+				<tr>
+					<th>등록 거절 사유</th>
+				</tr>
+				<tr>
+					<td><textarea id="addRe_textarea" cols="100" rows="40"></textarea></td>
+				</tr>
+			</table>
+		</div> 
+		
 	<form name="regifrm" id="regifrm" method="post" action="adminStoreChange.do">
 		<input type="hidden" name="choice" value="regiChange">
-		<input type="hidden" name="addStatus" value="0">
+		<input type="hidden" name="addStatus" value="1">
 		<input type="hidden" name="addRe">
 	</form>
 </div>
