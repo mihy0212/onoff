@@ -1,6 +1,7 @@
 package co.oc.dao;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -200,6 +201,22 @@ public class UserDAO extends DAO {
 		return dto;
 	}
 
+	public String findid(Connection conn, UserDTO dto) { // ID찾기
+		String chk = null;
+		try {
+			String sql = "select user_email from oc_user where user_name=?";
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, dto.getUserName());
+			rs = psmt.executeQuery();
+			while (rs.next()) {
+				chk = rs.getString("user_email");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}System.out.println(chk);
+		return chk;
+	}
+
 	// 3. 백승진
 
 	// 자기 정보 수정
@@ -215,10 +232,9 @@ public class UserDAO extends DAO {
 			psmt.setString(2, dto.getUserNick());
 			psmt.setString(3, dto.getUserAddr());
 			psmt.setString(4, dto.getUserNum());
-			
+
 			n = psmt.executeUpdate();
-			
-			
+
 			System.out.println(n + "건의 회원정보 수정 완료");
 		} catch (SQLException e) {
 			e.printStackTrace();
