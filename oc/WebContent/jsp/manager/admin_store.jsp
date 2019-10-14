@@ -47,15 +47,20 @@ $(document).ready(function(){
 		var addStatNum;
 
 		if( $(this).attr('id') == 'ask_status_all'){
-			askStatNum = "%";
+			askStatNum = "all";
+			location.href = "adminStoreInfo.do";
 		} else if( $(this).attr('id') == 'ask_status_1'){
 			askStatNum = "1";
+			location.href = "adminStoreInfo.do?aculumn=add_status&acontent=" + askStatNum;
 		} else if( $(this).attr('id') == 'ask_status_2'){
 			askStatNum = "2";
+			location.href = "adminStoreInfo.do?aculumn=add_status&acontent=" + askStatNum;
 		} else if( $(this).attr('id') == 'ask_status_3'){
 			askStatNum = "3";
+			location.href = "adminStoreInfo.do?aculumn=add_status&acontent=" + askStatNum;
 		} else if( $(this).attr('id') == 'ask_status_4'){
 			askStatNum = "4";
+			location.href = "adminStoreInfo.do?aculumn=add_status&acontent=" + askStatNum;
 		}
 	});
 	
@@ -123,17 +128,17 @@ td{
 <!-- 처리 상태 선택 -->
 <div class="main-portfolio">
 	<div id="root" class="col-md-8 text-right">
-		<form class="form-inline">
-			<button class="btn button ask_status" id="ask_status_all">전체</button>
-			<button class="btn button ask_status" id="ask_status_1">처리 전</button>
-			<button class="btn button ask_status" id="ask_status_2">등록 허가</button>
-			<button class="btn button ask_status" id="ask_status_3">등록 거절</button>
-			<button class="btn button ask_status" id="ask_status_4">등록 보류</button>&nbsp;&nbsp;
+
+			<button type="button" class="btn button ask_status" id="ask_status_all">전체</button>
+			<button type="button" class="btn button ask_status" id="ask_status_1">처리 전</button>
+			<button type="button" class="btn button ask_status" id="ask_status_2">등록 허가</button>
+			<button type="button" class="btn button ask_status" id="ask_status_3">등록 거절</button>
+			<button type="button" class="btn button ask_status" id="ask_status_4">등록 보류</button>&nbsp;&nbsp;
 <!-- 			<div class="form-group m-top-30">
 				<input type="text" class="form-control" placeholder="검색어 입력">
 				<button class="btn button is-checked">▶</button>
 			</div> -->
-		</form>
+
 	</div>
 </div>
 <!-- END 헤드 부분 -->
@@ -223,15 +228,15 @@ td{
 <!-- 페이징 -->
 <form id="apagefrm" name="apagefrm" action="adminStoreInfo.do">
 	<input type="hidden" name="p">
-	<input type="hidden" name="aculumn">
-	<input type="hidden" name="acontent">
+	<input type="hidden" name="aculumn" value="${ param.aculumn }">
+	<input type="hidden" name="acontent" value="${ param.acontent }">
 </form>
 
-<u:paging pgfunc="doList" paging="${ apaging }"></u:paging>
+<u:paging pgfunc="adoList" paging="${ apaging }"></u:paging>
 <script>
-function doList(p) {
-	document.pagefrm.p.value = p;
-	document.pagefrm.submit();
+function adoList(p) {
+	document.apagefrm.p.value = p;
+	document.apagefrm.submit();
 }
 </script>
 
@@ -329,11 +334,11 @@ function doList(p) {
 	<input type="hidden" name="bcontent" value="">
 </form>
 
-<u:paging pgfunc="doList" paging="${ bpaging }"></u:paging>
+<u:paging pgfunc="bdoList" paging="${ bpaging }"></u:paging>
 <script>
-function doList(p) {
-	document.pagefrm.p.value = p;
-	document.pagefrm.submit();
+function bdoList(p) {
+	document.bpagefrm.p.value = p;
+	document.bpagefrm.submit();
 }
 </script>
 

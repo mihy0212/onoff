@@ -39,18 +39,18 @@ public class AdminStoreInfoComm implements Command {
 			if(p != null && !p.isEmpty()) {
 				pageNo = Integer.parseInt(p);
 			}
-			if( aculumn == null ) {
+			if( aculumn == null || aculumn.isEmpty() ) {
 				aculumn = "add_status";
 				acontent = "%";
 			}
-			if( bculumn == null ) {
+			if( bculumn == null || bculumn.isEmpty()) {
 				bculumn = "store_oc";
 				bcontent = "%";
 			}
-			
+
 			Paging apaging = new Paging();
-			apaging.setPageUnit(10); //한 페이지에 출력할 레코드 건수
-			apaging.setPageSize(10); //페이지바에 나타날 페이지 번호 수(이전 1 2 3 ...10 다음)
+			apaging.setPageUnit(2); //한 페이지에 출력할 레코드 건수
+			apaging.setPageSize(2); //페이지바에 나타날 페이지 번호 수(이전 1 2 3 ...10 다음)
 			apaging.setPage(pageNo);	//현재 페이지
 			apaging.setTotalRecord(AddDAO.getInstance().getPageCount(conn, aculumn, acontent)); //총 레코드 건수
 			request.setAttribute("apaging", apaging);

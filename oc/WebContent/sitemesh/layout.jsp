@@ -179,7 +179,7 @@
 <script src="${pageContext.request.contextPath }/assets/js/jquery.collapse.js"></script>
 <script src="${pageContext.request.contextPath }/assets/js/bootsnav.js"></script>
 <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
-<script src="${pageContext.request.contextPath }/assets/js/plugins.js"></script>
+<%-- <script src="${pageContext.request.contextPath }/assets/js/plugins.js"></script> --%>
 <script src="${pageContext.request.contextPath }/assets/js/main.js"></script>
 </body>
 </html>
