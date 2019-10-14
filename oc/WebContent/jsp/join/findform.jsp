@@ -15,7 +15,7 @@
 <div> <br />
 	<input type="button" class="btn btn-primary form-control" onclick="location.href='goidfindtest.do'" value="아이디 찾기">
 	</div><br />
-	<input type="button" class="btn btn-primary form-control" onclick="location.href='join_ceoform.do'" value="패스워드 찾기">
+	<input type="button" class="btn btn-primary form-control" onclick="location.href='gopwform.do'" value="패스워드 찾기">
 </form>
 </div>
 </div>
