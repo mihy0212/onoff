@@ -28,49 +28,13 @@ window.onload = function() {
 				userNum : userNum
 			},
 			dataType : 'json',
-			success : function(data){
-				favoritePlaces=data;
+			success : function(data) {
+				favoritePlaces = data;
+				console.log(favoritePlaces);
+				markerShow();
 			}
 		})
 	}
-
-	$
-			.ajax({
-				url : 'ajaxOpenStore.do',
-				type : 'GET',
-				dataType : 'json',
-				success : function(data) {
-					openPlaces = data;
-					for (var i = 0; i < openPlaces.length; i++) {
-						var DBxy = openPlaces[i].storeXy.split(","), DBx = DBxy[0], DBy = DBxy[1]
-								.trim();
-						var DBPosition = new kakao.maps.LatLng(DBx, DBy);
-						markOpenPlaces(DBPosition, i);
-					}
-				},
-				error : function(xhr, status, error) {
-					console.log(error);
-				}
-			})
-
-	$
-			.ajax({
-				url : 'ajaxCloseStore.do',
-				type : 'GET',
-				dataType : 'json',
-				success : function(data) {
-					closePlaces = data;
-					for (var i = 0; i < closePlaces.length; i++) {
-						var DBxy = closePlaces[i].storeXy.split(","), DBx = DBxy[0], DBy = DBxy[1]
-								.trim();
-						var DBPosition = new kakao.maps.LatLng(DBx, DBy);
-						markClosePlaces(DBPosition, i);
-					}
-				},
-				error : function(xhr, status, error) {
-					console.log(error);
-				}
-			})
 
 	if (navigator.geolocation) {
 		navigator.geolocation
@@ -146,6 +110,87 @@ window.onload = function() {
 	}
 }
 
+function markerShow() {
+	$
+			.ajax({
+				url : 'ajaxOpenStore.do',
+				type : 'GET',
+				dataType : 'json',
+				success : function(data) {
+					openPlaces = data;
+					for (var i = 0; i < openPlaces.length; i++) {
+						var DBxy = openPlaces[i].storeXy.split(","), DBx = DBxy[0], DBy = DBxy[1]
+								.trim();
+						var DBPosition = new kakao.maps.LatLng(DBx, DBy);
+
+						if (userNum != "") {
+
+							var favBoolean;
+
+							// 즐겨찾기가 되있는지 체크
+							for (var k = 0; k < favoritePlaces.length; k++) {
+								console.log(openPlaces[i].storeNum);
+								if (openPlaces[i].storeNum == favoritePlaces[k].storeNum) {
+									favBoolean = true;
+								} else {
+									favBoolean = false;
+								}
+							}
+
+							if (favBoolean) {
+								markOpenFavoritePlaces(DBposition, i);
+							} else {
+								markOpenPlaces(DBPosition, i);
+							}
+						} else {
+							markOpenPlaces(DBPosition, i);
+						}
+					}
+				},
+				error : function(xhr, status, error) {
+					console.log(error);
+				}
+			})
+
+	$
+			.ajax({
+				url : 'ajaxCloseStore.do',
+				type : 'GET',
+				dataType : 'json',
+				success : function(data) {
+					closePlaces = data;
+					for (var i = 0; i < closePlaces.length; i++) {
+						var DBxy = closePlaces[i].storeXy.split(","), DBx = DBxy[0], DBy = DBxy[1]
+								.trim();
+						var DBPosition = new kakao.maps.LatLng(DBx, DBy);
+						if (userNum != "") {
+							var favBoolean;
+
+							// 즐겨찾기가 되있는지 체크
+							for (var k = 0; k < favoritePlaces.length; k++) {
+								if (closePlaces[i].storeNum == favoritePlaces[k].storeNum) {
+									favBoolean = true;
+								} else {
+									favBoolean = false;
+								}
+							}
+
+							if (favBoolean) {
+								markCloseFavoritePlaces(DBPosition, i);
+							} else {
+								markClosePlaces(DBPosition, i);
+							}
+						} else {
+							markClosePlaces(DBPosition, i);
+						}
+					}
+				},
+				error : function(xhr, status, error) {
+					console.log(error);
+				}
+			})
+}
+
 // 가게 상태에 따라 버튼을 만듬
 function storeButton(result) {
 	if (result == 0) {
@@ -202,9 +247,86 @@ function markOpenPlaces(DBPosition, i) {
 			openPlaces[i].storeTime, openPlaces[i].storeNum);
 }
 
+function markOpenFavoritePlaces(DBPosition, i) {
+	var imageSrc = 'img/favoritemarker.png', imageSize = new kakao.maps.Size(
+			36, 36),
+
+	imgOptions = {
+		spriteSize : new kakao.maps.Size(35, 35),
+		spriteOrigin : new kakao.maps.Point(0, 0),
+		offset : new kakao.maps.Point(12, 48)
+
+	}, markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imgOptions), marker = new kakao.maps.Marker(
+			{
+				map : map,
+				position : DBPosition,
+				image : markerImage
+			});
+
+	clusterer.addMarker(marker);
+
+	(function(marker, name, like, category2, category3, time, num) {
+		kakao.maps.event.addListener(marker, 'mouseover',
+				function() {
+					displayDBwindow(marker, name, like, category2, category3,
+							time, num);
+				});
+
+		kakao.maps.event.addListener(marker, 'mouseout', function() {
+			infowindow.close();
+		});
+
+		kakao.maps.event.addListener(marker, 'click', function() {
+			window.open('storeInfo.do?storeNum=' + num);
+		})
+
+	})(marker, openPlaces[i].storeName, openPlaces[i].storeLike,
+			openPlaces[i].storeCateg2, openPlaces[i].storeCateg3,
+			openPlaces[i].storeTime, openPlaces[i].storeNum);
+}
+
 function markClosePlaces(DBPosition, i) {
 	var imageSrc = 'img/closemarker.png', imageSize = new kakao.maps.Size(36,
 			36),
+
+	imgOptions = {
+		spriteSize : new kakao.maps.Size(35, 35),
+		spriteOrigin : new kakao.maps.Point(0, 0),
+		offset : new kakao.maps.Point(12, 48)
+
+	}, markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imgOptions), marker = new kakao.maps.Marker(
+			{
+				map : map,
+				position : DBPosition,
+				image : markerImage
+			});
+
+	clusterer.addMarker(marker);
+
+	(function(marker, name, like, category2, category3, time, num) {
+		kakao.maps.event.addListener(marker, 'mouseover',
+				function() {
+					displayDBwindow(marker, name, like, category2, category3,
+							time, num);
+				});
+
+		kakao.maps.event.addListener(marker, 'mouseout', function() {
+			infowindow.close();
+		});
+
+		kakao.maps.event.addListener(marker, 'click', function() {
+			window.open('storeInfo.do?storeNum=' + num);
+		})
+
+	})(marker, closePlaces[i].storeName, closePlaces[i].storeLike,
+			closePlaces[i].storeCateg2, closePlaces[i].storeCateg3,
+			closePlaces[i].storeTime, closePlaces[i].storeNum);
+
+}
+
+function markCloseFavoritePlaces(DBPosition, i) {
+	var imageSrc = 'img/favoritemarkerclosed.png', imageSize = new kakao.maps.Size(
+			36, 36),
 
 	imgOptions = {
 		spriteSize : new kakao.maps.Size(35, 35),

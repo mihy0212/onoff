@@ -15,7 +15,7 @@ import co.oc.dao.StoreDAO;
 import co.oc.dto.StoreDTO;
 import net.sf.json.JSONArray;
 
-public class OpenStoreCommand implements Command {
+public class AjaxOpenStoreCommand implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
