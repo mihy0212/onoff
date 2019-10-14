@@ -21,15 +21,14 @@ public class AdminStoreChangeComm implements Command {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		Connection conn = DAO.connect();
+		PrintWriter out = response.getWriter();
 		
 		String choice = request.getParameter("choice");
 		
 		if(choice.equals("regiChange")) {
-			
-			PrintWriter out = response.getWriter();
-			
 			String addStatus = request.getParameter("addStatus");
 			System.out.println(addStatus);
+			
 			if(addStatus.equals("2")) {
 				AddDTO adto = (AddDTO) request.getSession().getAttribute("adto");
 				System.out.println(request.getSession().getAttribute("adto"));
@@ -55,6 +54,15 @@ public class AdminStoreChangeComm implements Command {
 				AddDTO adto = new AddDTO();
 				adto.setAddStatus(addStatus);
 				adto.setAddRe(request.getParameter("addRe"));
+				adto.setAddNum(request.getParameter("addNum"));
+				int n = AddDAO.getInstance().updatePermit(conn, adto);
+				if(n != 0) {
+					out.print(n);
+				}
+			} else if(addStatus.equals("1")) {
+				AddDTO adto = new AddDTO();
+				adto.setAddStatus(addStatus);
+				adto.setAddRe("");
 				adto.setAddNum(request.getParameter("addNum"));
 				int n = AddDAO.getInstance().updatePermit(conn, adto);
 				if(n != 0) {

@@ -369,16 +369,12 @@ public class AddDAO extends DAO {
 	public int updatePermit(Connection conn, AddDTO dto) {
 		int n = 0;
 		String sql = null;
-		if(dto.getAddStatus().equals("1")) {
-			sql = "update oc_add set"
-					+ " add_status=?"
-					+ " where add_num=?";
-		} if(dto.getAddStatus().equals("2")) {
+		if(dto.getAddStatus().equals("2")) {
 			sql = "update oc_add set"
 					+ " add_status=?,"
 					+ " store_num=?"
 					+ " where add_num=?";
-		} else {
+		} else if(dto.getAddStatus().equals("3") || dto.getAddStatus().equals("4") || dto.getAddStatus().equals("1")) {
 			sql = "update oc_add set"
 					+ " add_status=?,"
 					+ " add_re=?"
@@ -390,7 +386,7 @@ public class AddDAO extends DAO {
 			psmt.setString(++i, dto.getAddStatus());
 			if(dto.getAddStatus().equals("2")) {
 				psmt.setString(++i, dto.getStoreNum());
-			} else if(dto.getAddStatus().equals("3") || dto.getAddStatus().equals("4")) {
+			} else if(dto.getAddStatus().equals("3") || dto.getAddStatus().equals("4") || dto.getAddStatus().equals("1")) {
 				psmt.setString(++i, dto.getAddRe());
 			}
 			psmt.setString(++i, dto.getAddNum());
