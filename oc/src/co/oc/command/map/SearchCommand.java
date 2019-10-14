@@ -15,17 +15,23 @@ import co.oc.command.Command;
 import co.oc.dao.DAO;
 import co.oc.dao.StoreDAO;
 import co.oc.dto.StoreDTO;
+import net.sf.json.JSONArray;
 
 public class SearchCommand implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Connection conn = DAO.connect();
+
 		String keyword = request.getParameter("keyword");
-		request.setAttribute("keyword", keyword);
-		
-		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/map/search.jsp");
-		dispatcher.forward(request, response);
+		ArrayList<StoreDTO> list = StoreDAO.getInstance().searchStore(conn, keyword);
+
+		String map = JSONArray.fromObject(list).toString();
+
+		response.setContentType("text/html; charset=UTF-8");
+		response.getWriter().print(map);
+
+		DAO.disconnect(conn);
 	}
 
 }

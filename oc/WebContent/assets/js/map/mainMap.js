@@ -9,6 +9,7 @@ var callback;
 var myLocation;
 var openPlaces;
 var closePlaces;
+var favoritePlaces;
 var clusterer = new kakao.maps.MarkerClusterer({
 	map : map
 });
@@ -18,6 +19,21 @@ var storeOc;
 window.onload = function() {
 	userNum = $('#userNum').val();
 	userGrant = $('#userGrant').val();
+
+	if (userNum != "") {
+		$.ajax({
+			url : 'ajaxFavoriteStore.do',
+			type : 'GET',
+			data : {
+				userNum : userNum
+			},
+			dataType : 'json',
+			success : function(data){
+				favoritePlaces=data;
+			}
+		})
+	}
+
 	$
 			.ajax({
 				url : 'ajaxOpenStore.do',
@@ -55,6 +71,7 @@ window.onload = function() {
 					console.log(error);
 				}
 			})
+
 	if (navigator.geolocation) {
 		navigator.geolocation
 				.getCurrentPosition(
@@ -106,7 +123,7 @@ window.onload = function() {
 	console.log(userGrant);
 
 	// 유저로 로그인 되있고 사장 일 시 가게 열기/닫기 버튼을 만듬
-	if (userNum != "" && userGrant != null) {
+	if (userNum != "" && userGrant == "C") {
 		$.ajax({
 			url : 'ajaxStoreState.do',
 			data : {
@@ -131,14 +148,14 @@ window.onload = function() {
 
 // 가게 상태에 따라 버튼을 만듬
 function storeButton(result) {
-	if (result == "0") {
-		$('#dv').append(
-				'<input type="button" onclick="storeOpen.do" value="open">');
+	if (result == 0) {
+		var openButton = $('	<li><a href="storeOpen.do">open</a></li>');
+		$('#navbar1').prepend(openButton);
 	}
 
-	if (result == "1") {
-		$('#dv').append(
-				'<input type="button" onclick="storeClose.do" value="close">');
+	if (result == 1) {
+		var closeButton = $('	<li><a href="storeClose.do">close</a></li>');
+		$('#navbar1').prepend(closeButton);
 	}
 }
 
@@ -356,6 +373,24 @@ function searchLocation() {
 		category_group_code : 'FD6',
 		location : center
 	});
+
+	$.ajax({
+		url : 'search.do',
+		data : {
+			keyword : keyword
+		},
+		type : 'GET',
+		dataType : 'json',
+		success : function(data) {
+
+			// 데이터 어떻게 넘어오는지 보고 변수 지정
+			console.log(data);
+
+		},
+		error : function(xhr, status, error) {
+			console.log(error);
+		}
+	})
 }
 
 var callback = function(result, status, pagination) {

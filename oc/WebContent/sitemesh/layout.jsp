@@ -78,7 +78,7 @@
 			
 			<!-- navbar menu -->
 			<div class="collapse navbar-collapse" id="navbar-menu">
-				<ul class="nav navbar-nav navbar-right ">
+				<ul id="navbar1" class="nav navbar-nav navbar-right ">
 					<li><a href="index.do">Home</a></li>
 						<c:if test="${ !empty userEmail && userGrant !='S' }">
 							<li><a href="myfavorite.do">나의 즐겨찾기/리뷰</a></li>
