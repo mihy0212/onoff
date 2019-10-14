@@ -16,6 +16,18 @@ $(document).ready(function() {
         }
     });
 });
+
+function userdelete() = confirm ("정말 삭제하시겠습니까?"); 
+	if(con){
+	
+	} else {
+	alert("회원을 삭제하지 못했습니다.")
+			}
+		}
+	});
+}
+
+});
 </script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -26,7 +38,7 @@ $(document).ready(function() {
 	<br />
 	<h1 align="center">유저 리스트</h1>
 	<br />
-	<form action='userdelete.do'>
+	<form action='userdelete()'>
 		<div class="container">
 			<div class="row">
 				<table class="table table-striped"
@@ -51,22 +63,22 @@ $(document).ready(function() {
 						<c:forEach items="${userlist }" var="dto">
 
 							<tr>
-								<td align="center" width="20"><input id='userNum' name='userNum'
-									type="checkbox" value="${dto.userNum}" /></td>
+								<td align="center" width="20"><input id='userNum'
+									name='userNum' type="checkbox" value="${dto.userNum}" /></td>
 								<td align="center" width="20">${dto.userNum }</td>
 								<td width="20">&nbsp;&nbsp;${dto.userEmail}</td>
 								<td align="center" width="100">${dto.userName }</td>
 								<td align="center" width="100">${dto.userNick }</td>
 								<td align="center" width="20">${dto.userAddr }</td>
 								<td align="center" width="100">${dto.userInday }</td>
-								
+
 							</tr>
 
 						</c:forEach>
 						<!-- db 목록을 가져와서 뿌려주는 곳 -->
 				</table>
-				<a><button type='submit' class="btn btn-primary pull-right"> 삭제하기</button></a>
-				<br>
+				<a><button type='submit' class="btn btn-primary pull-right">
+						삭제하기</button></a> <br>
 			</div>
 		</div>
 	</form>

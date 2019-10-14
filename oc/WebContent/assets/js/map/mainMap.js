@@ -16,6 +16,7 @@ var clusterer = new kakao.maps.MarkerClusterer({
 var userNum;
 var userGrant;
 var storeOc;
+var DBSearchResult;
 window.onload = function() {
 	userNum = $('#userNum').val();
 	userGrant = $('#userGrant').val();
@@ -562,12 +563,24 @@ function searchLocation() {
 		dataType : 'json',
 		success : function(data) {
 
-			DBSearchResultMarker(data);
+			DBSearchResult = data;
 
+			DBOpenMarker();
+			DBCloseMarker();
 		},
 		error : function(xhr, status, error) {
 			console.log(error);
 		}
+	})
+}
+
+function DBCloseMarker(){
+	
+}
+
+function DBOpenMarker(){
+	$.ajax({
+		url : 'ajax'
 	})
 }
 
@@ -658,7 +671,7 @@ function getListItem(index, places) {
 			+ '   <h5>'
 			+ places.place_name + '</h5>';
 
-		itemStr += '    <span>' + places.address_name + '</span>';
+	itemStr += '    <span>' + places.address_name + '</span>';
 
 	itemStr += '  <span class="tel">' + places.phone + '</span>' + '</div>';
 

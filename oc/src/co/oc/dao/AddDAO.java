@@ -419,12 +419,12 @@ public class AddDAO extends DAO {
 	
 	
 	//2. 권보성
-	public boolean isstoreCheck(Connection conn, String id) {
+	public boolean isstoreCheck(Connection conn, String store) {
 		boolean chk = true; // 존재하지 않으면
 		String sql = "select store_name from oc_add where store_name = ?";
 		try {
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, id);
+			psmt.setString(1, store);
 			rs = psmt.executeQuery();
 			if (rs.next()) {
 				chk = false; // 존재 하면
