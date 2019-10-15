@@ -41,7 +41,7 @@ $(document).ready(function(){
 	}
 	
 	//버튼 노출하기
-/* 	if( "${ adto.addStatus}" == "1" ){
+	if( "${ adto.addStatus}" == "1" ){
 		$('#btn').append( $('<button>').attr({'type':'button', 'class':'regiBtn', 'id':'regi_submit'}).text("등록 허가").click(regi_submit),
 				$('<button>').attr({'type':'button', 'class':'regiBtn', 'id':'regi_reject'}).text("등록 거절").click(regi_reject),
 				$('<button>').attr({'type':'button', 'class':'regiBtn', 'id':'regi_post'}).text("등록 보류").click(regi_post)
@@ -53,7 +53,22 @@ $(document).ready(function(){
 	} else if( "${ adto.addStatus}" == "4" ){
 		$('#btn').append( $('<button>').attr({'type':'button', 'class':'regiBtn', 'id':'regi_cancle'}).text("보류 취소").click(regi_cancle)	);
 	}
-	 */
+	
+	//다시 버튼 온클릭..
+	$('.regiBtn').on('click', function(){
+		var id = $(this).attr('id');
+		if( id = "regi_submit"){
+			
+		} else if(id = "regi_reject" || id = "regi_post" ){
+			
+		} else if(id = "regi_cancle" ){
+			
+		}
+		
+	});
+	
+	
+	
 	
 	//거절 사유 출력하기
 	if( "${adto.addStatus}" == "3" || "${adto.addStatus}" == "4" ){
