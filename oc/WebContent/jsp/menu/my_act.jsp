@@ -84,7 +84,6 @@
 		
 		//리뷰 삭제
 		$('.review_list').on('click', '.btn_delete', function(){
-			//console.log($(this).parent().parent().attr('id'));
 			var parentDiv = $(this).parent().parent();
 			var reviewNum = parentDiv.children().eq(0).val();
 
@@ -153,6 +152,75 @@
 		});
 
 		
+		//리뷰 수정2
+		function review_update(){
+			var thisbtn = $(this);
+			var divParent = $(this).parent().parent();
+			var reviewNum = divParent.children().eq(0).val();
+			var blockquote1 = divParent.children().eq(3).children().eq(0);
+			var blockquote2 = divParent.children().eq(3).children().eq(1);
+			var starNum = 0;
+			for(var i=0; i<$('.update_star'+reviewNum).length; i++){
+				if($('.update_star'+reviewNum).eq(i).css("color") == "rgb(255, 255, 0)"){
+					starNum = i+1;
+				}
+			}
+			var reviewContent = blockquote2.children().eq(5).val();
+			if(starNum == 0 && divParent.attr('class') == 'choose_item_text fix div_content_user'){
+				alert("별점을 입력해 주세요.");
+				return false;
+			}
+			if(reviewContent == ""){
+				alert("리뷰 내용을 입력해 주세요.");
+				return false;
+			}
+			var con = confirm("입력한 내용으로 리뷰를 변경하시겠습니까?");
+			if(con){
+				$.ajax({
+					url: "myfavorite.do",
+					type: "post",
+					data: {
+						choice: "reviewUpdate",
+						storeNum: "${ alist.storeNum }",
+						reviewNum: reviewNum,
+						reviewStar: starNum,
+						reviewContent: reviewContent
+					},
+					dataType: "json",
+					success: function(result){
+						if(result.n != 0){
+							alert("리뷰 변경에 성공했습니다.");
+
+							var blockquote3 = $('<blockquote>');
+							for(var i=1; i<=starNum; i++){
+								blockquote3.append( $('<font>').attr({'class':'reviewStarsYellow star_up'+reviewNum}).text("★") );
+							}
+							var today_date = new Date().toISOString().substring(0,10);
+							blockquote3.append( $('<p>').attr({'class':'pre_css'}).html(reviewContent + " &nbsp;&nbsp;&nbsp;(" + today_date + ")") );
+							divParent.children().eq(3).append(blockquote3);
+							blockquote1.remove();
+							blockquote2.remove();
+							
+							//버튼 변경
+							divParent.children().eq(4).children().eq(0).show();
+							divParent.children().eq(4).children().eq(1).show();
+							divParent.children().eq(4).children().eq(3).remove();
+							divParent.children().eq(4).children().eq(2).remove();
+							
+							//가게 총 별점 변경
+							var stars_c = $('#star').children().eq(5).children().eq(0).text(result.stars.toFixed(1));
+							for(var i=0; i<Math.round(stars_c); i++){
+								$('#star').children().eq(i).attr('class','btn button is-checked');
+							}
+
+						} else {
+							alert("리뷰 변경에 실패했습니다.");
+						}
+					}
+				});
+			}
+		}
+
 		//리뷰 수정 취소
 		function review_up_cancle(){
 			var divParent = $(this).parent().parent();
@@ -167,6 +235,7 @@
 			divParent.children().eq(4).children().eq(3).remove();
 			divParent.children().eq(4).children().eq(2).remove();
 		}
+
 		
 		
 		//카테고리1 출력하기
@@ -237,7 +306,7 @@
 		
 });	
 /*  hide. */	
-	/* $(function (){
+	/*  $(function (){
 		$("#categ_all").mouseover(function (){
 		  	$("#catego2").show();
 	    });
@@ -249,7 +318,7 @@
 		$("#categ2_02").mouseover(function (){
 	  		$("#catego3").show();
 	    });
-	/* 	$("#categ_all").mouseout(function (){
+	 	$("#categ_all").mouseout(function (){
 		  	$("#catego2").hide();
 	    });
 
@@ -259,8 +328,8 @@
 
 		$("#categ2_02").mouseout(function (){
 	  		$("#catego3").hide();
-	    }); */
-	});
+	    }); 
+	 }); */
 
 	
 	//리뷰에서 별점 표시하기
@@ -415,48 +484,43 @@
 						</div>
 					</c:if>
 					
-					<div style="clear: both;"></div>
 					<%-- DB 리뷰 목록 --%>
 					<div class="review_list"  >
 					<c:forEach items="${riviewlist }" var="alist" varStatus="status">
+						
 						<c:choose>
 
 							<%-- 1. 리뷰글(글번호와 댓글 번호가 일치) --%>
 							<c:when test="${ alist.reviewRe == alist.reviewNum }">
-								<div id="list${status.count}"
-									class="choose_item_text fix div_content_user">
-									<input type="hidden" value="${ alist.reviewNum }"> <input
-										type="hidden" value="${ alist.reviewRe }">
+								<div id="list${status.count}" class="choose_item_text fix div_content_user">
+									<input type="hidden" value="${ alist.reviewNum }"> 
+									<input type="hidden" value="${ alist.reviewRe }">
+									
 									<%-- 리뷰 왼쪽 영역 : 아이콘/회원 닉네임 --%>
-									<div class="col-md-2 text-center"
-										onclick="location.href='storeInfo.do?storeNum=${alist.storeNum }'">
-										<font size="6"><i
-											class="icon icon icon-smile text-black"></i></font>
-										<h6 class="content_user"
-											onclick="location.href='storeInfo.do?storeNum=${alist.storeNum }'">${ alist.userNick }</h6>
+									<div class="col-md-2 text-center" onclick="location.href='storeInfo.do?storeNum=${alist.storeNum }'">
+										<font size="6">
+										<i class="icon icon icon-smile text-black"></i></font>
+										<h6 class="content_user" onclick="location.href='storeInfo.do?storeNum=${alist.storeNum }'">${ alist.userNick }</h6>
 									</div>
+									
 									<%-- 리뷰 중간 영역 : 별점/리뷰글 --%>
-									<div class="col-md-9 text-left content_star"
-										onclick="location.href='storeInfo.do?storeNum=${alist.storeNum }'">
-										<blockquote>
-											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-											<c:forEach var="i" begin="1" end="${alist.reviewStar }"
-												step="1">
+									<div class="col-md-9 text-left content_star" onclick="location.href='storeInfo.do?storeNum=${alist.storeNum }'">
+										<blockquote> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											<c:forEach var="i" begin="1" end="${alist.reviewStar }"step="1">
 												<font class="reviewStarsYellow star_up${ alist.reviewNum }">★</font>
 											</c:forEach>
-											<p class="pre_css">${ alist.reviewContent }
-												&nbsp;&nbsp;&nbsp;(${ alist.reviewDate })</p>
+											<p class="pre_css">${ alist.reviewContent } &nbsp;&nbsp;&nbsp;(${ alist.reviewDate })</p>
 										</blockquote>
 									</div>
 
 									<%-- 리뷰 오른쪽 영역 : 댓글/수정/삭제 버튼 --%>
-									<%-- 리뷰 오른쪽 영역 : 댓글/수정/삭제 버튼 --%>
+									<div class="col-md-1">
 										<button id="btn_update" class="btn button is-checked btn_update" type="button">수정</button>
 										<button id="btn_delete" class="btn button is-checked btn_delete" type="button">삭제</button>
-									<%-- <input type="submit" class="btn button is-checked btn_update" value="수정" data-target="#myModal" data-toggle="modal">
-							<input type="submit" class="btn button is-checked btn_update"value="삭제" onclick="location.href='delectMyReiview.do?key=${alist.reviewNum}'"> --%>
-								</div>
-								</c:when>
+									
+									</div>
+								</div>	
+							</c:when>
 
 							<%-- 2. 리뷰 댓글(글번호와 댓글 번호 불일치) 사장님만 댓글 달 수 있으므로- 수정/삭제 할 수 있음 --%>
 							<c:otherwise>
@@ -485,8 +549,33 @@
 						</c:choose>
 					</c:forEach>
 				</div>
-				</div>
-			</div>
+				<%-- END DB 리뷰 목록 --%>
+				
+				<%-- 리뷰글 삽입을 위한 히든 div --%>
+               		<div class="hidden">
+						<div id="copy_reivew" class="choose_item_text fix div_content_user">
+							<input type="hidden" value="#">
+							<input type="hidden" value="#">
+							
+							<%-- 리뷰 왼쪽 영역 : 아이콘/회원 닉네임 --%>
+							<div class="col-md-2 text-center">
+								<font size="6"><i class="icon icon icon-smile text-black"></i></font>
+								<h6 class="content_user"></h6>
+							</div>
+							<%-- 리뷰 중간 영역 : 별점/리뷰글 --%>
+							<div class="col-md-9 text-left content_star">
+								<blockquote>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<font class="reviewStarsYellow">★</font>
+									<p class="pre_css"></p>
+								</blockquote>
+							</div>
+							<%-- 리뷰 오른쪽 영역 : 댓글/수정/삭제 버튼 --%>
+							<div class="col-md-1">
+								<button class="btn button is-checked btn_update" type="button">수정</button>
+								<button class="btn button is-checked btn_delete" type="button">삭제</button>
+							</div>
+						</div>
+					</div>
 			
 			<!-- 페이징 -->
 			<div class="col-sm-6" align="center">
