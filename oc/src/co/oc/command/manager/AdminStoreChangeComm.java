@@ -44,6 +44,7 @@ public class AdminStoreChangeComm implements Command {
 				
 				adto.setAddStatus(addStatus);
 				adto.setStoreNum(storeNum);
+				System.out.println(storeNum);
 				int n = AddDAO.getInstance().updatePermit(conn, adto);
 				if(n != 0) {
 					response.sendRedirect("addRead.do?addNum="+adto.getAddNum());
@@ -56,22 +57,27 @@ public class AdminStoreChangeComm implements Command {
 				adto.setAddRe(request.getParameter("addRe"));
 				adto.setAddNum(request.getParameter("addNum"));
 				int n = AddDAO.getInstance().updatePermit(conn, adto);
-				if(n != 0) {
-					out.print(n);
-				}
+				out.print(n);
 			} else if(addStatus.equals("1")) {
+				String id = request.getParameter("id");
 				AddDTO adto = new AddDTO();
 				adto.setAddStatus(addStatus);
 				adto.setAddRe("");
 				adto.setAddNum(request.getParameter("addNum"));
 				int n = AddDAO.getInstance().updatePermit(conn, adto);
-				if(n != 0) {
+				if(id == "sub_cancle" && n != 0) {
+					String storeNum = request.getParameter("storeNum");
+					int a = StoreDAO.getInstance().delete(conn, storeNum);
+					out.print(a);
+				} else {
 					out.print(n);
 				}
+				
 			}
-			
-			
-			
+		} else if(choice.equals("storeDel")) {
+			String storeNum = request.getParameter("storeNum");
+			int n = StoreDAO.getInstance().delete(conn, storeNum);
+			out.print(n);
 		}
 		
 		DAO.disconnect(conn);

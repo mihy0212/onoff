@@ -79,6 +79,32 @@ $(document).ready(function(){
 		}
 	});
 	
+	$('#store_del').on('click', function(){
+		var this_tr = $(this).parent().parent().parent();
+		var snum = this_tr.children().eq(1).text();
+		console.log(snum);
+		var con = confirm("정말 등록된 가게를 삭제하시겠습니까? 다른 정보가 등록된 가게는 삭제할 수 없습니다.");
+		if(con){
+			$.ajax({
+				url: "adminStoreChange.do",
+				dataType: "json",
+				type: "post",
+				data: {
+					choice: "storeDel",
+					storeNum: snum
+				},
+				success: function(result){
+					if(result != 0){
+						alert("성공적으로 가게가 삭제되었습니다.")
+						this_tr.remove();
+					} else {
+						alert("가게 삭제에 실패했습니다.");
+					}
+				}
+			});
+		}
+	});
+	
 });
 
 </script>
@@ -291,7 +317,6 @@ function adoList(p) {
 	<table class="table table-striped table-hover table-bordered">
 		<thead>
 			<tr>
-				<th><input type='checkbox' name="check_b" class="check_b all" value="all"></th>
 				<th width="1">No.</th>
 				<th>가게번호</th>
 				<th>가게명</th>
@@ -305,6 +330,9 @@ function adoList(p) {
 				<th>사업자별명</th>
 				<th>가게등록일</th>
 				<th>가게상태</th>
+				<th>가게 정보</th>
+				<th>가게 삭제</th>
+				<!-- <th><input type='checkbox' name="check_b" class="check_b all" value="all"></th> -->
 			</tr>
 		</thead>
 
@@ -319,8 +347,8 @@ function adoList(p) {
 		<!--목록이 있으면  -->
 		<!-- for문을 돌리면 list[0]을 안해도됨 -->
 		<c:forEach items="${ slist }" var="stlist" varStatus="status">
-			<tr onclick="location.href='storeInfo.do?storeNum=${ stlist.storeNum }'">
-				<th><input type='checkbox' name="check_b" class="check_b ${ stlist.storeNum }" value="${ stlist.storeNum }"></th>
+			<tr>
+			<%-- <tr onclick="location.href='storeInfo.do?storeNum=${ stlist.storeNum }'"> --%>
 				<td>${ status.count }</td>
 				<td>${ stlist.storeNum }</td>
 				<td>${ stlist.storeName }</td>
@@ -339,6 +367,15 @@ function adoList(p) {
 						<c:when test='${ stlist.storeOc == "0" }'>CLOSE</c:when>
 					</c:choose>
 				</td>
+				<td>
+					<span class="store_move" onclick="location.href='storeInfo.do?storeNum=${ stlist.storeNum }'">가게이동</span>
+				</td>
+				<td>
+					<div class="main-portfolio">
+						<button class="btn button is-checked" id="store_del">삭제</button>
+					</div>
+				</td>
+				<%-- <td><input type='checkbox' name="check_b" class="check_b ${ stlist.storeNum }" value="${ stlist.storeNum }"></td> --%>
 			</tr>
 		</c:forEach>
 		<!-- db 목록을 가져와서 뿌려주는 곳끝 -->

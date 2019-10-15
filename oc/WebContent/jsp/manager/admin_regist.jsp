@@ -41,6 +41,7 @@ $(document).ready(function(){
 	}
 	
 	//버튼 노출하기
+	/*
 	if( "${ adto.addStatus}" == "1" ){
 		$('#btn').append( $('<button>').attr({'type':'button', 'class':'regiBtn', 'id':'regi_submit'}).text("등록 허가").click(regi_submit),
 				$('<button>').attr({'type':'button', 'class':'regiBtn', 'id':'regi_reject'}).text("등록 거절").click(regi_reject),
@@ -52,28 +53,36 @@ $(document).ready(function(){
 		$('#btn').append( $('<button>').attr({'type':'button', 'class':'regiBtn', 'id':'regi_cancle'}).text("거절 취소").click(regi_cancle)	);
 	} else if( "${ adto.addStatus}" == "4" ){
 		$('#btn').append( $('<button>').attr({'type':'button', 'class':'regiBtn', 'id':'regi_cancle'}).text("보류 취소").click(regi_cancle)	);
+	}*/
+	if( "${ adto.addStatus}" == "1" ){
+		$('.regiBtn').attr('type','button');
+		$('.canBtn').attr('type','hidden');
+	} else if( "${ adto.addStatus}" == "2" ){
+		$('#sub_cancle').attr('type','button');
+	} else if( "${ adto.addStatus}" == "3" ){
+		$('#rej_cancle').attr('type','button');
+		$('.regiBtn').attr('type','hidden');
+		$('#addRe_hidden').attr('class','non-hidden');
+	} else if( "${ adto.addStatus}" == "4" ){
+		$('#pos_cancle').attr('type','button');
+		$('.regiBtn').attr('type','hidden');
+		$('#addRe_hidden').attr('class','non-hidden');
 	}
 	
 	//다시 버튼 온클릭..
 	$('.regiBtn').on('click', function(){
 		var id = $(this).attr('id');
-		if( id = "regi_submit"){
-			
-		} else if(id = "regi_reject" || id = "regi_post" ){
-			
-		} else if(id = "regi_cancle" ){
-			
+		if( id == "regi_submit" ){
+			regi_submit();
+		} else if(id == "regi_reject" || id == "regi_post" ){
+			regi_non(id);
 		}
-		
 	});
 	
-	
-	
-	
-	//거절 사유 출력하기
-	if( "${adto.addStatus}" == "3" || "${adto.addStatus}" == "4" ){
-		$('#addRe_hidden').attr('class','non-hidden');
-	}
+	$('.canBtn').on('click', function(){
+		var id = $(this).attr('id');
+		regi_cancle(id);
+	});
 	
 	//목록으로 되돌아가기
 	$('.listback').on('click', function(){
@@ -92,16 +101,56 @@ function regi_submit(){
 	}
 }
 
-function regi_non(){
+function regi_non(id){
+	$('.regiBtn').attr('type','hidden');
 	$('#reject_text').text("");
-	$('#reject_text').append( $('<textarea>').attr({'cols':'100', 'rows':'10', 'id':'addRe_textarea'}) );
-	$('#addRe_hidden').attr('class','non-hidden');
-	$('#re_submit').click(re_submit);
-	$('#re_cancle').click(re_cancle);
+	$('#reject_text').after( $('<textarea>').attr({'cols':'100', 'rows':'10', 'id':'addRe_textarea'}) );
+	$('#addRe_hidden').attr('class',id);
+	$('#re_submit').attr('type','button').click(re_submit);
+	$('#re_cancle').attr('type','button').click(re_cancle);
 }
 
-function regi_cancle(){
-	var con = confirm("${ adto.storeName }를 신청 중 상태로 되돌리시겠습니까?");
+function regi_cancle(id){
+	if(id == "sub_cancle"){
+		sub_cancle(id);
+	} else {
+		var con = confirm("${ adto.storeName }를 신청 중 상태로 되돌리시겠습니까?");
+		if(con){
+			$.ajax({
+				url: "adminStoreChange.do",
+				dataType: "json",
+				type: "post",
+				data: {
+					choice: "regiChange",
+					addStatus: "1",
+					addNum: "${adto.addNum}"
+				},
+				success: function(result){
+					if(result != 0){
+						$('.regiBtn').attr('type','button');
+						$('.canBtn').attr('type','hidden');
+						alert("${ adto.storeName }의 신청 상태가 변경되었습니다.");
+						$('#addRe_hidden').attr('class','hidden');
+						$('#addRe_textarea').val("");
+						$('#add_status').children().eq(0).attr('color','red').text("처리 중");
+						/*
+						$('#btn').append( $('<button>').attr({'type':'button', 'class':'regiBtn', 'id':'regi_submit'}).text("등록 허가").click(regi_submit),
+								$('<button>').attr({'type':'button', 'class':'regiBtn', 'id':'regi_reject'}).text("등록 거절").click(regi_non),
+								$('<button>').attr({'type':'button', 'class':'regiBtn', 'id':'regi_post'}).text("등록 보류").click(regi_non)
+						);*/
+					} else {
+						alert("${ adto.storeName }의 신청 상태 변경에 실패했습니다.");
+					}
+				}
+			});
+		} else {
+			return false;
+		}
+	}
+}
+
+function sub_cancle(id){
+	var con = confirm("가게 등록된 ${ adto.storeName }를 등록 취소하고 신청 중 상태로 되돌리시겠습니까?");
 	if(con){
 		$.ajax({
 			url: "adminStoreChange.do",
@@ -110,19 +159,18 @@ function regi_cancle(){
 			data: {
 				choice: "regiChange",
 				addStatus: "1",
-				addNum: "${adto.addNum}"
+				addNum: "${adto.addNum}",
+				id: id,
+				storeNum: "{adto.storeNum}"
 			},
 			success: function(result){
 				if(result != 0){
-					alert("${ adto.storeName }의 신청 상태가 변경되었습니다.");
+					$('.regiBtn').attr('type','button');
+					$('.canBtn').attr('type','hidden');
+					alert("${ adto.storeName }의 가게 등록이 취소되었습니다.");
 					$('#addRe_hidden').attr('class','hidden');
 					$('#addRe_textarea').val("");
 					$('#add_status').children().eq(0).attr('color','red').text("처리 중");
-					$('#btn').children().eq(0).remove();
-					$('#btn').append( $('<button>').attr({'type':'button', 'class':'regiBtn', 'id':'regi_submit'}).text("등록 허가").click(regi_submit),
-							$('<button>').attr({'type':'button', 'class':'regiBtn', 'id':'regi_reject'}).text("등록 거절").click(regi_non),
-							$('<button>').attr({'type':'button', 'class':'regiBtn', 'id':'regi_post'}).text("등록 보류").click(regi_non)
-					);
 				} else {
 					alert("${ adto.storeName }의 신청 상태 변경에 실패했습니다.");
 				}
@@ -137,12 +185,13 @@ function re_submit(){
 	var addRe = $('#addRe_textarea').val();
 	var con;
 	var addStatus;
+	var id = $(this).parent().attr('class');
 	if(id == "regi_reject"){
 		con = confirm("${ adto.storeName }의 가게 등록을 거절하시겠습니까?");
-		addStatus = "2";
+		addStatus = "3";
 	} else if(id == "regi_post"){
 		con = confirm("${ adto.storeName }의 가게 등록을 보류하시겠습니까?");
-		addStatus = "3";
+		addStatus = "4";
 	}
 	if(con){
 		$.ajax({
@@ -157,18 +206,20 @@ function re_submit(){
 			},
 			success: function(result){
 				if(result != 0){
-					if(addStatus = "2"){
+					console.log(addStatus)
+					if(addStatus == "3"){
 						alert("${ adto.storeName }의 가게 등록이 거절되었습니다.");
 						$('#add_status').children().eq(0).attr('color','#DF7401').text("등록 거절");
-					} else if(addStatus = "3"){
+						$('#rej_cancle').attr('type','button');
+					} else if(addStatus == "4"){
 						alert("${ adto.storeName }의 가게 등록이 보류되었습니다.");
 						$('#add_status').children().eq(0).attr('color','#298A08').text("등록 보류");
+						$('#pos_cancle').attr('type','button');
 					}
-					$('#reject_text').text() = addRe;
+					$('.regiBtn').attr('type','hidden');
+					$('#reject_text').text(addRe);
 					$('#addRe_textarea').remove();
-					$('#re_submit').hide();
-					$('#re_cancle').hide();
-					$('#re_cancle').after( $('<button>').attr({'type':'button', 'class':'addReBtn', 'id':'re_update'}).text("수정").click(re_update) );
+					$('.addReBtn').attr('type','hidden');
 				} else {
 					alert("${ adto.storeName }의 신청 상태 변경에 실패했습니다.");
 				}
@@ -178,16 +229,11 @@ function re_submit(){
 }
 
 function re_cancle(){
-	$('#addRe_textarea').remove();
-	$('#reject_text').text() = "${ adto.addRe }";
 	$('#addRe_hidden').attr('class','hidden');
-}
-
-function re_update(){
-	var reject_text = $('#reject_text').text();
-	$('#reject_text').append( $('<textarea>').attr({'cols':'100', 'rows':'10', 'id':'addRe_textarea'}).val(reject_text) );
-	$('#re_submit').show();
-	$('#re_cancle').show();
+	$('#addRe_textarea').remove();
+	$('#reject_text').show();
+	$('.addReBtn').attr('type','hidden');
+	$('.regiBtn').attr('type','button');
 }
 
 </script>
@@ -295,22 +341,16 @@ td{
 			<input type="hidden" name="addStatus" value="1">
 		</form>
 		
-		<div id="btn"></div>
-		<c:if test="${ adto.addStatus == '1' }">
-			<button type="button" class="regiBtn" id="regi_submit">등록 허가</button>
-			<button type="button" class="regiBtn" id="regi_reject">등록 거절</button>
-			<button type="button" class="regiBtn" id="regi_post">등록 보류</button>
-		</c:if>
-		<c:if test="${ adto.addStatus == '2' }">
-			<button type="button" class="regiBtn" id="regi_cancle">허가 취소</button>
-		</c:if>
-		<c:if test="${ adto.addStatus == '3' }">
-			<button type="button" class="regiBtn" id="regi_cancle">거절 취소</button>
-		</c:if>
-		<c:if test="${ adto.addStatus == '4' }">
-			<button type="button" class="regiBtn" id="regi_cancle">보류 취소</button>
-		</c:if>
+		<div id="btn">
+			<input type="hidden" class="regiBtn submit" id="regi_submit" value="등록 허가">
+			<input type="hidden" class="regiBtn reject" id="regi_reject" value="등록 거절">
+			<input type="hidden" class="regiBtn post" id="regi_post" value="등록 보류">
+			<input type="hidden" class="canBtn nosub" id="sub_cancle" value="허가 취소">
+			<input type="hidden" class="canBtn norej" id="rej_cancle" value="거절 취소">
+			<input type="hidden" class="canBtn nopos" id="pos_cancle" value="보류 취소">
+		</div>
 		
+<hr />
 		<br><br>
 		<div class="hidden" id="addRe_hidden">
 			<table class="table table-striped table-hover table-bordered">
@@ -318,19 +358,17 @@ td{
 					<th>등록 거절 사유</th>
 				</tr>
 				<tr>
-					<td id="reject_text">${ adto.addRe }</td>
+					<td><p id="reject_text">${ adto.addRe }</p></td>
 				</tr>
 			</table>
-			<button type="button" class="addReBtn" id="re_submit">확인</button>
-			<button type="button" class="addReBtn" id="re_cancle">취소</button>
+			<input type="hidden" class="addReBtn" id="re_submit" value="확인">
+			<input type="hidden" class="addReBtn" id="re_cancle" value="취소">
 		</div>
 		<div align="right">
 			<span class="listback">가게 관리 페이지로</span>
 		</div>
 </div>
 
-<hr />
-<!-- END 리뷰 목록 뿌려주기 -->
 <div style="clear: both;"></div>
 
 
