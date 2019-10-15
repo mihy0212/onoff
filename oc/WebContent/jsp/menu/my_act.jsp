@@ -90,9 +90,8 @@
 			var con = confirm("정말 삭제하시겠습니까?");
 			if(con){
 				$.ajax({
-					url: "myfavorite.do",
+					url: "delectMyReiview.do",
 					data: {
-						choice: "reviewDelete",
 						reviewNum: reviewNum
 					},
 					dataType: "json",
@@ -177,10 +176,9 @@
 			var con = confirm("입력한 내용으로 리뷰를 변경하시겠습니까?");
 			if(con){
 				$.ajax({
-					url: "myfavorite.do",
+					url: "updateMyReiview.do",
 					type: "post",
 					data: {
-						choice: "reviewUpdate",
 						storeNum: "${ alist.storeNum }",
 						reviewNum: reviewNum,
 						reviewStar: starNum,
@@ -476,7 +474,7 @@
 							<h2>나의리뷰</h2>
 						</div>
 					</div>
-					
+					<br><br><br><br><br><br>
 					<!-- DB 리뷰 목록 : 등록된 리뷰가 없을 때-->
 					<c:if test="${empty riviewlist}">
 						<div class="choose_item_text fix">
@@ -486,96 +484,90 @@
 					
 					<%-- DB 리뷰 목록 --%>
 					<div class="review_list"  >
-					<c:forEach items="${riviewlist }" var="alist" varStatus="status">
+						<c:forEach items="${riviewlist }" var="alist" varStatus="status">
 						
-						<c:choose>
+							<c:choose>
 
-							<%-- 1. 리뷰글(글번호와 댓글 번호가 일치) --%>
-							<c:when test="${ alist.reviewRe == alist.reviewNum }">
-								<div id="list${status.count}" class="choose_item_text fix div_content_user">
-									<input type="hidden" value="${ alist.reviewNum }"> 
-									<input type="hidden" value="${ alist.reviewRe }">
-									
-									<%-- 리뷰 왼쪽 영역 : 아이콘/회원 닉네임 --%>
-									<div class="col-md-2 text-center" onclick="location.href='storeInfo.do?storeNum=${alist.storeNum }'">
-										<font size="6">
-										<i class="icon icon icon-smile text-black"></i></font>
-										<h6 class="content_user" onclick="location.href='storeInfo.do?storeNum=${alist.storeNum }'">${ alist.userNick }</h6>
-									</div>
-									
-									<%-- 리뷰 중간 영역 : 별점/리뷰글 --%>
-									<div class="col-md-9 text-left content_star" onclick="location.href='storeInfo.do?storeNum=${alist.storeNum }'">
-										<blockquote> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-											<c:forEach var="i" begin="1" end="${alist.reviewStar }"step="1">
-												<font class="reviewStarsYellow star_up${ alist.reviewNum }">★</font>
-											</c:forEach>
-											<p class="pre_css">${ alist.reviewContent } &nbsp;&nbsp;&nbsp;(${ alist.reviewDate })</p>
-										</blockquote>
-									</div>
-
-									<%-- 리뷰 오른쪽 영역 : 댓글/수정/삭제 버튼 --%>
-									<div class="col-md-1">
-										<button id="btn_update" class="btn button is-checked btn_update" type="button">수정</button>
-										<button id="btn_delete" class="btn button is-checked btn_delete" type="button">삭제</button>
-									
-									</div>
-								</div>	
-							</c:when>
-
-							<%-- 2. 리뷰 댓글(글번호와 댓글 번호 불일치) 사장님만 댓글 달 수 있으므로- 수정/삭제 할 수 있음 --%>
-							<c:otherwise>
-								<div id="list${status.count}"
-									class="choose_item_text fix col-md-offset-1 div_content_ceo">
-									<input type="hidden" value="${ alist.reviewNum }"> <input
-										type="hidden" value="${ alist.reviewRe }">
-									<%-- 리뷰 왼쪽 영역 : 아이콘/회원 닉네임 --%>
-									<div class="col-md-2 text-center">
-										<font size="6"><i
-											class="icon icon icon-restaurant2 text-black"></i></font>
-										<h6 class="content_user">${ alist.storeName }</h6>
-									</div>
-									<%-- 리뷰 중간 영역 : 별점/리뷰글 --%>
-									<div class="col-md-9 text-left content_reply">
-										<blockquote>
-											<p class="pre_css">${ alist.reviewContent }
-												&nbsp;&nbsp;&nbsp;(${ alist.reviewDate })</p>
-										</blockquote>
-									</div>
-
-								</div>
-							</c:otherwise>
-
-
-						</c:choose>
+								<%-- 1. 리뷰글(글번호와 댓글 번호가 일치) --%>
+								<c:when test="${ alist.reviewRe == alist.reviewNum }">
+									<div id="list${status.count}" class="choose_item_text fix div_content_user">
+										<input type="hidden" value="${ alist.reviewNum }"> 
+										<input type="hidden" value="${ alist.reviewRe }">
+										
+										<%-- 리뷰 왼쪽 영역 : 아이콘/회원 닉네임 --%>
+										<div class="col-md-2 text-center" onclick="location.href='storeInfo.do?storeNum=${alist.storeNum }'">
+											<font size="6">
+											<i class="icon icon icon-restaurant text-black"></i></font>
+											<h6 class="content_user" onclick="location.href='storeInfo.do?storeNum=${alist.storeNum }'">${ alist.storeName }</h6>
+										</div>
+										
+										<%-- 리뷰 중간 영역 : 별점/리뷰글 --%>
+										<div class="col-md-9 text-left content_star" >
+											<blockquote>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												<c:forEach var="i" begin="1" end="${alist.reviewStar }" step="1">
+													<font class="reviewStarsYellow star_up${ alist.reviewNum }">★</font>
+												</c:forEach>
+												<p class="pre_css">${ alist.reviewContent }&nbsp;&nbsp;&nbsp;(${ alist.reviewDate })</p>
+											</blockquote>
+										</div>
+										
+										<%-- 리뷰 오른쪽 영역 : 댓글/수정/삭제 버튼 --%>
+										<div class="col-md-1">
+											<button id="btn_update" class="btn button is-checked btn_update" type="button">수정</button>
+											<button id="btn_delete" class="btn button is-checked btn_delete" type="button">삭제</button>
+										
+										</div>
+									</div>	
+								</c:when>
+	
+								<%-- 2. 리뷰 댓글 --%>
+								<c:otherwise>
+									<div id="list${status.count}" class="choose_item_text fix col-md-offset-1 div_content_ceo">
+										<input type="hidden" value="${ alist.reviewNum }"> 
+										<input type="hidden" value="${ alist.reviewRe }">
+										<%-- 댓글 왼쪽 영역 : 아이콘/회원 닉네임 --%>
+										<div class="col-md-2 text-center">
+											<font size="6"><i class="icon icon icon-restaurant2 text-black"></i></font>
+											<h6 class="content_user">${ alist.storeName }</h6>
+										</div>
+										<%-- 댓글 중간 영역 : 별점/리뷰글 --%>
+										<div class="col-md-9 text-left content_reply">
+											<blockquote>
+												<p class="pre_css">${ alist.reviewContent } &nbsp;&nbsp;&nbsp;(${ alist.reviewDate })</p>
+											</blockquote>
+										</div>
+									</div>	
+								</c:otherwise>
+							</c:choose>
 					</c:forEach>
 				</div>
 				<%-- END DB 리뷰 목록 --%>
 				
 				<%-- 리뷰글 삽입을 위한 히든 div --%>
-               		<div class="hidden">
+               		 <div class="hidden">
 						<div id="copy_reivew" class="choose_item_text fix div_content_user">
 							<input type="hidden" value="#">
 							<input type="hidden" value="#">
 							
-							<%-- 리뷰 왼쪽 영역 : 아이콘/회원 닉네임 --%>
+							리뷰 왼쪽 영역 : 아이콘/회원 닉네임
 							<div class="col-md-2 text-center">
 								<font size="6"><i class="icon icon icon-smile text-black"></i></font>
 								<h6 class="content_user"></h6>
 							</div>
-							<%-- 리뷰 중간 영역 : 별점/리뷰글 --%>
+							리뷰 중간 영역 : 별점/리뷰글
 							<div class="col-md-9 text-left content_star">
 								<blockquote>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									<font class="reviewStarsYellow">★</font>
 									<p class="pre_css"></p>
 								</blockquote>
 							</div>
-							<%-- 리뷰 오른쪽 영역 : 댓글/수정/삭제 버튼 --%>
+							리뷰 오른쪽 영역 : 댓글/수정/삭제 버튼
 							<div class="col-md-1">
 								<button class="btn button is-checked btn_update" type="button">수정</button>
 								<button class="btn button is-checked btn_delete" type="button">삭제</button>
 							</div>
 						</div>
-					</div>
+					</div> 
 			
 			<!-- 페이징 -->
 			<div class="col-sm-6" align="center">
@@ -586,6 +578,8 @@
 							</c:forEach></li>
 					</ul>
 				</div>
+			</div>
+			</div>
 			</div>
 			
 	</section>

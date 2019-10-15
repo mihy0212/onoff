@@ -18,13 +18,12 @@ public class DeldectMyReiviewComm implements Command {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Connection conn = DAO.connect();
 
-		String reviewNum = request.getParameter("key");
+		String reviewNum = request.getParameter("reviewNum");
 		System.out.println(reviewNum);
 		ReviewDAO.getInstance().delete(conn, reviewNum);
 		
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("myReview.do");
-		dispatcher.forward(request, response);
+		response.sendRedirect("myfavorite.do");
 
 		DAO.disconnect(conn);
 	}

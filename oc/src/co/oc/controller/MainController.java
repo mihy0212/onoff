@@ -134,7 +134,8 @@ public class MainController extends HttpServlet {
 		map.put("/myfavorite.do", new MyActComm());// 즐겨찾기리스트
 		map.put("/updateMyReiview.do", new UpdateMyReiviewComm());// 리뷰수정
 		map.put("/delectMyReiview.do", new DeldectMyReiviewComm());// 리뷰삭제
-
+		//map.put("/storeInfoChange.do", new StoreInfoChangeComm()); 
+		
 		map.put("/myAskWrite.do", new MyAskWriteComm());// 문의리스트
 		map.put("/myAsklist.do", new MyAskListComm());// 문의리스트
 		map.put("/myAskRead.do", new MyAskRead());// 문의읽기
