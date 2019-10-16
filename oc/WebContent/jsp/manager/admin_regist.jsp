@@ -88,7 +88,6 @@ $(document).ready(function(){
 	$('.listback').on('click', function(){
 		location.href = "adminStoreInfo.do";
 	});
-	
 });
 
 function regi_submit(){
@@ -113,6 +112,7 @@ function regi_non(id){
 function regi_cancle(id){
 	if(id == "sub_cancle"){
 		sub_cancle(id);
+		console.log(id)
 	} else {
 		var con = confirm("${ adto.storeName }를 신청 중 상태로 되돌리시겠습니까?");
 		if(con){
@@ -123,7 +123,8 @@ function regi_cancle(id){
 				data: {
 					choice: "regiChange",
 					addStatus: "1",
-					addNum: "${adto.addNum}"
+					addNum: "${adto.addNum}",
+					id: id
 				},
 				success: function(result){
 					if(result != 0){
@@ -151,6 +152,7 @@ function regi_cancle(id){
 
 function sub_cancle(id){
 	var con = confirm("가게 등록된 ${ adto.storeName }를 등록 취소하고 신청 중 상태로 되돌리시겠습니까?");
+	//console.log("${adto.storeNum}");
 	if(con){
 		$.ajax({
 			url: "adminStoreChange.do",
@@ -160,13 +162,14 @@ function sub_cancle(id){
 				choice: "regiChange",
 				addStatus: "1",
 				addNum: "${adto.addNum}",
-				id: id,
-				storeNum: "{adto.storeNum}"
+				storeNum: "${adto.storeNum}",
+				id: id
 			},
 			success: function(result){
 				if(result != 0){
 					$('.regiBtn').attr('type','button');
 					$('.canBtn').attr('type','hidden');
+					$('#snum').text("");
 					alert("${ adto.storeName }의 가게 등록이 취소되었습니다.");
 					$('#addRe_hidden').attr('class','hidden');
 					$('#addRe_textarea').val("");
@@ -315,7 +318,8 @@ td{
 				<th>회원명</th><td colspan="3">${ adto.userName }</td>
 			</tr> 
 			<tr>
-				<th>가게명</th><td colspan="5"><font color="blue" size="5"><strong>${ adto.storeName }</strong></font></td>
+				<th>가게명</th><td colspan="3"><font color="blue" size="5"><strong>${ adto.storeName }</strong></font></td>
+				<th>가게 번호</th><td id="snum">${ adto.storeNum }</td>
 			</tr>
 			<tr>	
 				<th>분류1</th><td class="categ1">${ adto.storeCateg1 }</td>
@@ -355,7 +359,7 @@ td{
 		<div class="hidden" id="addRe_hidden">
 			<table class="table table-striped table-hover table-bordered">
 				<tr>
-					<th>등록 거절 사유</th>
+					<th>등록 거절/보류 사유</th>
 				</tr>
 				<tr>
 					<td><p id="reject_text">${ adto.addRe }</p></td>

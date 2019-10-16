@@ -212,7 +212,7 @@ td{
 		<!-- db에 목록이 이없으면 empty:비어있다는 뜻임  -->
 		<c:if test="${empty addlist}">
 			<tr>
-				<td colspan="12">등록된 글이 존재하지 않습니다.</td>
+				<td colspan="13">등록된 글이 존재하지 않습니다.</td>
 			</tr>
 		</c:if>
 
@@ -340,7 +340,7 @@ function adoList(p) {
 		<!-- db에 목록이 이없으면 empty:비어있다는 뜻임  -->
 		<c:if test="${empty slist}">
 			<tr>
-				<td colspan="13">등록된 글이 존재하지 않습니다.</td>
+				<td colspan="16">등록된 글이 존재하지 않습니다.</td>
 			</tr>
 		</c:if>
 

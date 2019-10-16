@@ -27,11 +27,9 @@ public class AdminStoreChangeComm implements Command {
 		
 		if(choice.equals("regiChange")) {
 			String addStatus = request.getParameter("addStatus");
-			System.out.println(addStatus);
 			
 			if(addStatus.equals("2")) {
 				AddDTO adto = (AddDTO) request.getSession().getAttribute("adto");
-				System.out.println(request.getSession().getAttribute("adto"));
 				StoreDTO sdto = new StoreDTO();
 				sdto.setStoreName(adto.getStoreName());
 				sdto.setStoreAddr(adto.getStoreAddr());
@@ -44,8 +42,7 @@ public class AdminStoreChangeComm implements Command {
 				
 				adto.setAddStatus(addStatus);
 				adto.setStoreNum(storeNum);
-				System.out.println(storeNum);
-				int n = AddDAO.getInstance().updatePermit(conn, adto);
+				int n = AddDAO.getInstance().updatePermit1(conn, adto);
 				if(n != 0) {
 					response.sendRedirect("addRead.do?addNum="+adto.getAddNum());
 				}
@@ -58,22 +55,31 @@ public class AdminStoreChangeComm implements Command {
 				adto.setAddNum(request.getParameter("addNum"));
 				int n = AddDAO.getInstance().updatePermit(conn, adto);
 				out.print(n);
+				
 			} else if(addStatus.equals("1")) {
 				String id = request.getParameter("id");
-				AddDTO adto = new AddDTO();
-				adto.setAddStatus(addStatus);
-				adto.setAddRe("");
-				adto.setAddNum(request.getParameter("addNum"));
-				int n = AddDAO.getInstance().updatePermit(conn, adto);
-				if(id == "sub_cancle" && n != 0) {
+				System.out.println(id);
+				if( id.equals("sub_cancle")) {
+					AddDTO adto = new AddDTO();
 					String storeNum = request.getParameter("storeNum");
-					int a = StoreDAO.getInstance().delete(conn, storeNum);
-					out.print(a);
-				} else {
+					adto.setStoreNum("");
+					adto.setAddStatus(addStatus);
+					adto.setAddNum(request.getParameter("addNum"));
+					int n = AddDAO.getInstance().updatePermit1(conn, adto);
+					if(n != 0 ) {
+						int a = StoreDAO.getInstance().delete(conn, storeNum);
+						out.print(a);	
+					}
+				} else if(!id.equals("sub_cancle")){
+					AddDTO adto = new AddDTO();
+					adto.setAddStatus(addStatus);
+					adto.setAddRe("");
+					adto.setAddNum(request.getParameter("addNum"));
+					int n = AddDAO.getInstance().updatePermit(conn, adto);
 					out.print(n);
 				}
-				
 			}
+			
 		} else if(choice.equals("storeDel")) {
 			String storeNum = request.getParameter("storeNum");
 			int n = StoreDAO.getInstance().delete(conn, storeNum);
