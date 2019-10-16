@@ -17,7 +17,18 @@ var userNum;
 var userGrant;
 var storeOc;
 var DBSearchResult;
+var DBFavorites;
+var listEl;
+var fragment;
+var bounds;
+var menuEl;
+
 window.onload = function() {
+	bounds = new kakao.maps.LatLngBounds();
+	menuEl = document.getElementById('menu_wrap');
+	listEl = document.getElementById('placesList');
+	fragment = document.createDocumentFragment();
+
 	userNum = $('#userNum').val();
 	userGrant = $('#userGrant').val();
 
@@ -70,7 +81,6 @@ window.onload = function() {
 	}
 
 	// userNum 로그인 안 했을 시 어떻게 나오는 지 확인하고 조건문 수정
-	console.log(userGrant);
 
 	// 유저로 로그인 되있고 사장 일 시 가게 열기/닫기 버튼을 만듬
 	if (userNum != "" && userGrant == "C") {
@@ -84,7 +94,6 @@ window.onload = function() {
 			success : function(data) {
 
 				// 데이터 어떻게 넘어오는지 보고 변수 지정
-				console.log(data);
 
 				storeButton(data);
 
@@ -107,7 +116,6 @@ function markerShowStart() {
 			dataType : 'json',
 			success : function(data) {
 				favoritePlaces = data;
-				console.log(favoritePlaces);
 				openMarkerShow();
 				closeMarkerShow();
 			}
@@ -181,8 +189,6 @@ function openMarkerShow() {
 							// 즐겨찾기가 되있는지 체크
 							for (var k = 0; k < favoritePlaces.length; k++) {
 
-								console.log(i, k);
-
 								if (openPlaces[i].storeNum == favoritePlaces[k].storeNum) {
 									favBoolean = true;
 									break;
@@ -224,7 +230,6 @@ function closeMarkerShow() {
 
 							// 즐겨찾기가 되있는지 체크
 							for (var k = 0; k < favoritePlaces.length; k++) {
-								console.log(i, k);
 								if (closePlaces[i].storeNum == favoritePlaces[k].storeNum) {
 									favBoolean = true;
 									break;
@@ -261,12 +266,6 @@ function storeButton(result) {
 		$('#navbar1').prepend(closeButton);
 	}
 }
-
-callback = function(result, status) {
-	if (status === kakao.maps.services.Status.OK) {
-		displayPlaces(result);
-	}
-};
 
 function markOpenPlaces(DBPosition, i) {
 	var imageSrc = 'img/openmarker.png', imageSize = new kakao.maps.Size(36, 36),
@@ -530,60 +529,6 @@ function removeMarker() {
 	markers = [];
 }
 
-function enterCheck() {
-	if (event.keyCode == 13) {
-		searchLocation();
-	}
-}
-
-function searchLocation() {
-
-	var keyword = $('#keyword').val();
-	for (var i = 0; i < markers.length; i++) {
-		markers[i].setMap(null);
-	}
-	markers = [];
-	clusterer.clear();
-
-	var center = map.getCenter();
-
-	console.log(keyword);
-
-	ps.keywordSearch(keyword, callback, {
-		category_group_code : 'FD6',
-		location : center
-	});
-
-	$.ajax({
-		url : 'ajaxSearch.do',
-		data : {
-			keyword : keyword
-		},
-		type : 'GET',
-		dataType : 'json',
-		success : function(data) {
-
-			DBSearchResult = data;
-
-			DBOpenMarker();
-			DBCloseMarker();
-		},
-		error : function(xhr, status, error) {
-			console.log(error);
-		}
-	})
-}
-
-function DBCloseMarker(){
-	
-}
-
-function DBOpenMarker(){
-	$.ajax({
-		url : 'ajax'
-	})
-}
-
 var callback = function(result, status, pagination) {
 	if (status === kakao.maps.services.Status.OK) {
 
@@ -604,13 +549,11 @@ var callback = function(result, status, pagination) {
 	}
 };
 
-var listEl;
-
 function displayKakao(places) {
-	var listEl = document.getElementById('placesList'), menuEl = document
-			.getElementById('menu_wrap'), fragment = document
-			.createDocumentFragment(), bounds = new kakao.maps.LatLngBounds(), listStr = '';
-
+	// var listEl = document.getElementById('placesList'), menuEl = document
+	// .getElementById('menu_wrap'), fragment = document
+	// .createDocumentFragment(), bounds = new kakao.maps.LatLngBounds(),
+	// listStr = '';
 	// 검색 결과 목록에 추가된 항목들을 제거합니다
 	removeAllChildNods(listEl);
 
@@ -618,7 +561,8 @@ function displayKakao(places) {
 
 		// 마커를 생성하고 지도에 표시합니다
 		var placePosition = new kakao.maps.LatLng(places[i].y, places[i].x), marker = searchMarker(
-				placePosition, i), itemEl = getListItem(i, places[i]); // 검색 결과
+				placePosition, i);
+		// var itemEl = getListItem(i, places[i]); // 검색 결과
 		// 항목
 		// Element를
 		// 생성합니다
@@ -643,15 +587,15 @@ function displayKakao(places) {
 				window.open(url);
 			})
 
-			itemEl.onclick = function() {
-				infowindow.close();
-				displayInfowindow(marker, title);
-				map.setCenter(marker.getPosition());
-			};
+			// itemEl.onclick = function() {
+			// infowindow.close();
+			// displayInfowindow(marker, title);
+			// map.setCenter(marker.getPosition());
+			// };
 
 		})(marker, places[i].place_name, places[i].place_url);
 
-		fragment.appendChild(itemEl);
+		// fragment.appendChild(itemEl);
 	}
 
 	// 검색결과 항목들을 검색결과 목록 Elemnet에 추가합니다
@@ -662,18 +606,19 @@ function displayKakao(places) {
 	map.setBounds(bounds);
 }
 
-function getListItem(index, places) {
+function getListItem(index, DBSearchResult) {
 
 	var el = document.createElement('li'), itemStr = '<span class="markerbg marker_'
 			+ (index + 1)
 			+ '"></span>'
 			+ '<div class="info">'
 			+ '   <h5>'
-			+ places.place_name + '</h5>';
+			+ DBSearchResult.storeName + '</h5>';
 
-	itemStr += '    <span>' + places.address_name + '</span>';
+	itemStr += '    <span>' + DBSearchResult.storeAddr + '</span>';
 
-	itemStr += '  <span class="tel">' + places.phone + '</span>' + '</div>';
+	itemStr += '  <span class="tel">' + DBSearchResult.storeTel + '</span>'
+			+ '</div>';
 
 	el.innerHTML = itemStr;
 	el.className = 'item';
@@ -764,4 +709,179 @@ function removeAllChildNods(el) {
 	while (el.hasChildNodes()) {
 		el.removeChild(el.lastChild);
 	}
+}
+
+function enterCheck() {
+	if (event.keyCode == 13) {
+		searchLocation();
+	}
+}
+
+// 현재 마커들 다 지움
+function removeAllMarker() {
+	for (var i = 0; i < markers.length; i++) {
+		markers[i].setMap(null);
+	}
+	markers = [];
+	clusterer.clear();
+}
+
+var keyword;
+
+// 전체적인 검색 리스트
+function searchLocation() {
+	keyword = $('#keyword').val();
+
+	var center = map.getCenter();
+
+	removeAllMarker();
+
+	searchDBPlaces();
+
+	// ps.keywordSearch(keyword, callback, {
+	// category_group_code : 'FD6',
+	// location : center
+	// });
+}
+
+function checkDBPlaces() {
+
+	// 열려 있는지 즐겨찾기가 되있는지 확인 하는 로직
+	for (var i = 0; i < DBSearchResult.length; i++) {
+		var isItFav = false;
+		var isItOpen = false;
+
+		var itemEl = getListItem(i, DBSearchResult[i]); // 검색 결과
+
+		if (DBSearchResult[i].storeOc == 1) {
+			isItOpen = true;
+		}
+
+		for (var k = 0; k < DBFavorites.length; k++) {
+			if (DBSearchResult[i].storeNum == DBFavorites[k].storeNum) {
+				isItFav = true;
+				break;
+			}
+		}
+
+		var imageSrc;
+
+		// 열려 있고 즐겨찾기 되있음
+		if (isItFav && isItOpen) {
+			imageSrc = 'img/favoritemarker.png';
+		}
+
+		// 열려 있고 즐겨찾기 안 되있음
+		if (isItOpen && !isItFav) {
+			imageSrc = 'img/openmarker.png';
+		}
+
+		// 열려 있지 않고 즐겨찾기 되있음
+		if (!isItOpen && isItFav) {
+			imageSrc = 'img/favoritemarkerclosed.png';
+		}
+
+		// 열려 있지 않고 즐겨찾기 안 되있음
+		if (!isItOpen && !isItFav) {
+			imageSrc = 'img/closemarker.png';
+		}
+
+		markDBPlaces(imageSrc, i, itemEl);
+
+		fragment.appendChild(itemEl);
+
+		// 검색결과 항목들을 검색결과 목록 Elemnet에 추가합니다
+		listEl.appendChild(fragment);
+		menuEl.scrollTop = 0;
+	}
+
+}
+
+// 위에 로직에 따라 검색 결과 마커를 뿌려줌
+function markDBPlaces(imgSrc, i, itemEl) {
+	var imageSize = new kakao.maps.Size(36, 36),
+
+	imgOptions = {
+		spriteSize : new kakao.maps.Size(35, 35),
+		spriteOrigin : new kakao.maps.Point(0, 0),
+		offset : new kakao.maps.Point(12, 48)
+
+	}, markerImage = new kakao.maps.MarkerImage(imgSrc, imageSize, imgOptions), DBxy = DBSearchResult[i].storeXy
+			.split(","), DBx = DBxy[0], DBy = DBxy[1].trim(), DBPosition = new kakao.maps.LatLng(
+			DBx, DBy), marker = new kakao.maps.Marker({
+		map : map,
+		position : DBPosition,
+		image : markerImage
+	});
+
+	clusterer.addMarker(marker);
+
+	(function(marker, name, like, category2, category3, time, num, itemEl) {
+		kakao.maps.event.addListener(marker, 'mouseover',
+				function() {
+					displayDBwindow(marker, name, like, category2, category3,
+							time, num);
+				});
+
+		kakao.maps.event.addListener(marker, 'mouseout', function() {
+			infowindow.close();
+		});
+
+		kakao.maps.event.addListener(marker, 'click', function() {
+			window.open('storeInfo.do?storeNum=' + num);
+		});
+
+		itemEl.onclick = function() {
+			infowindow.close();
+			displayDBwindow(marker, name, like, category2, category3, time, num);
+			map.setCenter(marker.getPosition());
+		};
+
+	})(marker, DBSearchResult[i].storeName, DBSearchResult[i].storeLike,
+			DBSearchResult[i].storeCateg2, DBSearchResult[i].storeCateg3,
+			DBSearchResult[i].storeTime, DBSearchResult[i].storeNum, itemEl);
+}
+
+// 즐겨찾기 한 가게들 리스트 불러옴
+function favoriteDBPlaces() {
+	$.ajax({
+		url : 'ajaxFavoriteStore.do',
+		data : {
+			userNum : userNum
+		},
+		type : 'GET',
+		dataType : 'json',
+		success : function(data) {
+
+			DBFavorites = data;
+
+			checkDBPlaces();
+		},
+		error : function(xhr, status, error) {
+			console.log(error);
+		}
+	})
+}
+
+// 디비 내 검색 결과 가져옴
+function searchDBPlaces() {
+	$.ajax({
+		url : 'ajaxSearch.do',
+		data : {
+			keyword : keyword
+		},
+		type : 'GET',
+		dataType : 'json',
+		success : function(data) {
+
+			DBSearchResult = data;
+
+			console.log(DBSearchResult);
+
+			favoriteDBPlaces();
+		},
+		error : function(xhr, status, error) {
+			console.log(error);
+		}
+	})
 }

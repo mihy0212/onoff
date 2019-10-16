@@ -24,6 +24,7 @@ public class SearchCommand implements Command {
 		Connection conn = DAO.connect();
 
 		String keyword = request.getParameter("keyword");
+		
 		ArrayList<StoreDTO> list = StoreDAO.getInstance().searchStore(conn, keyword);
 
 		String map = JSONArray.fromObject(list).toString();

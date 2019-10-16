@@ -190,7 +190,6 @@ public class FavoriteDAO extends DAO {
 			while (rs.next()) {
 				FavoriteDTO dto = new FavoriteDTO();
 
-				dto.setUserNum(rs.getString("user_num"));
 				dto.setStoreNum(rs.getString("store_num"));
 
 				list.add(dto);
