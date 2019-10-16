@@ -82,10 +82,10 @@
     /*---------------------------
 	이메일 발송
 	------------------------------*/
-	$(function() {
-		$("#btnEmailCheck").click(function() {
-
-			var param = {
+	
+	
+	function EmailCheck(){
+		var param = {
 				userEmail : document.frm.userEmail.value
 			};
 
@@ -107,10 +107,38 @@
 			}).fail(function(xhr, status) {
 				$("#EmailCheckResult").html(status);
 			});
+    }
+    
+    
+// 	$(function() {
+// 		$("#btnEmailCheck").click(function() {
 
-		})
+// 			var param = {
+// 				userEmail : document.frm.userEmail.value
+// 			};
 
-	})
+// 			var url = "emailCheck.do";
+
+// 			$.ajax(url, {
+// 				data : param,
+// 				dataType : 'json',
+// 				type : "POST"
+// 			}).done(function(result) {
+// 				if(result.result == true){
+// 					//document.frm.userEmail.readOnly=true;
+// 					document.getElementById("EmailCheckResult").style.color="blue";
+// 					$("#ranNumInputTitle").css("display","");
+// 					$("#ranNum").val(result.checkNum);
+// 					//$("#checkRanNum").css("visibility","visible");
+// 				}
+// 				$("#EmailCheckResult").html(result.message);
+// 			}).fail(function(xhr, status) {
+// 				$("#EmailCheckResult").html(status);
+// 			});
+
+// 		})
+
+// 	})
 	
 	
 	/*---------------------------
