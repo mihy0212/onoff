@@ -43,7 +43,7 @@ public class CeoInsertCommand implements Command {
 			dto.setUserName(multi.getParameter("userName"));
 			dto.setUserNick(multi.getParameter("userNickname"));
 			dto.setUserAddr(multi.getParameter("userAddr"));
-			dto.setUserXy(multi.getParameter("userXY"));
+			dto.setUserXy(multi.getParameter("userXy"));
 
 			conn.setAutoCommit(false);
 
@@ -53,7 +53,7 @@ public class CeoInsertCommand implements Command {
 			AddDAO adao = new AddDAO();
 			adto.setStoreName(multi.getParameter("storeName"));
 			adto.setStoreAddr(multi.getParameter("storeAddr"));
-			adto.setStoreXy(multi.getParameter("storeXY"));
+			adto.setStoreXy(multi.getParameter("storeXy"));
 			adto.setStoreCateg1(multi.getParameter("storeCa1"));
 			adto.setStoreCateg2(multi.getParameter("storeCa2"));
 			adto.setStoreCateg3(multi.getParameter("storeCa3"));

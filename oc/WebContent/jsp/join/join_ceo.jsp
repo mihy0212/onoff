@@ -10,6 +10,8 @@
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9e415eb9e7187154cd9c6308c036f0a6&libraries=services,clusterer"></script>
 <script type="text/javascript">
+	var geo = new kakao.maps.services.Geocoder();
+
 	function idCheck() {
 		var chkId = document.frm.userEmail;
 		if (chkId.value == "") {
@@ -43,6 +45,7 @@
 		window.open("storeNickCheck.do?storeName=" + chkstore.value, "",
 				"width=500,height=400");
 	}
+
 	$(function() {
 		$("#alert-success").hide();
 		$("#alert-danger").hide();
@@ -61,7 +64,104 @@
 				}
 			}
 		});
-	});
+		// 시작(맵 생성)
+		// window.onload로 변수 값 지정
+		mapContainer = document.getElementById('map'), // 지도를 표시할 div
+		mapOption = {
+			center : new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
+			level : 5
+		// 지도의 확대 레벨
+		};
+
+		// 지도를 미리 생성
+		map = new daum.maps.Map(mapContainer, mapOption);
+
+		// 마커를 미리 생성
+		marker = new daum.maps.Marker({
+			position : new daum.maps.LatLng(37.537187, 127.005476),
+			map : map
+		});
+		// 여기까지
+
+		// 시작(맵 클릭시 좌표 값 가져와서 마커 위치 변경[주소도 가져옴])
+		kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
+			// 클릭한 지점의 좌표 값 지정
+			var latlng = mouseEvent.latLng;
+
+			// 마커 위치 변경
+			marker.setPosition(latlng);
+			// 디비 안에 들어가는 좌표 값 변경
+			$('#storeXy').val(latlng.getLat() + ", " + latlng.getLng());
+			// 좌표에 따라 주소 변경
+			geo.coord2Address(latlng.getLng(), latlng.getLat(), callAddr);
+		});
+	})
+
+	var callAddr = function(result, status) {
+		if (status === kakao.maps.services.Status.OK) {
+			$('#storeAddr').val(result[0].address.address_name);
+		}
+	};
+	// 여기까지
+	var mapContainer;
+	var map;
+	var marker;
+
+	function FindAddr() {
+		new daum.Postcode({
+			oncomplete : function(data) {
+				var addr = data.address; // 최종 주소 변수
+
+				// 주소 정보를 해당 필드에 넣는다.
+				document.getElementById("userAddr").value = addr;
+				// 주소로 상세 정보를 검색
+				geo.addressSearch(data.address, function(results, status) {
+					// 정상적으로 검색이 완료됐으면
+					if (status === daum.maps.services.Status.OK) {
+
+						var result = results[0]; //첫번째 결과의 값을 활용
+
+						// 해당 주소에 대한 좌표를 받아서
+						var coords = new daum.maps.LatLng(result.y, result.x);
+						$('#userXy').val(coords.Ha + ", " + coords.Ga);
+					}
+				});
+			}
+		}).open();
+	}
+
+	function StoreAddr() {
+		new daum.Postcode({
+			oncomplete : function(data) {
+				var addr = data.address; // 최종 주소 변수
+
+				// 주소 정보를 해당 필드에 넣는다.
+				document.getElementById("storeAddr").value = addr;
+
+				// 주소로 상세 정보를 검색
+				geo.addressSearch(data.address, function(results, status) {
+					// 정상적으로 검색이 완료됐으면
+					if (status === daum.maps.services.Status.OK) {
+
+						var result = results[0]; //첫번째 결과의 값을 활용
+
+						// 해당 주소에 대한 좌표를 받아서
+						var coords = new daum.maps.LatLng(result.y, result.x);
+
+						$('#storeXy').val(coords.Ha + ", " + coords.Ga);
+
+						// 지도를 보여준다.
+						mapContainer.style.display = "block";
+						map.relayout();
+						// 지도 중심을 변경한다.
+						map.setCenter(coords);
+						// 마커를 결과값으로 받은 위치로 옮긴다.
+						marker.setPosition(coords)
+					}
+				});
+			}
+		}).open();
+	}
 </script>
 </head>
 <body>
@@ -115,14 +215,17 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" placeholder="주소"
-							id="userAddr" name="userAddr">
+						<div class="col-sm-8" style="padding: 0px">
+							<input type="text" class="form-control" placeholder="주소"
+								id="userAddr" name="userAddr" readonly>
+						</div>
+						<div class="col-sm-4">
+							<input type="button" class="btn btn-primary form-control"
+								onclick="FindAddr()" value="주소찾기">
+						</div>
 					</div>
-					<div class="form-group">
-						<input type="text" class="form-control" placeholder="주소좌표"
-							id="userXY" name="userXY">
+					<input type="hidden" name="userXy" id="userXy">
 
-					</div>
 					<h3 style="text-align: center;">가게등록</h3>
 					<div class="form-group">
 						<div class="col-sm-8" style="padding: 0px">
@@ -135,13 +238,18 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" placeholder="주소"
-							id="storeAddr" name="storeAddr">
+						<div class="col-sm-8" style="padding: 0px">
+							<input type="text" class="form-control" placeholder="주소"
+								id="storeAddr" name="storeAddr" readonly>
+						</div>
+						<div class="col-sm-4">
+							<input type="button" class="btn btn-primary form-control"
+								onclick="StoreAddr()" value="주소찾기">
+						</div>
 					</div>
-					<div class="form-group">
-						<input type="text" class="form-control" placeholder="주소좌표"
-							id="storeXY" name="storeXY">
-					</div>
+					<input type="hidden" name="storeXy" id="storeXy">
+					<div id="map"
+						style="width: 300px; height: 300px; margin-top: 10px; display: none"></div>
 					<br /> <select name="storeCa1" style="width: 100px;">
 						<option value="01" selected="selected">음식점</option>
 					</select> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <select name="storeCa2"
