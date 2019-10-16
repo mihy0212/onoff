@@ -79,6 +79,75 @@
             }
         }).open();
     }
+    /*---------------------------
+	이메일 발송
+	------------------------------*/
+	$(function() {
+		$("#btnEmailCheck").click(function() {
+
+			var param = {
+				userEmail : document.frm.userEmail.value
+			};
+
+			var url = "emailCheck.do";
+
+			$.ajax(url, {
+				data : param,
+				dataType : 'json',
+				type : "POST"
+			}).done(function(result) {
+				if(result.result == true){
+					//document.frm.userEmail.readOnly=true;
+					document.getElementById("EmailCheckResult").style.color="blue";
+					$("#ranNumInputTitle").css("display","");
+					$("#ranNum").val(result.checkNum);
+					//$("#checkRanNum").css("visibility","visible");
+				}
+				$("#EmailCheckResult").html(result.message);
+			}).fail(function(xhr, status) {
+				$("#EmailCheckResult").html(status);
+			});
+
+		})
+
+	})
+	
+	
+	/*---------------------------
+	인증번호 확인
+	------------------------------*/
+	$(function() {
+		$("#btnRanNumCheck").click(function() {
+
+			var param = {
+				myVal : document.frm.checkRanNum.value };
+
+			var url = "ranNumCheck.do";
+
+			$.ajax(url, {
+				data : param,
+				dataType : 'json',
+				type : "POST"
+			}).done(function(result) {
+				if(result.result == true){
+					document.frm.userEmail.readOnly=true;
+					
+					//document.getElementById("EmailCheckResult").style.color="blue";
+					//$("#ranNumInputTitle").css("visibility","visible");
+					//$("#checkRanNum").css("visibility","visible");
+				}
+				$("#EmailCheckResult").css("color",result.color);
+				$("#EmailCheckResult").html(result.message);
+				
+				//세션의 ranNum 삭제.->커맨드에서 해줌.
+			}).fail(function(xhr, status) {
+				document.getElementById("EmailCheckResult").style.color="red";
+				$("#EmailCheckResult").html("인증번호를 공백없이 입력해 주세요!");
+			});
+
+		})
+
+	})
 </script>
 </head>
 <body>
@@ -95,13 +164,17 @@
 				<form id="frm" name="frm" method="post" action="join_user.do"
 					class="form-horizontal">
 					<div class="form-group">
-						<div class="col-sm-8" style="padding: 0px">
+						<div class="col-sm-6" style="padding: 0px">
 							<input type="text" class="form-control" placeholder="아이디/이메일"
 								id="userEmail" name="userEmail" maxlength="20">
 						</div>
-						<div class="col-sm-4">
+						<div class="col-sm-3">
 							<input type="button" class="btn btn-primary form-control"
 								onclick="idCheck()" value="중복체크">
+						</div>
+						<div class="col-sm-3">
+							<input type="button" class="btn btn-primary form-control"
+								onclick="EmailCheck()" value="이메일인증">
 						</div>
 					</div>
 					<div class="form-group">
