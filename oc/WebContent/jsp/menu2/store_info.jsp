@@ -45,16 +45,19 @@ $(document).ready(function(){
 	}
 	
 	//좋아요 표시하기
-	if( "${likeAct}" == "0" || "${ empty userNum }"){
+	if( "${likeAct}" == "0" || "${ userNum }" == ""){
 		$('#btn_like').html('<font size="5">♡</font> ${ storeInfo.storeLike }');
 	} else {
+		console.log("${likeAct}")
 		$('#btn_like').html('<font size="5" color="red">♥</font> ${ storeInfo.storeLike }');
 	}
 	
 	//즐겨찾기 표시하기
-	if( "${favoAct}" == "0" || "${ empty userNum }"){
+	if( "${favoAct}" == "0" || "${ userNum }" == ""){
+		console.log("${favoAct}")
 		$('#btn_favo').html('<font size="5">☆</font><br>즐겨찾기 하기');
 	} else {
+		console.log("${favoAct}")
 		$('#btn_favo').html('<font size="5" class="reviewStarsYellow">★</font><br>즐겨찾는 가게');
 	}
 	
@@ -130,13 +133,16 @@ $(document).ready(function(){
 		if(id == 'addr'){
 			//console.log($(this).parent().parent().parent().children().eq(1).children().eq(0).children().eq(1).text());//요소 찾기..
 			var h4 = $(this).parent().parent().parent().children().eq(1).children().eq(0);
-			var old_text_tag = h4.children().eq(1); //eq(0)제목부, eq(1)내용부
-			var old_text = old_text_tag.text();
+			var old_addr_tag = h4.children().eq(1); //eq(0)제목부, eq(1)내용부
+			var old_addr = old_addr_tag.text();
+			old_addr_tag.hide();
+			var old_xy = $('#addr_xy').val();
+			var old_x = old_xy.substring(0, old_xy.indexOf(","));
+			var old_y = old_xy.substring(old_xy.indexOf(",")+2, old_xy.length);
 			
-			old_text_tag.hide();
-			h4.children().eq(1).after( $('<input>').attr({'type':'text', 'style':'width:80%;font-size:12pt;'}).val(old_text) ); //eq(2)인풋부
-			//$('<input>').attr({'type':'hidden'}).val('전송받은 xy좌표값') ); //나중에 지도 검색 시 입력하는 부분
-			//console.log( $(this).parent().parent().children().eq(1) )
+			h4.children().eq(1).after( $('<input>').attr({'type':'text', 'id':'new_addr', 'readonly':true,'style':'width:80%;font-size:12pt;'}).val(old_addr) ); //eq(2)인풋부
+			window.open("jsp/menu2/map_update.jsp?x="+old_x+"&y="+old_y,"가게 주소 변경","width=800,height=600");
+			
 			$(this).parent().append( $('<span>').attr({'class':'icon icon icon-arrows-1', 'id':'addr'}).click(info_update2) );
 			$(this).hide();
 			
@@ -476,11 +482,13 @@ function info_update2(){
 	var inputParent;
 	var inputTag;
 	var content;
+	var content2;
 	var check;
+	var check2;
 	var btnUpdate = $(this);
 	var id = btnUpdate.attr('id');
 	//console.log(id);
-	if(id == 'addr' || id == 'tel'){
+	if(id == 'tel'){
 		inputParent = $(this).parent().parent().parent().children().eq(1).children().eq(0);
 		inputTag = inputParent.children().eq(2);
 		content = inputTag.val();
@@ -491,6 +499,13 @@ function info_update2(){
 		inputTag = inputParent.children().eq(1);
 		content = inputTag.val();
 		check = "store_" + id;
+	} else if(id == 'addr'){
+		inputParent = $(this).parent().parent().parent().children().eq(1).children().eq(0);
+		inputTag = inputParent.children().eq(2);
+		content = inputTag.val();
+		content2 = $('#addr_xy').val();
+		check = "store_"+id;
+		check2 = "store_xy";
 	}
 	var con = confirm("입력한 내용으로 변경하시겠습니까?");
 	if(con){
@@ -500,27 +515,41 @@ function info_update2(){
 			data: {
 				choice: "storeInfoUpdate",
 				check: check,
+				check2: check2,
 				content: content,
+				content2: content2,
 				storeNum: "${ storeInfo.storeNum }"
 			},
 			dataType: "json",
 			success: function(result){
-				if(result == 1){
-					if(id == 'addr' || id == 'tel'){
+				if( id == 'addr'){
+					if(result.a == 1 && result.n == 1){
 						inputTag.after( $('<font>').attr({'size':'4'}).text( content ) );
 						inputParent.children().eq(1).remove(); //숨겨진 예전정보 삭제
 						inputTag.remove();
 						btnUpdate.parent().children().eq(0).show();
 						btnUpdate.remove();
-					} else if(id == 'time' || id == 'menu' || id == 'etc'){
-						inputParent.append( $('<p>').text( content ) );
-						inputParent.children().eq(0).remove(); //숨겨진 예전정보 삭제
-						inputTag.remove();
-						btnUpdate.parent().children().eq(0).show();
-						btnUpdate.remove();
+					} else {
+						alert("변경에 실패했습니다.");
 					}
 				} else {
-					alert("변경에 실패했습니다.")
+					if(result == 1){
+						if(id == 'tel'){
+							inputTag.after( $('<font>').attr({'size':'4'}).text( content ) );
+							inputParent.children().eq(1).remove(); //숨겨진 예전정보 삭제
+							inputTag.remove();
+							btnUpdate.parent().children().eq(0).show();
+							btnUpdate.remove();
+						} else if(id == 'time' || id == 'menu' || id == 'etc'){
+							inputParent.append( $('<p>').text( content ) );
+							inputParent.children().eq(0).remove(); //숨겨진 예전정보 삭제
+							inputTag.remove();
+							btnUpdate.parent().children().eq(0).show();
+							btnUpdate.remove();
+						}
+					} else {
+						alert("변경에 실패했습니다.")
+					}
 				}
 			}
 		})
@@ -778,7 +807,22 @@ function reply_in_cancle(){
 	white-space: pre-wrap;
 }
 
-
+select {
+	font-size: 10pt;
+	position: relative;
+	bottom: 5px;
+	font-weight: bold;
+	width: 100px;
+	padding: .0em .7em;
+	margin: 0 5px 0 5px;
+	font-family: inherit;
+	background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 50%; /* 네이티브 화살표 대체 */ 
+	border: 1px solid #BDBDBD; 
+	border-radius: 5px; /* iOS 둥근모서리 제거 */ 
+	-webkit-appearance: none; /* 네이티브 외형 감추기 */ 
+	-moz-appearance: none; 
+	appearance: none;
+}
 </style>
 </head>
 
@@ -888,8 +932,8 @@ function reply_in_cancle(){
 								</div>
 								<div class="col-md-11">
 									<h4 class="m-top-50">주<strong>소 |&nbsp;&nbsp;&nbsp;</strong>
-										<font size="4">${ storeInfo.storeAddr }</font>
-										<input type="hidden" id="addr_xy" value="${ stroeInfo.storeXy }">
+										<font size="4" id="addr_de">${ storeInfo.storeAddr }</font>
+										<input type="hidden" id="addr_xy" value="${ storeInfo.storeXy }">
 									</h4>
 									<div class="teamskillbar clearfix m-top-2 text-uppercase" data-percent="20%">
 										<div class="teamskillbar-bar" style="width: 80%;"></div>

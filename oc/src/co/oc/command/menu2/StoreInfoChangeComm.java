@@ -54,8 +54,20 @@ public class StoreInfoChangeComm implements Command {
 			String check = request.getParameter("check");
 			String content = request.getParameter("content");
 			String storeNum = request.getParameter("storeNum");
-			int n = StoreDAO.getInstance().update1(conn, check, content, storeNum);
-			out.print(n);
+			if(check.equals("store_addr")) {
+				String check2 = request.getParameter("check2");
+				String content2 = request.getParameter("content2");
+				int n = StoreDAO.getInstance().update1(conn, check, content, storeNum);
+				int a = StoreDAO.getInstance().update1(conn, check2, content2, storeNum);
+				
+				JSONObject obj = new JSONObject();
+				obj.put("n",n);
+				obj.put("a",a);
+				out.print(obj.toJSONString());
+			} else {
+				int n = StoreDAO.getInstance().update1(conn, check, content, storeNum);
+				out.print(n);				
+			}
 			
 		} else if(choice.equals("reviewInsert")) {
 			ReviewDTO dto = new ReviewDTO();
