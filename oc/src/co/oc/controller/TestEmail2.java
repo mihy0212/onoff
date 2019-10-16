@@ -1,7 +1,6 @@
-package co.oc.command.join;
+package co.oc.controller;
 
 import java.util.Properties;
-import java.util.Scanner;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -11,34 +10,21 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-public class SendMail {
+public class TestEmail2 {
 
 	public static void main(String[] args) {
-		
-		String whoIsSent;
-		String title;
-		String contents;
 
 		String host = "smtp.gmail.com";
 		final String user = "yedam8246";
 		final String password = "dPeka1225";
-		
-		System.out.print("받으실 분의 이메일 주소를 입력하세요. 틀리면 안됩니다. : ");
-		Scanner sc = new Scanner(System.in);
-		whoIsSent = sc.nextLine();
-		
-		System.out.print("메일 제목을 입력하세요 : ");
-		title = sc.nextLine();
-		
-		System.out.print("메일 내용을 입력하세요 : ");
-		contents = sc.nextLine();
 
-		String to = whoIsSent;
+		String to = "vwtkbiseo@gmail.com";
 
 		// Get the session object
 		Properties props = new Properties();
 		props.put("mail.smtp.host", host);
 		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable","true");
 
 		Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
@@ -53,10 +39,10 @@ public class SendMail {
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 
 			// Subject
-			message.setSubject(title);
+			message.setSubject("[Subject] Java Mail Test");
 
 			// Text
-			message.setText(contents);
+			message.setText("Simple mail test..");
 
 			// send the message
 			Transport.send(message);
@@ -66,4 +52,5 @@ public class SendMail {
 			e.printStackTrace();
 		}
 	}
+
 }

@@ -1,8 +1,5 @@
-package co.oc.command.join;
+package co.oc.controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Connection;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -12,37 +9,18 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import co.oc.command.Command;
-import co.oc.dao.DAO;
-import co.oc.dao.RandomDAO;
-import co.oc.dto.RandomDTO;
+public class TestEmail {
 
-public class EmailCheck implements Command {
-	
-	int n = 0;
-
-	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public static void main(String[] args) {
 		
-		PrintWriter out = response.getWriter();
-		
-		String userEmail = request.getParameter("userEmail");
-		//String userEmail = "vwtkbiseo@gmail.com";
+		//String userEmail = request.getParameter("param");
+		String userEmail = "vwtkbiseo@gmail.com";
 	 	
 		String title = "OC에서 보내는 회원가입 인증 메일입니다.";
-		String randomKey = RandomNum();
-		String contents = "인증번호는 " + randomKey + "입니다.";
+		String contents = "인증번호는 " + RandomNum() + "입니다.";
 		
-		RandomDTO dto = new RandomDTO();
-		dto.setUserEmail(userEmail);
-		dto.setRandomKey(randomKey);
-		Connection conn = DAO.connect();
-		RandomDAO.getInstance().insert(conn, dto);
-		DAO.disconnect(conn);
+		
 
 		String host = "smtp.gmail.com";
 		final String user = "yedam8246";
@@ -74,17 +52,13 @@ public class EmailCheck implements Command {
 
 			// send the message
 			Transport.send(message);
-			n = 1; //성공했다
-			out.print(n);
+			System.out.println("message sent successfully...");
 
 		} catch (MessagingException e) {
 			e.printStackTrace();
-			n = 2; //실패했다.
-			out.print(n);
 		}
 
 	}
-	
 	public static String RandomNum() {
 		StringBuffer buffer = new StringBuffer();
 		for(int i=0; i<=6; i++) {
@@ -93,5 +67,5 @@ public class EmailCheck implements Command {
 		}
 		return buffer.toString();
 	}
-	
+
 }

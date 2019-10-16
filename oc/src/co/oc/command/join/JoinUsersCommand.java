@@ -22,6 +22,7 @@ public class JoinUsersCommand implements Command {
 		// TODO Auto-generated method stub
 				UserDTO dto = new UserDTO();
 				UserDAO dao = new UserDAO();
+				System.out.println("aaa");
 				String path = null;
 				dto.setUserEmail(request.getParameter("userEmail"));
 				dto.setUserPw(request.getParameter("userPw"));

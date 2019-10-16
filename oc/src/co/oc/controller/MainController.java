@@ -29,6 +29,7 @@ import co.oc.command.join.LoginFormCommand;
 import co.oc.command.join.LogoutCommand;
 import co.oc.command.join.NickcheckCommand;
 import co.oc.command.join.PWFindCommand;
+import co.oc.command.join.RanNumCheck;
 import co.oc.command.join.StoreNickCheck;
 import co.oc.command.manager.AddReadComm;
 import co.oc.command.manager.AdminStoreChangeComm;
@@ -99,6 +100,7 @@ public class MainController extends HttpServlet {
 		map.put("/logout.do", new LogoutCommand()); // 로그아웃
 		map.put("/list.do", new BorderListCommand()); // 문의글리스트보기
 		map.put("/writeForm.do", new WriteForm()); // 문의 답변폼으로가기
+		map.put("/answer.do", new AnswerCommand()); //답변 달기
 		map.put("/borderRead.do", new BorderReadCommand()); // 문의글 상세보기
 		map.put("/userlist.do", new UserList()); // 유저 리스트 출력
 //		map.put("/userRead.do", new UserRead());
@@ -106,7 +108,6 @@ public class MainController extends HttpServlet {
 		map.put("/userdelete.do", new UserDelete()); // 유저삭제
 		map.put("/storeNickCheck.do", new StoreNickCheck()); // 스토어 이름 중복체크
 		map.put("/index.do", new Homego()); //홈화면가기
-		map.put("/answer.do", new AnswerCommand()); //답변폼가기
 		map.put("/idfind.do", new IDFindCommand()); //아이디찾기
 		map.put("/findform.do", new FindFormCommand());// ID/PW 선택폼
 		map.put("/idfindform", new IDFindFormCommand()); //ID 폼
@@ -114,6 +115,7 @@ public class MainController extends HttpServlet {
 		map.put("/gopwform.do", new GoFindPW()); //패스워드 찾기폼
 		map.put("/pwfind.do", new PWFindCommand()); //패스워드 찾는 코맨드
 		map.put("/emailCheck.do", new EmailCheck()); //이메일 인증메일발송
+		map.put("/ranNumCheck.do", new RanNumCheck()); //이메일 인증 번호 체크
 
 		// 백승진
 		map.put("/ajaxOpenStore.do", new AjaxOpenStoreCommand());
