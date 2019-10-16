@@ -5,6 +5,10 @@
 <head>
 <link rel="stylesheet" type="text/css" href="selectvar.css" />
 <title>CEO회원가입 페이지</title>
+<script
+	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9e415eb9e7187154cd9c6308c036f0a6&libraries=services,clusterer"></script>
 <script type="text/javascript">
 	function idCheck() {
 		var chkId = document.frm.userEmail;
@@ -121,14 +125,14 @@
 					</div>
 					<h3 style="text-align: center;">가게등록</h3>
 					<div class="form-group">
-					<div class="col-sm-8" style="padding: 0px">
-						<input type="text" class="form-control" placeholder="가게이름"
-							id="storeName" name="storeName">
-					</div>
-					<div class="col-sm-4">
-						<input type="button" class="btn btn-primary form-control"
-							onclick="storeCheck()" value="중복체크">
-					</div>
+						<div class="col-sm-8" style="padding: 0px">
+							<input type="text" class="form-control" placeholder="가게이름"
+								id="storeName" name="storeName">
+						</div>
+						<div class="col-sm-4">
+							<input type="button" class="btn btn-primary form-control"
+								onclick="storeCheck()" value="중복체크">
+						</div>
 					</div>
 					<div class="form-group">
 						<input type="text" class="form-control" placeholder="주소"

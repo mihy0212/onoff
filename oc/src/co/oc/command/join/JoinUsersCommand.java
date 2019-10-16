@@ -28,6 +28,8 @@ public class JoinUsersCommand implements Command {
 				dto.setUserName(request.getParameter("userName"));
 				dto.setUserNick(request.getParameter("userNickname"));
 				dto.setUserAddr(request.getParameter("userAddr"));
+				dto.setUserXy(request.getParameter("xy"));
+				System.out.println(dto.getUserXy());
 				Connection conn = DAO.connect();
 				int n = dao.insert(conn, dto);
 				DAO.disconnect(conn);
