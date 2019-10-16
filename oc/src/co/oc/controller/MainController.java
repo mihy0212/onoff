@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import co.oc.command.Command;
 import co.oc.command.join.CeoInsertCommand;
+import co.oc.command.join.EmailCheck;
 import co.oc.command.join.FindFormCommand;
 import co.oc.command.join.GoFindPW;
 import co.oc.command.join.GoidfindCommand;
@@ -112,6 +113,7 @@ public class MainController extends HttpServlet {
 		map.put("/goidfindtest.do", new GoidfindCommand()); //아이디찾기 폼
 		map.put("/gopwform.do", new GoFindPW()); //패스워드 찾기폼
 		map.put("/pwfind.do", new PWFindCommand()); //패스워드 찾는 코맨드
+		map.put("/emailCheck.do", new EmailCheck()); //이메일 인증메일발송
 
 		// 백승진
 		map.put("/ajaxOpenStore.do", new AjaxOpenStoreCommand());
