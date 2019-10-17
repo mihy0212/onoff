@@ -44,10 +44,10 @@
 			return false;
 		}
 		
-		if( $('#chk_email').val() != "chk"){
+		/* if( $('#chk_email').val() != "chk"){
 			alert("이메일 인증을 해 주세요.");
 			return false;
-		}
+		} */
 		if( $('#userPw').val() == "" ){
 			alert("비밀번호를 입력해 주세요.");
 			return false;
