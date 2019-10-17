@@ -28,11 +28,11 @@
 	<div id="dv" align="center">
 		<div class="map_wrap">
 			<div id="map" style="position: relative; overflow: hidden;"></div>
-
 			<div id="menu_wrap" class="bg_white">
 				<hr>
-				<ul id="placesList"></ul>
-				<div id="pagination"></div>
+				<ul id="placesList">
+					<li>검색 결과 없음</li>
+				</ul>
 			</div>
 		</div>
 	</div>

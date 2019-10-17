@@ -24,6 +24,7 @@ var bounds;
 var menuEl;
 
 window.onload = function() {
+	favoriteDBPlaces();
 	bounds = new kakao.maps.LatLngBounds();
 	menuEl = document.getElementById('menu_wrap');
 	listEl = document.getElementById('placesList');
@@ -529,16 +530,13 @@ function removeMarker() {
 	markers = [];
 }
 
-var callback = function(result, status, pagination) {
+var callback = function(result, status) {
 	if (status === kakao.maps.services.Status.OK) {
 
 		displayKakao(result);
 
-		displayPagination(pagination);
-
 	} else if (status === kakao.maps.services.Status.ZERO_RESULT) {
 
-		alert('검색 결과가 존재하지 않습니다.');
 		return;
 
 	} else if (status === kakao.maps.services.Status.ERROR) {
@@ -555,8 +553,6 @@ function displayKakao(places) {
 	// .createDocumentFragment(), bounds = new kakao.maps.LatLngBounds(),
 	// listStr = '';
 	// 검색 결과 목록에 추가된 항목들을 제거합니다
-	removeAllChildNods(listEl);
-
 	for (var i = 0; i < places.length; i++) {
 
 		// 마커를 생성하고 지도에 표시합니다
@@ -569,7 +565,7 @@ function displayKakao(places) {
 
 		// 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
 		// LatLngBounds 객체에 좌표를 추가합니다
-		bounds.extend(placePosition);
+//		bounds.extend(placePosition);
 
 		// 마커와 검색결과 항목에 mouseover 했을때
 		// 해당 장소에 인포윈도우에 장소명을 표시합니다
@@ -599,11 +595,9 @@ function displayKakao(places) {
 	}
 
 	// 검색결과 항목들을 검색결과 목록 Elemnet에 추가합니다
-	listEl.appendChild(fragment);
-	menuEl.scrollTop = 0;
 
 	// 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
-	map.setBounds(bounds);
+//	map.setBounds(bounds);
 }
 
 function getListItem(index, DBSearchResult) {
@@ -730,6 +724,8 @@ var keyword;
 
 // 전체적인 검색 리스트
 function searchLocation() {
+	removeAllChildNods(listEl);
+
 	keyword = $('#keyword').val();
 
 	var center = map.getCenter();
@@ -738,10 +734,10 @@ function searchLocation() {
 
 	searchDBPlaces();
 
-	// ps.keywordSearch(keyword, callback, {
-	// category_group_code : 'FD6',
-	// location : center
-	// });
+	ps.keywordSearch(keyword, callback, {
+		category_group_code : 'FD6',
+		location : center
+	});
 }
 
 function checkDBPlaces() {
@@ -855,7 +851,6 @@ function favoriteDBPlaces() {
 
 			DBFavorites = data;
 
-			checkDBPlaces();
 		},
 		error : function(xhr, status, error) {
 			console.log(error);
@@ -878,7 +873,7 @@ function searchDBPlaces() {
 
 			console.log(DBSearchResult);
 
-			favoriteDBPlaces();
+			checkDBPlaces();
 		},
 		error : function(xhr, status, error) {
 			console.log(error);
