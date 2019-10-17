@@ -3,6 +3,7 @@ package co.oc.command.menu;
 import java.io.IOException;
 import java.sql.Connection;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,9 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import co.oc.command.Command;
 import co.oc.dao.AskDAO;
 import co.oc.dao.DAO;
-import co.oc.dao.ReviewDAO;
 import co.oc.dto.AskDTO;
-import co.oc.dto.ReviewDTO;
 
 public class UpdateMyAskComm implements Command {
 
@@ -26,16 +25,24 @@ public class UpdateMyAskComm implements Command {
 		dto.setAskNum(request.getParameter("askNum"));
 		dto.setAskContent(request.getParameter("askContent"));
 		dto.setAskTitle(request.getParameter("askTitle"));
+		int n=	AskDAO.getInstance().update(conn, dto);
 		
-		AskDAO.getInstance().update(conn, dto);
-		// 접속 해제
-		
-		response.sendRedirect("myAsklist.do");
+		String path = null;
+
+		// 성공하면 
+		if (n != 0) {
+			path = "myAskRead.do";
+		}
+		// 실패하면
+		else {
+			path = "myaskupForm.do";
+		}
+		RequestDispatcher dispatcher = request.getRequestDispatcher(path);
+		dispatcher.forward(request, response);
 		DAO.disconnect(conn);
-		/*
-		 * RequestDispatcher dispatcher = request.getRequestDispatcher("myfavorite.do");
-		 * dispatcher.forward(request, response);
-		 */
+		
+		 
+		 
 	}
 
 }

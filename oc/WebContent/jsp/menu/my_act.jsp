@@ -270,63 +270,33 @@
 
 			if( $(this).attr('id') == 'categ_all'){
 				categNum = "all";
-				location.href = "myfavorite.do";
-				
-			}else if( $(this).attr('id') == 'categ2_01'){
-				categNum = "01";
-				location.href = "myfavorite.do?storeCateg2=" + categNum;
-				
-			/* }else if( $(this).attr('id') == 'categ2_02'){
+				location.href = "myfavorite.do";	
+			 }else if( $(this).attr('id') == 'categ2_02'){
 				categNum = "02";
 				location.href = "myfavorite.do?storeCateg2=" + categNum;	
-				 */
-			}else if( $(this).attr('id') == 'categ02_3_01'){
+				
+			}else if( $(this).attr('id') == 'categ3_01'){
 				categNum = "01";
-				location.href = "myfavorite.do?storeCateg2=01 storeCateg3=" + categNum;
-			} else if( $(this).attr('id') == 'categ02_3_02'){
+				location.href = "myfavorite.do?storeCateg3=" + categNum;
+			} else if( $(this).attr('id') == 'categ3_02'){
 				categNum = "02";
-				location.href = "myfavorite.do?storeCateg2=01 storeCateg3=" + categNum;
-			} else if( $(this).attr('id') == 'categ02_3_03'){
+				location.href = "myfavorite.do?storeCateg3=" + categNum;
+			} else if( $(this).attr('id') == 'categ3_03'){
 				categNum = "03";
-				location.href = "myfavorite.do?storeCateg2=01 storeCateg3=" + categNum;
-			} else if( $(this).attr('id') == 'categ02_3_04'){
+				location.href = "myfavorite.do?storeCateg3=" + categNum;
+			} else if( $(this).attr('id') == 'categ3_04'){
 				categNum = "04";
-				location.href = "myfavorite.do?storeCateg2=01 storeCateg3=" + categNum;
-			}else if( $(this).attr('id') == 'categ02_3_05'){
+				location.href = "myfavorite.do?storeCateg3=" + categNum;
+			}else if( $(this).attr('id') == 'categ3_05'){
 				categNum = "05";
-				location.href = "myfavorite.do?storeCateg2=01 storeCateg3=" + categNum;
-			}else if( $(this).attr('id') == 'categ02_3_06'){
+				location.href = "myfavorite.do?storeCateg3=" + categNum;
+			}else if( $(this).attr('id') == 'categ3_06'){
 				categNum = "06";
 				location.href = "myfavorite.do?storeCateg2=01 storeCateg3=" + categNum;
 			}
 		});
 		
 });	
-/*  hide. */	
-	/*  $(function (){
-		$("#categ_all").mouseover(function (){
-		  	$("#catego2").show();
-	    });
-
-		$("#categ2_01").mouseover(function (){
-	  	  $("#catego3").show();
-	    });
-
-		$("#categ2_02").mouseover(function (){
-	  		$("#catego3").show();
-	    });
-	 	$("#categ_all").mouseout(function (){
-		  	$("#catego2").hide();
-	    });
-
-		$("#categ2_01").mouseout(function (){
-	  	  $("#catego3").hide();
-	    });
-
-		$("#categ2_02").mouseout(function (){
-	  		$("#catego3").hide();
-	    }); 
-	 }); */
 
 	
 	//리뷰에서 별점 표시하기
@@ -429,29 +399,17 @@ select {
 
 				<div class="col-md-8">
 						<div class="filters-button-group text-right sm-text-center" id="test">
+						<br><br><br>
 							<button type="button" class="btn button categ" id="categ_all">all</button>
-								<!-- <div id="catego2" style="display: none;">  --> 
-									<button class="btn button categ"  id="categ2_01" >이동상점</button>
-								 	 <button class="btn button categ" id="categ2_02"  >점포상점</button>
+							<button type="button" class="btn button categ"  id="categ3_01">한식</button>
+										<button type="button" class="btn button categ" id="categ3_02">양식</button>
+										<button type="button" class="btn button categ" id="categ3_03">중식</button>
+										<button type="button" class="btn button categ"  id="categ3_04">일식</button>
+										<button type="button" class="btn button categ"  id="categ3_05">분식</button>
+										<button type="button" class="btn button categ"  id="categ3_06">기타</button>
 								</div>
-								
-								<!-- <div id="catego2_1" style="display: none;">   -->
-								  	<button type="button" class="btn button categ"  id="categ01_3_01">한식</button>
-										<button type="button" class="btn button categ" id="categ01_3_02">양식</button>
-										<button type="button" class="btn button categ" id="categ01_3_03">중식</button>
-										<button type="button" class="btn button categ"  id="categ01_3_04">일식</button>
-										<button type="button" class="btn button categ"  id="categ01_3_05">분식</button>
-										<button type="button" class="btn button categ"  id="categ01_3_06">기타</button>
-								<!-- </div> -->
-								<!-- <div id="catego2_2" style="display: none;">   -->
-								  	<button type="button" class="btn button categ"  id="categ02_3_01">한식</button>
-										<button type="button" class="btn button categ" id="categ02_3_02">양식</button>
-										<button type="button" class="btn button categ" id="categ02_3_03">중식</button>
-										<button type="button" class="btn button categ"  id="categ02_3_04">일식</button>
-										<button type="button" class="btn button categ"  id="categ02_3_05">분식</button>
-										<button type="button" class="btn button categ"  id="categ02_3_06">기타</button>
-								<!-- </div> -->
-						</div>
+								  		
+								</div>
 					</div>
 
 

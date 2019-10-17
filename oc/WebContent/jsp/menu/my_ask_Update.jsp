@@ -63,13 +63,10 @@
 <script type="text/javascript">
 
 
-function removeCheck() {
-	/* var con = confirm("장말 삭제하시겠습니까?");
-	if(con){
-		
-	} */
-	if (confirm("정말 삭제하시겠습니까??") == true) { //확인
-		document.removefrm.submit();
+function upCheck() {
+	
+	if (confirm("정말 수정하시겠습니까??") == true) { //확인
+		document.upfrm.submit();
 	} else { //취소
 		return false;
 	}
@@ -80,12 +77,12 @@ function removeCheck() {
 
 </head>
 <body>
-	<form action="myAskdelecte.do?askNum=${list[0].askNum}"name="removefrm" method="post">
+	<form action="myAskupdate.do?askNum=${list[0].askNum}"name="upfrm" method="post">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-4">
 					<div class="head_title text-left sm-text-center wow fadeInDown">
-						<h2>관리자 1:1문의 </h2>
+						<h2>관리자 1:1문의 목록</h2>
 					</div>
 				</div>
 				<div>
@@ -94,23 +91,9 @@ function removeCheck() {
 						<thead>
 							<tr>
 								<th style="background-color: #eeeeee; text-align: center;">제목</th>
-								<td  colspan="5" align="center">${list[0].askTitle }</td>
-								<th width="80" style="background-color: #eeeeee; text-align: center;">답변상태</th>
-								<td width="100" align="center">
-										<c:choose>
-											<c:when test="${list[0].askStatus=='1'}">
-											<p>답변 대기 중</p>
-											</c:when>
-											<c:when test="${list[0].askStatus=='2'}">
-											<p>답변 완료 </p>
-											</c:when>
-											<c:when test="${list[0].askStatus=='4'}">
-											<p>답변 보류</p>
-											</c:when>
-										</c:choose>
-										</td>
+								<td  colspan="5" align="center">${{list[0].askTitle }</td>
 								<th width="80" style="background-color: #eeeeee; text-align: center;">작성일</th>
-								<td width="100" align="center">${list[0].askDate}</td>
+								<td width="100" align="center">${{list[0].askDate}</td>
 							</tr>
 						</thead>
 						<tr id="askContent">
@@ -120,28 +103,10 @@ function removeCheck() {
 					</table>
 				</div>
 				<br />
-				<c:if test="${list[0].askStatus =='2'}">
-					<div align="center">
-						<table class="table table-striped"
-							style="text-align: center; border: 1px solid #dddddd">
-							<tr>
-								<th style="background-color: #eeeeee; text-align: center;">답변제목</th>
-								<td colspan="5" width="800" align="center">${list[1].askTitle }</td>
-							</tr>
-							<tr>
-								<th style="background-color: #eeeeee; text-align: center;">답변내용</th>
-								<td colspan="5" width="800" align="center">${list[1].askContent }</td>
-							</tr>
-						</table>
-					</div>
-				</c:if>
-				<br />
 			<div align="center">
-					<%-- <c:if test="${ list[0].askStatus=='2' || list[0].askStatus=='4'} ">   --%>
-							<input type="button"  id="btn_update" value="글수정" onclick="location.href='myAskupdate.do?askNum=${dto.askNum}'"  style="background-color: rgb(253,220,87); color: black;  border-style: solid; border-color:rgb(253,220,87); width:55pt;height:25pt; border-radius: 5px;">&nbsp;&nbsp; 
-							<input type="button"  id="btn_delete"  value="삭제" onclick="removeCheck()"  style="background-color: rgb(253,220,87); color: black;  border-style: solid; border-color:rgb(253,220,87); width:55pt;height:25pt; border-radius: 5px;">
-							<input type="button" value="목록으로" style="background-color: rgb(253,220,87); color: black;  border-style: solid; border-color:rgb(253,220,87); width:55pt;height:25pt; border-radius: 5px;" onclick="location.href='myAsklist.do'">
-						</div>
+							<input type="button"  id="btn_delete"  value="변경" onclick="upCheck()" style="background-color: rgb(253,220,87); color: black;  border-style: solid; border-color:rgb(253,220,87); width:55pt;height:25pt; border-radius: 5px;">
+							<input type="reset" value="취소" style="background-color: rgb(253,220,87); color: black;  border-style: solid; border-color:rgb(253,220,87); width:55pt;height:25pt; border-radius: 5px;" onclick="location.href='myAsklist.do'">
+			</div>
 			</div>
 		</div>
 	</form>

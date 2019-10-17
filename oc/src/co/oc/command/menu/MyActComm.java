@@ -10,16 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.json.simple.JSONObject;
-
 import co.oc.command.Command;
 import co.oc.dao.DAO;
 import co.oc.dao.FavoriteDAO;
-import co.oc.dao.LikeDAO;
 import co.oc.dao.ReviewDAO;
-import co.oc.dao.StoreDAO;
 import co.oc.dto.FavoriteDTO;
-import co.oc.dto.LikeDTO;
 import co.oc.dto.ReviewDTO;
 
 public class MyActComm implements Command {

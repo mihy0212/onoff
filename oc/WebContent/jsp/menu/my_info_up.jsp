@@ -48,21 +48,8 @@
             return false;
          }else
             inval_Arr[7] = true;
-      
          return true;
-         //전체 유효성 검사
-  /*        var validAll = true;
-         for(var i = 0; i < inval_Arr.length; i++){
-            if(inval_Arr[i] == false){
-               validAll = false;
-            }
-         } */
-        /*  if(validAll == true){ // 유효성 모두 통과
-            alert('정보수정이 완료되었습니다.');      
-         } else{
-            alert('정보를 다시 확인하세요.')
-         } */
-       });//su
+       });
      
      
    $('#userPw').blur(function() {

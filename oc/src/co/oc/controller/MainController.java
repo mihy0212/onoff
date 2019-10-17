@@ -52,6 +52,7 @@ import co.oc.command.menu.DeldectMyReiviewComm;
 import co.oc.command.menu.MyActComm;
 import co.oc.command.menu.MyAskListComm;
 import co.oc.command.menu.MyAskRead;
+import co.oc.command.menu.MyAskUpFormComm;
 import co.oc.command.menu.MyAskWriteComm;
 import co.oc.command.menu.MyaskDeleteComm;
 import co.oc.command.menu.MyinfoComm;
@@ -144,7 +145,8 @@ public class MainController extends HttpServlet {
 		map.put("/myAskWrite.do", new MyAskWriteComm());// 문의리스트
 		map.put("/myAsklist.do", new MyAskListComm());// 문의리스트
 		map.put("/myAskRead.do", new MyAskRead());// 문의읽기
-		map.put("/updateMyAsk.do", new UpdateMyAskComm());// 문의수정
+		map.put("/myaskupForm.do", new MyAskUpFormComm());// formjsp로 이동
+		map.put("/myAskupdate.do", new UpdateMyAskComm());// 문의수정
 		map.put("/myAskdelecte.do", new MyaskDeleteComm());// 문의삭제
 
 	}
