@@ -28,7 +28,10 @@ function opener_insert(){
 <style>
 .inputxt{
 	width:100%;
-	
+	border:2px;
+	border-color:gray;
+	border-radius: 8px;
+	font-size: 12px;
 }
 </style>
 </head>

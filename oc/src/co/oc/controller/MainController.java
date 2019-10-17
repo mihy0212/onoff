@@ -40,14 +40,15 @@ import co.oc.command.manager.BorderListCommand;
 import co.oc.command.manager.BorderReadCommand;
 import co.oc.command.manager.UserDelete;
 import co.oc.command.manager.UserList;
-import co.oc.command.manager.WriteForm;
-import co.oc.command.map.AjaxFavoriteStoreCommand;
 import co.oc.command.map.AjaxCloseStoreCommand;
+import co.oc.command.map.AjaxFavoriteStoreCommand;
 import co.oc.command.map.AjaxOpenStoreCommand;
 import co.oc.command.map.SearchCommand;
 import co.oc.command.map.StoreCloseCommand;
 import co.oc.command.map.StoreOpenCommand;
 import co.oc.command.map.StoreStateCommand;
+import co.oc.command.map.TestUploadCommand;
+import co.oc.command.map.TestUploadForm;
 import co.oc.command.menu.DeldectMyReiviewComm;
 import co.oc.command.menu.MyActComm;
 import co.oc.command.menu.MyAskListComm;
@@ -101,23 +102,22 @@ public class MainController extends HttpServlet {
 		map.put("/login.do", new LoginCheckCommand()); // 로그인 정보 DB에확인 후 로그인
 		map.put("/logout.do", new LogoutCommand()); // 로그아웃
 		map.put("/list.do", new BorderListCommand()); // 문의글리스트보기
-		map.put("/writeForm.do", new WriteForm()); // 문의 답변폼으로가기
-		map.put("/answer.do", new AnswerCommand()); //답변 달기
+		map.put("/answer.do", new AnswerCommand()); // 답변 달기
 		map.put("/borderRead.do", new BorderReadCommand()); // 문의글 상세보기
 		map.put("/userlist.do", new UserList()); // 유저 리스트 출력
 //		map.put("/userRead.do", new UserRead());
 		map.put("/borderdelete.do", new BorderDelete()); // 문의글 삭제
 		map.put("/userdelete.do", new UserDelete()); // 유저삭제
 		map.put("/storeNickCheck.do", new StoreNickCheck()); // 스토어 이름 중복체크
-		map.put("/index.do", new Homego()); //홈화면가기
-		map.put("/idfind.do", new IDFindCommand()); //아이디찾기
+		map.put("/index.do", new Homego()); // 홈화면가기
+		map.put("/idfind.do", new IDFindCommand()); // 아이디찾기
 		map.put("/findform.do", new FindFormCommand());// ID/PW 선택폼
-		map.put("/idfindform", new IDFindFormCommand()); //ID 폼
-		map.put("/goidfindtest.do", new GoidfindCommand()); //아이디찾기 폼
-		map.put("/gopwform.do", new GoFindPW()); //패스워드 찾기폼
-		map.put("/pwfind.do", new PWFindCommand()); //패스워드 찾는 코맨드
-		map.put("/emailCheck.do", new EmailCheck()); //이메일 인증메일발송
-		map.put("/ranNumCheck.do", new RanNumCheck()); //이메일 인증 번호 체크
+		map.put("/idfindform", new IDFindFormCommand()); // ID 폼
+		map.put("/goidfindtest.do", new GoidfindCommand()); // 아이디찾기 폼
+		map.put("/gopwform.do", new GoFindPW()); // 패스워드 찾기폼
+		map.put("/pwfind.do", new PWFindCommand()); // 패스워드 찾는 코맨드
+		map.put("/emailCheck.do", new EmailCheck()); // 이메일 인증메일발송
+		map.put("/ranNumCheck.do", new RanNumCheck()); // 이메일 인증 번호 체크.
 
 		// 백승진
 		map.put("/ajaxOpenStore.do", new AjaxOpenStoreCommand());
@@ -127,6 +127,8 @@ public class MainController extends HttpServlet {
 		map.put("/storeOpen.do", new StoreOpenCommand());
 		map.put("/storeClose.do", new StoreCloseCommand());
 		map.put("/ajaxFavoriteStore.do", new AjaxFavoriteStoreCommand());
+		map.put("/testUpload.do", new TestUploadCommand());
+		map.put("/testUploadForm.do", new TestUploadForm());
 
 		// 복진영
 		// 마이 메뉴
@@ -140,8 +142,8 @@ public class MainController extends HttpServlet {
 		map.put("/myfavorite.do", new MyActComm());// 즐겨찾기리스트
 		map.put("/updateMyReiview.do", new UpdateMyReiviewComm());// 리뷰수정
 		map.put("/delectMyReiview.do", new DeldectMyReiviewComm());// 리뷰삭제
-		//map.put("/storeInfoChange.do", new StoreInfoChangeComm()); 
-		
+		// map.put("/storeInfoChange.do", new StoreInfoChangeComm());
+
 		map.put("/myAskWrite.do", new MyAskWriteComm());// 문의리스트
 		map.put("/myAsklist.do", new MyAskListComm());// 문의리스트
 		map.put("/myAskRead.do", new MyAskRead());// 문의읽기
