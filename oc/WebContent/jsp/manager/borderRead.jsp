@@ -103,7 +103,7 @@
 	<c:forEach items="${ list }" var="blist">
 		<c:if test="${ blist.askNum != blist.askRe }">
 		
-			<div class="head_title text-left sm-text wow fadeInDown">
+			<br><br><br><br><br><br><div class="head_title text-left sm-text wow fadeInDown">
 				<h2 class="text-uppercase"><strong>관리자의 답변</strong></h2>
 			</div>
 			
