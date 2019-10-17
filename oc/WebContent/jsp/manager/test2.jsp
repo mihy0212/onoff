@@ -38,19 +38,19 @@
 	<br />
 	<h1 align="center">문의</h1>
 	<br />
-	<form name="frm" id="frm" action='borderdelete.do'>
+	<form name="frm" id="frm" method="post" action='borderdelete.do'>
 		<div class="container">
 			<div class="row">
-				<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
+				<table class="table table-striped table-bordered" style="text-align: center; border: 1px solid #dddddd">
 					<thead>
 						<tr>
-							<th width="20" style="background-color: #eeeeee; text-align: center;">답변</th>
-							<th width="20" style="background-color: #eeeeee; text-align: center;">문의번호</th>
-							<th width="100" style="background-color: #eeeeee; text-align: center;">문의제목</th>
+							<th width="10" style="background-color: #eeeeee; text-align: center;">답변</th>
+							<th width="10" style="background-color: #eeeeee; text-align: center;">문의번호</th>
+							<th width="200" style="background-color: #eeeeee; text-align: center;">문의제목</th>
 							<th width="20" style="background-color: #eeeeee; text-align: center;">처리상태</th>
-							<th width="100" style="background-color: #eeeeee; text-align: center;">문의등록일</th>
-							<th width="20" style="background-color: #eeeeee; text-align: center;">문의글로 이동</th>
-							<th width="20" style="background-color: #eeeeee; text-align: center;">선택</th>
+							<th width="80" style="background-color: #eeeeee; text-align: center;">문의등록일</th>
+							<th width="10" style="background-color: #eeeeee; text-align: center;">문의글로 이동</th>
+							<th width="10" style="background-color: #eeeeee; text-align: center;">선택</th>
 						</tr>
 						<!-- db 목록을 가져와서 뿌려주는 곳 -->
 						<c:if test="${list.isEmpty()}">
@@ -64,9 +64,9 @@
 										<c:when test="${dto.askRe==dto.askNum}">
 											<p>문의</p>
 										</c:when>
-										<c:when test="${dto.askRe=!dto.askNum}'">
+										<c:otherwise>
 											<p>답변</p>
-										</c:when>
+										</c:otherwise>
 									</c:choose></td>
 									<td align="center">${dto.askNum }</td>
 								<td align="center">${dto.askTitle }</td>
@@ -85,7 +85,11 @@
 										</c:when>
 									</c:choose></td>
 								<td align="center">${dto.askDate }</td>
-								<td><input type="button" onclick="location.href='borderRead.do?key=${dto.askNum}'" value="이동"></td>
+								<td>
+									<c:if test="${dto.askRe==dto.askNum}">
+										<input type="button" onclick="location.href='borderRead.do?key=${dto.askNum}'" value="이동">											
+									</c:if>
+								</td>
 								<td align="center"><input type="checkbox" name="askNum" value="${dto.askNum}"></td>
 							</tr>
 						</c:forEach>
