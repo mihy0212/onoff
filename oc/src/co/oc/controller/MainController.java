@@ -116,7 +116,7 @@ public class MainController extends HttpServlet {
 		map.put("/gopwform.do", new GoFindPW()); // 패스워드 찾기폼
 		map.put("/pwfind.do", new PWFindCommand()); // 패스워드 찾는 코맨드
 		map.put("/emailCheck.do", new EmailCheck()); // 이메일 인증메일발송
-		map.put("/ranNumCheck.do", new RanNumCheck()); // 이메일 인증 번호 체크
+		map.put("/ranNumCheck.do", new RanNumCheck()); // 이메일 인증 번호 체크.
 
 		// 백승진
 		map.put("/ajaxOpenStore.do", new AjaxOpenStoreCommand());
