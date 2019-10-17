@@ -278,7 +278,7 @@
 			<div class="jumbotron" style="padding-top: 20px;">
 				<h3 style="text-align: center;">회원가입 화면</h3>
 				<br />
-				<form id="frm" name="frm" method="post" action="join_ceo.do" class="form-horizontal">
+				<form id="frm" name="frm" method="post" action="join_ceo.do" class="form-horizontal"  enctype="multipart/form-data">
 					<div class="form-group">
 						<div class="col-sm-12" style="padding: 0px">
 							<input type="text" class="form-control" placeholder="아이디/이메일" id="userEmail" name="userEmail" maxlength="20">
