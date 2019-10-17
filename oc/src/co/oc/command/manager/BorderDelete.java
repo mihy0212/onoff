@@ -19,7 +19,7 @@ public class BorderDelete implements Command {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Connection conn = DAO.connect();
 		String askNum = request.getParameter("askNum");
-		System.out.println("askNum");
+		System.out.println(askNum);
 		AskDAO.getInstance().delete(conn, askNum);
 				
 
