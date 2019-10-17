@@ -22,6 +22,7 @@
 
 		window.open("idCheck.do?userEmail=" + chkId.value, "",
 				"width=500,height=400");
+		 $('#chk_id').val("chk"); 
 	}
 	function NickCheck() {
 		var chkNick = document.frm.userNickname;
@@ -33,9 +34,10 @@
 
 		window.open("NickCheck.do?userNickname=" + chkNick.value, "",
 				"width=500,height=400");
+		 $('#chk_nick').val("chk");
 	}
 	function submitfrm(){
-		/* if($('#userEmail').val() == ""){
+		if($('#userEmail').val() == ""){
 			alert("아이디를 입력하세요.");
 			return false;
 		}
@@ -44,16 +46,12 @@
 			return false;
 		} 
 		
-		/* if( $('#chk_email').val() != "chk"){
+		if( $('#chk_email').val() != "chk"){
 			alert("이메일 인증을 해 주세요.");
 			return false;
-		} */
+		}
 		if( $('#userPw').val() == "" ){
 			alert("비밀번호를 입력해 주세요.");
-			return false;
-		}
-		if( $('#userPwck').val() == "" ){
-			alert("비밀번호 확인해 주세요.");
 			return false;
 		}
 		if( $('#userName').val() == "" ){
@@ -72,14 +70,10 @@
 			alert("가게이름을 입력해 주세요.");
 			return false;
 		}
-		if( $('#chk_storeName').val() != "" ){
-			alert("가게이름을 입력해 주세요.");
+		 if( $('#chk_store').val() != "chk" ){
+			alert("가게이름 중복 체크를 해 주세요.");
 			return false;
 		}
-		 if( $('#chk_store').val() != "chk" ){
-			alert("가게이름을 입력해 주세요.");
-			return false;
-			} */
 		document.frm.submit(); 
 	}
 
@@ -152,6 +146,7 @@
 
 		window.open("storeNickCheck.do?storeName=" + chkstore.value, "",
 				"width=500,height=400");
+		$('#chk_store').val("chk");
 	}
 
 	$(function() {
@@ -404,10 +399,10 @@
 					</select>
 					<div class="form-group">
 						<br /> <input type="text" class="form-control"
-							placeholder="가게라이센스" id="storeLicense" name="storeLicense">
+							placeholder="사업자 등록 번호" id="storeLicense" name="storeLicense">
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" placeholder="유저라이센스"
+						<input type="text" class="form-control" placeholder="주민 등록 번호"
 							id="user_license" name="userLicense">
 					</div>
 

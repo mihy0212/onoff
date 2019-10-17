@@ -141,6 +141,9 @@ td{
 </style>
 </head>
 <body data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
+
+<c:if test="${ userGrant == 'S' }">
+
 <div style="padding-top: 50px"></div>
 
 <!-- 페이지 전환 효과 -->
@@ -401,7 +404,12 @@ function bdoList(p) {
 <hr />
 <!-- END 리뷰 목록 뿌려주기 -->
 <div style="clear: both;"></div>
-
+</c:if>
+<c:if test="${ userGrant != 'S' }">
+<div align="center">
+	<h2> 관리자만 접근할 수 있는 페이지입니다. </h2>
+</div>
+</c:if>
 
 
 </body>

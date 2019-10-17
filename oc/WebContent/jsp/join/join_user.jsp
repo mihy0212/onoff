@@ -21,10 +21,10 @@
 			return false;
 		}
 		
-		/* if( $('#chk_email').val() != "chk"){
+		if( $('#chk_email').val() != "chk"){
 			alert("이메일 인증을 해 주세요.");
 			return false;
-		} */
+		}
 		if( $('#userPw').val() == "" ){
 			alert("비밀번호를 입력해 주세요.");
 			return false;
@@ -57,7 +57,9 @@
 		}
 		
 		window.open("idCheck.do?userEmail="+chkId.value,"","width=500,height=400");
+		$('#chk_id').val("chk");
 	}
+	
 	function NickCheck() {
 		var chkNick = document.frm.userNickname;
 		if(chkNick.value == "") {
@@ -65,8 +67,8 @@
 			chkNick.focus();
 			return false;
 		}
-		
 		window.open("NickCheck.do?userNickname="+chkNick.value,"","width=500,height=400");
+		 $('#chk_nick').val("chk");
 	}
 
 	

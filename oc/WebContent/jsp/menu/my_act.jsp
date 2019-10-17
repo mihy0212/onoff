@@ -11,15 +11,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!--Google Font link-->
-<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
-	rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Kaushan+Script"
-	rel="stylesheet">
-<link
-	href="https://fonts.googleapis.com/css?family=Droid+Serif:400,400i,700,700i"
-	rel="stylesheet">
-<link
-	href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,400i,700,700i" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
 
 
@@ -81,173 +76,16 @@
 
 	
 	$(document).ready(function() {
-		
-		//리뷰 삭제
-		$('.review_list').on('click', '.btn_delete', function(){
-			var parentDiv = $(this).parent().parent();
-			var reviewNum = parentDiv.children().eq(0).val();
 
-			var con = confirm("정말 삭제하시겠습니까?");
-			if(con){
-				$.ajax({
-					url: "delectMyReiview.do",
-					data: { reviewNum: reviewNum
-					},
-					dataType: "json",
-					success: function(result){
-						if(result != 0){
-							parentDiv.remove();
-						} else {
-							alert("리뷰를 삭제하지 못했습니다.")
-						}
-					}
-				});
-			}
-			
-		});
-		
-		
-		//리뷰 수정1
-		$('.btn_update').on('click', function(){
-			var parentDiv = $(this).parent().parent();
-			var reviewNum = parentDiv.children().eq(0).val();
-			
-			//리뷰 내용
-			var blockquote1 = parentDiv.children().eq(3).children().eq(0);
-			var con1 = blockquote1.children().last().text();
-			var con2 = con1.substring(0,con1.length-15);
-			
-			//별 갯수
-			var starNum = 0;
-			for(var i=0; i<5; i++){
-				if(blockquote1.children().eq(i).text() == "★"){
-					starNum += 1;
-				}
-			}
-
-			blockquote1.hide();//blockquote 숨김처리
-			var span_star = $('<blockquote>');
-			if( parentDiv.attr('class') == 'choose_item_text fix div_content_user'){
-				var i=1;
-				for(; i<=starNum; i++){
-					span_star.append( $('<span>').attr({'class':'reviewStars update_star'+reviewNum, 'id':'star'+i, 'style':'color:yellow;'}).text("★") );
-				}
-				for(; i<=5; i++){
-					span_star.append( $('<span>').attr({'class':'reviewStars update_star'+reviewNum, 'id':'star'+i, 'style':'color:gray;'}).text("★") );
-				}
-			}
-			span_star.append( $('<textarea>').attr({'cols':'73', 'rows':'3'}).val(con2) );
-			parentDiv.children().eq(3).append(span_star);
-			
-			//버튼 변경
-			parentDiv.children().eq(4).children().eq(0).hide();
-			parentDiv.children().eq(4).children().eq(1).hide();
-			parentDiv.children().eq(4).append(
-					$('<button>').attr({'type':'button', 'class':'btn button is-checked'}).text('변경').click(review_update),
-					$('<button>').attr({'type':'button', 'class':'btn button is-checked'}).text('취소').click(review_up_cancle)
-			);
-			
-		});
-
-		
-		//리뷰 수정2
-		function review_update(){
-			var thisbtn = $(this);
-			var divParent = $(this).parent().parent();
-			var reviewNum = divParent.children().eq(0).val();
-			var blockquote1 = divParent.children().eq(3).children().eq(0);
-			var blockquote2 = divParent.children().eq(3).children().eq(1);
-			var starNum = 0;
-			for(var i=0; i<$('.update_star'+reviewNum).length; i++){
-				if($('.update_star'+reviewNum).eq(i).css("color") == "rgb(255, 255, 0)"){
-					starNum = i+1;
-				}
-			}
-			var reviewContent = blockquote2.children().eq(5).val();
-			if(starNum == 0 && divParent.attr('class') == 'choose_item_text fix div_content_user'){
-				alert("별점을 입력해 주세요.");
-				return false;
-			}
-			if(reviewContent == ""){
-				alert("리뷰 내용을 입력해 주세요.");
-				return false;
-			}
-			var con = confirm("입력한 내용으로 리뷰를 변경하시겠습니까?");
-			if(con){
-				$.ajax({
-					url: "updateMyReiview.do",
-					type: "post",
-					data: {
-						storeNum: "${ alist.storeNum }",
-						reviewNum: reviewNum,
-						reviewStar: starNum,
-						reviewContent: reviewContent
-					},
-					dataType: "json",
-					success: function(result){
-						if(result.n != 0){
-							alert("리뷰 변경에 성공했습니다.");
-
-							var blockquote3 = $('<blockquote>');
-							for(var i=1; i<=starNum; i++){
-								blockquote3.append( $('<font>').attr({'class':'reviewStarsYellow star_up'+reviewNum}).text("★") );
-							}
-							var today_date = new Date().toISOString().substring(0,10);
-							blockquote3.append( $('<p>').attr({'class':'pre_css'}).html(reviewContent + " &nbsp;&nbsp;&nbsp;(" + today_date + ")") );
-							divParent.children().eq(3).append(blockquote3);
-							blockquote1.remove();
-							blockquote2.remove();
-							
-							//버튼 변경
-							divParent.children().eq(4).children().eq(0).show();
-							divParent.children().eq(4).children().eq(1).show();
-							divParent.children().eq(4).children().eq(3).remove();
-							divParent.children().eq(4).children().eq(2).remove();
-							
-							//가게 총 별점 변경
-							var stars_c = $('#star').children().eq(5).children().eq(0).text(result.stars.toFixed(1));
-							for(var i=0; i<Math.round(stars_c); i++){
-								$('#star').children().eq(i).attr('class','btn button is-checked');
-							}
-
-						} else {
-							alert("리뷰 변경에 실패했습니다.");
-						}
-					}
-				});
-			}
-		}
-
-		//리뷰 수정 취소
-		function review_up_cancle(){
-			var divParent = $(this).parent().parent();
-			console.log(divParent);
-			var blockquote1 = divParent.children().eq(3).children().eq(0);
-			var blockquote2 = divParent.children().eq(3).children().eq(1);
-			blockquote1.show();
-			blockquote2.remove();
-			divParent.children().eq(4).children().eq(0).show();
-			divParent.children().eq(4).children().eq(1).show();
-			divParent.children().eq(4).children().eq(2).remove();
-			divParent.children().eq(4).children().eq(3).remove();
-			divParent.children().eq(4).children().eq(2).remove();
-		}
-
-		
-		
-		//카테고리1 출력하기
+		//카테고리 출력
 		if($('.categ1').text("01")){
 			$('.categ1').text("음식")
 		}
-		
-		//카테고리2 출력하기
 		if($('.categ2').text("01")){
 			$('.categ2').text("점포");
 		} else if($('.categ2').text("02")){
 			$('.categ2').text("이동");
 		}
-		
-		//카테고리3 출력하기
 		if($('.categ3').text("01")){
 			$('.categ3').text("한식");
 		} else if($('.categ3').text("02")){
@@ -296,27 +134,159 @@
 			}
 		});
 		
-});	
+		
+		//리뷰 삭제
+		$('.review_list').on('click', '.btn_delete', function(){
+			var parentDiv = $(this).parent().parent();
+			var reviewNum = parentDiv.children().eq(0).val();
 
-	
-	//리뷰에서 별점 표시하기
-	var star_num;
-	$('.reviewStars').on('click', function(){
-		star_num = $(this).attr('id').substring(4,5);
-		if($(this).css("color")=="rgb(128, 128, 128)"){
-			for(var i=1; i<=star_num; i++){
-				var starNum = "star"+i;
-				$('#'+starNum).css("color","yellow");
+			var con = confirm("정말 삭제하시겠습니까?");
+			if(con){
+				$.ajax({
+					url: "delectMyReiview.do",
+					data: {
+						reviewNum: reviewNum
+					},
+					dataType: "json",
+					success: function(result){
+						if(result != 0){
+							parentDiv.remove();
+						} else {
+							alert("리뷰를 삭제하지 못했습니다.")
+						}
+					}
+				});
 			}
-		} else {
-			for(var i=5; i>=star_num; i--){
-				var starNum = "star"+i;
-				$('#'+starNum).css("color","gray");
+		});
+		
+		//리뷰에서 별점 표시하기
+		var star_num;
+		$('.review_list_div').on('click', '.reviewStars', function(){
+			star_num = $(this).attr('id').substring(4,5);
+			if($(this).css("color")=="rgb(128, 128, 128)"){
+				for(var i=0; i<star_num; i++){
+					$(this).parent().children().eq(i).css("color","yellow");
+				}
+			} else {
+				for(var i=5; i>=star_num; i--){
+					$(this).parent().children().eq(i).css("color","gray");
+				}
+			}
+		});
+		
+		//리뷰 수정1
+		$('.btn_update').on('click', function(){
+			var parentDiv = $(this).parent().parent();
+			var reviewNum = parentDiv.children().eq(0).val();
+			var blockquote1 = parentDiv.children().eq(3).children().eq(0);
+			var con1 = blockquote1.children().last().text();
+			var con2 = con1.substring(0,con1.length-15);
+			var starNum = 0;
+			for(var i=0; i<5; i++){
+				if(blockquote1.children().eq(i).text() == "★"){
+					starNum += 1;
+				}
+			}
+			blockquote1.hide();
+			var span_star = $('<blockquote>');
+			if( parentDiv.attr('class') == 'choose_item_text fix div_content_user'){
+				var i=1;
+				for(; i<=starNum; i++){
+					span_star.append( $('<span>').attr({'class':'reviewStars update_star'+reviewNum, 'id':'star'+i, 'style':'color:yellow;'}).text("★") );
+				}
+				for(; i<=5; i++){
+					span_star.append( $('<span>').attr({'class':'reviewStars update_star'+reviewNum, 'id':'star'+i, 'style':'color:gray;'}).text("★") );
+				}
+			}
+			span_star.append( $('<textarea>').attr({'cols':'73', 'rows':'3'}).val(con2) );
+			parentDiv.children().eq(3).append(span_star);
+			parentDiv.children().eq(4).children().eq(0).hide();
+			parentDiv.children().eq(4).children().eq(1).hide();
+			parentDiv.children().eq(4).append(
+					$('<button>').attr({'type':'button', 'class':'btn button is-checked'}).text('변경').click(review_update),
+					$('<button>').attr({'type':'button', 'class':'btn button is-checked'}).text('취소').click(review_up_cancle)
+			);
+		});
+		
+});	
+	
+	//리뷰 수정2
+	function review_update(){
+		var thisbtn = $(this);
+		var divParent = $(this).parent().parent();
+		var reviewNum = divParent.children().eq(0).val();
+		var blockquote1 = divParent.children().eq(3).children().eq(0);
+		var blockquote2 = divParent.children().eq(3).children().eq(1);
+		var starNum = 0;
+		for(var i=0; i<$('.update_star'+reviewNum).length; i++){
+			if($('.update_star'+reviewNum).eq(i).css("color") == "rgb(255, 255, 0)"){
+				starNum = i+1;
 			}
 		}
-	});
+		var reviewContent = blockquote2.children().eq(5).val();
+		if(starNum == 0 && divParent.attr('class') == 'choose_item_text fix div_content_user'){
+			alert("별점을 입력해 주세요.");
+			return false;
+		}
+		if(reviewContent == ""){
+			alert("리뷰 내용을 입력해 주세요.");
+			return false;
+		}
+		var con = confirm("입력한 내용으로 리뷰를 변경하시겠습니까?");
+		if(con){
+			$.ajax({
+				url: "updateMyReiview.do",
+				type: "post",
+				data: {
+					storeNum: "${ alist.storeNum }",
+					reviewNum: reviewNum,
+					reviewStar: starNum,
+					reviewContent: reviewContent
+				},
+				dataType: "json",
+				success: function(result){
+					if(result.n != 0){
+						alert("리뷰 변경에 성공했습니다.");
+
+						var blockquote3 = $('<blockquote>');
+						for(var i=1; i<=starNum; i++){
+							blockquote3.append( $('<font>').attr({'class':'reviewStarsYellow star_up'+reviewNum}).text("★") );
+						}
+						var today_date = new Date().toISOString().substring(0,10);
+						blockquote3.append( $('<p>').attr({'class':'pre_css'}).html(reviewContent + " &nbsp;&nbsp;&nbsp;(" + today_date + ")") );
+						divParent.children().eq(3).append(blockquote3);
+						blockquote1.remove();
+						blockquote2.remove();
+						divParent.children().eq(4).children().eq(0).show();
+						divParent.children().eq(4).children().eq(1).show();
+						divParent.children().eq(4).children().eq(3).remove();
+						divParent.children().eq(4).children().eq(2).remove();
+						var stars_c = $('#star').children().eq(5).children().eq(0).text(result.stars.toFixed(1));
+						for(var i=0; i<Math.round(stars_c); i++){
+							$('#star').children().eq(i).attr('class','btn button is-checked');
+						}
+					} else {
+						alert("리뷰 변경에 실패했습니다.");
+					}
+				}
+			});
+		}
+	}
 	
-	 
+	//리뷰 수정 취소
+	function review_up_cancle(){
+		var divParent = $(this).parent().parent();
+		console.log(divParent);
+		var blockquote1 = divParent.children().eq(3).children().eq(0);
+		var blockquote2 = divParent.children().eq(3).children().eq(1);
+		blockquote1.show();
+		blockquote2.remove();
+		divParent.children().eq(4).children().eq(0).show();
+		divParent.children().eq(4).children().eq(1).show();
+		divParent.children().eq(4).children().eq(2).remove();
+		divParent.children().eq(4).children().eq(3).remove();
+		divParent.children().eq(4).children().eq(2).remove();
+	}
 </script>
 
 <style>
@@ -386,6 +356,8 @@ select {
 </head>
 
 <body data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
+
+<br><br><br>
 	<section id="features" class="features">
 		<!-- Portfolio container-->
 		<div class="container">
@@ -503,7 +475,7 @@ select {
 					</c:if>
 					
 					<%-- DB 리뷰 목록 --%>
-					<div class="review_list"  >
+					<div class="review_list_div"  >
 						<c:forEach items="${riviewlist }" var="alist" varStatus="status">
 						
 							<c:choose>
@@ -566,7 +538,7 @@ select {
 				
 			
 			<!-- 페이징 -->
-			<div class="col-sm-6" align="center">
+			<div align="center">
 				<div align="center">
 					<ul class="pagination" id="page_num">
 						<li><c:forEach var="i" begin="1" end="${tot}">
@@ -578,7 +550,7 @@ select {
 			</div>
 			</div>
 			
-	</section>
+	</section><br><br><br>
 	<!-- End off test section -->
 	<!--이후 <br>삭제  -->
 

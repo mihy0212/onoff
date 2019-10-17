@@ -267,7 +267,26 @@ td{
 	background-color: #B6CBEA;
 	border-radius: 8px;
 	color: white;
+}
 
+input{
+	box-shadow: none;
+	border: 1px solid white;
+	padding: 5px 8px 5px 8px;
+	background-color: #FDDC57;
+	border-radius: 8px;
+	color: black;
+	font-color: gray;
+	margin: 0 20px 0 0;
+}
+
+input:hover{
+	padding: 5px 8px 5px 8px;
+	background-color: #B6CBEA;
+	border-radius: 8px;
+	color: white;
+	box-shadow: 0 0 0 0;
+}
 
 </style>
 </head>
@@ -285,6 +304,8 @@ td{
 	</div>
 </div>
 <!--페이지 전환 효과 끝 -->
+
+<c:if test="${ userGrant == 'S' }">
 
 <section id="portfolio" class="portfolio margin-top-120">
 <div class="container">
@@ -380,6 +401,14 @@ td{
 </div><!-- END row -->
 </div><!-- END container-->
 </section>
+
+</c:if>
+<c:if test="${ userGrant != 'S' }">
+<div align="center">
+	<br><br><br>
+	<h2> 관리자만 접근할 수 있는 페이지입니다. </h2>
+</div>
+</c:if>
 
 
 </body>

@@ -27,21 +27,54 @@ function opener_insert(){
 </script>
 <style>
 .inputxt{
-	width:100%;
-	border:2px;
-	border-color:gray;
-	border-radius: 8px;
-	font-size: 12px;
+	width:600px;
+	background-color: #6E6E6E;
+	font: 17px yellow;
+	color: yellow;
+	border:2px solid #D8D8D8;
+	border-radius: 4px;
+	margin: 0 0 0.8em 0;
+	padding: 0.3em 0 0.3em 1em;
 }
+
+span{
+	font: 10px #BDBDBD;
+	color: #BDBDBD;
+}
+
+.btn{
+	background-color: #FAEF1F;
+	font-size: 18px;
+	font-weight: bold;
+	color: #E6E6E6;
+	text-shadow:-1px 0 gray,0 1px gray,1px 0 gray,0 -1px gray;
+	border:1px solid #D8D8D8;
+	border-radius: 4px;
+	margin: 1em 1em 0 0;
+	padding: 0.5em 1em 0.5em 1em;
+}
+
+.btn:hover{
+	background-color: white;
+	font-size: 18px;
+	font-weight: bold;
+	text-shadow:-1px 0 gray,0 1px gray,1px 0 gray,0 -1px gray;
+	color: white;
+	border:3px solid #FAEF1F;
+	border-radius: 4px;
+	margin: 1em 1em 0 0;
+	padding: 0.5em 1em 0.5em 1em;
+}
+
 </style>
 </head>
 <body>
-
-<input type="text" class="inputxt storeXy" name="storeXy" id="storeXy" value="" readonly>
-<input type="text" class="inputxt storeAddr" placeholder="주소" id="storeAddr" name="storeAddr" readonly>
-<div id="map" style="width:100%;height:350px;"></div>
-<input type="button" class="btn btn-primary" onclick="opener_insert()" value="확인">
-
+<div align="center">
+	<span>좌표</span>&nbsp;&nbsp;<input type="text" class="inputxt storeXy" name="storeXy" id="storeXy" value="" readonly><br>
+	<span>주소</span>&nbsp;&nbsp;<input type="text" class="inputxt storeAddr" placeholder="주소" id="storeAddr" name="storeAddr" readonly>
+	<div id="map" style="width:670;height:350px;"></div>
+	<input type="button" class="btn" onclick="opener_insert()" value="확인">
+</div>
 
 <script>
 var xy;

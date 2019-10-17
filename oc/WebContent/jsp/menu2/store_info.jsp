@@ -906,9 +906,9 @@ select {
                             
 							<!-- 슬라이드2 : 가게 사진 -->
 							<div class="service_slid_text img_div" align="center">
-								<%-- <span class="icon icon icon-restaurant text-black"></span>
-								<h5 class="text-black m-top-20">${ storeInfo.storeName }</h5> --%>
-								<img src="storeImg/${ storeInfo.storePic }" id="img_up_path" height="230px" alt="" />
+								<span class="icon icon icon-restaurant text-black"></span>
+								<h5 class="text-black m-top-20">${ storeInfo.storeName }</h5>
+								<%-- <img src="storeImg/${ storeInfo.storePic }" id="img_up_path" height="230px" alt="" /> --%>
 							</div>
 						</div>
 					</div>
