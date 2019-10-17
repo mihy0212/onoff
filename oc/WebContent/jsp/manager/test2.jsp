@@ -48,7 +48,7 @@
 							</tr>
 						</c:if>
 						<c:forEach items="${list }" var="dto">
-							<tr>
+							<tr onclick="location.href='borderRead.do?key=${dto.askNum}'">
 								<td align="center" width="20"><input type="checkbox" name="askNum" value="${dto.askNum}"></td>
 								<td align="center" width="20">${dto.askNum }</td>
 								<td width="20"><c:choose>
