@@ -7,8 +7,8 @@
 <title>Insert title here</title>
 <script type="text/javascript">
 	function isclose(){
-		opener.document.frmm.userNickname.focus();
-		opener.document.frmm.chk_nick.value = "chk";
+		opener.document.frm.userNickname.focus();
+		opener.document.frm.chk_nick.value = "chk";
 		window.close();
 	}
 	
