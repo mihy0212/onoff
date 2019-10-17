@@ -7,8 +7,8 @@
 <title>Insert title here</title>
 <script type="text/javascript">
 	function isDateSend(){
-		opener.document.frmm.userEmail.value="";
-		opener.document.frmm.userEmail.focus();
+		opener.document.frm.userEmail.value="";
+		opener.document.frm.userEmail.focus();
 		window.close();
 	}
 </script>

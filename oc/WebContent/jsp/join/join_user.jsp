@@ -11,7 +11,7 @@
 <script type="text/javascript">
 
 
-	function submitfrmm(){
+	function submitfrm(){
 		if($('#userEmail').val() == ""){
 			alert("아이디를 입력하세요.");
 			return false;
@@ -45,11 +45,11 @@
 			alert("닉네임 중복 체크를 해 주세요.");
 			return false;
 		}
-		document.frmm.submit();
+		document.frm.submit();
 	}
 
 	function idCheck() {
-		var chkId = document.frmm.userEmail;
+		var chkId = document.frm.userEmail;
 		if(chkId.value == "") {
 			alert("아이디를 입력하세요.")
 			chkId.focus();
@@ -59,7 +59,7 @@
 		window.open("idCheck.do?userEmail="+chkId.value,"","width=500,height=400");
 	}
 	function NickCheck() {
-		var chkNick = document.frmm.userNickname;
+		var chkNick = document.frm.userNickname;
 		if(chkNick.value == "") {
 			alert("닉네임을 입력하세요.")
 			chkNick.focus();
@@ -123,7 +123,7 @@
 	
 	function EmailCheck(){
     	
-    	var userEmail = document.frmm.userEmail.value;
+    	var userEmail = document.frm.userEmail.value;
     	if(userEmail == ""){
     		alert("이메일을 입력해 주세요.");
     	}
@@ -148,7 +148,7 @@
     // 인증번호 확인
     function emailchk(){
     	
-    	var userEmail = document.frmm.userEmail.value;
+    	var userEmail = document.frm.userEmail.value;
     	var emailCode = $('#emailCode').val();
     	
     	if( emailCode == ""){
@@ -181,7 +181,7 @@
 		$("#btnRanNumCheck").click(function() {
 
 			var param = {
-				myVal : document.frmm.checkRanNum.value };
+				myVal : document.frm.checkRanNum.value };
 
 			var url = "ranNumCheck.do";
 			
@@ -192,7 +192,7 @@
 				type : "POST"
 			}).done(function(result) {
 				if(result.result == true){
-					document.frmm.userEmail.readOnly=true;
+					document.frm.userEmail.readOnly=true;
 					
 					//document.getElementById("EmailCheckResult").style.color="blue";
 					//$("#ranNumInputTitle").css("visibility","visible");
@@ -223,7 +223,7 @@
 			<div class="jumbotron" style="padding-top: 20px;">
 				<h3 style="text-align: center;">회원가입 화면</h3>
 				<br />
-				<form id="frmm" name="frmm" method="post" action="join_user.do" class="form-horizontal">
+				<form id="frm" name="frm" method="post" action="join_user.do" class="form-horizontal">
 					<div class="form-group">
 						<div class="col-sm-12" style="padding: 0px">
 							<input type="text" class="form-control" placeholder="아이디/이메일" id="userEmail" name="userEmail" maxlength="20">
@@ -302,7 +302,7 @@
 					<input type="hidden" name="xy" id="xy">
 
 					<div>
-						<input type="button" class="btn btn-primary form-control" onclick="submitfrmm()" value="회원가입">
+						<input type="button" class="btn btn-primary form-control" onclick="submitfrm()" value="회원가입">
 					</div>
 					<br /> <input type="reset" class="btn btn-primary form-control" onclick="location.href='index.do'" value="취소">
 				</form>

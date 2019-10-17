@@ -68,12 +68,24 @@
 			alert("닉네임 중복 체크를 해 주세요.");
 			return false;
 		}
+		if( $('#storeName').val() != "" ){
+			alert("가게이름을 입력해 주세요.");
+			return false;
+		}
+		if( $('#chk_storeName').val() != "" ){
+			alert("가게이름을 입력해 주세요.");
+			return false;
+		}
+		if( $('#chk_store').val() != "chk" ){
+			alert("가게이름을 입력해 주세요.");
+			return false;
+			}
 		document.frm.submit();
 	}
+
 	/*---------------------------
 	이메일 발송
 	------------------------------*/
-	
 	
 	function EmailCheck(){
     	
@@ -271,7 +283,7 @@
 			<div class="jumbotron" style="padding-top: 20px;">
 				<h3 style="text-align: center;">회원가입 화면</h3>
 				<br />
-				<form id="frmm" name="frmm" method="post" action="join_user.do" class="form-horizontal">
+				<form id="frm" name="frm" method="post" action="join_user.do" class="form-horizontal">
 					<div class="form-group">
 						<div class="col-sm-12" style="padding: 0px">
 							<input type="text" class="form-control" placeholder="아이디/이메일" id="userEmail" name="userEmail" maxlength="20">
@@ -359,6 +371,7 @@
 						<div class="col-sm-4">
 							<input type="button" class="btn btn-primary form-control"
 								onclick="storeCheck()" value="중복체크">
+								<input type="hidden" id="chk_store" class="chk_store" value="unchk">
 						</div>
 					</div>
 					<div class="form-group">
@@ -405,7 +418,7 @@
 
 
 					<div>
-						<input type="button" class="btn btn-primary form-control" onclick="submitfrmm()" value="회원가입">
+						<input type="button" class="btn btn-primary form-control" onclick="submitfrm()" value="회원가입">
 
 					</div>
 					<br /> <input type="reset" class="btn btn-primary form-control"
