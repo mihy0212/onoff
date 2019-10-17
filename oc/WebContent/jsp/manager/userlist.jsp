@@ -17,17 +17,7 @@ $(document).ready(function() {
     });
 });
 
-function userdelete() = confirm ("정말 삭제하시겠습니까?"); 
-	if(con){
-	
-	} else {
-	alert("회원을 삭제하지 못했습니다.")
-			}
-		}
-	});
-}
 
-});
 </script>
 <meta charset="UTF-8">
 <title>Insert title here</title>

@@ -224,8 +224,8 @@ public class AskDAO extends DAO {
 	//문의&답변 삭제
 	public int delete(Connection conn, String askNum) {
 		int n = 0;
-		String sql = null;
-		sql = "delete from oc_ask where ask_num=?";
+		
+		String sql = "delete from oc_ask where ask_num=?";
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, askNum);
