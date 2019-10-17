@@ -265,6 +265,17 @@
 			}
 		}).open();
 	}
+	$(document).ready(function() {
+	    //라디오 요소처럼 동작시킬 체크박스 그룹 셀렉터
+	    $('input[type="text"][name="storeLicense"]').click(function(){
+	        //클릭 이벤트 발생한 요소가 체크 상태인 경우
+	        if ($(this).prop('checked')) {
+	            //체크박스 그룹의 요소 전체를 체크 해제후 클릭한 요소 체크 상태지정
+	            $('input[type="text"][name="userLicense"]').prop('checked', false);
+	            $(this).prop('checked', true);
+	        }
+	    });
+	});
 </script>
 </head>
 <body>
