@@ -19,12 +19,14 @@ public class BorderReadCommand implements Command {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
-		int key = Integer.parseInt(request.getParameter("key"));
+		String key = request.getParameter("key");
+		
 		Connection conn = DAO.connect();
-		String content = Integer.toString(key);
-		List<AskDTO> list = AskDAO.getInstance().selectOne(conn, "ask_re", content, 1, 10);
+		
+		List<AskDTO> list = AskDAO.getInstance().selectOne(conn, "ask_re", key, 1, 10);
 		request.setAttribute("list", list);
 		DAO.disconnect(conn);
+		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/manager/borderRead.jsp");
 		dispatcher.forward(request, response);		
 		

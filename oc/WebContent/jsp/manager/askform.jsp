@@ -11,28 +11,22 @@
 <h1 align="center">문의 답변하기</h1><br />
 <div class="container">
 	<div class="row">
-	
-<div align="center">
+		<div align="center">
 
-		<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
-		<thead>
-			</thead>
-			<tr>
-				<th width="50" style="background-color : #eeeeee; text-align:center;">답변제목</th>
-				<td align="center"><input type="text" class="form-control" placeholder="제목"
-								id="title" name="title" maxlength="20"></td>
-			</tr>
-			<tr>
-				<th width="50" style="background-color : #eeeeee; text-align:center;">답변내용</th>
-				<td rowspan="4" align="center"><textarea cols="150" rows="10"
-								id="content" name="content"></textarea></td>
-			</tr>
-	
-		</table>
-		
-		<a href="answer.do" class="btn btn-primary pull-right">답변등록하기</a>
- </div>
- </div>
- </div>
+			<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
+				<tr>
+					<th width="50" style="background-color : #eeeeee; text-align:center;">답변제목</th>
+					<td align="center"><input type="text" class="form-control" placeholder="제목" id="title" name="title" maxlength="20"></td>
+				</tr>
+				<tr>
+					<th width="50" style="background-color : #eeeeee; text-align:center;">답변내용</th>
+					<td rowspan="4" align="center"><textarea cols="150" rows="10" id="content" name="content"></textarea></td>
+				</tr>
+			</table>
+			
+			<a href="answer.do" class="btn btn-primary pull-right">답변등록하기</a>
+		</div>
+	</div>
+</div>
 </body> 
 </html>
