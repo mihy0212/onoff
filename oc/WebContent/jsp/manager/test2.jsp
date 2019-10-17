@@ -41,16 +41,16 @@
 	<form name="frm" id="frm" action='borderdelete.do'>
 		<div class="container">
 			<div class="row">
-				<table class="table table-striped"
-					style="text-align: center; border: 1px solid #dddddd">
+				<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
 					<thead>
 						<tr>
-							<th style="background-color: #eeeeee; text-align: center;">답변</th>
-							<th style="background-color: #eeeeee; text-align: center;">문의번호</th>
-							<th style="background-color: #eeeeee; text-align: center;">문의제목</th>
-							<th style="background-color: #eeeeee; text-align: center;">처리상태</th>
-							<th style="background-color: #eeeeee; text-align: center;">문의등록일</th>
-							<th style="background-color: #eeeeee; text-align: center;">선택</th>
+							<th width="20" style="background-color: #eeeeee; text-align: center;">답변</th>
+							<th width="20" style="background-color: #eeeeee; text-align: center;">문의번호</th>
+							<th width="100" style="background-color: #eeeeee; text-align: center;">문의제목</th>
+							<th width="20" style="background-color: #eeeeee; text-align: center;">처리상태</th>
+							<th width="100" style="background-color: #eeeeee; text-align: center;">문의등록일</th>
+							<th width="20" style="background-color: #eeeeee; text-align: center;">문의글로 이동</th>
+							<th width="20" style="background-color: #eeeeee; text-align: center;">선택</th>
 						</tr>
 						<!-- db 목록을 가져와서 뿌려주는 곳 -->
 						<c:if test="${list.isEmpty()}">
@@ -59,15 +59,8 @@
 							</tr>
 						</c:if>
 						<c:forEach items="${list }" var="dto">
-<<<<<<< HEAD
-							<tr onclick="location.href='borderRead.do?key=${dto.askNum}'">
-								<td align="center" width="20"><input type="checkbox" name="askNum" value="${dto.askNum}"></td>
-								<td align="center" width="20">${dto.askNum }</td>
-=======
 							<tr>
-								
->>>>>>> branch 'master' of https://github.com/wlsdud6764/on-off.git
-								<td width="20"><c:choose>
+								<td><c:choose>
 										<c:when test="${dto.askRe==dto.askNum}">
 											<p>문의</p>
 										</c:when>
@@ -75,9 +68,9 @@
 											<p>답변</p>
 										</c:when>
 									</c:choose></td>
-									<td align="center" width="20">${dto.askNum }</td>
-								<td align="center" width="100">${dto.askTitle }</td>
-								<td align="center" width="20"><c:choose>
+									<td align="center">${dto.askNum }</td>
+								<td align="center">${dto.askTitle }</td>
+								<td align="center"><c:choose>
 										<c:when test="${dto.askStatus=='1'}">
 											<p>답변 대기 중</p>
 										</c:when>
@@ -91,14 +84,14 @@
 											<p>답변 보류</p>
 										</c:when>
 									</c:choose></td>
-								<td align="center" width="100">${dto.askDate }</td>
-								<td align="center" width="20"><input type="checkbox" name="askNum" value="${dto.askNum}"></td>
+								<td align="center">${dto.askDate }</td>
+								<td><input type="button" onclick="location.href='borderRead.do?key=${dto.askNum}'" value="이동"></td>
+								<td align="center"><input type="checkbox" name="askNum" value="${dto.askNum}"></td>
 							</tr>
 						</c:forEach>
 						<!-- db 목록을 가져와서 뿌려주는 곳 -->
 				</table>
-				<a><button type='button' class="btn btn-primary pull-right">
-						삭제하기</button></a> <br>
+				<a><button type='button' class="btn btn-primary pull-right">삭제하기</button></a> <br>
 				<!-- 	<a href="borderdelete.do" class="btn btn-primary pull-right">삭제하기</a> -->
 			</div>
 		</div>
