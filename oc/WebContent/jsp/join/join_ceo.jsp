@@ -35,14 +35,14 @@
 				"width=500,height=400");
 	}
 	function submitfrm(){
-		if($('#userEmail').val() == ""){
+		/* if($('#userEmail').val() == ""){
 			alert("아이디를 입력하세요.");
 			return false;
 		}
 		if( $('#chk_id').val() != "chk"){
 			alert("아이디 중복 체크를 해 주세요.");
 			return false;
-		}
+		} 
 		
 		/* if( $('#chk_email').val() != "chk"){
 			alert("이메일 인증을 해 주세요.");
@@ -76,11 +76,11 @@
 			alert("가게이름을 입력해 주세요.");
 			return false;
 		}
-		if( $('#chk_store').val() != "chk" ){
+		 if( $('#chk_store').val() != "chk" ){
 			alert("가게이름을 입력해 주세요.");
 			return false;
-			}
-		document.frm.submit();
+			} */
+		document.frm.submit(); 
 	}
 
 	/*---------------------------
