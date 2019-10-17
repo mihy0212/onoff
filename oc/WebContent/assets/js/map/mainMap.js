@@ -297,7 +297,7 @@ function markOpenPlaces(DBPosition, i) {
 		});
 
 		kakao.maps.event.addListener(marker, 'click', function() {
-			window.open('storeInfo.do?storeNum=' + num);
+			location.href = 'storeInfo.do?storeNum=' + num;
 		})
 
 	})(marker, openPlaces[i].storeName, openPlaces[i].storeLike,
@@ -565,7 +565,7 @@ function displayKakao(places) {
 
 		// 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
 		// LatLngBounds 객체에 좌표를 추가합니다
-//		bounds.extend(placePosition);
+		// bounds.extend(placePosition);
 
 		// 마커와 검색결과 항목에 mouseover 했을때
 		// 해당 장소에 인포윈도우에 장소명을 표시합니다
@@ -597,7 +597,7 @@ function displayKakao(places) {
 	// 검색결과 항목들을 검색결과 목록 Elemnet에 추가합니다
 
 	// 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
-//	map.setBounds(bounds);
+	// map.setBounds(bounds);
 }
 
 function getListItem(index, DBSearchResult) {
@@ -824,7 +824,7 @@ function markDBPlaces(imgSrc, i, itemEl) {
 		});
 
 		kakao.maps.event.addListener(marker, 'click', function() {
-			window.open('storeInfo.do?storeNum=' + num);
+			location.href = 'storeInfo.do?storeNum=' + num;
 		});
 
 		itemEl.onclick = function() {
