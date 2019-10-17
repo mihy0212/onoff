@@ -140,6 +140,8 @@ public class StoreInfoChangeComm implements Command {
 
 			MultipartRequest multi = null;
 
+			
+			// 파일 엘리먼트 이름 fileName1로 할것
 			try {
 				// request,파일저장경로,용량,인코딩타입,중복파일명에 대한 기본 정책
 				multi = new MultipartRequest(request, uploadPath, maxSize, "utf-8", new DefaultFileRenamePolicy());
