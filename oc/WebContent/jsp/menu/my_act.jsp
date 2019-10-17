@@ -91,8 +91,7 @@
 			if(con){
 				$.ajax({
 					url: "delectMyReiview.do",
-					data: {
-						reviewNum: reviewNum
+					data: { reviewNum: reviewNum
 					},
 					dataType: "json",
 					success: function(result){
@@ -350,7 +349,70 @@
 	 
 </script>
 
+<style>
+.reviewStars{
+	color: gray;
+	text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
 
+.reviewStarsYellow{
+	color: yellow;
+	text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+.hidden{
+	visibility:hidden;
+}
+
+.div_content_user{
+	padding: 15px;
+	margin: 10px;
+}
+
+.div_content_user:hover{
+	background-color: #F7F8E0;
+}
+
+.div_content_ceo{
+	background-color: #F2F2F2;
+	padding: 15px;
+}
+
+.icon-cogwheels16:hover{
+	padding: 3px;
+	background-color: gray;
+	border-radius: 8px;
+	color: yellow;
+}
+
+.icon-arrows-1:hover{
+	padding: 3px;
+	background-color: gray;
+	border-radius: 8px;
+	color: yellow;
+}
+
+.pre_css{
+	white-space: pre-wrap;
+}
+
+select {
+	font-size: 10pt;
+	position: relative;
+	bottom: 5px;
+	font-weight: bold;
+	width: 100px;
+	padding: .0em .7em;
+	margin: 0 5px 0 5px;
+	font-family: inherit;
+	background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 50%; /* 네이티브 화살표 대체 */ 
+	border: 1px solid #BDBDBD; 
+	border-radius: 5px; /* iOS 둥근모서리 제거 */ 
+	-webkit-appearance: none; /* 네이티브 외형 감추기 */ 
+	-moz-appearance: none; 
+	appearance: none;
+}
+</style>
 </head>
 
 <body data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
@@ -543,31 +605,7 @@
 				</div>
 				<%-- END DB 리뷰 목록 --%>
 				
-				<%-- 리뷰글 삽입을 위한 히든 div --%>
-               		 <div class="hidden">
-						<div id="copy_reivew" class="choose_item_text fix div_content_user">
-							<input type="hidden" value="#">
-							<input type="hidden" value="#">
-							
-							리뷰 왼쪽 영역 : 아이콘/회원 닉네임
-							<div class="col-md-2 text-center">
-								<font size="6"><i class="icon icon icon-smile text-black"></i></font>
-								<h6 class="content_user"></h6>
-							</div>
-							리뷰 중간 영역 : 별점/리뷰글
-							<div class="col-md-9 text-left content_star">
-								<blockquote>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									<font class="reviewStarsYellow">★</font>
-									<p class="pre_css"></p>
-								</blockquote>
-							</div>
-							리뷰 오른쪽 영역 : 댓글/수정/삭제 버튼
-							<div class="col-md-1">
-								<button class="btn button is-checked btn_update" type="button">수정</button>
-								<button class="btn button is-checked btn_delete" type="button">삭제</button>
-							</div>
-						</div>
-					</div> 
+				
 			
 			<!-- 페이징 -->
 			<div class="col-sm-6" align="center">

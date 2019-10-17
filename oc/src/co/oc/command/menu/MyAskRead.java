@@ -19,13 +19,14 @@ public class MyAskRead implements Command {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Connection conn = DAO.connect();
 	
-	String askNum = request.getParameter("key");
+	String askNum = request.getParameter("askNum");
 	
-	//System.out.println(askNum);
+	System.out.println(askNum);
 	List<AskDTO> list = AskDAO.getInstance().selectOne(conn, "ask_re", askNum, 1, 1);
 		
 	// request 객체에 list를 담아준다.
 			request.setAttribute("list", list);
+			
 
 	// request 객체에 총 페이지수를 담아준다.
 	RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/menu/my_ask_Read.jsp");
