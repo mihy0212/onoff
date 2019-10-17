@@ -115,6 +115,15 @@ public class StoreInfoChangeComm implements Command {
 			} else {
 				System.out.println("리뷰 댓글 등록 실패");
 			}
+		} else if(choice.equals("storeImgUp")) {
+			ReviewDTO dto = new ReviewDTO();
+			String storeNum = request.getParameter("storeNum");
+			String file1 = request.getParameter("store_img_file");//파일명
+			//String upfilepath = "D:\\Dev\\apache-tomcat-8.5.45\\wtpwebapps\\YeDam\\uploadfile";
+			String upfilepath = request.getSession().getServletContext().getRealPath("uploadfile");
+			int filesize = 10*1024*1024;
+			
+			
 		}
 		
 		DAO.disconnect(conn);

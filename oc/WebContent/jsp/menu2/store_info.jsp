@@ -17,6 +17,18 @@
 
 $(document).ready(function(){
 	
+	$( ".service_slid_item" ).slick( {
+        dots: false,
+        infinite: true,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: true,
+        prevArrow: "<i class='icon icon-chevron-left nextprevleft'></i>",
+        nextArrow: "<i class='icon icon-chevron-right nextprevright'></i>",
+        autoplay: true,
+        autoplaySpeed: 2000
+    } );
+	
 	//카테고리1 출력하기
 	if( "${ storeInfo.storeCateg1 }" == "01" ){
 		$('#categ1').text("음식점");
@@ -156,6 +168,9 @@ $(document).ready(function(){
 			h4.children().eq(1).after( $('<input>').attr({'type':'text', 'style':'width:40%;font-size:12pt;', 'placeholder':'예) 010-0000-0000'}).val(old_text) ); //eq(2)인풋부
 			$(this).parent().append( $('<span>').attr({'class':'icon icon icon-arrows-1', 'id':'tel'}).click(info_update2) );
 			$(this).hide();
+		} else if( id == 'simg' ){
+			var img_div = $('.img_div').children().eq(0);
+			
 			/*	
 		} else if(id == 'categori'){
 			var h4 = $(this).parent().parent().parent().children().eq(1).children().eq(0).children().eq(0);
@@ -665,13 +680,20 @@ function review_update(){
 	var reviewNum = divParent.children().eq(0).val();
 	var blockquote1 = divParent.children().eq(3).children().eq(0);
 	var blockquote2 = divParent.children().eq(3).children().eq(1);
+
 	var starNum = 0;
 	for(var i=0; i<$('.update_star'+reviewNum).length; i++){
 		if($('.update_star'+reviewNum).eq(i).css("color") == "rgb(255, 255, 0)"){
 			starNum = i+1;
 		}
 	}
-	var reviewContent = blockquote2.children().eq(5).val();
+	
+	var reviewContent;
+	if( divParent.attr('class') == "choose_item_text fix col-md-offset-1 div_content_ceo"){
+		reviewContent = blockquote2.children().eq(0).val();
+	} else {
+		reviewContent = blockquote2.children().eq(5).val();
+	}
 	if(starNum == 0 && divParent.attr('class') == 'choose_item_text fix div_content_user'){
 		alert("별점을 입력해 주세요.");
 		return false;
@@ -680,6 +702,7 @@ function review_update(){
 		alert("리뷰 내용을 입력해 주세요.");
 		return false;
 	}
+	
 	var con = confirm("입력한 내용으로 리뷰를 변경하시겠습니까?");
 	if(con){
 		$.ajax({
@@ -696,16 +719,25 @@ function review_update(){
 			success: function(result){
 				if(result.n != 0){
 					alert("리뷰 변경에 성공했습니다.");
-
+					
 					var blockquote3 = $('<blockquote>');
-					for(var i=1; i<=starNum; i++){
-						blockquote3.append( $('<font>').attr({'class':'reviewStarsYellow star_up'+reviewNum}).text("★") );
-					}
 					var today_date = new Date().toISOString().substring(0,10);
-					blockquote3.append( $('<p>').attr({'class':'pre_css'}).html(reviewContent + " &nbsp;&nbsp;&nbsp;(" + today_date + ")") );
-					divParent.children().eq(3).append(blockquote3);
-					blockquote1.remove();
-					blockquote2.remove();
+					
+					
+					if(divParent.attr('class') == "choose_item_text fix col-md-offset-1 div_content_ceo"){
+						blockquote3.append( $('<p>').attr({'class':'pre_css'}).html(reviewContent + " &nbsp;&nbsp;&nbsp;(" + today_date + ")") );
+						divParent.children().eq(3).append(blockquote3);
+						blockquote2.remove();
+					} else {
+						for(var i=1; i<=starNum; i++){
+							blockquote3.append( $('<font>').attr({'class':'reviewStarsYellow star_up'+reviewNum}).text("★") );
+						}
+						blockquote3.append( $('<p>').attr({'class':'pre_css'}).html(reviewContent + " &nbsp;&nbsp;&nbsp;(" + today_date + ")") );
+						divParent.children().eq(3).append(blockquote3);
+						blockquote1.remove();
+						blockquote2.remove();
+					}
+
 					
 					//버튼 변경
 					divParent.children().eq(4).children().eq(0).show();
@@ -856,19 +888,27 @@ select {
                 
 					<!-- 슬라이드 구역 -->
 					<div class="service_slid">
-						<div class="slid_shap bg-yellow"></div>
+						<div class="slid_shap bg-yellow">
+							<c:if test="${ storeInfo.storeNum == storeNum }">
+								<h2>
+									<span id="simg" class="icon icon icon-cogwheels16 store_info_update">
+									</span>
+								</h2>
+							</c:if>
+						</div>
 						<div class="service_slid_item text-center">
 
-							<!-- 슬라이드1 : 가게 이름/아이콘 -->
+							<!-- 슬라이드1 : 가게 이름/아이콘 -->							
 							<div class="service_slid_text">
 								<span class="icon icon icon-restaurant2 text-black"></span>
 								<h5 class="text-black m-top-20">${ storeInfo.storeName }</h5>
                             </div>
                             
 							<!-- 슬라이드2 : 가게 사진 -->
-							<div class="service_slid_text">
-								<span class="icon icon icon-restaurant text-black"></span>
-								<h5 class="text-black m-top-20">${ storeInfo.storeName }</h5>
+							<div class="service_slid_text img_div" align="center">
+								<%-- <span class="icon icon icon-restaurant text-black"></span>
+								<h5 class="text-black m-top-20">${ storeInfo.storeName }</h5> --%>
+								<img src="storeImg/${ storeInfo.storePic }" height="230px" alt="" />
 							</div>
 						</div>
 					</div>
