@@ -34,101 +34,108 @@ public class StoreInfoChangeComm implements Command {
 
 		PrintWriter out = response.getWriter();
 		Connection conn = DAO.connect();
+		
+		int maxSize = 1024 * 1024 * 10;// 한번에 올릴 수 있는 파일 용량 : 10M로 제한
+		String uploadPath = "C:\\Users\\User\\git\\on-off\\oc\\WebContent\\storeImg";
+//		String uploadPath = request.getSession().getServletContext().getRealPath("/storeImg");
+		MultipartRequest multi = new MultipartRequest(request, uploadPath, maxSize, "utf-8", new DefaultFileRenamePolicy());
 
 		String choice = request.getParameter("choice");
-
-		if (choice.equals("likeClick")) {
-			LikeDTO ldto = new LikeDTO();
-			ldto.setStoreNum(request.getParameter("storeNum"));
-			ldto.setUserNum(request.getParameter("userNum"));
-			int likeChk = LikeDAO.getInstance().checkInsert(conn, ldto);
-			int likeCount = LikeDAO.getInstance().selectStoreNum(conn, ldto.getStoreNum());
-
-			JSONObject obj = new JSONObject();
-			obj.put("likeChk", likeChk);
-			obj.put("likeCount", likeCount);
-			out.print(obj.toJSONString());
-
-		} else if (choice.equals("favoClick")) {
-			FavoriteDTO dto = new FavoriteDTO();
-			dto.setStoreNum(request.getParameter("storeNum"));
-			dto.setUserNum(request.getParameter("userNum"));
-			int favoCount = FavoriteDAO.getInstance().checkInsert(conn, dto);
-			out.print(favoCount);
-
-		} else if (choice.equals("storeInfoUpdate")) {
-			String check = request.getParameter("check");
-			String content = request.getParameter("content");
-			String storeNum = request.getParameter("storeNum");
-			if (check.equals("store_addr")) {
-				String check2 = request.getParameter("check2");
-				String content2 = request.getParameter("content2");
-				int n = StoreDAO.getInstance().update1(conn, check, content, storeNum);
-				int a = StoreDAO.getInstance().update1(conn, check2, content2, storeNum);
-
+		String choice1 = multi.getParameter("choice");
+		
+		if(choice != null ) {
+			if (choice.equals("likeClick")) {
+				LikeDTO ldto = new LikeDTO();
+				ldto.setStoreNum(request.getParameter("storeNum"));
+				ldto.setUserNum(request.getParameter("userNum"));
+				int likeChk = LikeDAO.getInstance().checkInsert(conn, ldto);
+				int likeCount = LikeDAO.getInstance().selectStoreNum(conn, ldto.getStoreNum());
+	
+				JSONObject obj = new JSONObject();
+				obj.put("likeChk", likeChk);
+				obj.put("likeCount", likeCount);
+				out.print(obj.toJSONString());
+	
+			} else if (choice.equals("favoClick")) {
+				FavoriteDTO dto = new FavoriteDTO();
+				dto.setStoreNum(request.getParameter("storeNum"));
+				dto.setUserNum(request.getParameter("userNum"));
+				int favoCount = FavoriteDAO.getInstance().checkInsert(conn, dto);
+				out.print(favoCount);
+	
+			} else if (choice.equals("storeInfoUpdate")) {
+				String check = request.getParameter("check");
+				String content = request.getParameter("content");
+				String storeNum = request.getParameter("storeNum");
+				if (check.equals("store_addr")) {
+					String check2 = request.getParameter("check2");
+					String content2 = request.getParameter("content2");
+					int n = StoreDAO.getInstance().update1(conn, check, content, storeNum);
+					int a = StoreDAO.getInstance().update1(conn, check2, content2, storeNum);
+	
+					JSONObject obj = new JSONObject();
+					obj.put("n", n);
+					obj.put("a", a);
+					out.print(obj.toJSONString());
+				} else {
+					int n = StoreDAO.getInstance().update1(conn, check, content, storeNum);
+					out.print(n);
+				}
+	
+			} else if (choice.equals("reviewInsert")) {
+				ReviewDTO dto = new ReviewDTO();
+				String storeNum = request.getParameter("storeNum");
+				dto.setStoreNum(storeNum);
+				dto.setUserNum(request.getParameter("userNum"));
+				dto.setReviewStar(request.getParameter("reviewStar"));
+				dto.setReviewContent(request.getParameter("reviewContent"));
+				int n = ReviewDAO.getInstance().insert(conn, dto);
+				// out.print(n);
+				if (n != 0) {
+					response.sendRedirect("storeInfo.do?storeNum=" + storeNum);
+				}
+	
+			} else if (choice.equals("reviewDelete")) {
+				String reviewNum = request.getParameter("reviewNum");
+				int n = ReviewDAO.getInstance().delete(conn, reviewNum);
+				out.print(n);
+	
+			} else if (choice.equals("reviewUpdate")) {
+				ReviewDTO dto = new ReviewDTO();
+				String storeNum = request.getParameter("storeNum");
+				dto.setReviewNum(request.getParameter("reviewNum"));
+				dto.setReviewStar(request.getParameter("reviewStar"));
+				dto.setReviewContent(request.getParameter("reviewContent"));
+				int n = ReviewDAO.getInstance().update(conn, dto);
+				double stars = ReviewDAO.getInstance().selectStar(conn, storeNum);
+	
 				JSONObject obj = new JSONObject();
 				obj.put("n", n);
-				obj.put("a", a);
+				obj.put("stars", stars);
 				out.print(obj.toJSONString());
-			} else {
-				int n = StoreDAO.getInstance().update1(conn, check, content, storeNum);
-				out.print(n);
+	
+			} else if (choice.equals("reviewReply")) {
+				ReviewDTO dto = new ReviewDTO();
+				dto.setReviewRe(request.getParameter("reviewRe"));
+				String storeNum = request.getParameter("storeNum");
+				System.out.println(storeNum);
+				dto.setStoreNum(storeNum);
+				dto.setUserNum(request.getParameter("userNum"));
+				dto.setReviewContent(request.getParameter("reviewContent"));
+				int n = ReviewDAO.getInstance().insert(conn, dto);
+				if (n != 0) {
+					response.sendRedirect("storeInfo.do?storeNum=" + storeNum);
+				} else {
+					System.out.println("리뷰 댓글 등록 실패");
+				}
 			}
+		}
+		if (choice1.equals("storeImgUp")) {
 
-		} else if (choice.equals("reviewInsert")) {
-			ReviewDTO dto = new ReviewDTO();
-			String storeNum = request.getParameter("storeNum");
-			dto.setStoreNum(storeNum);
-			dto.setUserNum(request.getParameter("userNum"));
-			dto.setReviewStar(request.getParameter("reviewStar"));
-			dto.setReviewContent(request.getParameter("reviewContent"));
-			int n = ReviewDAO.getInstance().insert(conn, dto);
-			// out.print(n);
-			if (n != 0) {
-				response.sendRedirect("storeInfo.do?storeNum=" + storeNum);
-			}
-
-		} else if (choice.equals("reviewDelete")) {
-			String reviewNum = request.getParameter("reviewNum");
-			int n = ReviewDAO.getInstance().delete(conn, reviewNum);
-			out.print(n);
-
-		} else if (choice.equals("reviewUpdate")) {
-			ReviewDTO dto = new ReviewDTO();
-			String storeNum = request.getParameter("storeNum");
-			dto.setReviewNum(request.getParameter("reviewNum"));
-			dto.setReviewStar(request.getParameter("reviewStar"));
-			dto.setReviewContent(request.getParameter("reviewContent"));
-			int n = ReviewDAO.getInstance().update(conn, dto);
-			double stars = ReviewDAO.getInstance().selectStar(conn, storeNum);
-
-			JSONObject obj = new JSONObject();
-			obj.put("n", n);
-			obj.put("stars", stars);
-			out.print(obj.toJSONString());
-
-		} else if (choice.equals("reviewReply")) {
-			ReviewDTO dto = new ReviewDTO();
-			dto.setReviewRe(request.getParameter("reviewRe"));
-			String storeNum = request.getParameter("storeNum");
-			System.out.println(storeNum);
-			dto.setStoreNum(storeNum);
-			dto.setUserNum(request.getParameter("userNum"));
-			dto.setReviewContent(request.getParameter("reviewContent"));
-			int n = ReviewDAO.getInstance().insert(conn, dto);
-			if (n != 0) {
-				response.sendRedirect("storeInfo.do?storeNum=" + storeNum);
-			} else {
-				System.out.println("리뷰 댓글 등록 실패");
-			}
-		} else if (choice.equals("storeImgUp")) {
 			HttpSession session = request.getSession(false);
-
-			String uploadPath = request.getSession().getServletContext().getRealPath("/storeImg");
-
 			out.println("절대경로 : " + uploadPath + "<br/>");
 
-			int maxSize = 1024 * 1024 * 10;// 한번에 올릴 수 있는 파일 용량 : 10M로 제한
+			
 
 			String name = "";
 			String subject = "";
@@ -138,13 +145,12 @@ public class StoreInfoChangeComm implements Command {
 			long fileSize = 0;// 파일 사이즈
 			String fileType = "";// 파일 타입
 
-			MultipartRequest multi = null;
 
 			
 			// 파일 엘리먼트 이름 fileName1로 할것
 			try {
 				// request,파일저장경로,용량,인코딩타입,중복파일명에 대한 기본 정책
-				multi = new MultipartRequest(request, uploadPath, maxSize, "utf-8", new DefaultFileRenamePolicy());
+				
 
 				// form내의 input name="name" 인 녀석 value를 가져옴
 				name = multi.getParameter("file");
@@ -172,8 +178,16 @@ public class StoreInfoChangeComm implements Command {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			String userNum = (String) session.getAttribute("userNum");
-			StoreDAO.getInstance().changeStorePic(conn, fileName1, userNum);
+			
+			String storeNum = (String) session.getAttribute("storeNum");
+			System.out.println(storeNum);
+			System.out.println(fileName1);
+			int n = StoreDAO.getInstance().changeStorePic(conn, fileName1, storeNum);
+			if(n !=0 ) {
+				response.sendRedirect("storeInfo.do?storeNum=" + storeNum);
+			} else {
+				System.out.println("이미지 등록 실패");
+			}
 		}
 
 		DAO.disconnect(conn);

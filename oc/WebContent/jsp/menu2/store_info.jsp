@@ -169,8 +169,8 @@ $(document).ready(function(){
 			$(this).parent().append( $('<span>').attr({'class':'icon icon icon-arrows-1', 'id':'tel'}).click(info_update2) );
 			$(this).hide();
 		} else if( id == 'simg' ){
-			var img_div = $('.img_div').children().eq(0);
-			
+			//var img_div = $('.img_div').children().eq(0);
+			window.open("jsp/menu2/store_img.jsp","가게 이미지 첨부","width=800,height=600");
 			/*	
 		} else if(id == 'categori'){
 			var h4 = $(this).parent().parent().parent().children().eq(1).children().eq(0).children().eq(0);
@@ -908,7 +908,7 @@ select {
 							<div class="service_slid_text img_div" align="center">
 								<%-- <span class="icon icon icon-restaurant text-black"></span>
 								<h5 class="text-black m-top-20">${ storeInfo.storeName }</h5> --%>
-								<img src="storeImg/${ storeInfo.storePic }" height="230px" alt="" />
+								<img src="storeImg/${ storeInfo.storePic }" id="img_up_path" height="230px" alt="" />
 							</div>
 						</div>
 					</div>

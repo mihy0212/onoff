@@ -12,6 +12,7 @@
     <pattern>/deletech.do*</pattern>
     <pattern>/storeReview.do*</pattern>
     <pattern>*map_update.jsp*</pattern>
+    <pattern>*store_img.jsp*</pattern>
     <pattern>layoutTest.jsp</pattern>
   </excludes>
  

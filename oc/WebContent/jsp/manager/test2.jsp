@@ -31,13 +31,29 @@
 	});
 
 </script>
+<style>
+.movebtn{
+	border:0;
+	padding: 3px;
+	background-color: gray;
+	border-radius: 8px;
+	color: yellow;
+}
+.movebtn:hover{
+	border:0;
+	padding: 3px;
+	background-color: #F2F2F2;
+	border-radius: 8px;
+	color: #886A08;
+}
+</style>
 </head>
 <body>
 	<br />
 	<br />
 	<br />
 	<h1 align="center">문의</h1>
-	<br />
+	<br /><br />
 	<form name="frm" id="frm" method="post" action='borderdelete.do'>
 		<div class="container">
 			<div class="row">
@@ -62,23 +78,23 @@
 							<tr>
 								<td><c:choose>
 										<c:when test="${dto.askRe==dto.askNum}">
-											<p>문의</p>
+											<p><font color="red" style="font-weight: bold;">문의</font></p>
 										</c:when>
 										<c:otherwise>
-											<p>답변</p>
+											<p><font color="#045FB4" style="font-weight: bold;">답변</font></p>
 										</c:otherwise>
 									</c:choose></td>
 									<td align="center">${dto.askNum }</td>
 								<td align="center">${dto.askTitle }</td>
 								<td align="center"><c:choose>
 										<c:when test="${dto.askStatus=='1'}">
-											<p>답변 대기 중</p>
+											<p><font color="red">답변 대기 중</font></p>
 										</c:when>
 										<c:when test="${dto.askStatus=='2'}">
-											<p>답변 완료</p>
+											<p><font color="#045FB4">답변 완료</font></p>
 										</c:when>
 										<c:when test="${dto.askStatus=='3'}">
-											<p>답변 글</p>
+											<p><font color="#04B404">답변 글</font></p>
 										</c:when>
 										<c:when test="${dto.askStatus=='4'}">
 											<p>답변 보류</p>
@@ -87,7 +103,7 @@
 								<td align="center">${dto.askDate }</td>
 								<td>
 									<c:if test="${dto.askRe==dto.askNum}">
-										<input type="button" onclick="location.href='borderRead.do?key=${dto.askNum}'" value="이동">											
+										<input type="button" class="movebtn" onclick="location.href='borderRead.do?key=${dto.askNum}'" value="이동">											
 									</c:if>
 								</td>
 								<td align="center"><input type="checkbox" name="askNum" value="${dto.askNum}"></td>
@@ -100,5 +116,6 @@
 			</div>
 		</div>
 	</form>
+	<br><br><br>
 </body>
 </html>

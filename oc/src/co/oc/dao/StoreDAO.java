@@ -345,18 +345,19 @@ public class StoreDAO extends DAO {
 	// 3. 백승진
 
 	// 가게 사진 수정
-	public void changeStorePic(Connection conn, String storePic, String userNum) {
-		String sql = "update oc_store set store_pic = ? where user_num = ?";
+	public int changeStorePic(Connection conn, String storePic, String storeNum) {
+		int n=0;
+		String sql = "update oc_store set store_pic = ? where store_num = ?";
 
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, storePic);
-			psmt.setString(2, userNum);
-			psmt.executeUpdate();
+			psmt.setString(2, storeNum);
+			n = psmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
+		return n;
 	}
 
 	// 가게 이름 검색
