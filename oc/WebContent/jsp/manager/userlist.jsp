@@ -28,7 +28,7 @@ $(document).ready(function() {
 	<br />
 	<h1 align="center">유저 리스트</h1>
 	<br />
-	<form action='userdelete()'>
+	<form action='userdelete.do'>
 		<div class="container">
 			<div class="row">
 				<table class="table table-striped"
