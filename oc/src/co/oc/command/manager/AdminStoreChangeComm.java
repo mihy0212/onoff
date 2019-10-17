@@ -81,9 +81,17 @@ public class AdminStoreChangeComm implements Command {
 			}
 			
 		} else if(choice.equals("storeDel")) {
-			String storeNum = request.getParameter("storeNum");
-			int n = StoreDAO.getInstance().delete(conn, storeNum);
-			out.print(n);
+			String[] deleteNum = request.getParameterValues("checkArray[]");
+			int n = 0;
+			if(deleteNum != null) {
+				for(int i=0; i<deleteNum.length; i++) {
+					String storeNum = deleteNum[i];
+					n += StoreDAO.getInstance().delete(conn, storeNum);
+				}
+				out.print(n);
+			} else {
+				System.out.println("데이터가 없습니다.");
+			}
 		}
 		
 		DAO.disconnect(conn);

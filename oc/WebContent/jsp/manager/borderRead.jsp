@@ -53,14 +53,10 @@
 </head>
 <body>
 <br /><br />
-<h1 align="center">문의 내용 보기</h1><br />
 <div class="container">
 	<div class="row">
-	
-
-
 	<div class="head_title text-left sm-text wow fadeInDown">
-		<h2><strong>회원의 문의</strong></h2>
+		<h2 class="text-uppercase"><strong>회원의 문의</strong></h2>
 	</div>
 	
 	<c:forEach items="${ list }" var="alist">
@@ -108,7 +104,7 @@
 		<c:if test="${ blist.askNum != blist.askRe }">
 		
 			<div class="head_title text-left sm-text wow fadeInDown">
-				<h2><strong>관리자의 답변</strong></h2>
+				<h2 class="text-uppercase"><strong>관리자의 답변</strong></h2>
 			</div>
 			
 			<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">

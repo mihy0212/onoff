@@ -79,7 +79,7 @@ $(document).ready(function(){
 		}
 	});
 	
-	$('#store_del').on('click', function(){
+/* 	$('#store_del').on('click', function(){
 		var this_tr = $(this).parent().parent().parent();
 		var snum = this_tr.children().eq(1).text();
 		console.log(snum);
@@ -102,6 +102,55 @@ $(document).ready(function(){
 					}
 				}
 			});
+		}
+	}); */
+	
+	//제목 체크박스 선택 시 전체 선택
+	$("#th_checkAll").on('click', function(){
+		if( $("#th_checkAll").is(':checked') ){
+	        $(".checkRow").prop("checked", true);
+	      }else{
+	        $(".checkRow").prop("checked", false);
+	      }
+	});
+	
+	//체크된 항목 삭제하기
+	$('#store_del').on('click', function(){
+		var checkRow = "";
+		var checkArray = new Array();
+		
+		if($(".checkRow").is(':checked')){
+			for(var i=$(".checkRow:checked").length-1; i>-1; i--){ 
+				checkArray.push($(".checkRow:checked").eq(i).attr('id'));
+			}﻿ 
+		}
+		if(checkArray.length == 0){
+			alert("삭제할 대상을 선택하세요.");
+			return false;
+		}
+		
+		console.log(checkArray);
+		if(confirm("정말 등록된 가게를 삭제하시겠습니까? 다른 정보가 등록된 가게는 삭제할 수 없습니다.")){
+			for(var i=$(".checkRow:checked").length-1; i>-1; i--){ 
+				$(".checkRow:checked").eq(i).closest("tr").remove(); 
+			}
+			$.ajax({
+				type:"post",
+				url: "adminStoreChange.do",
+				dataType: "json",
+				data: {
+					choice: "storeDel",
+					checkArray: checkArray
+				},
+				success: function(result){
+					if(result != 0){
+						alert("성공적으로 가게가 삭제되었습니다.");
+						$(".checkRow").prop('checked',false);
+					} else {
+						alert("가게 삭제에 실패했습니다.")
+					}
+				}
+			});				
 		}
 	});
 	
@@ -196,18 +245,18 @@ td{
 		<thead>
 			<tr>
 				<!-- <th><input type='checkbox' name="check_a" class="check_a all" value="all"></th> -->
-				<th width="1" align="center" >No.</th>
-				<th>가게명</th>
-				<th>주소</th>
-				<th>분류1</th>
-				<th>분류2</th>
-				<th>분류3</th>
-				<th>인증분류</th>
-				<th>첨부파일</th>
-				<th>신청자</th>
-				<th>신청일</th>
-				<th colspan="2">처리상태</th>
-				<th>신청서 보기</th>
+				<th width="1" align="center" style="vertical-align: middle;">No.</th>
+				<th style="vertical-align: middle;">가게명</th>
+				<th style="vertical-align: middle;">주소</th>
+				<th style="vertical-align: middle;">분류1</th>
+				<th style="vertical-align: middle;">분류2</th>
+				<th style="vertical-align: middle;">분류3</th>
+				<th style="vertical-align: middle;">인증분류</th>
+				<th style="vertical-align: middle;">첨부파일</th>
+				<th style="vertical-align: middle;">신청자</th>
+				<th style="vertical-align: middle;">신청일</th>
+				<th colspan="2" style="vertical-align: middle;">처리상태</th>
+				<th style="vertical-align: middle;">신청서 보기</th>
 			</tr>
 		</thead>
 
@@ -320,22 +369,21 @@ function adoList(p) {
 	<table class="table table-striped table-hover table-bordered">
 		<thead>
 			<tr>
-				<th width="1">No.</th>
-				<th>가게번호</th>
-				<th>가게명</th>
-				<th>주소</th>
-				<th>좌표</th>
-				<th>분류1</th>
-				<th>분류2</th>
-				<th>분류3</th>
-				<th>좋아요 수</th>
-				<th>사업자명</th>
-				<th>사업자별명</th>
-				<th>가게등록일</th>
-				<th>가게상태</th>
-				<th>가게 정보</th>
-				<th>가게 삭제</th>
-				<!-- <th><input type='checkbox' name="check_b" class="check_b all" value="all"></th> -->
+				<th width="1" style="vertical-align: middle;">No.</th>
+				<th style="vertical-align: middle;">가게번호</th>
+				<th style="vertical-align: middle;">가게명</th>
+				<th style="vertical-align: middle;">주소</th>
+				<th style="vertical-align: middle;">좌표</th>
+				<th style="vertical-align: middle;">분류1</th>
+				<th style="vertical-align: middle;">분류2</th>
+				<th style="vertical-align: middle;">분류3</th>
+				<th style="vertical-align: middle;">좋아요 수</th>
+				<th style="vertical-align: middle;">사업자명</th>
+				<th style="vertical-align: middle;">사업자별명</th>
+				<th style="vertical-align: middle;">가게등록일</th>
+				<th style="vertical-align: middle;">가게상태</th>
+				<th style="vertical-align: middle;">가게 정보</th>
+				<th style="vertical-align: middle;"><input type="checkbox" name="checkAll" id="th_checkAll"/></th>
 			</tr>
 		</thead>
 
@@ -374,16 +422,18 @@ function adoList(p) {
 					<span class="store_move" onclick="location.href='storeInfo.do?storeNum=${ stlist.storeNum }'">가게이동</span>
 				</td>
 				<td>
-					<div class="main-portfolio">
+					<!-- <div class="main-portfolio">
 						<button class="btn button is-checked" id="store_del">삭제</button>
-					</div>
+					</div> -->
+					<input type="checkbox" id="${ stlist.storeNum }" name="checkNum" class="checkRow" value="${ stlist.storeNum }">
 				</td>
-				<%-- <td><input type='checkbox' name="check_b" class="check_b ${ stlist.storeNum }" value="${ stlist.storeNum }"></td> --%>
 			</tr>
 		</c:forEach>
 		<!-- db 목록을 가져와서 뿌려주는 곳끝 -->
-
 	</table>
+	<div class="main-portfolio" align="right">
+		<button class="btn button is-checked" id="store_del">삭제</button>
+	</div>
 </div>
 	
 <!-- 페이징 -->

@@ -74,6 +74,10 @@
 			alert("가게이름 중복 체크를 해 주세요.");
 			return false;
 		}
+		 if( $('#storeLicense').val() == "" && $('#user_license').val() == ""){
+			 alert("사업자 번호와 주민 등록 번호 둘 중 하나는 입력을 하셔야 사업자 신청이 완료됩니다.");
+			 return false;
+		 }
 		document.frm.submit(); 
 	}
 
@@ -97,8 +101,9 @@
 			},
 			success: function(result){
 				if(result == 1){
+					alert("메일이 성공적으로 발송되었으니 확인해 주세요.");
 					$('#email_hidden').attr('class','non-hidden');
-				} else if(result ==2 ){
+				} else {
 					alert("이메일을 잘못 입력하셨습니다. 다시 입력해 주세요.");
 				}
 			}
@@ -139,7 +144,7 @@
 	function storeCheck() {
 		var chkstore = document.frm.storeName;
 		if (chkstore.value == "") {
-			alert("가게이름을 입력하세요.")
+			alert("가게이름을 입력하세요.");
 			chkstore.focus();
 			return false;
 		}
@@ -277,6 +282,11 @@
 	    });
 	});
 </script>
+<style>
+.email_iden{
+	margin:10px 0 10px 0;
+}
+</style>
 </head>
 <body>
 	<br />
@@ -320,14 +330,14 @@
 						</div>
 					</div>
 					<div class="hidden" id="email_hidden">
-						<div class="col-sm-8">
+						<div class="col-sm-8 email_iden">
 							<input type="text" class="form-control" placeholder="이메일 인증번호를 입력해 주세요." id="emailCode" name="emailCode">
 							<input type="hidden" id="chk_email" value="unchk">
 						</div>
-						<div class="col-sm-4">
+						<div class="col-sm-4 email_iden">
 							<input type="button" class="btn btn-primary form-control" onclick="emailchk()" value="인증 확인">
 						</div>
-					</div>
+					</div><br><br><br>
 					<div class="form-group">
 						<input type="password" class="form-control" placeholder="비밀번호"
 							id="userPw" name="userPw">
@@ -433,7 +443,7 @@
 			</div>
 		</div>
 		<div class="col-lg-3"></div>
-	</div>
+	</div><br><br><br>
 
 
 </body>

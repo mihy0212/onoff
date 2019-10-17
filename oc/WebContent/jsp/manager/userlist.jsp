@@ -5,7 +5,7 @@
 <html>
 <head>
 <script type="text/javascript">
-$(document).ready(function() {
+/* $(document).ready(function() {
     //라디오 요소처럼 동작시킬 체크박스 그룹 셀렉터
     $('input[type="checkbox"][name="userNum"]').click(function(){
         //클릭 이벤트 발생한 요소가 체크 상태인 경우
@@ -15,10 +15,10 @@ $(document).ready(function() {
             $(this).prop('checked', true);
         }
     });
-});
+}); */
 
 $(document).ready(function(){
-	$('.pull-right').on('click', function(){
+	/* $('.pull-right').on('click', function(){
 		var con = confirm("선택한 회원을 탈퇴 시키겠습니까?");
 		if(con){
 			document.frm.submit();
@@ -26,33 +26,88 @@ $(document).ready(function(){
 			return false;
 		}
 		
-	})
+	}); */
+	
+	//제목 체크박스 선택 시 전체 선택
+	$("#th_checkAll").on('click', function(){
+		if( $("#th_checkAll").is(':checked') ){
+	        $(".checkRow").prop("checked", true);
+	      }else{
+	        $(".checkRow").prop("checked", false);
+	      }
+	});
+	
+	//체크된 항목 삭제하기
+	$('.pull-right').on('click', function(){
+		var checkRow = "";
+		var checkArray = new Array();
+		
+		if($(".checkRow").is(':checked')){
+			for(var i=$(".checkRow:checked").length-1; i>-1; i--){ 
+				checkArray.push($(".checkRow:checked").eq(i).attr('id'));
+			}﻿ 
+		}
+		if(checkArray.length == 0){
+			alert("탈퇴할 회원을 선택하세요.");
+			return false;
+		}
+		
+		console.log(checkArray);
+		if(confirm("선택한 회원을 탈퇴하시겠습니까? 사업자 회원은 가게 및 등록 요청서를 삭제한 후 탈퇴시킬 수 있습니다.")){
+			$.ajax({
+				type:"post",
+				url: "userdelete.do",
+				dataType: "json",
+				data: {
+					checkArray: checkArray
+				},
+				success: function(result){
+					if(result != 0){
+						alert("선택한 회원의 탈퇴가 완료되었습니다.");
+						for(var i=$(".checkRow:checked").length-1; i>-1; i--){ 
+							$(".checkRow:checked").eq(i).closest("tr").remove(); 
+						}
+						$(".checkRow").prop('checked',false);
+					} else {
+						alert("회원 탈퇴에 실패했습니다. 해당 회원 번호로 등록된 가게나 요청서가 있는지 확인해 주세요.");
+					}
+				}
+			});					
+		}
+	});
+	
 });
 </script>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>회원 관리</title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/style.css"><!--Theme custom css -->
 </head>
 <body>
-	<br />
-	<br />
-	<br />
-	<h1 align="center">유저 리스트</h1>
+<br><br><br>
+<div class="container">
+<div class="row">
+	<div class="head_title text-left sm-text wow fadeInDown">
+		<h2 class="text-uppercase"><strong>회원 관리</strong></h2>
+	</div>
 	<br />
 	<form name="frm" id="frm" action='userdelete.do'>
 		<div class="container">
 			<div class="row">
-				<table class="table table-striped"
+				<table class="table table-striped table-bordered"
 					style="text-align: center; border: 1px solid #dddddd">
 					<thead>
 						<tr>
-							<th style="background-color: #eeeeee; text-align: center;">선택</th>
-							<th style="background-color: #eeeeee; text-align: center;">유저번호</th>
-							<th style="background-color: #eeeeee; text-align: center;">유저이메일</th>
-							<th style="background-color: #eeeeee; text-align: center;">유저이름</th>
-							<th style="background-color: #eeeeee; text-align: center;">유저닉네임</th>
-							<th style="background-color: #eeeeee; text-align: center;">유저주소</th>
-							<th style="background-color: #eeeeee; text-align: center;">유저
-								가입일</th>
+							<th width="10" style="background-color: #eeeeee; text-align: center; vertical-align: middle;">회원 번호</th>
+							<th width="100" style="background-color: #eeeeee; text-align: center; vertical-align: middle;">회원 이메일</th>
+							<th width="30" style="background-color: #eeeeee; text-align: center; vertical-align: middle;">회원 이름</th>
+							<th width="40" style="background-color: #eeeeee; text-align: center; vertical-align: middle;">회원 닉네임</th>
+							<th width="200" style="background-color: #eeeeee; text-align: center; vertical-align: middle;">회원 주소</th>
+							<th width="100" style="background-color: #eeeeee; text-align: center; vertical-align: middle;">회원 가입일</th>
+							<th width="10" style="background-color: #eeeeee; text-align: center; vertical-align: middle;">
+								<input type="checkbox" name="checkAll" id="th_checkAll"/>
+							</th>
 						</tr>
 						<!-- db 목록을 가져와서 뿌려주는 곳 -->
 						<c:if test="${list.isEmpty()}">
@@ -63,25 +118,26 @@ $(document).ready(function(){
 						<c:forEach items="${userlist }" var="dto">
 
 							<tr>
-								<td align="center" width="20"><input id='userNum'
-									name='userNum' type="checkbox" value="${dto.userNum}" /></td>
 								<td align="center" width="20">${dto.userNum }</td>
 								<td width="20">&nbsp;&nbsp;${dto.userEmail}</td>
 								<td align="center" width="100">${dto.userName }</td>
 								<td align="center" width="100">${dto.userNick }</td>
 								<td align="center" width="20">${dto.userAddr }</td>
 								<td align="center" width="100">${dto.userInday }</td>
+								<td align="center" width="20">
+								<input type="checkbox" id="${dto.userNum }" name="checkNum" class="checkRow" value="${dto.userNum }">
+								</td>
 
 							</tr>
 
 						</c:forEach>
 						<!-- db 목록을 가져와서 뿌려주는 곳 -->
 				</table>
-				<a><button type='button' class="btn btn-primary pull-right">
-						삭제하기</button></a> <br>
+				<a><button type='button' class="btn btn-warning pull-right">
+						삭제하기</button></a>
 			</div>
 		</div>
-	</form>
-
+	</form> <br> <br> <br>
+</div></div>
 </body>
 </html>

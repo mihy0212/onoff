@@ -31,7 +31,6 @@ public class EmailCheck implements Command {
 		PrintWriter out = response.getWriter();
 		
 		String userEmail = request.getParameter("userEmail");
-		//String userEmail = "vwtkbiseo@gmail.com";
 	 	
 		String title = "OC에서 보내는 회원가입 인증 메일입니다.";
 		String randomKey = RandomNum();
@@ -54,7 +53,7 @@ public class EmailCheck implements Command {
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.starttls.enable","true");
 
-		Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
+		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
 				return new PasswordAuthentication(user, password);
 			}
@@ -77,9 +76,8 @@ public class EmailCheck implements Command {
 			n = 1; //성공했다
 			out.print(n);
 
-		} catch (MessagingException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-			n = 2; //실패했다.
 			out.print(n);
 		}
 

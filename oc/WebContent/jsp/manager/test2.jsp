@@ -5,10 +5,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>문의 관리</title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/style.css"><!--Theme custom css -->
 <script>
 	$(document).ready(function(){
-		$('.pull-right').on('click', function(){
+		/* $('.pull-right').on('click', function(){
 			var con = confirm("선택한 문의글을 삭제하시겠습니까?");
 			if(con){
 				document.frm.submit();
@@ -16,9 +19,57 @@
 				return false;
 			}
 			
-		})
+		}); */
+		
+		//제목 체크박스 선택 시 전체 선택
+		$("#th_checkAll").on('click', function(){
+			if( $("#th_checkAll").is(':checked') ){
+		        $(".checkRow").prop("checked", true);
+		      }else{
+		        $(".checkRow").prop("checked", false);
+		      }
+		});
+		
+		//체크된 항목 삭제하기
+		$('.pull-right').on('click', function(){
+			var checkRow = "";
+			var checkArray = new Array();
+			
+			if($(".checkRow").is(':checked')){
+				for(var i=$(".checkRow:checked").length-1; i>-1; i--){ 
+					checkArray.push($(".checkRow:checked").eq(i).attr('id'));
+				}﻿ 
+			}
+			if(checkArray.length == 0){
+				alert("삭제할 대상을 선택하세요.");
+				return false;
+			}
+			
+			console.log(checkArray);
+			if(confirm("선택한 문의글을 삭제 하시겠습니까?")){
+				for(var i=$(".checkRow:checked").length-1; i>-1; i--){ 
+					$(".checkRow:checked").eq(i).closest("tr").remove(); 
+				}
+				$.ajax({
+					type:"post",
+					url: "borderdelete.do",
+					dataType: "json",
+					data: {
+						checkArray: checkArray
+					},
+					success: function(result){
+						if(result != 0){
+							location.href="list.do";
+							$(".checkRow").prop('checked',false);
+						}
+					}
+				});					
+			}
+		});
+		
 	});
-	$(document).ready(function() {
+	
+	/* $(document).ready(function() {
 	    //라디오 요소처럼 동작시킬 체크박스 그룹 셀렉터
 	    $('input[type="checkbox"][name="userNum"]').click(function(){
 	        //클릭 이벤트 발생한 요소가 체크 상태인 경우
@@ -28,7 +79,9 @@
 	            $(this).prop('checked', true);
 	        }
 	    });
-	});
+	}); */
+	
+	
 
 </script>
 <style>
@@ -52,21 +105,27 @@
 	<br />
 	<br />
 	<br />
-	<h1 align="center">문의</h1>
-	<br /><br />
+<c:if test="${ userGrant == 'S' }">
+<div class="container">
+<div class="row">
+	<div class="head_title text-left sm-text wow fadeInDown">
+		<h2 class="text-uppercase"><strong>1:1 문의 목록</strong></h2>
+	</div>
 	<form name="frm" id="frm" method="post" action='borderdelete.do'>
 		<div class="container">
 			<div class="row">
 				<table class="table table-striped table-bordered" style="text-align: center; border: 1px solid #dddddd">
 					<thead>
 						<tr>
-							<th width="10" style="background-color: #eeeeee; text-align: center;">답변</th>
-							<th width="10" style="background-color: #eeeeee; text-align: center;">문의번호</th>
-							<th width="200" style="background-color: #eeeeee; text-align: center;">문의제목</th>
-							<th width="20" style="background-color: #eeeeee; text-align: center;">처리상태</th>
-							<th width="80" style="background-color: #eeeeee; text-align: center;">문의등록일</th>
-							<th width="10" style="background-color: #eeeeee; text-align: center;">문의글로 이동</th>
-							<th width="10" style="background-color: #eeeeee; text-align: center;">선택</th>
+							<th width="10" style="background-color: #eeeeee; text-align: center; vertical-align: middle;">답변</th>
+							<th width="10" style="background-color: #eeeeee; text-align: center; vertical-align: middle;">번호</th>
+							<th width="200" style="background-color: #eeeeee; text-align: center; vertical-align: middle;;">문의 제목</th>
+							<th width="20" style="background-color: #eeeeee; text-align: center; vertical-align: middle;">처리 상태</th>
+							<th width="80" style="background-color: #eeeeee; text-align: center; vertical-align: middle;">문의 등록일</th>
+							<th width="10" style="background-color: #eeeeee; text-align: center; vertical-align: middle;">문의글로 이동</th>
+							<th width="10" style="background-color: #eeeeee; text-align: center; vertical-align: middle;">
+								<input type="checkbox" name="checkAll" id="th_checkAll"/>
+							</th>
 						</tr>
 						<!-- db 목록을 가져와서 뿌려주는 곳 -->
 						<c:if test="${list.isEmpty()}">
@@ -106,16 +165,20 @@
 										<input type="button" class="movebtn" onclick="location.href='borderRead.do?key=${dto.askNum}'" value="이동">											
 									</c:if>
 								</td>
-								<td align="center"><input type="checkbox" name="askNum" value="${dto.askNum}"></td>
+								<td align="center"><input type="checkbox" id="${dto.askNum}" name="checkNum" class="checkRow" value="${dto.askNum}"></td>
 							</tr>
 						</c:forEach>
 						<!-- db 목록을 가져와서 뿌려주는 곳 -->
 				</table>
-				<a><button type='button' class="btn btn-primary pull-right">삭제하기</button></a> <br>
+				<a><button type='button' class="btn btn-warning pull-right">삭제하기</button></a> <br>
 				<!-- 	<a href="borderdelete.do" class="btn btn-primary pull-right">삭제하기</a> -->
 			</div>
 		</div>
-	</form>
+	</form></div></div>
+	</c:if>
+	<c:if test="${ userGrant != 'S' }">
+		<div align="center"><h2>관리자만 접근할 수 있는 페이지입니다.</h2></div>
+	</c:if>
 	<br><br><br>
 </body>
 </html>

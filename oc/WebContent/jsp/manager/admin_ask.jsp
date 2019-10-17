@@ -5,11 +5,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>문의 관리</title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/style.css"><!--Theme custom css -->
 </head>
 <body>
 <div align="center">
-	<div><h1>문의글 목록 보기</h1></div>
+	<div class="head_title text-left sm-text wow fadeInDown">
+		<h2 class="text-uppercase"><strong>1:1 문의 목록</strong></h2>
+	</div>
 	<div>
 		<table border="1">
 			<tr>
