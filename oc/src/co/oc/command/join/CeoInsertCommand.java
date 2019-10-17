@@ -63,7 +63,6 @@ public class CeoInsertCommand implements Command {
 			adto.setUserNum(dto.getUserNum());
 			int s = adao.insert(conn, adto);
 
-			DAO.disconnect(conn);
 			if (n != 0 && s != 0)
 				path = "jsp/join/joinOk.jsp";
 			else
@@ -77,6 +76,7 @@ public class CeoInsertCommand implements Command {
 			}
 			e.printStackTrace();
 		} // 인서트 하는 구문 삽입
+		DAO.disconnect(conn);
 		RequestDispatcher dispatcher = request.getRequestDispatcher(path);
 		dispatcher.forward(request, response);
 
