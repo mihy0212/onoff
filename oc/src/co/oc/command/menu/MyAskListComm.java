@@ -23,7 +23,6 @@ public class MyAskListComm implements Command {
 
 		HttpSession session = request.getSession(false);
 		String userNum = (String) session.getAttribute("userNum");
-System.out.println(userNum);
 		int pagenum = 1; 
 		if (request.getParameter("Page_num") != null) {
 			pagenum = Integer.parseInt(request.getParameter("Page_num"));

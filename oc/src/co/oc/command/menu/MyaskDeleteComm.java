@@ -15,7 +15,7 @@ public class MyaskDeleteComm implements Command {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Connection conn = DAO.connect();
-		String askNum = request.getParameter("key");
+		String askNum = request.getParameter("askNum");
 		System.out.println(askNum);
 		AskDAO.getInstance().delete(conn, askNum);
 

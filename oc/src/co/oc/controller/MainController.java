@@ -59,6 +59,7 @@ import co.oc.command.menu.MyinfoDeleteCheckComm;
 import co.oc.command.menu.MyinfoDeleteComm;
 import co.oc.command.menu.MyinfoUpComm;
 import co.oc.command.menu.MyinfoupFormComm;
+import co.oc.command.menu.UpdateMyAskComm;
 import co.oc.command.menu.UpdateMyReiviewComm;
 import co.oc.command.menu2.StoreInfoChangeComm;
 import co.oc.command.menu2.StoreInfoComm;
@@ -143,6 +144,7 @@ public class MainController extends HttpServlet {
 		map.put("/myAskWrite.do", new MyAskWriteComm());// 문의리스트
 		map.put("/myAsklist.do", new MyAskListComm());// 문의리스트
 		map.put("/myAskRead.do", new MyAskRead());// 문의읽기
+		map.put("/updateMyAsk.do", new UpdateMyAskComm());// 문의수정
 		map.put("/myAskdelecte.do", new MyaskDeleteComm());// 문의삭제
 
 	}
