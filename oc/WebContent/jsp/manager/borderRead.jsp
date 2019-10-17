@@ -14,7 +14,7 @@
 	$(document).ready(function(){
 		
 		if($('#ask_status').text() == '1'){
-			$('#ask_status').text("<font color='red'>답변 대기 중</font>");
+			$('#ask_status').html("<font color='red'>답변 대기 중</font>");
 		} else if($('#ask_status').text() == '2'){
 			$('#ask_status').html("<font color='blue'>답변 완료</font>");
 		}
@@ -145,9 +145,9 @@
 		<input type="button" class="btn btn-default pull-right" id="submitbtn" value="확인"> &nbsp;&nbsp;&nbsp;
 		<input type="button" class="btn btn-default pull-right" id="canclebtn" value="취소">
 	</form>
-	</div>
+	</div><br><br><br>
 </div>
 </div>
-		
+
 </body>
 </html>
