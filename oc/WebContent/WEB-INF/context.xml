@@ -25,15 +25,13 @@
     <!--
     <Manager pathname="" />
     -->
-              
+            
 	<Resource name="jdbc/onoff" 
-    		  auth="Container"
+            auth="Container"
               type="javax.sql.DataSource" 
-              driverClassName="oracle.jdbc.driver.OracleDriver"
-              url="jdbc:oracle:thin:@192.168.0.17:1521:xe"
-              username="onoff" 
-              password="onoff" 
-              maxTotal="20" 
-              maxIdle="10"
-              maxWaitMillis="5000"/><!-- -1이면 접속 끊길 때까지 무한 대기, 5000이면 5초간 대기하고 새로 생성 -->
+              driverClassName="oracle.jdbc.OracleDriver"
+              url="jdbc:oracle:thin:@Localhost:1521:xe"
+              username="onoff" password="onoff" 
+              maxTotal="20" maxIdle="10" 
+              maxWaitMillis="5000"/>
 </Context>
