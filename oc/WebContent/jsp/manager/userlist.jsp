@@ -17,7 +17,17 @@ $(document).ready(function() {
     });
 });
 
-
+$(document).ready(function(){
+	$('.pull-right').on('click', function(){
+		var con = confirm("선택한 회원을 탈퇴 시키겠습니까?");
+		if(con){
+			document.frm.submit();
+		} else{
+			return false;
+		}
+		
+	})
+});
 </script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -28,7 +38,7 @@ $(document).ready(function() {
 	<br />
 	<h1 align="center">유저 리스트</h1>
 	<br />
-	<form action='userdelete()'>
+	<form name="frm" id="frm" action='userdelete.do'>
 		<div class="container">
 			<div class="row">
 				<table class="table table-striped"
@@ -67,7 +77,7 @@ $(document).ready(function() {
 						</c:forEach>
 						<!-- db 목록을 가져와서 뿌려주는 곳 -->
 				</table>
-				<a><button type='submit' class="btn btn-primary pull-right">
+				<a><button type='button' class="btn btn-primary pull-right">
 						삭제하기</button></a> <br>
 			</div>
 		</div>

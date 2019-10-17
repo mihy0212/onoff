@@ -8,29 +8,29 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import co.oc.command.Command;
+import co.oc.dao.AskDAO;
 import co.oc.dao.DAO;
 import co.oc.dao.ReviewDAO;
+import co.oc.dto.AskDTO;
 import co.oc.dto.ReviewDTO;
 
-public class UpdateMyReiviewComm implements Command {
+public class UpdateMyAskComm implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 접속
 		Connection conn = DAO.connect();
-		ReviewDTO dto = new ReviewDTO();
+	AskDTO dto = new AskDTO();
 	
-		String storeNum = request.getParameter("storeNum");
 		dto.setUserNum(request.getParameter("userNum"));
-		dto.setReviewNum(request.getParameter("reviewNum"));
-		dto.setReviewStar(request.getParameter("reviewStar"));
-		dto.setReviewContent(request.getParameter("reviewContent"));
+		dto.setAskNum(request.getParameter("askNum"));
+		dto.setAskContent(request.getParameter("askContent"));
+		dto.setAskTitle(request.getParameter("askTitle"));
 		
-		ReviewDAO.getInstance().selectStar(conn, storeNum);
-		ReviewDAO.getInstance().update(conn, dto);
+		AskDAO.getInstance().update(conn, dto);
 		// 접속 해제
 		
-		response.sendRedirect("myReview.do");
+		response.sendRedirect("myAsklist.do");
 		DAO.disconnect(conn);
 		/*
 		 * RequestDispatcher dispatcher = request.getRequestDispatcher("myfavorite.do");

@@ -88,28 +88,24 @@ public class MyActComm implements Command {
 		
 //----------------------------------------Review--------------------------------------		
 		
+		
 		/*
-		 * String choice = request.getParameter("choice");
-		 * 
-		 * if(choice != null) { if(choice.equals("reviewDelete")) { String reviewNum =
-		 * request.getParameter("reviewNum"); System.out.println(reviewNum);
-		 * ReviewDAO.getInstance().delete(conn, reviewNum); }
-		 * 
-		 * 
-		 * 
-		 * else if(choice.equals("reviewUpdate")) { ReviewDTO dto2 = new ReviewDTO();
+		 * String choice = request.getParameter("choice"); ReviewDTO dto2 = new
+		 * ReviewDTO(); if(choice != null) { if(choice.equals("reviewDelete")){ String
+		 * reviewNum = request.getParameter("reviewNum"); System.out.println(reviewNum);
+		 * ReviewDAO.getInstance().delete(conn, reviewNum); }else
+		 * if(choice.equals("reviewUpdate")){
 		 * dto2.setUserNum(request.getParameter("userNum"));
 		 * dto2.setReviewNum(request.getParameter("reviewNum"));
 		 * dto2.setReviewStar(request.getParameter("reviewStar"));
-		 * dto2.setReviewContent(request.getParameter("reviewContent")); int n =
-		 * ReviewDAO.getInstance().update(conn, dto2); double stars =
+		 * dto2.setReviewContent(request.getParameter("reviewContent"));
 		 * ReviewDAO.getInstance().selectStar(conn, storeNum);
+		 * ReviewDAO.getInstance().update(conn, dto2);
 		 * 
-		 * 
-		 * JSONObject obj = new JSONObject(); obj.put("n", n); obj.put("stars", stars);
 		 * 
 		 * } }
 		 */
+		 
 		
 			List<ReviewDTO> list1 = ReviewDAO.getInstance().select1(conn, "user_num", userNum, start, end); // all
 			

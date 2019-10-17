@@ -52,6 +52,8 @@
 <!--Theme Responsive css-->
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/assets/css/responsive.css" />
+	
+	
 <style type="text/css">
 #features {
 	min-height: 600px;
@@ -59,6 +61,8 @@
 </style>
 
 <script type="text/javascript">
+
+
 	function replyCheck() {
 		var form = document.replyform;
 		if (!form.askTitle.value) {
@@ -73,6 +77,8 @@
 		}
 		form.submit();
 	}
+	
+
 </script>
 
 
@@ -82,13 +88,12 @@
 	<!--  ---------------------질문 쓰기-------------------------------->
 	<div class="container">
 		<div class="row">
-		<div class="col-md-4">
 	<form name=replyform method=post action="myAskWrite.do">
 		<div class="main-portfolio roomy-80">
 
 			<div class="col-md-4">
 				<div class="head_title text-left sm-text-center wow fadeInDown">
-					<h2>질문</h2>
+					<h2>관리자 1:1문의 목록</h2>
 				</div>
 			</div>
 			<div align="center">
@@ -108,10 +113,9 @@
 					</tr>
 					<tr align="center">
 						<td>&nbsp;</td>
-						<td colspan="2"><input type="button"
-							class="btn button is-checked btn_update" value="등록"
-							onclick="replyCheck();"> <input type="reset"
-							class="btn button is-checked btn_update" value="취소"></td>
+						<td colspan="2">
+						<input type="button"class="btn button is-checked btn_update" value="등록"onclick="replyCheck();"> 
+						<input type="reset" class="btn button is-checked btn_update" value="취소"></td>
 					</tr>
 
 				</table>
@@ -120,29 +124,27 @@
 	</form>
 	</div>
 	</div>
-	</div>
 	
 	<!--  ---------------------목록 보기-------------------------------->
 	<div class="container">
 		<div class="row">
 		<div class="col-md-4">
 				<div class="head_title text-left sm-text-center wow fadeInDown">
-					<h2>질문</h2>
+					<h2>관리자 1:1문의 목록</h2>
 				</div>
 			</div>
 			<div align="center">
 				<div class="main-portfolio roomy-80">
-					<form action="myAskWrite.do">
 					<div class="col-md-4">
 				
 			</div>
 						<table class=" table table-striped table-bordered results">
 							<tr>
-								<td width="50" align="center">#</td>
-								<td width="100" align="center">제목</td>
-								<td width="350" align="center">내용</td>
-								<td width="80" align="center">작성일</td>
-								<td width="80" align="center">상태</td>
+								<th width="50" align="center">#</th>
+								<th width="100" align="center">제목</th>
+								<th width="350" align="center">내용</th>
+								<th width="80" align="center">작성일</th>
+								<th width="80" align="center">상태</th>
 							</tr>
 
 
@@ -153,12 +155,11 @@
 									<td colspan="5">등록된 글이 존재하지 않습니다.</td>
 								</tr>
 							</c:if>
-
 							<!--목록이 있으면  -->
 							<c:forEach items="${list }" var="dto">
 								<c:if test="${dto.askNum == dto.askRe }">
 									<!--딥글은  askNum이랑 askRe다름  -->
-									<tr onclick="location.href='myAskRead.do?key=${dto.userNum}'">
+									<tr onclick="location.href='myAskRead.do?askNum=${dto.askNum}'">
 										<td align="center">${dto.askNum }</td>
 										<td align="center">${dto.askTitle }</td>
 										<td align="center">${dto.askContent }</td>
@@ -182,6 +183,11 @@
 							<!-- db 목록을 가져와서 뿌려주는 곳끝 -->
 
 						</table>
+				
+						
+						
+						
+						
 <!-- 페이징 -->
 			<div class="col-sm-6" align="center">
 				<div align="center">
@@ -192,12 +198,13 @@
 					</ul>
 				</div>
 			</div>
-					</form>
 
 				</div>
 			</div>
 		</div>
 	</div>
+	
+	
 	
 	<script>
 		document.getElementById('askDate').value = new Date().toISOString()
@@ -205,7 +212,7 @@
 	</script>
 
 
-	<!-- JS includes -->
+<%-- 	<!-- JS includes -->
 
 	<script
 		src="${pageContext.request.contextPath }/assets/js/vendor/jquery-1.11.2.min.js"></script>
@@ -230,7 +237,7 @@
 		src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
 
 	<script src="${pageContext.request.contextPath }/assets/js/plugins.js"></script>
-	<script src="${pageContext.request.contextPath }/assets/js/main.js"></script>
+	<script src="${pageContext.request.contextPath }/assets/js/main.js"></script> --%>
 
 
 

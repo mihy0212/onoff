@@ -40,9 +40,8 @@ import co.oc.command.manager.BorderListCommand;
 import co.oc.command.manager.BorderReadCommand;
 import co.oc.command.manager.UserDelete;
 import co.oc.command.manager.UserList;
-import co.oc.command.manager.WriteForm;
-import co.oc.command.map.AjaxFavoriteStoreCommand;
 import co.oc.command.map.AjaxCloseStoreCommand;
+import co.oc.command.map.AjaxFavoriteStoreCommand;
 import co.oc.command.map.AjaxOpenStoreCommand;
 import co.oc.command.map.SearchCommand;
 import co.oc.command.map.StoreCloseCommand;
@@ -61,6 +60,7 @@ import co.oc.command.menu.MyinfoDeleteCheckComm;
 import co.oc.command.menu.MyinfoDeleteComm;
 import co.oc.command.menu.MyinfoUpComm;
 import co.oc.command.menu.MyinfoupFormComm;
+import co.oc.command.menu.UpdateMyAskComm;
 import co.oc.command.menu.UpdateMyReiviewComm;
 import co.oc.command.menu2.StoreInfoChangeComm;
 import co.oc.command.menu2.StoreInfoComm;
@@ -147,6 +147,7 @@ public class MainController extends HttpServlet {
 		map.put("/myAskWrite.do", new MyAskWriteComm());// 문의리스트
 		map.put("/myAsklist.do", new MyAskListComm());// 문의리스트
 		map.put("/myAskRead.do", new MyAskRead());// 문의읽기
+		map.put("/updateMyAsk.do", new UpdateMyAskComm());// 문의수정
 		map.put("/myAskdelecte.do", new MyaskDeleteComm());// 문의삭제
 
 	}

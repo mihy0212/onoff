@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
     <title>현재 유저정보 출력화면</title>
@@ -28,8 +29,7 @@
 				id="usercheck" name="userber">
                         <!-- 가져온 회원정보를 출력한다. -->
         	<div class="form-group">
-			 	<label for="user_email">아이디</label> 
-				${userEmail}
+			 	<label for="user_email">아이디</label> ${UserDTO.userEmail}
 		</div>
        <div class="form-group">
 					<label for="userNum">이름</label> 
@@ -37,19 +37,22 @@
 				</div>
 
 				<div class="form-group">
-					<label for="user_birth">닉네임</label> 
+					<label>닉네임</label> 
 						${UserDTO.userNick}
-				
 				</div>
+				
 				<div class="form-group">
-					<label for="user_birth">주소</label>
+					<label>주소</label>
 						${UserDTO.userAddr}
 				</div>
-       
+				
+				<%-- <c:if test="${ !empty userEmail && UserDTO.userGrant != 'U' && UserDTO.userGrant != 'S' }"> --%>
+				<div class="form-group">
+					<%-- <label>신청상태</label>${list.addStatus} --%>
+				</div>
         <div class="form-group text-center">
         <input type="button" class="btn btn-primary" value="회원정보 변경" onclick="location.href='myinfoupForm.do'">
         <input type="button" class="btn btn-primary" value="회원탈퇴" onclick="delect()">
-        <!-- onclick="delecte()"  -->
 		</div>
 		</form>
 		</div>
