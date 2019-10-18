@@ -17,7 +17,7 @@ public class LogoutCommand implements Command {
 		HttpSession session = request.getSession(false);
 		session.invalidate(); //세션 삭제
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/join/logout.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
 			
 		
