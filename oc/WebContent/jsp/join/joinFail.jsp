@@ -7,7 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-회원 가입 실패~<p>
-${param  }
+<div align="center">
+		<h1>${userEmail } 님 회원가입 실패! </h1> <!--  request 정보 출력 -->
+		<button onclick="location.href='join_form.do'">다시 회원가입하기</button>
+	</div><p>
 </body>
 </html>

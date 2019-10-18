@@ -1,6 +1,7 @@
 package co.oc.command.join;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -34,8 +35,10 @@ public class CeoInsertCommand implements Command {
 				new DefaultFileRenamePolicy());
 		UserDTO dto = new UserDTO();
 		UserDAO dao = new UserDAO();
+	
 		String file = multi.getFilesystemName("addCapture");
 		String path = null;
+
 		Connection conn = DAO.connect();
 		try {
 			dto.setUserEmail(multi.getParameter("userEmail"));

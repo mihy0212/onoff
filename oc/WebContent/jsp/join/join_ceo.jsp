@@ -49,7 +49,7 @@
 		/* if( $('#chk_email').val() != "chk"){
 			alert("이메일 인증을 해 주세요.");
 			return false;
-		} */
+		} 
 		if( $('#userPw').val() == "" ){
 			alert("비밀번호를 입력해 주세요.");
 			return false;
@@ -77,7 +77,7 @@
 		 if( $('#storeLicense').val() == "" && $('#user_license').val() == ""){
 			 alert("사업자 번호와 주민 등록 번호 둘 중 하나는 입력을 하셔야 사업자 신청이 완료됩니다.");
 			 return false;
-		 }
+		 }*/
 		document.frm.submit(); 
 	}
 
