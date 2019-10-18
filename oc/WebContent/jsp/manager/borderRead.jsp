@@ -49,6 +49,12 @@
 	});
 
 </script>
+<style>
+pre{
+	border: 0;
+	font-size: 15px;
+}
+</style>
 
 </head>
 <body>
@@ -67,14 +73,12 @@
 					<td width="300" align="center" id="askRe_num">${alist.askNum}</td>
 					<th width="100" style="background-color : #eeeeee; text-align:center;">문의 날짜</th>	
 					<td width="300" align="center">${alist.askDate} </td>
-					<th width="100" style="background-color : #eeeeee; text-align:center;">처리 상태</th>
-					<td width="300" align="center">${alist.askStatus }</td>
 				</tr>
 				<tr>
 					<th style="background-color : #eeeeee; text-align:center;">회원</th>		
 					<td align="center">${alist.userName } &nbsp;&nbsp;(회원 번호: ${ alist.userNum })</td>
 					<th style="background-color : #eeeeee; text-align:center;">가게</th>
-					<td align="center" colspan="3">
+					<td align="center">
 						<c:choose>
 							<c:when test="${ !empty alist.userName && empty alist.storeName }">없음</c:when>
 							<c:otherwise>${alist.storeName} &nbsp;&nbsp;(${ alist.storeNum })</c:otherwise>
@@ -118,7 +122,7 @@
 				</tr>
 				<tr>
 					<th style="background-color : #eeeeee; text-align:center;">답변 내용</th>
-					<td ><pre>${blist.askContent }</pre></td>
+					<td align="left"><pre>${blist.askContent }</pre></td>
 				</tr>
 			</table>
 		</c:if>

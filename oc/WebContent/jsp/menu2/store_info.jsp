@@ -889,12 +889,12 @@ select {
 					<!-- 슬라이드 구역 -->
 					<div class="service_slid">
 						<div class="slid_shap bg-yellow">
-							<c:if test="${ storeInfo.storeNum == storeNum }">
+							<%-- <c:if test="${ storeInfo.storeNum == storeNum }">
 								<h2>
 									<span id="simg" class="icon icon icon-cogwheels16 store_info_update">
 									</span>
 								</h2>
-							</c:if>
+							</c:if> --%>
 						</div>
 						<div class="service_slid_item text-center">
 
