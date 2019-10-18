@@ -9,14 +9,14 @@
  <script type="text/javascript">
  
  function NickCheck() {
-		var chkNick = document.frm.userNickname;
+		var chkNick = document.userber.userNickname;
 		if(chkNick.value == "") {
 			alert("닉네임을 입력하세요.")
 			chkNick.focus();
 			return false;
 		}
-		
 		window.open("NickCheck.do?userNickname="+chkNick.value,"","width=500,height=400");
+		 $('#chk_nick').val("chk");
 	}
  
  $(function() {
@@ -187,8 +187,8 @@ function execPostCode() {
 	<input type="text" class="form-control" placeholder="닉네임" id="userNickname" name="userNickname">
 	</div>
 		<div class="col-sm-4">
-	<input type="button" class="btn btn-primary form-control"
-		onclick="NickCheck()" value="중복체크">
+	<input type="button" class="btn btn-primary form-control"onclick="NickCheck()" value="중복체크">
+	<input type="hidden" id="chk_nick" class="chk_nick" value="unchk">
 	</div>
 	</div>
 
