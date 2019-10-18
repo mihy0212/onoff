@@ -11,10 +11,12 @@
 <meta charset="utf-8">
 <title>ON-OFF</title>
 <script>
-function delect() {
+function dele() {
+
+	
 		if (confirm("정말 로그아웃하시겠습니까??") == true) { //확인
 			alert("로그아웃되었습니다.");{
-				var url = "louout.do";
+				location = "logout.do";
 			}
 
 		} else { //취소
@@ -114,7 +116,7 @@ function delect() {
 							</c:when>
 							<c:otherwise>
 								<li><a href="myinfo.do">내 정보</a></li>
-								<li><a onclick="delect()">로그아웃</a></li>
+								<li><a onclick="dele()">로그아웃</a></li>
 							</c:otherwise>
 						</c:choose>
 					</ul>
