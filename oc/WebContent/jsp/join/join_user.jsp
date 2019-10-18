@@ -223,7 +223,7 @@
 		<div class="col-lg-3"></div>
 		<div class="col-lg-6">
 			<div class="jumbotron" style="padding-top: 20px;">
-				<h3 style="text-align: center;">회원가입 화면</h3>
+				<h3 style="text-align: center;">일반 회원 가입</h3>
 				<br />
 				<form id="frm" name="frm" method="post" action="join_user.do" class="form-horizontal">
 					<div class="form-group">
