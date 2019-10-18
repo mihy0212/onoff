@@ -177,7 +177,7 @@
 	</c:if>
 	
 	<!-- 페이징 -->
-			<div class="col-sm-6" align="center">
+			<div align="center">
 				<div align="center">
 					<ul class="pagination" id="page_num">
 						<li><c:forEach var="i" begin="1" end="${tot}">

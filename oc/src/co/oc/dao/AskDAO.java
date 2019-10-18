@@ -36,7 +36,7 @@ public class AskDAO extends DAO {
 							+ " from (select *"
 								+ " from oc_ask"
 								+ " where ask_num=ask_re"
-								+ " order by ask_num desc) a1"
+								+ " order by ask_num desc)a1"
 							+ " where rownum<=?) a2"
 						+ " where a2.rnum>=?)"
 				+ " order by a.ask_re desc, a.ask_num asc";

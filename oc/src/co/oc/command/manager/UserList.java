@@ -23,15 +23,41 @@ public class UserList implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<UserDTO> list ;
-		UserDAO dao = new UserDAO();
-		Connection conn = DAO.connect();
+		 Connection conn = DAO.connect();
 		
+		 int pagenum = 1; 
+	     if (request.getParameter("Page_num") != null) {
+	         pagenum = Integer.parseInt(request.getParameter("Page_num"));
+	      }
+	     
+	      int size = 10;
+	      int tot = 0;
+	      int cnt = 0;
+
+	      try {
+	         cnt = UserDAO.getInstance().user_getPageCount(conn);
+	         System.out.println(cnt+"cnt");
+	         tot = cnt / size;
+	         if (cnt % size != 0) {
+	            tot++;
+	         }
+
+	      } catch (Exception e) {
+	         // TODO Auto-generated catch block
+	         e.printStackTrace();
+	      }
+	      int end = pagenum * size;
+	      int start = end - size + 1;
 		
-			
-		list = dao.selectAll(conn);
-		request.setAttribute("userlist", list); //db에서 넘어온 값을  request객체에 속성으로 삽입
-		DAO.disconnect(conn);
+	      List<UserDTO> list ;
+		  UserDAO dao = new UserDAO();
+		  list = dao.selectAll(conn, start, end);
+		  System.out.println("list" + list);
+	      
+	      request.setAttribute("userlist", list); //db에서 넘어온 값을  request객체에 속성으로 삽입
+	      request.setAttribute("tot", tot);
+	
+	      DAO.disconnect(conn);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/manager/userlist.jsp");
 		dispatcher.forward(request, response);
 	}

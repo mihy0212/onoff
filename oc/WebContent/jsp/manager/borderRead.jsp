@@ -118,7 +118,7 @@
 				</tr>
 				<tr>
 					<th style="background-color : #eeeeee; text-align:center;">답변 내용</th>
-					<td align="center"><pre>${blist.askContent }</pre></td>
+					<td ><pre>${blist.askContent }</pre></td>
 				</tr>
 			</table>
 		</c:if>

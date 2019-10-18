@@ -151,7 +151,16 @@ $(document).ready(function(){
 	</form> <br> <br> <br>
 </div></div>
 </c:if>
-
+<!-- 페이징 -->
+			<div align="center">
+				<div align="center">
+					<ul class="pagination" id="page_num">
+						<li><c:forEach var="i" begin="1" end="${tot}">
+								<a href="userlist.do?Page_num=${i}">${i}</a>
+							</c:forEach></li>
+					</ul>
+				</div>
+			</div>
 <c:if test="${ userGrant != 'S' }">
 	<div align="center"><h2> 이 페이지는 관리자만 접근할 수 있습니다.</h2></div>
 </c:if>

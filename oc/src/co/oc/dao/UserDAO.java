@@ -1,7 +1,6 @@
 package co.oc.dao;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,12 +16,16 @@ public class UserDAO extends DAO {
 	}
 
 	// 회원 전체 조회
-	public List<UserDTO> selectAll(Connection conn) {
+	public List<UserDTO> selectAll(Connection conn, int start, int end) {
 		List<UserDTO> list = new ArrayList<UserDTO>();
-		String sql = "select * from oc_user order by 1";
+		System.out.println(start+ ", "+end);
+		String sql  ="select * from (select rownum as rnum, a1.*  from(select * FROM oc_user ORDER BY user_num)a1  where rownum<=?)a2 where a2.rnum>=?";
 		try {
 			psmt = conn.prepareStatement(sql);
+			psmt.setInt(2, start);//a1
+			psmt.setInt(1, end);//a2
 			rs = psmt.executeQuery();
+			
 			while (rs.next()) {
 				UserDTO dto = new UserDTO();
 				dto.setUserNum(rs.getString("user_num")); // 1
@@ -34,7 +37,7 @@ public class UserDAO extends DAO {
 				dto.setUserXy(rs.getString("user_xy")); // 7
 				dto.setUserGrant(rs.getString("user_grant")); // 8
 				dto.setStoreNum(rs.getString("store_num")); // 9
-				dto.setUserInday(rs.getDate("user_inday")); // 10
+			    dto.setUserInday(rs.getDate("user_inday")); // 10
 				list.add(dto);
 			}
 		} catch (SQLException e) {
@@ -260,5 +263,22 @@ public class UserDAO extends DAO {
 	}
 
 	// 4. 복진영
+	// 페이지 수를 구하기 위해 총 게시글 수 를 구함.
+				public int user_getPageCount(Connection conn) {
+					int cnt = 0;
+					String sql = "SELECT COUNT(*)from oc_user order by 1";
+
+					try {
+						psmt = conn.prepareStatement(sql);
+						rs = psmt.executeQuery();
+						if(rs.next()) {
+							// 전체 글의 개수를 가져온다.
+							cnt = rs.getInt(1);
+						}
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+					return cnt;
+				}
 
 }
