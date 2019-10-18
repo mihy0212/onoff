@@ -8,7 +8,7 @@
 </head>
 <body>
 <div align="center">
-		<h1>${userEmail } 님 회원가입 실패! </h1> <!--  request 정보 출력 -->
+		<h1>${param.userEmail } 님 회원가입 실패! </h1> <!--  request 정보 출력 -->
 		<button onclick="location.href='join_form.do'">다시 회원가입하기</button>
 	</div><p>
 </body>
