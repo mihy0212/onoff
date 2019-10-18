@@ -1,6 +1,7 @@
 package co.oc.command.join;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 
 import javax.servlet.RequestDispatcher;
@@ -24,13 +25,17 @@ public class LoginCheckCommand implements Command {
 		UserDTO dto = new UserDTO();
 		UserDAO dao = new UserDAO();
 		HttpSession session = request.getSession(false); //세션객체를 사용
-
 		String path = null;
-		
+
+		PrintWriter out = response.getWriter();
 		dto.setUserEmail(request.getParameter("userEmail"));
 		dto.setUserPw(request.getParameter("userPw"));
+
 		Connection conn = DAO.connect();
+	//	request.setCharacterEncoding("UTF-8");
+	//	response.setContentType("text/html;charset=UTF-8");
 		dto = dao.loginCheck(conn, dto);
+
 		if (dto.getUserGrant() != null) {
 			session.setAttribute("userNum", dto.getUserNum());
 			session.setAttribute("userEmail", dto.getUserEmail());
@@ -42,8 +47,12 @@ public class LoginCheckCommand implements Command {
 			session.setAttribute("userPw", dto.getUserPw());
 			session.setAttribute("userXy", dto.getUserXy());
 			session.setAttribute("storeNum", dto.getStoreNum());
-			
-			path = "jsp/join/loginOk.jsp";
+
+//			out.print("<script>");
+//			out.print("alert(\"로그인 되었습니다..\");");
+//			out.print("location.href='index.do'");
+//			out.print("</script>");
+			path = "index.jsp";
 		} else {
 			path = "jsp/join/loginFail.jsp";
 		}
@@ -53,4 +62,5 @@ public class LoginCheckCommand implements Command {
 
 	}
 
+	
 }
