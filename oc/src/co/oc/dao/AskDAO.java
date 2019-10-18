@@ -245,6 +245,7 @@ public class AskDAO extends DAO {
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
 			if(rs.next()) {
+				// 전체 글의 개수를 가져온다.
 				cnt = rs.getInt(1);
 			}
 		} catch (SQLException e) {

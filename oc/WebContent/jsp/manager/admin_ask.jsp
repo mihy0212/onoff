@@ -47,6 +47,22 @@
 		<button type="button" onclick="location.href='borderWriteForm.do'">문의 글쓰기</button>
 	</c:if>
 	</div><br />
+	
+	<!-- 페이징 -->
+			<div class="col-sm-6" align="center">
+				<div align="center">
+					<ul class="pagination" id="page_num">
+						<li><c:forEach var="i" begin="1" end="${tot}">
+								<a href="myAsklist.do?Page_num=${i}">${i}</a>
+							</c:forEach></li>
+					</ul>
+				</div>
+			</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 </body>
 </html>

@@ -53,7 +53,7 @@ public class MyAskListComm implements Command {
 		int start = end - size + 1;
 
 
-		// 리뷰게시판 불러오기.
+		// 게시판 불러오기.
 		List<AskDTO> list = AskDAO.getInstance().selectOne(conn, "user_num", userNum, start, end);
 		for (AskDTO dto : list) {
 			System.out.println(dto.getAskNum());

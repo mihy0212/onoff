@@ -93,7 +93,7 @@
 
 			<div class="col-md-4">
 				<div class="head_title text-left sm-text-center wow fadeInDown">
-					<h2>관리자 1:1문의 목록</h2>
+					<h2>관리자 1:1문의 하기</h2>
 				</div>
 			</div>
 			<div align="center">
@@ -130,7 +130,7 @@
 		<div class="row">
 		<div class="col-md-4">
 				<div class="head_title text-left sm-text-center wow fadeInDown">
-					<h2>관리자 1:1문의 목록</h2>
+					<h2>나의 1:1문의 목록</h2>
 				</div>
 			</div>
 			<div align="center">

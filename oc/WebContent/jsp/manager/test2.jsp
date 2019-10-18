@@ -177,17 +177,15 @@
 	</c:if>
 	
 	<!-- 페이징 -->
-					<form name="pagefrm" action="borderlist.do">
-						<input type="hidden" name="p">
-					</form>
-					
-					<u:paging pgfunc="doList" paging="${ paging }"></u:paging>
-					<script>
-					function doList(p) {
-						document.pagefrm.p.value = p;
-						document.pagefrm.submit();
-					}
-					</script>
+			<div class="col-sm-6" align="center">
+				<div align="center">
+					<ul class="pagination" id="page_num">
+						<li><c:forEach var="i" begin="1" end="${tot}">
+								<a href="list.do?Page_num=${i}">${i}</a>
+							</c:forEach></li>
+					</ul>
+				</div>
+			</div>
 	
 	<c:if test="${ userGrant != 'S' }">
 		<div align="center"><h2>관리자만 접근할 수 있는 페이지입니다.</h2></div>

@@ -138,7 +138,7 @@ function removeCheck() {
 				<br />
 			<div align="center">
 					<%-- <c:if test="${ list[0].askStatus=='2' || list[0].askStatus=='4'} ">   --%>
-							<input type="button"  id="btn_update" value="글수정" onclick="location.href='myAskupdate.do?askNum=${dto.askNum}'"  style="background-color: rgb(253,220,87); color: black;  border-style: solid; border-color:rgb(253,220,87); width:55pt;height:25pt; border-radius: 5px;">&nbsp;&nbsp; 
+						<%-- 	<input type="button"  id="btn_update" value="글수정" onclick="location.href='myAskupdate.do?askNum=${dto.askNum}'"  style="background-color: rgb(253,220,87); color: black;  border-style: solid; border-color:rgb(253,220,87); width:55pt;height:25pt; border-radius: 5px;">&nbsp;&nbsp;  --%>
 							<input type="button"  id="btn_delete"  value="삭제" onclick="removeCheck()"  style="background-color: rgb(253,220,87); color: black;  border-style: solid; border-color:rgb(253,220,87); width:55pt;height:25pt; border-radius: 5px;">
 							<input type="button" value="목록으로" style="background-color: rgb(253,220,87); color: black;  border-style: solid; border-color:rgb(253,220,87); width:55pt;height:25pt; border-radius: 5px;" onclick="location.href='myAsklist.do'">
 						</div>
