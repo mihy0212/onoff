@@ -86,6 +86,7 @@ $(document).ready(function(){
 </head>
 <body>
 <br><br><br>
+<c:if test="${ userGrant == 'S' }">
 <div class="container">
 <div class="row">
 	<div class="head_title text-left sm-text wow fadeInDown">
@@ -100,6 +101,7 @@ $(document).ready(function(){
 					<thead>
 						<tr>
 							<th width="10" style="background-color: #eeeeee; text-align: center; vertical-align: middle;">회원 번호</th>
+							<th width="100" style="background-color: #eeeeee; text-align: center; vertical-align: middle;">회원 권한</th>
 							<th width="100" style="background-color: #eeeeee; text-align: center; vertical-align: middle;">회원 이메일</th>
 							<th width="30" style="background-color: #eeeeee; text-align: center; vertical-align: middle;">회원 이름</th>
 							<th width="40" style="background-color: #eeeeee; text-align: center; vertical-align: middle;">회원 닉네임</th>
@@ -118,14 +120,23 @@ $(document).ready(function(){
 						<c:forEach items="${userlist }" var="dto">
 
 							<tr>
-								<td align="center" width="20">${dto.userNum }</td>
-								<td width="20">&nbsp;&nbsp;${dto.userEmail}</td>
-								<td align="center" width="100">${dto.userName }</td>
-								<td align="center" width="100">${dto.userNick }</td>
-								<td align="center" width="20">${dto.userAddr }</td>
-								<td align="center" width="100">${dto.userInday }</td>
-								<td align="center" width="20">
-								<input type="checkbox" id="${dto.userNum }" name="checkNum" class="checkRow" value="${dto.userNum }">
+								<td align="center" width="20" style="vertical-align: middle;">${dto.userNum }</td>
+								<td align="center" width="20" style="vertical-align: middle;">
+									<c:choose>
+										<c:when test="${dto.userGrant == 'U' }"><font color="brown">일반 회원</font></c:when>
+										<c:when test="${dto.userGrant == 'C' }"><font color="orange">사업자 회원</font></c:when>
+										<c:when test="${dto.userGrant == 'S' }"><font color="green" style="font-weight:bold;">관리자</font></c:when>
+									</c:choose>
+								</td>
+								<td width="20" style="vertical-align: middle;">&nbsp;&nbsp;${dto.userEmail}</td>
+								<td align="center" width="100" style="vertical-align: middle;">${dto.userName }</td>
+								<td align="center" width="100" style="vertical-align: middle;">${dto.userNick }</td>
+								<td align="center" width="20" style="vertical-align: middle;">${dto.userAddr }</td>
+								<td align="center" width="100" style="vertical-align: middle;">${dto.userInday }</td>
+								<td align="center" width="20" style="vertical-align: middle;">
+									<c:if test="${dto.userGrant != 'S' }">
+										<input type="checkbox" id="${dto.userNum }" name="checkNum" class="checkRow" value="${dto.userNum }">
+									</c:if>
 								</td>
 
 							</tr>
@@ -139,5 +150,10 @@ $(document).ready(function(){
 		</div>
 	</form> <br> <br> <br>
 </div></div>
+</c:if>
+
+<c:if test="${ userGrant != 'S' }">
+	<div align="center"><h2> 이 페이지는 관리자만 접근할 수 있습니다.</h2></div>
+</c:if>
 </body>
 </html>

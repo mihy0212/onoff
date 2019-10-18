@@ -1191,7 +1191,6 @@ select {
 												</c:when>
 											</c:choose>
 										</div>
-										
 									</div>
 								</c:when>
 								

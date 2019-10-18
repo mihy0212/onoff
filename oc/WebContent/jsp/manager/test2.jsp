@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="u" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -117,8 +118,8 @@
 				<table class="table table-striped table-bordered" style="text-align: center; border: 1px solid #dddddd">
 					<thead>
 						<tr>
-							<th width="10" style="background-color: #eeeeee; text-align: center; vertical-align: middle;">답변</th>
-							<th width="10" style="background-color: #eeeeee; text-align: center; vertical-align: middle;">번호</th>
+							<th width="10" style="background-color: #eeeeee; text-align: center; vertical-align: middle;">No.</th>
+							<th width="10" style="background-color: #eeeeee; text-align: center; vertical-align: middle;">문의 번호</th>
 							<th width="200" style="background-color: #eeeeee; text-align: center; vertical-align: middle;;">문의 제목</th>
 							<th width="20" style="background-color: #eeeeee; text-align: center; vertical-align: middle;">처리 상태</th>
 							<th width="80" style="background-color: #eeeeee; text-align: center; vertical-align: middle;">문의 등록일</th>
@@ -133,17 +134,15 @@
 								<td colspan="5">등록된 글이 존재하지 않습니다.</td>
 							</tr>
 						</c:if>
-						<c:forEach items="${list }" var="dto">
+						<c:forEach items="${list }" var="dto" varStatus="status">
 							<tr>
-								<td><c:choose>
-										<c:when test="${dto.askRe==dto.askNum}">
-											<p><font color="red" style="font-weight: bold;">문의</font></p>
-										</c:when>
-										<c:otherwise>
-											<p><font color="#045FB4" style="font-weight: bold;">답변</font></p>
-										</c:otherwise>
-									</c:choose></td>
-									<td align="center">${dto.askNum }</td>
+								<td>${ status.count }</td>
+								<td align="center">
+									<c:choose>
+									<c:when test="${dto.askRe==dto.askNum}">${dto.askNum }</c:when>
+									<c:otherwise><font color="#045FB4" style="font-weight: bold;">답변</font></c:otherwise>
+									</c:choose>
+								</td>
 								<td align="center">${dto.askTitle }</td>
 								<td align="center"><c:choose>
 										<c:when test="${dto.askStatus=='1'}">
@@ -176,6 +175,20 @@
 		</div>
 	</form></div></div>
 	</c:if>
+	
+	<!-- 페이징 -->
+					<form name="pagefrm" action="borderlist.do">
+						<input type="hidden" name="p">
+					</form>
+					
+					<u:paging pgfunc="doList" paging="${ paging }"></u:paging>
+					<script>
+					function doList(p) {
+						document.pagefrm.p.value = p;
+						document.pagefrm.submit();
+					}
+					</script>
+	
 	<c:if test="${ userGrant != 'S' }">
 		<div align="center"><h2>관리자만 접근할 수 있는 페이지입니다.</h2></div>
 	</c:if>
