@@ -428,7 +428,7 @@
 					</div>
 
 					<div class="form-group">
-						사업자등록증 첨부 :<input type="file" name="addCapture" id="addCapture" /><br />
+						사업자등록증 및 주민등록증 캡처 첨부 :<input type="file" name="addCapture" id="addCapture" /><br />
 
 					</div>
 
