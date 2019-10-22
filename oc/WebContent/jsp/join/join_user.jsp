@@ -71,7 +71,6 @@
 		 $('#chk_nick').val("chk");
 	}
 
-	
 
     $(function(){
         $("#alert-success").hide();
