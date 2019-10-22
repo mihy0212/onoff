@@ -40,7 +40,7 @@
 		if($('#userEmail').val() == ""){
 			alert("아이디를 입력하세요.");
 			return false;
-		}/*
+		}
 		if( $('#chk_id').val() != "chk"){
 			alert("아이디 중복 체크를 해 주세요.");
 			return false;
@@ -77,7 +77,7 @@
 		 if( $('#storeLicense').val() == "" && $('#user_license').val() == ""){
 			 alert("사업자 번호와 주민 등록 번호 둘 중 하나는 입력을 하셔야 사업자 신청이 완료됩니다.");
 			 return false;
-		 }*/
+		 }
 		document.frm.submit(); 
 	}
 
@@ -297,7 +297,7 @@
 		<div class="col-lg-3"></div>
 		<div class="col-lg-6">
 			<div class="jumbotron" style="padding-top: 20px;">
-				<h3 style="text-align: center;">회원가입 화면</h3>
+				<h3 style="text-align: center;">사업자 회원 가입</h3>
 				<br />
 				<form id="frm" name="frm" method="post" action="join_ceo.do" class="form-horizontal"  enctype="multipart/form-data">
 					<div class="form-group">
@@ -428,7 +428,7 @@
 					</div>
 
 					<div class="form-group">
-						사업자등록증 첨부 :<input type="file" name="addCapture" id="addCapture" /><br />
+						사업자등록증 및 주민등록증 캡처 첨부 :<input type="file" name="addCapture" id="addCapture" /><br />
 
 					</div>
 
