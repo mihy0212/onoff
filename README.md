@@ -45,7 +45,7 @@
 |형상관리|GitHub|
 
 **사용 API**  
-- Kakao MAP API (https://developers.kakao.com/SE/apidocs/)  
+- Kakao MAP API (http://apis.map.kakao.com/android/)  
 - Daum 우편번호 API (http://postcode.map.daum.net/guide)  
 - JavaX.mail 인증
 
