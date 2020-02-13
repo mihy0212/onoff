@@ -30,7 +30,7 @@
 ------------
 
 ## :electric_plug: Tech used
-> Site Mesh 및 부트스트랩를 이용하여 반응형 웹으로 설계
+> Site Mesh 및 부트스트랩를 이용하여 반응형 웹으로 설계  
 > MVC 모델을 적용하여 Model-View-Controller를 분리하였으며, 여러 라이브러리를 적용하여 개발시간을 단축하고 표준화하여 유지 보수성을 높임
 
 
